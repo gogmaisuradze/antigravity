@@ -212,11 +212,35 @@
     </section>
   </main>
 
-  <footer class="relative z-10 bg-[#121416] w-full py-20 px-12 border-t border-[#45464d]/15">
-    <div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 md:gap-0">
-      <div class="flex flex-col items-center md:items-start gap-4">
-        <div class="text-[#f1bf62] font-serif italic text-xl">IDC აიდისი</div>
-        <div class="flex gap-4">
+  <!-- Footer -->
+  <footer class="relative z-10 bg-[#121416] border-t border-[#45464d]/15 py-16 px-12 mt-20">
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="space-y-6">
+        <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity duration-300">
+          <img alt="Logo" class="w-auto h-12" src="/src/logo.png" style="mix-blend-mode: screen;"/>
+          <span class="text-xl font-serif text-[#f1bf62]">აიდისი</span>
+        </a>
+        <p class="text-sm text-[#c6c6ce]/60 leading-relaxed font-light">
+          თქვენი ფსიქიკური ჯანმრთელობის მცველი. ჩვენ გთავაზობთ პროფესიონალურ მომსახურებას და ემოციურ მხარდაჭერას.
+        </p>
+      </div>
+      <div class="flex flex-col space-y-4">
+        <h4 class="text-on-surface font-medium mb-2">ნავიგაცია</h4>
+        <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">კონფიდენციალურობა</a>
+        <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">წესები და პირობები</a>
+        <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">ხშირად დასმული კითხვები</a>
+      </div>
+      <div class="space-y-4">
+        <h4 class="text-on-surface font-medium mb-2">კონტაქტი</h4>
+        <div class="flex items-center space-x-3 text-[#c6c6ce]/60">
+          <span class="material-symbols-outlined text-sm">mail</span>
+          <span class="text-sm">idcgeo1@gmail.com</span>
+        </div>
+        <div class="flex items-center space-x-3 text-[#c6c6ce]/60">
+          <span class="material-symbols-outlined text-sm">call</span>
+          <span class="text-sm">+995 598 32 40 20 / +995 579 71 00 55</span>
+        </div>
+        <div class="pt-4 flex space-x-3">
           <!-- Facebook -->
           <a class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-[#c6c6ce]/60 hover:border-[#1877F2] hover:text-[#1877F2] hover:bg-[#1877F2]/10 transition-all hover:scale-110" href="https://www.facebook.com/IDCgeorgia" target="_blank" title="Facebook">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -243,16 +267,9 @@
           </a>
         </div>
       </div>
-      <div class="flex flex-col items-center md:items-end gap-4">
-        <div class="flex gap-8">
-          <a class="font-serif text-sm tracking-wide text-[#c6c6ce] hover:text-[#f1bf62] transition-colors duration-500" href="#">კონფიდენციალურობა</a>
-          <a class="font-serif text-sm tracking-wide text-[#c6c6ce] hover:text-[#f1bf62] transition-colors duration-500" href="#">წესები და პირობები</a>
-          <a class="font-serif text-sm tracking-wide text-[#c6c6ce] hover:text-[#f1bf62] transition-colors duration-500" href="#">FAQ</a>
-        </div>
-        <div class="font-serif text-xs tracking-wide text-[#c6c6ce]/60">
-          © 2024 IDC აიდისი. ყველა უფლება დაცულია.
-        </div>
-      </div>
+    </div>
+    <div class="max-w-screen-2xl mx-auto mt-16 pt-8 border-t border-outline-variant/10 text-center">
+      <p class="text-xs text-[#c6c6ce]/40">© 2024 აიდისი. ყველა უფლება დაცულია.</p>
     </div>
   </footer>
 </body>
