@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #121416;
+    color: #c6c6ce;
+    font-family: 'Inter', 'Noto Sans Georgian', sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  
+  /* Custom Elegant Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0c0e10;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(47, 57, 86, 0.6);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(241, 191, 98, 0.8);
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.hero-gradient {
+  background: radial-gradient(circle at 70% 30%, rgba(47, 57, 86, 0.35) 0%, rgba(18, 20, 22, 0.45) 70%);
+}
+
+.glass-nav {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.tonal-gradient {
+  background: linear-gradient(180deg, rgba(47, 57, 86, 0.35) 0%, rgba(18, 20, 22, 0.45) 100%);
+}
+
+.bg-gradient-hero {
+  background: linear-gradient(180deg, rgba(47, 57, 86, 0.35) 0%, rgba(18, 20, 22, 0.45) 100%);
+}
+
+/* Custom fade-in micro-animations for interactive feel */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Glassmorphic backdrop custom style */
+.glass-panel {
+  background: rgba(30, 32, 34, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(69, 70, 77, 0.1);
+}
+
+/* Floating Ambient Glow Blobs */
+.glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Reveal on scroll styling */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Premium Card Glow Hover Effect */
+.hover-glow {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(241, 191, 98, 0.04);
+  border-color: rgba(241, 191, 98, 0.15);
+}
+
+/* Floating Navbar dynamic shrinking effect */
+.nav-scrolled {
+  margin-top: 1rem !important;
+  background: rgba(30, 32, 34, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Global Premium Surface Overrides for Ambient Video Visibility (Crisp & Clear) */
+.bg-surface {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.bg-surface-container {
+  background-color: rgba(30, 32, 34, 0.18) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.bg-surface-container-low {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.bg-surface-container-lowest {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.bg-surface-container-high {
+  background-color: rgba(40, 42, 44, 0.2) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.bg-surface-container-highest {
+  background-color: rgba(51, 53, 55, 0.2) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.bg-primary-container {
+  background-color: rgba(47, 57, 86, 0.22) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.bg-background {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+
+

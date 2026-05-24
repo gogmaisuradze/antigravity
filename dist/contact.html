@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="dark" lang="ka">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>კონტაქტი - IDC აიდისი</title>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@300;400;600&amp;family=Noto+Sans+Georgian:wght@100..900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script type="module" crossorigin src="/assets/main-DTG-leW6.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-ChwadDAH.css">
+</head>
+<body class="selection:bg-secondary/30 selection:text-secondary bg-[#121416] text-[#c6c6ce]">
+  <!-- Ambient Video Background -->
+  <div class="ambient-video-bg fixed inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+    <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-85" style="transform: scale(1.1);">
+      <source src="/background.mp4?v=4" type="video/mp4"/>
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#121416]/40 via-transparent to-[#121416]/50"></div>
+  </div>
+  <!-- Floating Island Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-12 pt-6 pointer-events-none">
+    <nav id="main-nav" class="pointer-events-auto flex justify-between items-center px-8 md:px-12 py-4 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
+      <a href="/index.html" class="flex items-center gap-4 hover:opacity-90 transition-opacity duration-300 pointer-events-auto">
+        <img alt="IDC Logo" class="h-10 w-10 object-contain" src="/assets/logo-AZ0N6V9o.png"/>
+        <span class="text-2xl font-headline text-[#f1bf62] tracking-tighter italic">აიდისი</span>
+      </a>
+      <div class="hidden md:flex items-center gap-10 font-headline italic text-lg tracking-wide">
+        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="/index.html">მთავარი</a>
+        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="/services.html">სერვისები</a>
+        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="/about.html">ჩვენს შესახებ</a>
+        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="/blog.html">ბლოგი</a>
+        <a class="text-[#f1bf62] border-b border-[#f1bf62] pb-1 hover:opacity-80 transition-opacity duration-300" href="/contact.html">კონტაქტი</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="booking-btn bg-secondary-container text-on-secondary-container px-6 py-2.5 rounded-xl font-medium scale-102 transition-transform hover:opacity-90 font-label">
+          ჯავშანი
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden text-white hover:text-secondary focus:outline-none pointer-events-auto">
+          <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+      </div>
+    </nav>
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#1e2022]/95 border border-white/5 rounded-2xl mt-4 px-8 py-6 space-y-4 shadow-2xl pointer-events-auto">
+      <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="/index.html">მთავარი</a>
+      <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="/services.html">სერვისები</a>
+      <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="/about.html">ჩვენს შესახებ</a>
+      <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="/blog.html">ბლოგი</a>
+      <a class="block text-[#f1bf62] font-headline italic text-lg py-2" href="/contact.html">კონტაქტი</a>
+    </div>
+  </header>
+
+  <main class="relative z-10 min-h-screen pt-32">
+    <!-- Hero & Form Section -->
+    <section class="relative pt-12 pb-32 px-6 overflow-hidden bg-gradient-hero">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <!-- Left: Content/Introspection -->
+        <div class="lg:col-span-5 space-y-12 reveal-hidden">
+          <div class="space-y-6">
+            <span class="text-secondary font-label tracking-[0.2em] text-sm uppercase">კონტაქტი</span>
+            <h1 class="text-5xl md:text-6xl font-headline italic leading-tight text-on-surface">დაიწყეთ თქვენი <br/><span class="text-primary-fixed-dim">შინაგანი მოგზაურობა</span></h1>
+            <p class="text-on-surface-variant text-lg leading-relaxed max-w-md font-light">
+              ჩვენ აქ ვართ, რათა შეგიქმნათ უსაფრთხო გარემო თვითშემეცნებისა და განკურნებისთვის. დაგვიკავშირდით კონსულტაციის დასაჯავშნად.
+            </p>
+          </div>
+          <!-- Contact Details -->
+          <div class="space-y-8 py-8 border-l border-outline-variant/20 pl-8">
+            <div class="flex items-start gap-5">
+              <span class="material-symbols-outlined text-secondary text-2xl">mail</span>
+              <div>
+                <p class="text-xs text-outline tracking-widest uppercase mb-1">ელ-ფოსტა</p>
+                <p class="text-primary text-lg font-light">idcgeo1@gmail.com</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-5">
+              <span class="material-symbols-outlined text-secondary text-2xl">call</span>
+              <div>
+                <p class="text-xs text-outline tracking-widest uppercase mb-1">ტელეფონი</p>
+                <p class="text-primary text-lg font-light">+995 598 32 40 20 / +995 579 71 00 55</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-5">
+              <span class="material-symbols-outlined text-secondary text-2xl">location_on</span>
+              <div>
+                <p class="text-xs text-outline tracking-widest uppercase mb-1">მისამართი</p>
+                <p class="text-primary text-lg font-light">2 ილია ჭავჭავაძის გამზირი, თბილისი</p>
+              </div>
+            </div>
+
+            <!-- Social Platforms -->
+            <div class="pt-6 border-t border-outline-variant/10 space-y-4">
+              <p class="text-xs text-outline tracking-widest uppercase mb-2">სოციალური პლატფორმები</p>
+              <div class="flex gap-4">
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/IDCgeorgia" target="_blank" class="w-12 h-12 rounded-xl bg-[#1877F2]/10 border border-[#1877F2]/25 hover:bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center transition-all hover:scale-110 shadow-lg group" title="Facebook">
+                  <svg class="w-6 h-6 fill-current group-hover:rotate-6 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/idcgeo/" target="_blank" class="w-12 h-12 rounded-xl bg-[#E1306C]/10 border border-[#E1306C]/25 hover:bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center transition-all hover:scale-110 shadow-lg group" title="Instagram">
+                  <svg class="w-6 h-6 fill-current group-hover:rotate-6 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                  </svg>
+                </a>
+                <!-- Telegram -->
+                <a href="https://t.me/IDCPositivepsychotherapybot" target="_blank" class="w-12 h-12 rounded-xl bg-[#229ED9]/10 border border-[#229ED9]/25 hover:bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center transition-all hover:scale-110 shadow-lg group" title="Telegram">
+                  <svg class="w-6 h-6 fill-current group-hover:rotate-6 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.89 1.2-5.33 3.52-.5.35-.96.52-1.37.51-.45-.01-1.32-.26-1.97-.47-.8-.26-1.43-.4-1.38-.85.03-.24.36-.49.99-.75 3.86-1.68 6.43-2.78 7.72-3.3 3.67-1.49 4.43-1.75 4.93-1.76.11 0 .36.03.52.16.13.11.17.26.19.37z"/>
+                  </svg>
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/995551408640" target="_blank" class="w-12 h-12 rounded-xl bg-[#25D366]/10 border border-[#25D366]/25 hover:bg-[#25D366]/20 text-[#25D366] flex items-center justify-center transition-all hover:scale-110 shadow-lg group" title="WhatsApp">
+                  <svg class="w-6 h-6 fill-current group-hover:rotate-6 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.249 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.458L0 24zm6.59-4.846c1.6.95 3.197 1.45 4.817 1.451 5.4 0 9.794-4.394 9.798-9.794.002-2.617-1.018-5.077-2.873-6.932-1.854-1.854-4.312-2.873-6.924-2.874-5.405 0-9.799 4.393-9.802 9.794-.001 1.705.454 3.371 1.316 4.856l-.993 3.63 3.731-.979zm11.238-6.84c-.266-.134-1.582-.78-1.83-.87-.247-.089-.427-.134-.607.135-.18.267-.697.87-.852 1.047-.157.178-.314.2-.58.067-.266-.134-1.127-.415-2.147-1.325-.793-.706-1.33-1.579-1.485-1.846-.157-.267-.017-.411.117-.544.12-.12.267-.312.4-.467.133-.156.177-.267.266-.445.09-.178.044-.334-.022-.467-.067-.134-.607-1.464-.83-2.005-.218-.524-.458-.453-.628-.461-.163-.008-.349-.01-.536-.01-.186 0-.49.07-.747.347-.257.278-.98.957-.98 2.335s1.002 2.703 1.142 2.89c.14.188 1.972 3.012 4.778 4.221.668.288 1.19.46 1.597.59.67.213 1.28.183 1.761.111.537-.08 1.582-.647 1.805-1.272.223-.624.223-1.157.157-1.272-.067-.116-.247-.183-.514-.316z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Booking Form (Glass Card) -->
+        <div class="lg:col-span-7 reveal-hidden">
+          <div class="bg-surface-container-low p-10 md:p-12 rounded-[2rem] shadow-[0px_40px_80px_rgba(0,0,0,0.5)] border border-outline-variant/10 relative hover-glow transition-all duration-500">
+            <div class="absolute -top-6 -right-6 hidden md:block">
+              <div class="bg-secondary p-4 rounded-full shadow-lg">
+                <span class="material-symbols-outlined text-on-secondary text-3xl" style='font-variation-settings: "FILL" 1;'>edit_calendar</span>
+              </div>
+            </div>
+            <h2 class="text-3xl font-headline italic mb-10 text-on-surface">დაჯავშნეთ სესია</h2>
+            <form class="space-y-8 contact-form">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-2">
+                  <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი და გვარი</label>
+                  <input class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი სახელი" type="text" required/>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
+                  <input class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="+995" type="tel" required/>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
+                <select class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface appearance-none">
+                  <option>ინდივიდუალური თერაპია</option>
+                  <option>წყვილთა თერაპია</option>
+                  <option>ჯგუფური სესია</option>
+                  <option>ონლაინ კონსულტაცია</option>
+                </select>
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">შეტყობინება</label>
+                <textarea class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50 resize-none" placeholder="დაგვიწერეთ მოკლედ თქვენი მოთხოვნის შესახებ..." rows="3" required></textarea>
+              </div>
+              <div class="pt-6">
+                <button class="w-full bg-secondary-container text-on-secondary-container py-5 rounded-xl font-semibold text-lg hover:brightness-110 transition-all duration-300 shadow-xl flex items-center justify-center gap-3" type="submit">
+                  გაგზავნა
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section (Asymmetric) -->
+    <section class="py-20 px-6 reveal-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="relative h-[500px] rounded-[2rem] overflow-hidden shadow-2xl group border border-outline-variant/10">
+          <!-- Interactive Live Google Map -->
+          <div class="absolute inset-0 bg-[#121416] overflow-hidden">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.8953151240166!2d44.774933976646875!3d41.70817027125026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440cb698a6cd8b%3A0x1dcd1d4e08cfca9d!2s2%20Ilia%20Chavchavadze%20Avenue%2C%20Tbilisi!5e0!3m2!1sen!2sge!4v1716584288000!5m2!1sen!2sge" 
+              class="w-full h-full border-0 grayscale invert-[0.88] contrast-[1.1] opacity-50 hover:opacity-75 transition-all duration-700" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent pointer-events-none"></div>
+          </div>
+          <!-- Map Overlay Card -->
+          <div class="absolute bottom-10 left-10 p-8 bg-surface-container/90 backdrop-blur-xl border border-outline-variant/20 rounded-2xl max-w-xs transition-transform duration-500 group-hover:translate-y-[-10px] pointer-events-auto z-10">
+            <h3 class="text-xl font-headline italic text-secondary mb-3">ჩვენი ოფისი</h3>
+            <p class="text-on-surface-variant text-sm leading-relaxed mb-6 font-light">
+              მყუდრო და მშვიდი სივრცე თბილისის ცენტრში, სადაც თქვენი კონფიდენციალურობა დაცულია.
+            </p>
+            <a class="inline-flex items-center gap-2 text-primary hover:text-secondary transition-colors font-medium" href="https://maps.app.goo.gl/XSqdnGWrjb2Q3Gaa8" target="_blank">
+              მიმართულების მიღება
+              <span class="material-symbols-outlined text-sm">open_in_new</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 px-6 bg-surface-container-lowest reveal-hidden">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16 space-y-4">
+          <span class="text-secondary font-label tracking-[0.2em] text-xs uppercase">ხშირად დასმული კითხვები</span>
+          <h2 class="text-4xl md:text-5xl font-headline text-white italic">გზამკვლევი თქვენი კითხვებისთვის</h2>
+          <div class="h-0.5 w-16 bg-secondary mx-auto mt-4"></div>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Item 1 -->
+          <div class="faq-item bg-surface-container/30 border border-outline-variant/10 rounded-2xl overflow-hidden transition-all duration-300">
+            <button class="faq-trigger w-full flex justify-between items-center px-8 py-6 text-left focus:outline-none">
+              <span class="text-lg md:text-xl font-headline text-on-surface hover:text-secondary transition-colors pr-4">რა სერვისებს სთავაზობს IDC აიდისი კლიენტებს?</span>
+              <span class="faq-icon material-symbols-outlined text-secondary text-2xl transition-transform duration-300 select-none">expand_more</span>
+            </button>
+            <div class="faq-content max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out">
+              <div class="px-8 pb-6 text-on-surface-variant leading-relaxed text-base font-light">
+                IDC აიდისი გთავაზობთ ინდივიდუალურ ფსიქოთერაპიას, წყვილთა თერაპიას, ჯგუფურ სესიებსა და ონლაინ კონსულტაციებს. ჩვენი მუშაობა ეფუძნება კარმალოჯიქისა და თანამედროვე კოგნიტურ-ბიჰევიორული თერაპიის სინთეზს, რაც თითოეულ კლიენტს აძლევს შესაძლებლობას იპოვოს საკუთარი თავი და დაამყაროს ჰარმონია.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item bg-surface-container/30 border border-outline-variant/10 rounded-2xl overflow-hidden transition-all duration-300">
+            <button class="faq-trigger w-full flex justify-between items-center px-8 py-6 text-left focus:outline-none">
+              <span class="text-lg md:text-xl font-headline text-on-surface hover:text-secondary transition-colors pr-4">როგორ ხდება სესიის დაჯავშნა და რა ღირს პირველადი კონსულტაცია?</span>
+              <span class="faq-icon material-symbols-outlined text-secondary text-2xl transition-transform duration-300 select-none">expand_more</span>
+            </button>
+            <div class="faq-content max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out">
+              <div class="px-8 pb-6 text-on-surface-variant leading-relaxed text-base font-light">
+                სესიის დასაჯავშნად შეგიძლიათ შეავსოთ საკონტაქტო ფორმა გვერდის ზედა ნაწილში ან დაგვიკავშირდეთ მითითებულ ტელეფონის ნომერზე. პირველადი კონსულტაცია მოიცავს თქვენი საჭიროებების იდენტიფიცირებას, თერაპევტის შერჩევას და ინდივიდუალური თერაპიული გეგმის შემუშავებას.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item bg-surface-container/30 border border-outline-variant/10 rounded-2xl overflow-hidden transition-all duration-300">
+            <button class="faq-trigger w-full flex justify-between items-center px-8 py-6 text-left focus:outline-none">
+              <span class="text-lg md:text-xl font-headline text-on-surface hover:text-secondary transition-colors pr-4">შესაძლებელია თუ არა კონსულტაციის ონლაინ რეჟიმში გავლა?</span>
+              <span class="faq-icon material-symbols-outlined text-secondary text-2xl transition-transform duration-300 select-none">expand_more</span>
+            </button>
+            <div class="faq-content max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out">
+              <div class="px-8 pb-6 text-on-surface-variant leading-relaxed text-base font-light">
+                დიახ, ჩვენი ყველა ფსიქოთერაპევტი ატარებს სესიებს ონლაინ რეჟიმში (Zoom, Google Meet ან Skype პლატფორმების მეშვეობით) კლიენტებისთვის, რომლებიც იმყოფებიან რეგიონებში, საზღვარგარეთ ან უბრალოდ ურჩევნიათ დისტანციური კომუნიკაცია კომფორტულ გარემოში.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item bg-surface-container/30 border border-outline-variant/10 rounded-2xl overflow-hidden transition-all duration-300">
+            <button class="faq-trigger w-full flex justify-between items-center px-8 py-6 text-left focus:outline-none">
+              <span class="text-lg md:text-xl font-headline text-on-surface hover:text-secondary transition-colors pr-4">დაცულია თუ არა სესიების კონფიდენციალურობა?</span>
+              <span class="faq-icon material-symbols-outlined text-secondary text-2xl transition-transform duration-300 select-none">expand_more</span>
+            </button>
+            <div class="faq-content max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out">
+              <div class="px-8 pb-6 text-on-surface-variant leading-relaxed text-base font-light">
+                კონფიდენციალურობა ჩვენი მუშაობის ფუნდამენტური და უმნიშვნელოვანესი პრინციპია. ყველა თერაპიული სესია და კლიენტის პერსონალური ინფორმაცია მკაცრად დაცულია პროფესიული ეთიკის კოდექსისა და მოქმედი კანონმდებლობის შესაბამისად.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="faq-item bg-surface-container/30 border border-outline-variant/10 rounded-2xl overflow-hidden transition-all duration-300">
+            <button class="faq-trigger w-full flex justify-between items-center px-8 py-6 text-left focus:outline-none">
+              <span class="text-lg md:text-xl font-headline text-on-surface hover:text-secondary transition-colors pr-4">როგორია სესიის ხანგრძლივობა და სიხშირე?</span>
+              <span class="faq-icon material-symbols-outlined text-secondary text-2xl transition-transform duration-300 select-none">expand_more</span>
+            </button>
+            <div class="faq-content max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out">
+              <div class="px-8 pb-6 text-on-surface-variant leading-relaxed text-base font-light">
+                ინდივიდუალური სესიის სტანდარტული ხანგრძლივობაა 50 წუთი, ხოლო წყვილთა თერაპიის — 80 წუთი. ჩვეულებრივ, ოპტიმალური და მდგრადი თერაპიული ეფექტისთვის რეკომენდებულია კვირაში ერთი სესიის ჩატარება, თუმცა სიხშირე შესაძლოა შეიცვალოს ინდივიდუალური საჭიროებებისა და შეთანხმების მიხედვით.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reflection Mirror (Specialty Component) -->
+    <section class="py-24 px-6 reveal-hidden">
+      <div class="max-w-3xl mx-auto text-center bg-primary-container/20 p-16 rounded-[2rem] border border-primary-container/30 relative">
+        <div class="absolute -top-6 left-1/2 -translate-x-1/2">
+          <span class="material-symbols-outlined text-secondary text-5xl" style='font-variation-settings: "FILL" 1;'>format_quote</span>
+        </div>
+        <blockquote class="text-3xl font-headline italic text-on-primary-container leading-relaxed mb-8">
+          "ყოველი კრიზისი არის შესაძლებლობა ახალი სიცოცხლისა და ღრმა გაცნობიერებისთვის."
+        </blockquote>
+        <cite class="text-outline-variant not-italic font-label tracking-widest text-sm">— კარმალოჯიკი</cite>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 bg-[#121416] full-width py-16 px-12 mt-20 border-t border-[#45464d]/15">
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 w-full">
+      <div class="space-y-6">
+        <a href="/index.html" class="flex items-center gap-4 mb-6 hover:opacity-90 transition-opacity duration-300">
+          <img alt="სერენ სანქჩუარი ლოგო" class="h-10 w-auto rounded-full object-cover w-10" src="/assets/logo-AZ0N6V9o.png" style="mix-blend-mode: screen;"/>
+          <span class="text-xl font-serif text-[#f1bf62]">IDC აიდისი</span>
+        </a>
+        <p class="text-[#c6c6ce]/60 font-['Noto_Sans_Georgian'] text-sm leading-relaxed max-w-xs">
+          ფსიქოთერაპიული ცენტრი, რომელიც გეხმარებათ ჰარმონიისა და სიმშვიდის პოვნაში.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <h4 class="text-on-surface font-semibold text-sm uppercase tracking-wider">მენიუ</h4>
+          <nav class="flex flex-col gap-3">
+            <a class="text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors text-sm" href="/index.html">მთავარი</a>
+            <a class="text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors text-sm" href="/services.html">სერვისები</a>
+            <a class="text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors text-sm" href="/blog.html">ბლოგი</a>
+          </nav>
+        </div>
+        <div class="space-y-4">
+          <h4 class="text-on-surface font-semibold text-sm uppercase tracking-wider">იურიდიული</h4>
+          <nav class="flex flex-col gap-3">
+            <a class="text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors text-sm" href="#">კონფიდენციალურობა</a>
+            <a class="text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors text-sm" href="#">წესები და პირობები</a>
+            <a class="text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors text-sm" href="#">ხშირად დასმული კითხვები</a>
+          </nav>
+        </div>
+      </div>
+      <div class="space-y-6 flex flex-col items-start md:items-end">
+        <div class="flex gap-4">
+          <!-- Facebook -->
+          <a class="w-10 h-10 rounded-full border border-outline-variant/30 flex items-center justify-center text-[#c6c6ce] hover:border-[#1877F2] hover:text-[#1877F2] hover:bg-[#1877F2]/10 transition-all hover:scale-110" href="https://www.facebook.com/IDCgeorgia" target="_blank" title="Facebook">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a class="w-10 h-10 rounded-full border border-outline-variant/30 flex items-center justify-center text-[#c6c6ce] hover:border-[#E1306C] hover:text-[#E1306C] hover:bg-[#E1306C]/10 transition-all hover:scale-110" href="https://www.instagram.com/idcgeo/" target="_blank" title="Instagram">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+          <!-- Telegram -->
+          <a class="w-10 h-10 rounded-full border border-outline-variant/30 flex items-center justify-center text-[#c6c6ce] hover:border-[#229ED9] hover:text-[#229ED9] hover:bg-[#229ED9]/10 transition-all hover:scale-110" href="https://t.me/IDCPositivepsychotherapybot" target="_blank" title="Telegram">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.89 1.2-5.33 3.52-.5.35-.96.52-1.37.51-.45-.01-1.32-.26-1.97-.47-.8-.26-1.43-.4-1.38-.85.03-.24.36-.49.99-.75 3.86-1.68 6.43-2.78 7.72-3.3 3.67-1.49 4.43-1.75 4.93-1.76.11 0 .36.03.52.16.13.11.17.26.19.37z"/>
+            </svg>
+          </a>
+          <!-- WhatsApp -->
+          <a class="w-10 h-10 rounded-full border border-outline-variant/30 flex items-center justify-center text-[#c6c6ce] hover:border-[#25D366] hover:text-[#25D366] hover:bg-[#25D366]/10 transition-all hover:scale-110" href="https://wa.me/995551408640" target="_blank" title="WhatsApp">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.249 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.458L0 24zm6.59-4.846c1.6.95 3.197 1.45 4.817 1.451 5.4 0 9.794-4.394 9.798-9.794.002-2.617-1.018-5.077-2.873-6.932-1.854-1.854-4.312-2.873-6.924-2.874-5.405 0-9.799 4.393-9.802 9.794-.001 1.705.454 3.371 1.316 4.856l-.993 3.63 3.731-.979zm11.238-6.84c-.266-.134-1.582-.78-1.83-.87-.247-.089-.427-.134-.607.135-.18.267-.697.87-.852 1.047-.157.178-.314.2-.58.067-.266-.134-1.127-.415-2.147-1.325-.793-.706-1.33-1.579-1.485-1.846-.157-.267-.017-.411.117-.544.12-.12.267-.312.4-.467.133-.156.177-.267.266-.445.09-.178.044-.334-.022-.467-.067-.134-.607-1.464-.83-2.005-.218-.524-.458-.453-.628-.461-.163-.008-.349-.01-.536-.01-.186 0-.49.07-.747.347-.257.278-.98.957-.98 2.335s1.002 2.703 1.142 2.89c.14.188 1.972 3.012 4.778 4.221.668.288 1.19.46 1.597.59.67.213 1.28.183 1.761.111.537-.08 1.582-.647 1.805-1.272.223-.624.223-1.157.157-1.272-.067-.116-.247-.183-.514-.316z"/>
+            </svg>
+          </a>
+        </div>
+        <p class="text-[#c6c6ce]/60 text-sm md:text-right">
+          © 2024 სერენ სანქჩუარი. ყველა უფლება დაცულია.
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
