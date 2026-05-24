@@ -1,4 +1,4 @@
-name: Sync antigravity to stitch
+name: Build and sync to stitch
 
 on:
   push:
@@ -12,11 +12,19 @@ jobs:
     steps:
       - name: Checkout antigravity
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.SYNC_TOKEN }}
 
-      - name: Push to stitch
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Push dist to stitch
         run: |
-          git remote add stitch https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/gogmaisuradze/stitch.git
-          git push stitch main --force
+          cd dist
+          git init
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add .
+          git commit -m "deploy"
+          git push --force https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/gogmaisuradze/stitch.git HEAD:main
