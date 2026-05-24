@@ -154,8 +154,8 @@
 
 /* Increase top header logo size and separate it from text */
 header img[alt="IDC Logo"] {
-  width: 75px !important;
-  height: 75px !important;
+  width: 150px !important;
+  height: 150px !important;
   margin-right: 1.25rem !important;
   object-fit: contain !important;
   transition: all 0.3s ease !important;
