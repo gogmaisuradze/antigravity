@@ -152,11 +152,13 @@
   -webkit-backdrop-filter: none !important;
 }
 
-/* Increase top header logo size to be highly visible */
+/* Increase top header logo size and separate it from text */
 header img[alt="IDC Logo"] {
-  transform: scale(2.2) !important;
-  transform-origin: left center !important;
-  transition: transform 0.3s ease !important;
+  width: 75px !important;
+  height: 75px !important;
+  margin-right: 1.25rem !important;
+  object-fit: contain !important;
+  transition: all 0.3s ease !important;
 }
 
 
