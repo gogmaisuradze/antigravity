@@ -152,5 +152,12 @@
   -webkit-backdrop-filter: none !important;
 }
 
+/* Increase top header logo size by 30% */
+header img[alt="IDC Logo"] {
+  transform: scale(1.3) !important;
+  transform-origin: left center !important;
+  transition: transform 0.3s ease !important;
+}
+
 
 
