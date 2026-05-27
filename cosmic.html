@@ -24,9 +24,9 @@
   <!-- Floating Island Header -->
   <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-12 pt-6 pointer-events-none">
     <nav id="main-nav" class="pointer-events-auto flex items-center px-8 md:px-12 py-2 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
-      <a href="logic.html" class="flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-300 pointer-events-auto">
-        <img alt="IDC Logo" class="object-contain relative z-50 transform hover:scale-[1.03] transition-transform duration-300" src="/src/logo.png" style="mix-blend-mode: screen; height: 450px; width: 450px; margin-top: -195px; margin-bottom: -195px; max-width: none;"/>
-        <span class="text-xl md:text-2xl font-headline font-bold text-[#f1bf62] tracking-wide italic drop-shadow-[0_2px_6px_rgba(241,191,98,0.2)] ml-[-25px] md:ml-[-35px]">აიდისი</span>
+      <a href="logic.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity duration-300 pointer-events-auto pl-4 md:pl-6">
+        <img alt="IDC Logo" class="object-contain relative z-50 transform hover:scale-[1.05] hover:rotate-2 transition-all duration-300 filter drop-shadow-[0_4px_20px_rgba(241,191,98,0.25)]" src="/src/logo.png" style="mix-blend-mode: screen; height: 450px; width: 450px; margin-top: -195px; margin-bottom: -195px; max-width: none;"/>
+        <span class="text-xl md:text-2xl font-headline font-bold text-[#f1bf62] tracking-wide italic drop-shadow-[0_2px_6px_rgba(241,191,98,0.2)]">აიდისი</span>
       </a>
       <div class="hidden md:flex items-center gap-10 font-headline italic text-lg tracking-wide ml-auto mr-10">
         <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="index.html">მთავარი</a>
@@ -122,8 +122,8 @@
   </header>
 
   <!-- React Mount Point -->
-  <main class="relative z-10 pt-44 min-h-screen px-4 md:px-12 pb-24 max-w-7xl mx-auto">
-    <div id="root" class="relative z-10 bg-[#1e2022]/15 border border-white/10 backdrop-blur-2xl p-6 md:p-12 rounded-3xl shadow-2xl overflow-hidden">
+  <main class="relative z-10 pt-44 min-h-screen px-4 md:px-6 pb-24 max-w-full w-full mx-auto">
+    <div id="root" class="relative z-10 bg-[#1e2022]/10 border border-white/10 p-6 md:p-12 rounded-3xl shadow-2xl overflow-hidden" style="backdrop-filter: blur(70px) !important; -webkit-backdrop-filter: blur(70px) !important;">
       <!-- Loading indicator while React initializes -->
       <div class="flex flex-col items-center justify-center py-20 space-y-4">
         <div class="w-10 h-10 border-4 border-[#f1bf62] border-t-transparent rounded-full animate-spin"></div>

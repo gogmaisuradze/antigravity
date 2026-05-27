@@ -36,9 +36,9 @@
   <!-- Floating Island Header -->
   <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-12 pt-6 pointer-events-none">
     <nav id="main-nav" class="pointer-events-auto flex items-center px-8 md:px-12 py-2 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
-      <a href="logic.html" class="flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-300 pointer-events-auto">
-        <img alt="IDC Logo" class="object-contain relative z-50 transform hover:scale-[1.03] transition-transform duration-300" src="/src/logo.png" style="mix-blend-mode: screen; height: 450px; width: 450px; margin-top: -195px; margin-bottom: -195px; max-width: none;"/>
-        <span class="text-xl md:text-2xl font-headline font-bold text-[#f1bf62] tracking-wide italic drop-shadow-[0_2px_6px_rgba(241,191,98,0.2)] ml-[-25px] md:ml-[-35px]">აიდისი</span>
+      <a href="logic.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity duration-300 pointer-events-auto pl-4 md:pl-6">
+        <img alt="IDC Logo" class="object-contain relative z-50 transform hover:scale-[1.05] hover:rotate-2 transition-all duration-300 filter drop-shadow-[0_4px_20px_rgba(241,191,98,0.25)]" src="/src/logo.png" style="mix-blend-mode: screen; height: 450px; width: 450px; margin-top: -195px; margin-bottom: -195px; max-width: none;"/>
+        <span class="text-xl md:text-2xl font-headline font-bold text-[#f1bf62] tracking-wide italic drop-shadow-[0_2px_6px_rgba(241,191,98,0.2)]">აიდისი</span>
       </a>
       <div class="hidden md:flex items-center gap-10 font-headline italic text-lg tracking-wide ml-auto mr-10">
         <a class="text-[#f1bf62] border-b border-[#f1bf62] pb-1 hover:opacity-80 transition-opacity duration-300" href="index.html">მთავარი</a>
@@ -158,7 +158,8 @@
           </div>
         </div>
         <div class="hidden md:flex md:col-span-4 justify-end">
-          <div class="relative w-full aspect-[3/4] rounded-full overflow-hidden grayscale contrast-125 opacity-30 hover:opacity-50 transition-opacity duration-1000 group cursor-pointer"
+          <div class="relative w-full aspect-[3/4] overflow-hidden opacity-35 hover:opacity-60 transition-opacity duration-1000 group cursor-pointer"
+               style="mix-blend-mode: screen; mask-image: radial-gradient(circle, black 30%, transparent 75%); -webkit-mask-image: radial-gradient(circle, black 30%, transparent 75%);"
                onmouseenter="const v = document.getElementById('hero-ball-video'); if(v) v.play();"
                onmouseleave="const v = document.getElementById('hero-ball-video'); if(v) v.pause();">
             <img class="w-full h-full object-cover" alt="abstract minimalist feather" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1eoJmQicEl2W4nkEvD8EXgY-H3jNybGNk5ccwn30AmUCkykavp2oT-y7Ya-tJSGpaM_JQ4VWwS_31DmayAd3cStS-0lPNohVRe8p2aTmCNaPd7ewfrO8aqwRGByAKBWhQ7-GQqg0l2QxXpRidhUTa72ufp9S_Sdi8P6sGlH96dd8tX-NyLw0RSEU1XzlPHEwyuPimb4aT2EV2Z16kGH-4SRk2C4TkNJDwj6GRo_LxNCgg-J66SJLnr9_hfkAu3SP0ZOqORRlvQtS"/>
@@ -190,21 +191,21 @@
               ჩვენი მიდგომა უარყოფს კლინიკურ სიმკაცრეს. ჩვენ ვქმნით სივრცეს, სადაც ყოველი ფიქრი და ემოცია პოულობს თავის ადგილს საერთო ჰარმონიაში.
             </p>
           </div>
-          <div class="md:w-1/2 space-y-8 pt-6">
-            <div class="group cursor-default introspection-card p-8 rounded-3xl">
-              <span class="text-secondary font-headline text-4xl block mb-4">01</span>
-              <h3 class="text-2xl font-headline text-white mb-4">პერსონალური არქიტექტურა</h3>
-              <p class="text-on-surface-variant font-light leading-relaxed">ინდივიდუალური თერაპია, რომელიც ორიენტირებულია თქვენი შინაგანი სამყაროს რეკონსტრუქციაზე.</p>
+          <div class="md:w-1/2 space-y-5 pt-4">
+            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-3xl block mb-2">01</span>
+              <h3 class="text-xl font-headline text-white mb-2">პერსონალური არქიტექტურა</h3>
+              <p class="text-on-surface-variant text-sm font-light leading-relaxed">ინდივიდუალური თერაპია, რომელიც ორიენტირებულია თქვენი შინაგანი სამყაროს რეკონსტრუქციაზე.</p>
             </div>
-            <div class="group cursor-default introspection-card p-8 rounded-3xl">
-              <span class="text-secondary font-headline text-4xl block mb-4">02</span>
-              <h3 class="text-2xl font-headline text-white mb-4">კარმული ბალანსი</h3>
-              <p class="text-on-surface-variant font-light leading-relaxed">მიზეზ-შედეგობრივი კავშირების გააზრება და მომავლის შეგნებული ფორმირება.</p>
+            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-3xl block mb-2">02</span>
+              <h3 class="text-xl font-headline text-white mb-2">კარმული ბალანსი</h3>
+              <p class="text-on-surface-variant text-sm font-light leading-relaxed">მიზეზ-შედეგობრივი კავშირების გააზრება და მომავლის შეგნებული ფორმირება.</p>
             </div>
-            <div class="group cursor-default introspection-card p-8 rounded-3xl">
-              <span class="text-secondary font-headline text-4xl block mb-4">03</span>
-              <h3 class="text-2xl font-headline text-white mb-4">სულიერი სიმშვიდე</h3>
-              <p class="text-on-surface-variant font-light leading-relaxed">მედიტაციური პრაქტიკები და მენტალური ჰიგიენა თანამედროვე ქაოსში.</p>
+            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-3xl block mb-2">03</span>
+              <h3 class="text-xl font-headline text-white mb-2">სულიერი სიმშვიდე</h3>
+              <p class="text-on-surface-variant text-sm font-light leading-relaxed">მედიტაციური პრაქტიკები და მენტალური ჰიგიენა თანამედროვე ქაოსში.</p>
             </div>
           </div>
         </div>
