@@ -31,6 +31,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   });
   const [selectedTheme, setSelectedTheme] = useState<CalculationType>(CalculationType.HOROSCOPE);
   const [error, setError] = useState<string | null>(null);
+  const [useStandardCalendar, setUseStandardCalendar] = useState(false);
 
   // Auto-fill from saved profile
   useEffect(() => {
@@ -118,9 +119,18 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
       {/* Centered top header "იდენტობის მატრიცა გააშუალედე ზევით ყველაფერი" */}
       <div className="flex flex-col items-center justify-center text-center space-y-3 mb-8">
-        <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-[#f1bf62] bg-white/5">
-          <Calendar className="w-6 h-6" />
-        </div>
+        <button 
+          type="button"
+          onClick={() => setUseStandardCalendar(!useStandardCalendar)}
+          className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all cursor-pointer ${
+            useStandardCalendar 
+              ? 'bg-[#f1bf62] text-[#121416] border-[#f1bf62] shadow-[0_0_15px_rgba(241,191,98,0.3)] scale-105' 
+              : 'bg-white/5 text-[#f1bf62] border-white/20 hover:bg-white/10 hover:scale-105'
+          }`}
+        >
+          <Calendar className="w-4 h-4" />
+          <span className="text-xs font-bold uppercase tracking-widest font-label">კალენდარი</span>
+        </button>
         <div>
           <h2 className="text-xl font-bold tracking-[0.2em] text-[#f1bf62] uppercase font-headline">
             იდენტობის მატრიცა
@@ -148,7 +158,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="სახელი გვარი"
-              className="w-full bg-transparent border-b border-white/10 py-3 text-base text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
+              className="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
               required
             />
           </div>
@@ -160,55 +170,78 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="ტელ:"
-              className="w-full bg-transparent border-b border-white/10 py-3 text-base text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
+              className="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
               required
             />
           </div>
         </div>
 
-        {/* Unified iOS-Style Circular Date Selector */}
+        {/* Unified iOS-Style Circular Date Selector or Standard Calendar alternative */}
         <div className="space-y-3 py-2">
           <label className="block text-[12px] font-extrabold uppercase tracking-widest text-[#c6c6ce]/80 mb-1 text-center w-full">
-            დაბადების თარიღი (დაატრიალეთ როლიკი ჩასასწორებლად)
+            {useStandardCalendar 
+              ? "დაბადების თარიღი (დააწკაპუნეთ კალენდრიდან ასარჩევად)" 
+              : "დაბადების თარიღი (დაატრიალეთ როლიკი ჩასასწორებლად)"}
           </label>
           
-          <div className="relative bg-[#1e2022]/40 rounded-2xl py-2 px-6 shadow-2xl border border-white/5 max-w-[480px] mx-auto overflow-hidden select-none">
-            {/* Horizontal highlighted selection band in center across all column rollers */}
-            <div className="absolute top-[50%] -translate-y-[50%] left-2 right-2 h-9 bg-white/5 rounded-lg pointer-events-none z-0" />
-            
-            {/* The side-by-side rollers */}
-            <div className="relative flex flex-row items-center justify-between gap-4 z-10 w-full">
-              {/* Month */}
-              <div className="flex-1 min-w-[120px]">
-                <RollerPicker
-                  variant="ios-dark"
-                  items={monthsItems}
-                  selectedValue={month}
-                  onChange={setMonth}
-                />
-              </div>
+          {useStandardCalendar ? (
+            <div className="relative bg-[#1e2022]/40 rounded-2xl py-4 px-6 shadow-2xl border border-white/10 max-w-[480px] mx-auto overflow-hidden">
+              <input
+                type="date"
+                value={`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val) {
+                    const [y, m, d] = val.split('-').map(Number);
+                    setYear(y);
+                    setMonth(m);
+                    setDay(d);
+                  }
+                }}
+                className="w-full bg-transparent border-0 py-1 text-base text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
+                style={{ colorScheme: 'dark' }}
+                required
+              />
+            </div>
+          ) : (
+            <div className="relative bg-[#1e2022]/40 rounded-2xl py-2 px-6 shadow-2xl border border-white/5 max-w-[480px] mx-auto overflow-hidden select-none">
+              {/* Horizontal highlighted selection band in center across all column rollers */}
+              <div className="absolute top-[50%] -translate-y-[50%] left-2 right-2 h-9 bg-white/5 rounded-lg pointer-events-none z-0" />
+              
+              {/* The side-by-side rollers */}
+              <div className="relative flex flex-row items-center justify-between gap-4 z-10 w-full">
+                {/* Month */}
+                <div className="flex-1 min-w-[120px]">
+                  <RollerPicker
+                    variant="ios-dark"
+                    items={monthsItems}
+                    selectedValue={month}
+                    onChange={setMonth}
+                  />
+                </div>
 
-              {/* Day */}
-              <div className="flex-1 min-w-[65px]">
-                <RollerPicker
-                  variant="ios-dark"
-                  items={daysItems}
-                  selectedValue={day}
-                  onChange={setDay}
-                />
-              </div>
+                {/* Day */}
+                <div className="flex-1 min-w-[65px]">
+                  <RollerPicker
+                    variant="ios-dark"
+                    items={daysItems}
+                    selectedValue={day}
+                    onChange={setDay}
+                  />
+                </div>
 
-              {/* Year */}
-              <div className="flex-1 min-w-[80px]">
-                <RollerPicker
-                  variant="ios-dark"
-                  items={yearsItems}
-                  selectedValue={year}
-                  onChange={setYear}
-                />
+                {/* Year */}
+                <div className="flex-1 min-w-[80px]">
+                  <RollerPicker
+                    variant="ios-dark"
+                    items={yearsItems}
+                    selectedValue={year}
+                    onChange={setYear}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
           
           {/* Real-time calculated birthdate confirmation text */}
           <div className="text-center mt-2">
