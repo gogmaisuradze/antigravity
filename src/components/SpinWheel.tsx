@@ -191,9 +191,9 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-10 select-none relative bg-transparent">
+    <div className="flex flex-col items-center justify-center py-10 select-none relative bg-transparent w-full">
       {/* Subtle background shadow blur highlight */}
-      <div className="absolute w-[360px] h-[360px] md:w-[580px] md:h-[580px] rounded-full bg-[#f1bf62]/6 blur-3xl -z-10 pointer-events-none"></div>
+      <div className="absolute w-[360px] h-[360px] sm:w-[500px] sm:h-[500px] md:w-[650px] md:h-[650px] rounded-full bg-[#f1bf62]/6 blur-3xl -z-10 pointer-events-none"></div>
 
       {/* Elegant Pointer at the 12 o'clock position (Top) - Gold rim with head pointer */}
       <div className="relative z-30 -mb-8.5 md:-mb-10 flex flex-col items-center pointer-events-none">
@@ -209,8 +209,8 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
         <div className="w-0 h-0 border-l-[9px] border-l-transparent border-r-[9px] border-r-transparent border-t-[18px] border-t-[#f1bf62] -mt-3.5 z-20 drop-shadow-[0_3px_5px_rgba(0,0,0,0.7)]" />
       </div>
 
-      {/* Outer Luxury Wheel Rim (Heavy concentric golden/bronze gold plated metal) */}
-      <div className="relative w-[340px] h-[340px] sm:w-[450px] sm:h-[450px] md:w-[570px] md:h-[570px] p-5 bg-gradient-to-b from-[#2a2318] via-[#151718] to-[#090a0a] rounded-full shadow-[0_20px_55px_rgba(0,0,0,0.95),inset_0_2px_4px_rgba(255,255,255,0.05)] flex items-center justify-center border border-white/5">
+      {/* Outer Luxury Wheel Rim (Heavy concentric golden/bronze gold plated metal) - MAXIMUM LARGER SIZE */}
+      <div className="relative w-[340px] h-[340px] sm:w-[470px] sm:h-[470px] md:w-[610px] md:h-[610px] p-5 bg-gradient-to-b from-[#2a2318] via-[#151718] to-[#090a0a] rounded-full shadow-[0_25px_65px_rgba(0,0,0,0.95),inset_0_2px_4px_rgba(255,255,255,0.05)] flex items-center justify-center border border-white/5 transition-all duration-300">
         {/* Golden Concentric Rings Overlay */}
         <div className="absolute inset-0 rounded-full border-4 border-[#f1bf62]/35 pointer-events-none"></div>
         <div className="absolute inset-1 rounded-full border border-black/80 pointer-events-none"></div>
@@ -267,12 +267,12 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                 <stop offset="100%" stopColor="#12110e" />
               </linearGradient>
 
-              {/* DYNAMIC TEXT PATHS DEFINITION FOR CIRCULAR LABELS */}
+              {/* DYNAMIC TEXT PATHS DEFINITION FOR CIRCULAR LABELS - MOVED TO THE OUTER EDGE */}
               {WHEEL_ITEMS.map((item, index) => {
                 const angle1 = (index * 45 - 90) * Math.PI / 180;
                 const angle2 = ((index + 1) * 45 - 90) * Math.PI / 180;
-                // Perfect radius of 0.53 places the text elegantly in the middle of each slice
-                const r = 0.53;
+                // Placed extremely close to the outer edge (radius 0.82)
+                const r = 0.81;
                 const x1 = r * Math.cos(angle1);
                 const y1 = r * Math.sin(angle1);
                 const x2 = r * Math.cos(angle2);
@@ -352,7 +352,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
             <circle cx="0" cy="0" r="0.40" fill="none" stroke="rgba(241, 191, 98, 0.02)" strokeWidth="0.002" pointerEvents="none" />
             <circle cx="0" cy="0" r="0.35" fill="none" stroke="rgba(0, 0, 0, 0.45)" strokeWidth="0.003" pointerEvents="none" />
 
-            {/* CURVED GEORGIAN LABELS FOLLOWING THE TEXT PATHS */}
+            {/* CURVED GEORGIAN LABELS FOLLOWING THE TEXT PATHS - ENLARGED AND MOVED TO EDGE */}
             {WHEEL_ITEMS.map((item, index) => {
               const isSelected = selectedType === item.id;
               const isHovered = hoveredIndex === index;
@@ -365,10 +365,11 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                     fill={(isSelected || isHovered) ? "#ffd885" : "#ffffff"}
                     className="transition-colors duration-300 font-headline"
                     style={{
-                      fontSize: "0.062px", // scaled down to fit beautifully inside the slices
+                      fontSize: "0.066px", // Enlarged font size for maximum readability near edge
                       fontWeight: 900,
-                      letterSpacing: "0.02em",
+                      letterSpacing: "0.03em",
                       dominantBaseline: "middle",
+                      textShadow: "0 2px 4px rgba(0,0,0,0.9)",
                     }}
                   >
                     {item.title.split(" ")[0]}
@@ -377,14 +378,14 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
               );
             })}
 
-            {/* GORGEOUS GOLD-OUTLINED CIRCULAR ICON LABELS PLACED NEAR OUTER EDGE */}
+            {/* GORGEOUS GOLD-OUTLINED CIRCULAR ICON LABELS PLACED CLOSER TO THE CENTER DOME */}
             {WHEEL_ITEMS.map((item, index) => {
               const isSelected = selectedType === item.id;
               const isHovered = hoveredIndex === index;
 
-              // Calculate icon center coordinate exactly at the midpoint of each slice at R = 0.77
+              // Calculate icon center coordinate exactly at R = 0.48 (closer to the center dome)
               const midAngle = (index * 45 + 22.5 - 90) * Math.PI / 180;
-              const rIcon = 0.77;
+              const rIcon = 0.48;
               const xIcon = rIcon * Math.cos(midAngle);
               const yIcon = rIcon * Math.sin(midAngle);
 
@@ -476,8 +477,8 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
         </button>
       </div>
 
-      {/* Selected Theme Name and Description in clean, flat gold/silver text */}
-      <div className="mt-8 text-center px-6 max-w-[390px] space-y-1.5 min-h-[70px]">
+      {/* Selected Theme Name and Description in clean, flat gold/silver text - ENLARGED AS REQUESTED */}
+      <div className="mt-10 text-center px-6 max-w-[480px] space-y-2 min-h-[90px]">
         {(() => {
           const displayedItem = hoveredIndex !== null 
             ? WHEEL_ITEMS[hoveredIndex] 
@@ -486,10 +487,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
           if (!displayedItem) return null;
           return (
             <>
-              <h3 className="text-[16px] font-extrabold text-[#f1bf62] uppercase tracking-wider font-headline drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] animate-fade-in">
+              <h3 className="text-[20px] sm:text-[22px] md:text-[24px] font-black text-[#f1bf62] uppercase tracking-widest font-headline drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.65)] animate-fade-in">
                 {displayedItem.title}
               </h3>
-              <p className="text-[13px] text-white/90 font-semibold leading-relaxed animate-fade-in">
+              <p className="text-[14px] sm:text-[15.5px] md:text-[16.5px] text-white font-bold leading-relaxed animate-fade-in drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
                 {displayedItem.description}
               </p>
             </>
@@ -498,7 +499,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
       </div>
 
       {/* Dark Roller Picker Alternative Selector */}
-      <div className="w-full max-w-[280px] mx-auto mt-4 mb-2">
+      <div className="w-full max-w-[280px] mx-auto mt-6 mb-2">
         <RollerPicker
           variant="ios-dark"
           items={WHEEL_ITEMS.map((item) => ({ value: item.id, label: item.title }))}
@@ -512,9 +513,9 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
         />
       </div>
 
-      {/* Selected Theme Subtitle under Roller Picker */}
-      <div className="text-center mt-1 mb-2.5 min-h-[20px]">
-        <span className="text-sm font-extrabold text-[#f1bf62] uppercase tracking-widest font-headline">
+      {/* Selected Theme Subtitle under Roller Picker - ENLARGED */}
+      <div className="text-center mt-1 mb-2.5 min-h-[25px]">
+        <span className="text-base sm:text-lg md:text-xl font-black text-[#f1bf62] uppercase tracking-widest font-headline drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
           {(() => {
             const displayedItem = hoveredIndex !== null 
               ? WHEEL_ITEMS[hoveredIndex] 
