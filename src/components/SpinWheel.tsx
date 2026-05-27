@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { CalculationType } from "../types";
-import { Sparkles, Target, Grid3x3, Hash, BrainCircuit, Moon, Compass, Users, Pointer } from "lucide-react";
+import { Sparkles, Target, Grid3x3, Hash, BrainCircuit, Moon, Compass, Users } from "lucide-react";
 import { RollerPicker } from "./RollerPicker";
 
 export interface WheelItem {
@@ -24,7 +24,7 @@ export const WHEEL_ITEMS: WheelItem[] = [
     title: "დასავლური ჰოროსკოპი",
     color: "from-indigo-600 to-indigo-900 border-indigo-500",
     gradient: "conic-gradient(from 0deg, #4f46e5, #312e81)",
-    icon: <Sparkles className="w-5 h-5 text-indigo-200" />,
+    icon: <Sparkles style={{ width: "100%", height: "100%" }} />,
     description: "ზოდიაქოს ნიშანი, ხასიათი, სტიქიები და კოსმოსური ტრენდები.",
   },
   {
@@ -32,7 +32,7 @@ export const WHEEL_ITEMS: WheelItem[] = [
     title: "ენიაგრამა",
     color: "from-purple-600 to-purple-900 border-purple-500",
     gradient: "conic-gradient(from 45deg, #9333ea, #581c87)",
-    icon: <Target className="w-5 h-5 text-purple-200" />,
+    icon: <Target style={{ width: "100%", height: "100%" }} />,
     description: "თქვენი ფსიქოტიპი, ფარული მოტივაციები, შიშები და ზრდის გზები.",
   },
   {
@@ -40,7 +40,7 @@ export const WHEEL_ITEMS: WheelItem[] = [
     title: "ფსიქო მატრიცა",
     color: "from-pink-600 to-pink-900 border-pink-500",
     gradient: "conic-gradient(from 90deg, #ec4899, #831843)",
-    icon: <Grid3x3 className="w-5 h-5 text-pink-200" />,
+    icon: <Grid3x3 style={{ width: "100%", height: "100%" }} />,
     description: "პითაგორას ციფრული მატრიცა: ჯანმრთელობა, იღბალი, ენერგია და ნიჭი.",
   },
   {
@@ -48,7 +48,7 @@ export const WHEEL_ITEMS: WheelItem[] = [
     title: "ნუმეროლოგია",
     color: "from-amber-600 to-amber-900 border-amber-500",
     gradient: "conic-gradient(from 135deg, #d97706, #78350f)",
-    icon: <Hash className="w-5 h-5 text-amber-200" />,
+    icon: <Hash style={{ width: "100%", height: "100%" }} />,
     description: "ბედისწერის რიცხვი, თქვენი უმაღლესი მისია და ცხოვრებისეული გზა.",
   },
   {
@@ -56,7 +56,7 @@ export const WHEEL_ITEMS: WheelItem[] = [
     title: "ადამიანის დიზაინი",
     color: "from-teal-600 to-teal-900 border-teal-500",
     gradient: "conic-gradient(from 180deg, #0d9488, #115e59)",
-    icon: <BrainCircuit className="w-5 h-5 text-teal-200" />,
+    icon: <BrainCircuit style={{ width: "100%", height: "100%" }} />,
     description: "ენერგეტიკული ტიპი, პროფილი, ავტორიტეტი და ცხოვრებისეული სტრატეგია.",
   },
   {
@@ -64,7 +64,7 @@ export const WHEEL_ITEMS: WheelItem[] = [
     title: "ვედური ასტროლოგია",
     color: "from-red-600 to-red-900 border-red-500",
     gradient: "conic-gradient(from 225deg, #dc2626, #7f1d1d)",
-    icon: <Moon className="w-5 h-5 text-red-200" />,
+    icon: <Moon style={{ width: "100%", height: "100%" }} />,
     description: "ჯიოტიში: მთვარის ნიშანი, ნაკშატრები და კარმული ვალდებულებები.",
   },
   {
@@ -72,7 +72,7 @@ export const WHEEL_ITEMS: WheelItem[] = [
     title: "ბა-ძი (BaZi)",
     color: "from-orange-600 to-orange-900 border-orange-500",
     gradient: "conic-gradient(from 270deg, #ea580c, #7c2d12)",
-    icon: <Compass className="w-5 h-5 text-orange-200" />,
+    icon: <Compass style={{ width: "100%", height: "100%" }} />,
     description: "ბედისწერის 4 სვეტი: დღის მბრძანებელი და 5 ელემენტის ბალანსი.",
   },
   {
@@ -80,7 +80,7 @@ export const WHEEL_ITEMS: WheelItem[] = [
     title: "არქეტიპული ანალიზი",
     color: "from-cyan-600 to-cyan-900 border-cyan-500",
     gradient: "conic-gradient(from 315deg, #0891b2, #164e63)",
-    icon: <Users className="w-5 h-5 text-cyan-200" />,
+    icon: <Users style={{ width: "100%", height: "100%" }} />,
     description: "იუნგის 12 ფსიქოლოგიური არქეტიპი და ჩრდილოვანი მხარეები.",
   },
 ];
@@ -183,62 +183,65 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
 
   // Helper to generate coordinates for SVG path
   const getCoordinatesForPercent = (percent: number) => {
-    const x = Math.cos(2 * Math.PI * percent);
-    const y = Math.sin(2 * Math.PI * percent);
+    // Offset by -0.25 (which is -90 degrees) so East (0) becomes North (12 o'clock)
+    const angle = 2 * Math.PI * (percent - 0.25);
+    const x = Math.cos(angle);
+    const y = Math.sin(angle);
     return [x, y];
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-8 select-none relative bg-transparent">
+    <div className="flex flex-col items-center justify-center py-10 select-none relative bg-transparent">
       {/* Subtle background shadow blur highlight */}
-      <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full bg-[#f1bf62]/8 blur-3xl -z-10 pointer-events-none"></div>
+      <div className="absolute w-[360px] h-[360px] md:w-[580px] md:h-[580px] rounded-full bg-[#f1bf62]/6 blur-3xl -z-10 pointer-events-none"></div>
 
       {/* Elegant Pointer at the 12 o'clock position (Top) - Gold rim with head pointer */}
-      <div className="relative z-30 -mb-7 flex flex-col items-center pointer-events-none">
+      <div className="relative z-30 -mb-8.5 md:-mb-10 flex flex-col items-center pointer-events-none">
         {/* Circular Pointer head with gold-bronze metallic ring */}
-        <div className="w-13 h-13 bg-gradient-to-b from-[#403524] via-[#1e2022] to-[#0a0b0c] rounded-full border-2 border-[#f1bf62] flex items-center justify-center shadow-[0_6px_16px_rgba(0,0,0,0.9)] relative z-30">
-          {/* Inner concentric ring inside pointer */}
+        <div className="w-13 h-13 md:w-15 md:h-15 bg-gradient-to-b from-[#403524] via-[#1e2022] to-[#0a0b0c] rounded-full border-2 border-[#f1bf62] flex items-center justify-center shadow-[0_6px_16px_rgba(0,0,0,0.9)] relative z-30">
           <div className="absolute inset-0.5 rounded-full border border-black/40"></div>
           <div className="absolute inset-1.5 rounded-full border border-[#f1bf62]/20"></div>
-          <BrainCircuit className="w-5 h-5 text-[#f1bf62] relative z-10" style={{ filter: "drop-shadow(0 0 4px rgba(241,191,98,0.6))" }} />
+          <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-[#f1bf62] flex items-center justify-center text-[#121416] font-bold shadow-md">
+            <span className="text-[10px] md:text-[11px] font-black uppercase tracking-tighter">IDC</span>
+          </div>
         </div>
         {/* Golden Triangle Point Pointer pointing down */}
-        <div className="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[16px] border-t-[#f1bf62] -mt-2.5 z-20 drop-shadow-[0_3px_5px_rgba(0,0,0,0.7)]" />
+        <div className="w-0 h-0 border-l-[9px] border-l-transparent border-r-[9px] border-r-transparent border-t-[18px] border-t-[#f1bf62] -mt-3.5 z-20 drop-shadow-[0_3px_5px_rgba(0,0,0,0.7)]" />
       </div>
 
       {/* Outer Luxury Wheel Rim (Heavy concentric golden/bronze gold plated metal) */}
-      <div className="relative w-[320px] h-[320px] md:w-[410px] md:h-[410px] p-4 bg-gradient-to-b from-[#2a2318] via-[#151718] to-[#090a0a] rounded-full shadow-[0_15px_45px_rgba(0,0,0,0.9),inset_0_2px_4px_rgba(255,255,255,0.05)] flex items-center justify-center border border-white/5">
+      <div className="relative w-[340px] h-[340px] sm:w-[450px] sm:h-[450px] md:w-[570px] md:h-[570px] p-5 bg-gradient-to-b from-[#2a2318] via-[#151718] to-[#090a0a] rounded-full shadow-[0_20px_55px_rgba(0,0,0,0.95),inset_0_2px_4px_rgba(255,255,255,0.05)] flex items-center justify-center border border-white/5">
         {/* Golden Concentric Rings Overlay */}
         <div className="absolute inset-0 rounded-full border-4 border-[#f1bf62]/35 pointer-events-none"></div>
         <div className="absolute inset-1 rounded-full border border-black/80 pointer-events-none"></div>
-        <div className="absolute inset-2.5 rounded-full border-2 border-double border-[#f1bf62]/20 pointer-events-none"></div>
-        <div className="absolute inset-[13px] rounded-full border border-black/50 pointer-events-none"></div>
+        <div className="absolute inset-3 rounded-full border-2 border-double border-[#f1bf62]/20 pointer-events-none"></div>
+        <div className="absolute inset-[15px] rounded-full border border-black/50 pointer-events-none"></div>
 
         {/* The Rotatable Wheel Segment */}
         <div
           id="roulette_wheel"
-          className="relative w-full h-full rounded-full overflow-hidden shadow-[inset_0_0_30px_rgba(0,0,0,0.9)] cursor-pointer border border-[#f1bf62]/10"
+          className="relative w-full h-full rounded-full overflow-hidden shadow-[inset_0_0_40px_rgba(0,0,0,0.95)] cursor-pointer border border-[#f1bf62]/10"
           style={{
             transform: `rotate(${rotation}deg)`,
             transition: isSpinning ? "transform 5000ms cubic-bezier(0.1, 0.9, 0.2, 1)" : "transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1)",
           }}
         >
           {/* Slices container using SVGs for visual precision and custom definitions */}
-          <svg viewBox="-1 -1 2 2" className="w-full h-full -rotate-90">
+          <svg viewBox="-1 -1 2 2" className="w-full h-full">
             <defs>
               {/* Premium dark bronze metallic linear gradient 1 */}
               <linearGradient id="metallicSliceA" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#282520" />
-                <stop offset="30%" stopColor="#1c1a16" />
-                <stop offset="60%" stopColor="#12110e" />
-                <stop offset="100%" stopColor="#0c0b0a" />
+                <stop offset="0%" stopColor="#2c2822" />
+                <stop offset="30%" stopColor="#1e1b17" />
+                <stop offset="60%" stopColor="#13110f" />
+                <stop offset="100%" stopColor="#0a0908" />
               </linearGradient>
               {/* Premium dark bronze metallic linear gradient 2 */}
               <linearGradient id="metallicSliceB" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#201d19" />
-                <stop offset="35%" stopColor="#151310" />
-                <stop offset="70%" stopColor="#0e0d0b" />
-                <stop offset="100%" stopColor="#050504" />
+                <stop offset="0%" stopColor="#221e1a" />
+                <stop offset="35%" stopColor="#171512" />
+                <stop offset="70%" stopColor="#0f0d0b" />
+                <stop offset="100%" stopColor="#040403" />
               </linearGradient>
               {/* Radiant gold metallic gradient for slice divider lines */}
               <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -253,8 +256,39 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                 <stop offset="50%" stopColor="#f1bf62" stopOpacity="0.12" />
                 <stop offset="100%" stopColor="#b8860b" stopOpacity="0" />
               </radialGradient>
+              {/* Gold border gradient for icon circular frames */}
+              <linearGradient id="iconGoldBorder" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#ffd885" />
+                <stop offset="100%" stopColor="#b58728" />
+              </linearGradient>
+              {/* Icon Circle Backdrop Gradient */}
+              <linearGradient id="iconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#2a251e" />
+                <stop offset="100%" stopColor="#12110e" />
+              </linearGradient>
+
+              {/* DYNAMIC TEXT PATHS DEFINITION FOR CIRCULAR LABELS */}
+              {WHEEL_ITEMS.map((item, index) => {
+                const angle1 = (index * 45 - 90) * Math.PI / 180;
+                const angle2 = ((index + 1) * 45 - 90) * Math.PI / 180;
+                // Perfect radius of 0.53 places the text elegantly in the middle of each slice
+                const r = 0.53;
+                const x1 = r * Math.cos(angle1);
+                const y1 = r * Math.sin(angle1);
+                const x2 = r * Math.cos(angle2);
+                const y2 = r * Math.sin(angle2);
+                return (
+                  <path
+                    key={`path-def-${item.id}`}
+                    id={`textPath-${index}`}
+                    d={`M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`}
+                    fill="none"
+                  />
+                );
+              })}
             </defs>
 
+            {/* Render interactive slices */}
             {WHEEL_ITEMS.map((item, index) => {
               const startPercent = index / WHEEL_ITEMS.length;
               const endPercent = (index + 1) / WHEEL_ITEMS.length;
@@ -273,23 +307,23 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
               const sliceFill = index % 2 === 0 ? "url(#metallicSliceA)" : "url(#metallicSliceB)";
 
               return (
-                <g key={item.id}>
+                <g
+                  key={item.id}
+                  className="cursor-pointer pointer-events-auto"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSliceClick(index);
+                  }}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
                   {/* Base Metallic Slice */}
                   <path
                     d={pathData}
                     fill={sliceFill}
                     stroke="url(#goldStroke)"
-                    strokeWidth="0.008"
-                    className="transition-all duration-300 cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleSliceClick(index);
-                    }}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                    style={{
-                      opacity: hoveredIndex !== null ? (isHovered ? 1 : 0.85) : 1,
-                    }}
+                    strokeWidth="0.007"
+                    className="transition-all duration-300"
                   />
                   {/* Radiant Glow Overlay when selected or hovered */}
                   {(isSelected || isHovered) && (
@@ -303,7 +337,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
               );
             })}
 
-            {/* Concentric Grooves to mimic brushed dark bronze metal dial dial */}
+            {/* Concentric Grooves to mimic brushed dark bronze metal dial */}
             <circle cx="0" cy="0" r="0.95" fill="none" stroke="rgba(0, 0, 0, 0.45)" strokeWidth="0.003" pointerEvents="none" />
             <circle cx="0" cy="0" r="0.90" fill="none" stroke="rgba(241, 191, 98, 0.04)" strokeWidth="0.002" pointerEvents="none" />
             <circle cx="0" cy="0" r="0.85" fill="none" stroke="rgba(0, 0, 0, 0.4)" strokeWidth="0.003" pointerEvents="none" />
@@ -317,47 +351,47 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
             <circle cx="0" cy="0" r="0.45" fill="none" stroke="rgba(0, 0, 0, 0.4)" strokeWidth="0.003" pointerEvents="none" />
             <circle cx="0" cy="0" r="0.40" fill="none" stroke="rgba(241, 191, 98, 0.02)" strokeWidth="0.002" pointerEvents="none" />
             <circle cx="0" cy="0" r="0.35" fill="none" stroke="rgba(0, 0, 0, 0.45)" strokeWidth="0.003" pointerEvents="none" />
-          </svg>
 
-          {/* Slices Text & Icons positioned absolutely over SVG */}
-          {WHEEL_ITEMS.map((item, index) => {
-            const angle = (360 / WHEEL_ITEMS.length) * index + (180 / WHEEL_ITEMS.length); // mathematically centered text (22.5 offset for 8 segments)
-            const isSelected = selectedType === item.id;
-            const isHovered = hoveredIndex === index;
-            return (
-              <div
-                key={item.id}
-                className="absolute inset-0 flex flex-col items-center pt-8 md:pt-11 pointer-events-none"
-                style={{
-                  transform: `rotate(${angle}deg)`,
-                  transformOrigin: "50% 50%",
-                }}
-              >
-                {/* Circular framed icon with sleek circular borders, gold gradients and subtle inner shadows */}
-                <div 
-                  className={`flex flex-col items-center justify-center w-8.5 h-8.5 rounded-full border transition-all duration-350 pointer-events-auto cursor-pointer shadow-md ${
-                    (isSelected || isHovered) 
-                      ? "scale-125 border-[#f1bf62] bg-gradient-to-b from-[#f1bf62] to-[#c79a3c] text-[#121416] shadow-[0_0_12px_rgba(241,191,98,0.4),inset_0_1px_2px_rgba(255,255,255,0.3)]" 
-                      : "border-[#f1bf62]/45 bg-gradient-to-b from-[#2a251e] to-[#12110e] text-[#c6c6ce] hover:border-[#f1bf62] hover:text-white shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),0_2px_6px_rgba(0,0,0,0.6)]"
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSliceClick(index);
-                  }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                >
-                  {/* render icon with elegant colors */}
-                  {React.cloneElement(item.icon as React.ReactElement<any>, {
-                    className: (isSelected || isHovered) ? "w-4 h-4 text-[#121416]" : "w-4 h-4 text-[#c6c6ce]"
-                  })}
-                </div>
-                
-                {/* Short labels for georgian wheel - whiter, bolder and larger */}
-                <span 
-                  className={`text-[11.5px] md:text-[13px] uppercase tracking-[0.14em] text-center mt-3 max-w-[55px] md:max-w-[80px] leading-tight transition-all duration-350 pointer-events-auto cursor-pointer ${
-                    (isSelected || isHovered) ? "text-[#f1bf62] font-black scale-108" : "text-white font-black hover:text-[#f1bf62]"
-                  }`}
+            {/* CURVED GEORGIAN LABELS FOLLOWING THE TEXT PATHS */}
+            {WHEEL_ITEMS.map((item, index) => {
+              const isSelected = selectedType === item.id;
+              const isHovered = hoveredIndex === index;
+              return (
+                <text key={`text-${item.id}`} className="select-none pointer-events-none">
+                  <textPath
+                    href={`#textPath-${index}`}
+                    startOffset="50%"
+                    textAnchor="middle"
+                    fill={(isSelected || isHovered) ? "#ffd885" : "#ffffff"}
+                    className="transition-colors duration-300 font-headline"
+                    style={{
+                      fontSize: "0.062px", // scaled down to fit beautifully inside the slices
+                      fontWeight: 900,
+                      letterSpacing: "0.02em",
+                      dominantBaseline: "middle",
+                    }}
+                  >
+                    {item.title.split(" ")[0]}
+                  </textPath>
+                </text>
+              );
+            })}
+
+            {/* GORGEOUS GOLD-OUTLINED CIRCULAR ICON LABELS PLACED NEAR OUTER EDGE */}
+            {WHEEL_ITEMS.map((item, index) => {
+              const isSelected = selectedType === item.id;
+              const isHovered = hoveredIndex === index;
+
+              // Calculate icon center coordinate exactly at the midpoint of each slice at R = 0.77
+              const midAngle = (index * 45 + 22.5 - 90) * Math.PI / 180;
+              const rIcon = 0.77;
+              const xIcon = rIcon * Math.cos(midAngle);
+              const yIcon = rIcon * Math.sin(midAngle);
+
+              return (
+                <g
+                  key={`icon-group-${item.id}`}
+                  className="cursor-pointer pointer-events-auto transition-transform duration-300"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleSliceClick(index);
@@ -365,47 +399,75 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   style={{
-                    textShadow: "0 2px 4px rgba(0,0,0,1), 0 1px 2px rgba(0,0,0,0.9)",
+                    transformOrigin: `${xIcon}px ${yIcon}px`,
                   }}
                 >
-                  {item.title.split(" ")[0]}
-                </span>
-              </div>
-            );
-          })}
+                  {/* Glowing gold circular framed border */}
+                  <circle
+                    cx={xIcon}
+                    cy={yIcon}
+                    r="0.08"
+                    fill={ (isSelected || isHovered) ? "url(#goldStroke)" : "url(#iconBg)" }
+                    stroke="url(#iconGoldBorder)"
+                    strokeWidth="0.005"
+                    className="transition-all duration-300 shadow-md"
+                    style={{
+                      filter: (isSelected || isHovered) ? "drop-shadow(0 0 3px rgba(241,191,98,0.5))" : "drop-shadow(0 1.5px 3px rgba(0,0,0,0.6))",
+                    }}
+                  />
+
+                  {/* React Lucide icon rendered inside foreignObject */}
+                  <foreignObject
+                    x={xIcon - 0.045}
+                    y={yIcon - 0.045}
+                    width="0.09"
+                    height="0.09"
+                    className="pointer-events-none"
+                  >
+                    <div className="w-full h-full flex items-center justify-center">
+                      {React.cloneElement(item.icon as React.ReactElement<any>, {
+                        style: { width: "13px", height: "13px" },
+                        className: (isSelected || isHovered) ? "text-[#121416]" : "text-[#c6c6ce]"
+                      })}
+                    </div>
+                  </foreignObject>
+                </g>
+              );
+            })}
+          </svg>
         </div>
 
-        {/* Central Core Spin Button (Concentric metallic dome structure) */}
+        {/* Central Core Spin Button (Concentric metallic dome structure) - STAYS PERFECTLY UPRIGHT */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             spin();
           }}
           disabled={disabled}
-          className={`absolute w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-b from-[#2d2a22] via-[#151718] to-[#080909] flex flex-col items-center justify-center z-10 transition-all duration-500 cursor-pointer border border-[#f1bf62]/70 shadow-[0_10px_30px_rgba(0,0,0,0.95),inset_0_1px_3px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95`}
+          className={`absolute w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-b from-[#2d2a22] via-[#151718] to-[#080909] flex flex-col items-center justify-center z-10 transition-all duration-500 cursor-pointer border border-[#f1bf62]/70 shadow-[0_12px_36px_rgba(0,0,0,0.95),inset_0_1px_3px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95`}
         >
           {/* Inner Golden concentric rings */}
-          <div className="absolute inset-1 rounded-full border border-black/80 pointer-events-none"></div>
-          <div className="absolute inset-2 rounded-full border border-[#f1bf62]/35 pointer-events-none"></div>
-          <div className="absolute inset-3 rounded-full border border-black/60 pointer-events-none animate-[spin_60s_linear_infinite]"></div>
+          <div className="absolute inset-1.5 rounded-full border border-black/80 pointer-events-none"></div>
+          <div className="absolute inset-2.5 rounded-full border border-[#f1bf62]/35 pointer-events-none"></div>
+          <div className="absolute inset-3.5 rounded-full border border-black/60 pointer-events-none animate-[spin_80s_linear_infinite]"></div>
           
           {/* Inner Dome Content */}
-          <div className="relative z-10 flex flex-col items-center justify-center">
+          <div className="relative z-10 flex flex-col items-center justify-center text-center">
             {isSpinning ? (
               <>
-                <span className="text-[13px] md:text-[15px] font-black tracking-widest uppercase text-red-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] animate-pulse">
+                <span className="text-[14px] sm:text-[16px] md:text-[18px] font-black tracking-widest uppercase text-red-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] animate-pulse font-headline">
                   სტოპი
                 </span>
-                <span className="text-[7.5px] tracking-widest uppercase mt-0.5 font-extrabold text-white/50">
+                <span className="text-[7.5px] sm:text-[8px] md:text-[9px] tracking-widest uppercase mt-1 font-extrabold text-white/50">
                   გაჩერება
                 </span>
               </>
             ) : (
               <>
-                <span className="text-[15px] md:text-[17px] font-black tracking-[0.14em] uppercase text-white font-headline drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+                <span className="text-[16px] sm:text-[19px] md:text-[21px] font-black tracking-[0.14em] uppercase text-white font-headline drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
                   სტარტი
                 </span>
-                <span className="text-[8px] tracking-widest uppercase mt-1 font-extrabold text-[#f1bf62]/90">
+                <span className="text-[8px] sm:text-[9px] md:text-[9.5px] tracking-widest uppercase mt-1 font-extrabold text-[#f1bf62]/90">
                   ტრიალი
                 </span>
               </>
@@ -415,7 +477,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
       </div>
 
       {/* Selected Theme Name and Description in clean, flat gold/silver text */}
-      <div className="mt-7 text-center px-6 max-w-[380px] space-y-1.5 min-h-[70px]">
+      <div className="mt-8 text-center px-6 max-w-[390px] space-y-1.5 min-h-[70px]">
         {(() => {
           const displayedItem = hoveredIndex !== null 
             ? WHEEL_ITEMS[hoveredIndex] 
