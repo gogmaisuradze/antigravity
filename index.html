@@ -12,13 +12,13 @@
       background: rgba(30, 32, 34, 0.12) !important;
       backdrop-filter: blur(45px) !important;
       -webkit-backdrop-filter: blur(45px) !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.04) !important;
+      border: none !important;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .introspection-card:hover {
       background: rgba(30, 32, 34, 0.22) !important;
-      border-color: rgba(241, 191, 98, 0.25) !important;
+      border: none !important;
       box-shadow: 0 35px 80px rgba(0, 0, 0, 0.5), 0 0 25px rgba(241, 191, 98, 0.05) !important;
       transform: translateY(-5px);
     }
@@ -37,8 +37,8 @@
   <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-12 pt-6 pointer-events-none">
     <nav id="main-nav" class="pointer-events-auto flex items-center px-8 md:px-12 py-2 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
       <a href="logic.html" class="flex items-center gap-4 hover:opacity-90 transition-opacity duration-300 pointer-events-auto">
-        <img alt="IDC Logo" class="object-contain" src="/src/logo.png" style="mix-blend-mode: screen; height: 390px; width: 390px; margin-top: -160px; margin-bottom: -160px; max-width: none;"/>
-        <span class="text-2xl font-headline text-[#f1bf62] tracking-tighter italic">აიდისი</span>
+        <img alt="IDC Logo" class="object-contain" src="/src/logo.png" style="mix-blend-mode: screen; height: 450px; width: 450px; margin-top: -195px; margin-bottom: -195px; max-width: none;"/>
+        <span class="text-4xl md:text-5xl font-headline font-extrabold text-[#f1bf62] tracking-tighter italic drop-shadow-[0_2px_12px_rgba(241,191,98,0.35)]">აიდისი</span>
       </a>
       <div class="hidden md:flex items-center gap-10 font-headline italic text-lg tracking-wide ml-auto mr-10">
         <a class="text-[#f1bf62] border-b border-[#f1bf62] pb-1 hover:opacity-80 transition-opacity duration-300" href="index.html">მთავარი</a>
@@ -181,7 +181,7 @@
     </section>
 
     <!-- Asymmetric Content Block: Reflection -->
-    <section class="py-32 px-12 bg-surface reveal-hidden">
+    <section class="py-32 px-12 reveal-hidden">
       <div class="max-w-5xl mx-auto">
         <div class="flex flex-col md:flex-row gap-20 items-start">
           <div class="md:w-1/2 sticky top-32">
@@ -222,7 +222,7 @@
     </section>
 
     <!-- Services Section: Bento Grid -->
-    <section class="py-32 px-12 bg-surface-container-low reveal-hidden">
+    <section class="py-32 px-12 reveal-hidden">
       <div class="max-w-7xl mx-auto">
         <div class="mb-20">
           <h2 class="text-4xl font-headline text-white italic">გზები ჰარმონიისკენ</h2>
@@ -268,28 +268,6 @@
             <div class="mt-8 h-20 bg-surface-container rounded-lg flex items-center px-4 gap-4 border border-white/5">
               <div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
               <span class="text-xs font-label">ახალი კურსი: "ემოციური ინტელექტი"</span>
-            </div>
-          </div>
-          <div class="md:col-span-2 bg-surface p-12 border border-outline-variant/20 rounded-xl flex flex-col md:flex-row gap-12 items-center hover-glow">
-            <div class="flex-1">
-              <h3 class="text-2xl font-headline text-white mb-4">ექსპრეს კონსულტაცია</h3>
-              <p class="text-on-surface-variant text-sm leading-relaxed font-light">სწრაფი მხარდაჭერა კრიზისულ სიტუაციებში ან გადაუდებელი კითხვების შემთხვევაში.</p>
-              <button class="booking-btn mt-8 text-primary border border-primary/30 px-6 py-2 rounded-xl hover:bg-primary/10 transition-all font-label">დაჯავშნა</button>
-            </div>
-            <div class="w-full md:w-64 h-40 rounded-xl overflow-hidden grayscale opacity-80 relative group/video cursor-pointer border border-white/5">
-              <video 
-                id="bell-video"
-                src="/background.mp4" 
-                class="w-full h-full object-cover transition-transform duration-700 group-hover/video:scale-125"
-                muted 
-                loop 
-                playsinline
-                onmouseenter="this.play()"
-                onmouseleave="this.pause();">
-              </video>
-              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover/video:bg-transparent transition-colors duration-500 z-10 pointer-events-none">
-                <span class="material-symbols-outlined text-[#f1bf62] text-5xl transition-transform duration-700 group-hover/video:scale-150" style="font-variation-settings: 'FILL' 1;">notifications</span>
-              </div>
             </div>
           </div>
         </div>
