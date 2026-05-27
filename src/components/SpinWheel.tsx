@@ -88,6 +88,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
   const [rotation, setRotation] = useState<number>(0);
   const [isSpinning, setIsSpinning] = useState<boolean>(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  
+  // Track selected slice locally for double click / direct selection flow
+  const [localSelectedId, setLocalSelectedId] = useState<CalculationType | null>(selectedType);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   const spinTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -98,6 +102,11 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
       }
     };
   }, []);
+
+  // Sync local selection when parent selectedType changes
+  useEffect(() => {
+    setLocalSelectedId(selectedType);
+  }, [selectedType]);
 
   // Rotate the wheel when selectedType changes from outside (e.g. ProfileForm)
   useEffect(() => {
@@ -145,6 +154,9 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
         return prev + shortestDiff;
       });
 
+      // Update local selection to match the stopped slice
+      setLocalSelectedId(WHEEL_ITEMS[itemIndex].id);
+
       // TRIGGER ANALYSIS immediately after the quick 300ms alignment transition completes!
       spinTimeoutRef.current = setTimeout(() => {
         onSelect(WHEEL_ITEMS[itemIndex].id);
@@ -155,6 +167,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
 
     if (disabled) return;
     setIsSpinning(true);
+    setIsTransitioning(false);
 
     const numSlices = WHEEL_ITEMS.length;
     const itemIndex = Math.floor(Math.random() * numSlices);
@@ -169,13 +182,22 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
     // Trigger analysis ONLY when the 5000ms transition finishes and the wheel stops!
     spinTimeoutRef.current = setTimeout(() => {
       setIsSpinning(false);
+      setLocalSelectedId(WHEEL_ITEMS[itemIndex].id);
       onSelect(WHEEL_ITEMS[itemIndex].id);
       spinTimeoutRef.current = null;
     }, 5000);
   };
 
   const handleSliceClick = (index: number) => {
-    if (disabled) return;
+    if (disabled || isSpinning) return;
+    
+    const clickedId = WHEEL_ITEMS[index].id;
+    
+    // If the slice is already selected/active and has finished its rotation (not transitioning), trigger analysis!
+    if (clickedId === localSelectedId && !isTransitioning) {
+      onSelect(clickedId);
+      return;
+    }
     
     // Stop any active spin/timeout immediately when selecting manually
     if (spinTimeoutRef.current) {
@@ -183,16 +205,17 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
       spinTimeoutRef.current = null;
     }
     
-    setIsSpinning(false);
+    setIsTransitioning(true);
+    setLocalSelectedId(clickedId);
     
     // Rotate to point smoothly to the clicked slice at the top (800ms transition)
     const sliceAngle = 360 / WHEEL_ITEMS.length;
     const targetDeg = (360 - index * sliceAngle) - (sliceAngle / 2);
     setRotation((prev) => Math.floor(prev / 360) * 360 + targetDeg);
     
-    // TRIGGER ANALYSIS ONLY when the 800ms rotation transition finishes and the wheel stops!
+    // Mark transitioning as finished after the 800ms transition completes, but DO NOT run analysis automatically!
     spinTimeoutRef.current = setTimeout(() => {
-      onSelect(WHEEL_ITEMS[index].id);
+      setIsTransitioning(false);
       spinTimeoutRef.current = null;
     }, 800);
   };
@@ -317,7 +340,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                 `Z`,
               ].join(" ");
 
-              const isSelected = selectedType === item.id;
+              const isSelected = localSelectedId === item.id;
               const isHovered = hoveredIndex === index;
               const sliceFill = index % 2 === 0 ? "url(#metallicSliceA)" : "url(#metallicSliceB)";
 
@@ -369,7 +392,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
 
             {/* CURVED GEORGIAN LABELS FOLLOWING THE TEXT PATHS - ENLARGED AND MOVED TO EDGE */}
             {WHEEL_ITEMS.map((item, index) => {
-              const isSelected = selectedType === item.id;
+              const isSelected = localSelectedId === item.id;
               const isHovered = hoveredIndex === index;
               return (
                 <text key={`text-${item.id}`} className="select-none pointer-events-none">
@@ -395,7 +418,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
 
             {/* GORGEOUS GOLD-OUTLINED CIRCULAR ICON LABELS PLACED CLOSER TO THE CENTER DOME */}
             {WHEEL_ITEMS.map((item, index) => {
-              const isSelected = selectedType === item.id;
+              const isSelected = localSelectedId === item.id;
               const isHovered = hoveredIndex === index;
 
               // Calculate icon center coordinate exactly at R = 0.48 (closer to the center dome)
@@ -497,7 +520,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
         {(() => {
           const displayedItem = hoveredIndex !== null 
             ? WHEEL_ITEMS[hoveredIndex] 
-            : (selectedType ? WHEEL_ITEMS.find((item) => item.id === selectedType) : null);
+            : (localSelectedId ? WHEEL_ITEMS.find((item) => item.id === localSelectedId) : null);
           
           if (!displayedItem) return null;
           return (
@@ -515,7 +538,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
 
       {/* Manual Selection Instructions */}
       <p className="text-[12px] font-bold tracking-wider text-white/60 mt-6 text-center uppercase">
-        დააჭირე <span className="text-[#f1bf62] font-black underline">სტარტს</span>, ან <span className="text-[#f1bf62] font-black underline">აირჩიე ხელით</span> სასურველი სექტორი
+        დააჭირე <span className="text-[#f1bf62] font-black underline">სტარტს</span>, ან აირჩიე სექტორი და <span className="text-[#f1bf62] font-black underline">დააჭირე ხელმეორედ</span> გასაანალიზებლად
       </p>
     </div>
   );
