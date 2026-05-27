@@ -274,6 +274,68 @@ app.post("/api/generate-reading", async (req, res) => {
   }
 });
 
+// 3.5. Generate Balance Model (4 Dimensions) analysis using Gemini
+app.post("/api/balance-analysis", async (req, res) => {
+  try {
+    const { bodyScore, achievementScore, contactScore, futureScore, phone } = req.body;
+    
+    if (bodyScore === undefined || achievementScore === undefined || contactScore === undefined || futureScore === undefined) {
+      return res.status(400).json({ success: false, error: "ყველა სფეროს პროცენტი სავალდებულოა!" });
+    }
+
+    const total = Number(bodyScore) + Number(achievementScore) + Number(contactScore) + Number(futureScore);
+    if (total !== 100) {
+      return res.status(400).json({ success: false, error: "პროცენტების ჯამი აუცილებლად უნდა იყოს 100%!" });
+    }
+
+    const ai = getAI();
+    let userProfileStr = "";
+    
+    if (phone) {
+      const cleanPhone = phone.trim().replace(/\s+/g, "");
+      const profiles = await loadProfiles();
+      const profile = profiles[cleanPhone];
+      if (profile) {
+        userProfileStr = `მომხმარებლის სახელი: ${profile.name} ${profile.surname}, დაბადების თარიღი: ${profile.day}/${profile.month}/${profile.year}.`;
+      }
+    }
+
+    const systemInstruction = "შენ ხარ პროფესიონალი პოზიტიური ფსიქოთერაპევტი და Nossrat Peseschkian-ის ოთხი სფეროს ბალანსის მოდელის ექსპერტი. პასუხი გაეცი ქართულ ენაზე, მარკდაუნის (Markdown) ლამაზი ფორმატირებით. პასუხი უნდა იყოს ძალიან სიღრმისეული, მხარდამჭერი, ემპათიური და პრაქტიკული რეკომენდაციებით სავსე. მიმართე მომხმარებელს მეგობრულად და პროფესიონალურად.";
+    
+    const prompt = `ჩაატარე სიღრმისეული ფსიქოლოგიური ანალიზი პოზიტიური ფსიქოთერაპიის ბალანსის მოდელის მიხედვით.
+${userProfileStr ? `მონაცემები: ${userProfileStr}\n` : ""}
+ენერგიის განაწილება ოთხ სფეროზე არის შემდეგი:
+- სხეული / ჯანმრთელობა (ძილი, კვება, ფიზიკური აქტივობა, დასვენება): ${bodyScore}% (იდეალურია 25%)
+- მიღწევები / სამუშაო (კარიერა, სწავლა, ფინანსები, საოჯახო საქმეები): ${achievementScore}% (იდეალურია 25%)
+- კონტაქტები / ურთიერთობები (ოჯახი, მეგობრები, სოციუმი, პარტნიორი): ${contactScore}% (იდეალურია 25%)
+- მომავალი / ფანტაზია (სამომავლო გეგმები, მედიტაცია, სულიერი პრაქტიკა, ცხოვრების საზრისი): ${futureScore}% (იდეალურია 25%)
+
+გთხოვთ, შეადგინო სიღრმისეული ანალიზი:
+1. **ამჟამინდელი მდგომარეობის დეტალური ფსიქოლოგიური სურათი**: როგორ მოქმედებს ენერგიის ეს განაწილება მომხმარებლის ყოველდღიურობაზე, მენტალურ ჰიგიენასა და ემოციურ ფონზე.
+2. **დისბალანსის წერტილები და მათი მიზეზები**: რომელი სფეროა ყველაზე მეტად გადატვირთული (ჰიპერ-კომპენსაცია) და სად არის რესურსების დეფიციტი (ჰიპო-კომპენსაცია).
+3. **პოტენციური ფსიქოსომატური რისკები**: თუ სხეულის ან სხვა სფერო უგულებელყოფილია, რა სახის ფსიქოსომატური რეაქციები შეიძლება გამოვლინდეს.
+4. **ნაბიჯ-ნაბიჯ სტრატეგია წონასწორობის აღდგენისთვის**: მინიმუმ 3-4 ძალიან კონკრეტული, ყოველდღიურად განხორციელებადი პრაქტიკული რეკომენდაცია თითოეული პრობლემური სფეროს ჰარმონიზაციისთვის.`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-3.5-flash",
+      contents: prompt,
+      config: {
+        systemInstruction,
+        temperature: 0.95,
+      }
+    });
+
+    res.json({
+      success: true,
+      title: "ცხოვრების ბალანსის მოდელის ანალიზი",
+      content: response.text || "ვერ მოხერხდა ანალიზის გენერირება."
+    });
+
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // 4. Generate compatibility analysis between two registered phones
 app.post("/api/compatibility", async (req, res) => {
   try {

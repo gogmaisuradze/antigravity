@@ -18,7 +18,8 @@ export default defineConfig({
         blog: resolve(__dirname, 'blog.html'),
         contact: resolve(__dirname, 'contact.html'),
         cosmic: resolve(__dirname, 'cosmic.html'),
-        logic: resolve(__dirname, 'logic.html')
+        logic: resolve(__dirname, 'logic.html'),
+        balance: resolve(__dirname, 'balance.html')
       }
     }
   }
