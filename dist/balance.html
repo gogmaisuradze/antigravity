@@ -3,9 +3,13 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>ბლოგი - IDC აიდისი</title>
+  <title>ბალანსის მოდელი (ცხოვრების 4 განზომილება) - IDC აიდისი</title>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@300;400;600&amp;family=Noto+Sans+Georgian:wght@100..900&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <!-- Modern Georgian-supporting Font FiraGO & Inter for React -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script type="module" crossorigin src="/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
   <script type="module" crossorigin src="/assets/main-3itq3lQE.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/input-BKJog2rM.css">
@@ -18,6 +22,7 @@
     </video>
     <div class="absolute inset-0 bg-gradient-to-b from-[#121416]/40 via-transparent to-[#121416]/50"></div>
   </div>
+
   <!-- Floating Island Header -->
   <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-12 pt-6 pointer-events-none">
     <nav id="main-nav" class="pointer-events-auto flex items-center px-8 md:px-12 py-2 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
@@ -44,8 +49,8 @@
           </button>
           <div class="absolute right-0 mt-2 w-48 rounded-xl bg-[#1e2022]/95 border border-white/5 backdrop-blur-xl shadow-2xl py-2 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50 font-normal">
             <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="cosmic.html">იდენტობის მატრიცა</a>
-            <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="balance.html">ბალანსის მოდელი</a>
-            <a class="block px-4 py-2 text-sm text-[#f1bf62] hover:bg-white/5 transition-colors" href="blog.html">ბლოგი</a>
+            <a class="block px-4 py-2 text-sm text-[#f1bf62] hover:bg-white/5 transition-colors" href="balance.html">ბალანსის მოდელი</a>
+            <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="blog.html">ბლოგი</a>
           </div>
         </div>
         <div class="relative group">
@@ -93,7 +98,7 @@
       </div>
     </div>
     <!-- Mobile Navigation Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-[#1e2022]/95 border border-white/5 rounded-2xl mt-4 px-8 py-6 shadow-2xl pointer-events-auto">
+    <div id="mobile-menu" class="hidden md:hidden bg-[#1e2022]/95 border border-white/5 rounded-2xl mt-4 px-8 py-6 space-y-4 shadow-2xl pointer-events-auto">
       <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="index.html">მთავარი</a>
       <div class="py-2 border-b border-white/5">
         <span class="block text-[#c6c6ce] font-headline italic text-lg pb-1">სერვისები</span>
@@ -103,11 +108,11 @@
         </div>
       </div>
       <div class="py-2 border-b border-white/5">
-        <span class="block text-[#c6c6ce] font-headline italic text-lg pb-1">ინტერაქცია</span>
+        <span class="block text-[#f1bf62] font-headline italic text-lg pb-1">ინტერაქცია</span>
         <div class="pl-4 space-y-2 mt-1">
           <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="cosmic.html">იდენტობის მატრიცა</a>
-          <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="balance.html">ბალანსის მოდელი</a>
-          <a class="block text-sm text-[#f1bf62]" href="blog.html">ბლოგი</a>
+          <a class="block text-sm text-[#f1bf62]" href="balance.html">ბალანსის მოდელი</a>
+          <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="blog.html">ბლოგი</a>
         </div>
       </div>
       <div class="py-2">
@@ -120,173 +125,193 @@
     </div>
   </header>
 
-  <main class="relative z-10 pt-40">
-    <!-- Hero Section -->
-    <section class="relative min-h-[500px] flex items-center justify-center tonal-gradient px-12 overflow-hidden reveal-hidden">
-      <div class="absolute inset-0 opacity-10 pointer-events-none">
-        <img class="w-full h-full object-cover" alt="misty landscape" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9KrOZG8jKvfpFQUR4NZS9CpGjOEU2p9G0o9K5RKWEwyOEjU2zVQm298GPUNj-iEdf-YW4vg3l8KozME9cmFqz_vIthw0gkg4G0Z_uyPGk2AlLAbGlg6Tjphn_MjM49DvU28B8pJM3lYkY_HRYlBvx5qDfw9VOTV4hsCIry5QxVNWTl1Zy8CcKGqZKY2gzc2t06X_a-3GM0TXzLZd3AYfMnF6vZJ6yh-rRq10yfNtddmpRSbOFrdiuh5Uk8Gzb5IMPZBNCc2kA80sg"/>
-      </div>
-      <div class="relative z-10 text-center max-w-4xl mx-auto">
-        <span class="text-secondary font-label uppercase tracking-[0.3em] text-xs mb-6 block">ფილოსოფიური წვდომა</span>
-        <h1 class="text-5xl md:text-7xl font-headline italic text-primary leading-tight mb-8">შინაგანი წვდომა</h1>
-        <p class="text-on-surface-variant text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
-          ბლოგი და რესურსები: სიღრმისეული ხედვები და პრაქტიკული რჩევები თქვენი შინაგანი ჰარმონიისთვის.
-        </p>
-      </div>
-    </section>
-
-    <!-- Featured Article -->
-    <section class="px-12 py-24 max-w-screen-2xl mx-auto reveal-hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-        <div class="lg:col-span-7 relative group">
-          <div class="aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl border border-white/5">
-            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Person meditating" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKfEgmBdC9dXdoBxf2jBq1-t8RKe4rf4HTZtxUOmbc-v65bIxMpZ7SGhXte3Dz74RuunQr1L21sR-y_OagwOwERi5HJT8EOjbpssfKx7fAa7M8JY4FWslnB5eP_JrHhEGAF0743uQFJJE2tBBOb41Sbc0xDNt6jrewjouSneoNiCmXnDOkzkRgls8nYdBO-5dLdiUnRdrMMPDQWUeZkMyXa2avuKK1hEkmn3MpKRKKy4SIT-JQojF6RfbuXhkKITvTMA3BQiqhr-T9"/>
-          </div>
-          <div class="absolute -bottom-6 -right-6 hidden md:block p-8 bg-surface-container-high rounded-2xl border border-outline-variant/15 backdrop-blur-md shadow-2xl">
-            <span class="text-secondary font-headline italic text-xl">კვირის რჩეული</span>
-          </div>
-        </div>
-        <div class="lg:col-span-5 space-y-6">
-          <div class="flex items-center gap-4 text-xs font-label uppercase tracking-widest text-primary">
-            <span>15 მარტი, 2024</span>
-            <span class="w-1 h-1 bg-secondary rounded-full"></span>
-            <span>თვითგანვითარება</span>
-          </div>
-          <h2 class="text-4xl font-headline italic leading-snug">სიჩუმის ხელოვნება თანამედროვე ქაოსში</h2>
-          <p class="text-on-surface-variant leading-relaxed font-light">
-            როგორ მოვძებნოთ სიმშვიდე იქ, სადაც ხმაური არასდროს წყდება? ჩვენი პირველი ნაბიჯები შინაგანი დიალოგისკენ იწყება არა ხმამაღალი განცხადებებით, არამედ სიჩუმით.
+  <!-- React Mount Point for interactive page -->
+  <main class="relative z-10 pt-44 min-h-screen px-4 md:px-6 pb-24 max-w-6xl w-full mx-auto animate-fade-in">
+    <div id="balance-app-root">
+      <!-- High-end Glassmorphic Container -->
+      <div class="bg-surface-container-high p-8 md:p-12 rounded-3xl shadow-2xl border border-white/10 relative overflow-hidden backdrop-blur-3xl transition-all duration-300 hover:shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
+        <div class="absolute top-0 left-0 w-full h-[3px] bg-[#f1bf62]"></div>
+        
+        <!-- Header inside the panel -->
+        <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+          <span class="material-symbols-outlined text-[#f1bf62] text-6xl block animate-pulse">balance</span>
+          <h1 class="text-3xl md:text-4xl font-headline italic font-bold text-white tracking-wide">
+            ბალანსის მოდელი <span class="text-[#f1bf62]">(ცხოვრების 4 განზომილება)</span>
+          </h1>
+          <p class="text-sm md:text-base text-[#c6c6ce]/80 leading-relaxed uppercase tracking-wider font-semibold">
+            პოზიტიური ფსიქოთერაპიის (Nossrat Peseschkian) ინტერაქტიული მოდული
           </p>
-          <a class="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors group" href="#">
-            <span class="font-label uppercase tracking-widest text-sm font-semibold">გაიგე მეტი</span>
-            <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
-          </a>
         </div>
-      </div>
-    </section>
 
-    <!-- Categories & Filter -->
-    <section class="px-12 pb-16 reveal-hidden">
-      <div class="max-w-screen-2xl mx-auto flex flex-wrap gap-8 items-baseline justify-between border-b border-outline-variant/15 pb-8">
-        <div class="flex flex-wrap gap-6 text-sm font-label uppercase tracking-widest" id="blog-categories">
-          <span class="category-filter text-secondary border-b border-secondary pb-1 cursor-pointer hover:opacity-85 transition-opacity" data-category="all">ყველა</span>
-          <span class="category-filter text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-category="ფსიქოლოგია">ფსიქოლოგია</span>
-          <span class="category-filter text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-category="მედიტაცია">მედიტაცია</span>
-          <span class="category-filter text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-category="თვითგანვითარება">თვითგანვითარება</span>
-          <span class="category-filter text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-category="ჰარმონია">ჰარმონია</span>
-          <span class="category-filter text-on-surface-variant hover:text-primary transition-colors cursor-pointer" data-category="ტრანსფორმაცია">ტრანსფორმაცია</span>
+        <!-- Informative text panel -->
+        <div class="bg-white/5 border border-white/5 p-6 rounded-2xl mb-8 space-y-4 text-[#c6c6ce] leading-relaxed">
+          <p class="text-sm md:text-base font-medium">
+            წარმოიდგინეთ, რომ თქვენი სასიცოცხლო ენერგია არის <strong class="text-[#f1bf62] font-extrabold text-base">100%</strong> (შინაგანი რესურსი და არა უბრალოდ ფიზიკური დრო).
+          </p>
+          <p class="text-sm md:text-base font-medium">
+            თეორიის მიხედვით, იდეალურ შემთხვევაში ენერგია ოთხ სფეროზე დინამიურად, <strong class="text-[#f1bf62] font-extrabold">25-25%-ით</strong> უნდა ნაწილდებოდეს. თუმცა რეალობაში ეს ასე იშვიათადაა.
+          </p>
+          <p class="text-xs md:text-sm font-bold uppercase tracking-widest text-[#f1bf62]/90 border-t border-white/5 pt-3">
+            გადაანაწილეთ თქვენი 100% ოთხ სფეროზე იმის მიხედვით, თუ როგორ ხარჯავთ მას ამჟამად:
+          </p>
         </div>
-        <div class="relative group">
-          <span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">search</span>
-          <input id="blog-search" class="bg-transparent border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-secondary pl-8 py-2 text-on-surface w-64 placeholder:text-on-surface-variant/50 transition-all font-body" placeholder="ძიება..." type="text"/>
-        </div>
-      </div>
-    </section>
 
-    <!-- Blog Grid -->
-    <section class="px-12 pb-32 max-w-screen-2xl mx-auto reveal-hidden">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12" id="blog-grid">
-        <!-- Card 1 -->
-        <article class="blog-post flex flex-col group hover-glow p-6 bg-surface-container-low/20 rounded-3xl border border-transparent" data-category="ტრანსფორმაცია">
-          <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-8 transition-all group-hover:shadow-2xl shadow-xl">
-            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Abstract transformation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbnyk4QIQ_2sIlv-u8Wy_pO8J_hqKmzpk7aMoM1JiI0-_IAOhNPZui9Bhn7xT1I8b8QP_CVaiDJC86i0pLy7HI7SsFxAKZ6l3GlAIviCFowzisqRrYAnE8GwNymxeyolOwLGsj0FovselHnG6dh-HEprMBPSKvslSuyBm7jrRpHPVjcPUesZSwY86fwhKKHn1DSH9XttSn1cBvoE3xJwpC9T8uB8iIu9uxvwAu7F6rBswgZnrpQmNlqKDGQW0_M-k13qHRI7y5w7qi"/>
-          </div>
-          <div class="space-y-4">
-            <span class="text-secondary text-xs font-label uppercase tracking-widest">ტრანსფორმაცია</span>
-            <h3 class="text-2xl font-headline italic leading-tight group-hover:text-primary transition-colors">ცვლილებების შიში და მათი მიღება</h3>
-            <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-3 font-light">
-              ყოველი დიდი ცვლილება იწყება იმის აღიარებით, რომ ძველი გზები აღარ მუშაობს. როგორ გადავაქციოთ შიში ზრდის ძალად?
-            </p>
-            <a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors text-sm font-label uppercase tracking-widest pt-2 font-semibold" href="#">
-              გაიგე მეტი
-            </a>
-          </div>
-        </article>
-        <!-- Card 2 -->
-        <article class="blog-post flex flex-col group hover-glow p-6 bg-surface-container-low/20 rounded-3xl border border-transparent mt-12 lg:mt-0" data-category="ჰარმონია">
-          <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-8 transition-all group-hover:shadow-2xl shadow-xl">
-            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Zen stones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbO1MqDB-1WjOZSxbE-vrpPPTzaYuUjODIqeUK7KUT3ZP4vZ6aID33RWcEqxcicUupMmHexd0VPQvsN3Vw4WfjtPy-nJEx1VemNT33aPOzgdp-iyVKaNtJg7zbbSFCa66j9CJRpr07H3zYeotG7-ohQoI71IK2Jnie--K4_pLwSKIqyvISCo7I4eau1y40TR_PqNC3DlXBBvAvVT9PStBqyHcgKkgWC1C8R1DQf53AlMvyjDHqRwAPXeKkAvj6GW7bvn6GP7OwN22T"/>
-          </div>
-          <div class="space-y-4">
-            <span class="text-secondary text-xs font-label uppercase tracking-widest">ჰარმონია</span>
-            <h3 class="text-2xl font-headline italic leading-tight group-hover:text-primary transition-colors">ბალანსი სხეულსა და გონებას შორის</h3>
-            <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-3 font-light">
-              პრაქტიკული სავარჯიშოები ყოველდღიური მენტალური ჰიგიენისთვის. ისწავლეთ როგორ მოუსმინოთ თქვენი სხეულის სიგნალებს.
-            </p>
-            <a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors text-sm font-label uppercase tracking-widest pt-2 font-semibold" href="#">
-              გაიგე მეტი
-            </a>
-          </div>
-        </article>
-        <!-- Card 3 -->
-        <article class="blog-post flex flex-col group hover-glow p-6 bg-surface-container-low/20 rounded-3xl border border-transparent mt-24 lg:mt-0" data-category="თვითგანვითარება">
-          <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-8 transition-all group-hover:shadow-2xl shadow-xl">
-            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Open window lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg_K5y6o_iz1i_tzPjiSPaA6TSxoWdPuFzoQvY9r2N46jfTST-fpLRHiRIfJP9tkq9VdiiqcL6rCTsihXCwuaJH8jo62kKnO9JPYfGS8dP1jzqa-jxHA4qmHTMUhOpMn8rXP8Pg78QSUANItFFNYh3-wDbDk1kqxpn3h3z6-3vZuZnsQPGUGhmlO_Gx1lyfh0KqZ6vWmHM56JnGXHIMynJzKSFcS5GP3YTwRRFKGpEzES5UXhb_QdeT46QDGzXfiNqey4g4VVeKVy1"/>
-          </div>
-          <div class="space-y-4">
-            <span class="text-secondary text-xs font-label uppercase tracking-widest">თვითგანვითარება</span>
-            <h3 class="text-2xl font-headline italic leading-tight group-hover:text-primary transition-colors">ხედვის წერტილი: საკუთარი თავის აღმოჩენა</h3>
-            <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-3 font-light">
-              ვინ ვართ ჩვენ სოციალური როლების მიღმა? მოგზაურობა საკუთარი მე-ს ყველაზე დაფარულ კუთხეებში.
-            </p>
-            <a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors text-sm font-label uppercase tracking-widest pt-2 font-semibold" href="#">
-              გაიგე მეტი
-            </a>
-          </div>
-        </article>
-        <!-- Card 4 (Horizontal spans 2 cols) -->
-        <article class="blog-post md:col-span-2 flex flex-col md:flex-row gap-12 group p-8 bg-surface-container-low/40 border border-transparent rounded-3xl items-center hover-glow mt-12" data-category="ფსიქოლოგია">
-          <div class="md:w-1/2 aspect-video rounded-2xl overflow-hidden shadow-xl">
-            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Misty mountains twilight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhrUPYKHmY8xXzLRDZHkkUuCiJTCJlAIIaWKr8KIDigCAsjyzZ62tUNFQSRGKd-TGLEzkd6khLnKOcwSRJy6Lw6dfqXy8wxC9vv9bLdbGKrA9m76Or-3j3RFo8FWnQLxuS46ruiXowRZWpKNDqTZTDiP4nVfKcr2pGi0rv3ZmQjQH6kWvQoHebEEGxv7NDf5GjsiUsWM-huzX_vE7yw_BqBTs7ZLgbWDWNJgnpjdzDQOZHJRxJgSJHealdrjShupMo94BdBChKaF3s"/>
-          </div>
-          <div class="md:w-1/2 space-y-6">
-            <span class="text-secondary text-xs font-label uppercase tracking-widest">ფსიქოლოგია</span>
-            <h3 class="text-3xl font-headline italic leading-tight">კარმალოგიკა და თანამედროვეობა</h3>
-            <p class="text-on-surface-variant leading-relaxed font-light">
-              როგორ უკავშირდება უძველესი კანონზომიერებები ჩვენს დღევანდელ ყოფას და რატომ არის მნიშვნელოვანი მიზეზ-შედეგობრიობის გააზრება.
-            </p>
-            <a class="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors text-sm font-label uppercase tracking-widest font-semibold" href="#">
-              გაიგე მეტი
-            </a>
-          </div>
-        </article>
-        <!-- Card 5 -->
-        <article class="blog-post flex flex-col group hover-glow p-6 bg-surface-container-low/20 rounded-3xl border border-transparent mt-12" data-category="მედიტაცია">
-          <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-8 transition-all group-hover:shadow-2xl shadow-xl">
-            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Candle flame" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRaKQyPJJtM1kkz3WKPkp_BVhuFkb8N0eyb02EL9EAPit1yo85CzQsR-Bp9dKGVS3HligZKGmFj0NKz-xUAe-wTNlPVqC2-3QmMndRlpIGm-v8_r-1GOpQGHPD-AkeWKHN5O5oAVAFLcMq47gTw16lEwqKVTts1aPRvIX9G5dWbU-uI8YkYK5OCs3uteOwBagJSLN_d3UiVxVBJyl_bB5ocl1xzI1dPcCldoth3C3yToqDP1dB3CdlFlO0YUC8ptbroDU11A9ZYuQt"/>
-          </div>
-          <div class="space-y-4">
-            <span class="text-secondary text-xs font-label uppercase tracking-widest">მედიტაცია</span>
-            <h3 class="text-2xl font-headline italic leading-tight group-hover:text-primary transition-colors">გაცნობიერებული ყოფიერება</h3>
-            <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-3 font-light">
-              მედიტაცია არაა გაქცევა, ესაა დაბრუნება. პრაქტიკები, რომლებიც დაგეხმარებათ აწმყოში დარჩენაში.
-            </p>
-            <a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors text-sm font-label uppercase tracking-widest pt-2 font-semibold" href="#">
-              გაიგე მეტი
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
+        <!-- Interactive App Container -->
+        <div id="balance-interactive-form" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          
+          <!-- Sliders Side -->
+          <div class="space-y-6 bg-black/25 p-6 md:p-8 rounded-2xl border border-white/5 shadow-inner">
+            
+            <!-- Health & Body -->
+            <div class="space-y-2">
+              <div class="flex justify-between items-center">
+                <label class="text-xs font-black uppercase tracking-widest text-emerald-400 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">favorite</span> სხეული / ჯანმრთელობა
+                </label>
+                <span class="text-lg font-mono font-bold text-white" id="val-body">25%</span>
+              </div>
+              <input type="range" min="0" max="100" value="25" id="slider-body" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#f1bf62]"/>
+              <p class="text-[11px] text-[#c6c6ce]/60 leading-relaxed uppercase tracking-wider font-semibold pl-1">
+                ძილი, კვება, ფიზიკური აქტივობა, სპორტი, დასვენება და გარეგნობაზე ზრუნვა.
+              </p>
+            </div>
 
-    <!-- Newsletter Section -->
-    <section class="relative py-24 bg-surface-container-lowest border-t border-outline-variant/10 reveal-hidden">
-      <div class="max-w-4xl mx-auto px-12 text-center">
-        <div class="mb-8 inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-container/30">
-          <span class="material-symbols-outlined text-secondary text-3xl">mail</span>
+            <!-- Achievement & Work -->
+            <div class="space-y-2 pt-2">
+              <div class="flex justify-between items-center">
+                <label class="text-xs font-black uppercase tracking-widest text-blue-400 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">work</span> მიღწევები / სამუშაო
+                </label>
+                <span class="text-lg font-mono font-bold text-white" id="val-achievement">25%</span>
+              </div>
+              <input type="range" min="0" max="100" value="25" id="slider-achievement" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#f1bf62]"/>
+              <p class="text-[11px] text-[#c6c6ce]/60 leading-relaxed uppercase tracking-wider font-semibold pl-1">
+                კარიერა, პროფესია, სწავლა, ფინანსების მართვა და საოჯახო საქმეები.
+              </p>
+            </div>
+
+            <!-- Contacts & Relationships -->
+            <div class="space-y-2 pt-2">
+              <div class="flex justify-between items-center">
+                <label class="text-xs font-black uppercase tracking-widest text-pink-400 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">group</span> კონტაქტები / ურთიერთობები
+                </label>
+                <span class="text-lg font-mono font-bold text-white" id="val-contact">25%</span>
+              </div>
+              <input type="range" min="0" max="100" value="25" id="slider-contact" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#f1bf62]"/>
+              <p class="text-[11px] text-[#c6c6ce]/60 leading-relaxed uppercase tracking-wider font-semibold pl-1">
+                ოჯახი, მეგობრები, პარტნიორი და სოციალურ გარემოსთან ურთიერთობის ემოციური ენერგია.
+              </p>
+            </div>
+
+            <!-- Future & Fantasy -->
+            <div class="space-y-2 pt-2">
+              <div class="flex justify-between items-center">
+                <label class="text-xs font-black uppercase tracking-widest text-purple-400 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">wb_sunny</span> მომავალი / ფანტაზია
+                </label>
+                <span class="text-lg font-mono font-bold text-white" id="val-future">25%</span>
+              </div>
+              <input type="range" min="0" max="100" value="25" id="slider-future" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#f1bf62]"/>
+              <p class="text-[11px] text-[#c6c6ce]/60 leading-relaxed uppercase tracking-wider font-semibold pl-1">
+                გეგმები, მედიტაცია, სულიერი პრაქტიკა, შემოქმედება და ცხოვრების საზრისზე ფიქრი.
+              </p>
+            </div>
+
+            <!-- Verification Ring & Total Indicator -->
+            <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <span class="text-[11px] uppercase tracking-widest text-[#c6c6ce]/60 block font-bold">ჯამური განაწილება</span>
+                <div class="text-2xl font-black font-mono mt-1" id="total-percent-display">
+                  <span class="text-emerald-400" id="total-val">100%</span> / 100%
+                </div>
+              </div>
+              
+              <div class="text-right">
+                <span class="text-[10px] font-black uppercase tracking-widest block text-red-400 hidden" id="total-warning">
+                  ⚠️ ჯამი უნდა იყოს ზუსტად 100%!
+                </span>
+                <span class="text-[10px] font-black uppercase tracking-widest block text-emerald-400" id="total-success">
+                  ✓ განაწილება იდეალურია
+                </span>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button id="btn-submit-balance" class="w-full bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold uppercase tracking-widest py-4 px-6 rounded-xl shadow-[0_0_15px_rgba(241,191,98,0.3)] transition-all cursor-pointer flex items-center justify-center space-x-2 text-[12px]">
+              <span class="material-symbols-outlined text-[#121416] font-bold text-lg">psychology</span>
+              <span>სიღრმისეული ანალიზის გენერირება</span>
+            </button>
+
+          </div>
+
+          <!-- Visual Diagram Preview Side -->
+          <div class="flex flex-col items-center justify-center bg-black/15 p-8 rounded-2xl border border-white/5 min-h-[380px] relative shadow-inner">
+            <!-- Custom CSS Circular Wheel Visualization representing the balance -->
+            <div class="relative w-72 h-72 rounded-full border border-white/10 shadow-2xl flex items-center justify-center bg-[#1e2022]/60 overflow-hidden" id="diagram-circle">
+              <!-- Grid lines dividing the dimensions -->
+              <div class="absolute inset-0 border-t border-white/5 pointer-events-none top-1/2"></div>
+              <div class="absolute inset-0 border-l border-white/5 pointer-events-none left-1/2"></div>
+              
+              <!-- 4 Colored dynamic quadrant backdrops -->
+              <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors flex items-center justify-center border-b border-l border-white/5">
+                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-black absolute top-4 right-4">სხეული</span>
+              </div>
+              <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-blue-500/5 hover:bg-blue-500/10 transition-colors flex items-center justify-center border-b border-r border-white/5">
+                <span class="text-[9px] uppercase tracking-widest text-blue-400 font-black absolute top-4 left-4">საქმე</span>
+              </div>
+              <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-pink-500/5 hover:bg-pink-500/10 transition-colors flex items-center justify-center border-t border-r border-white/5">
+                <span class="text-[9px] uppercase tracking-widest text-pink-400 font-black absolute bottom-4 left-4">კონტაქტი</span>
+              </div>
+              <div class="absolute bottom-0 right-0 w-1/2 h-1/2 bg-purple-500/5 hover:bg-purple-500/10 transition-colors flex items-center justify-center border-t border-l border-white/5">
+                <span class="text-[9px] uppercase tracking-widest text-purple-400 font-black absolute bottom-4 right-4">მომავალი</span>
+              </div>
+
+              <!-- Animated inner dynamic shape indicating current distribution -->
+              <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <polygon points="50,50 50,50 50,50 50,50" fill="rgba(241, 191, 98, 0.15)" stroke="#f1bf62" stroke-width="1" id="svg-polygon" class="transition-all duration-300"/>
+                <!-- Outer reference ideal 25% diamond -->
+                <polygon points="50,25 75,50 50,75 25,50" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" stroke-dasharray="2,2"/>
+              </svg>
+
+              <!-- Central core anchor -->
+              <div class="w-4 h-4 rounded-full bg-[#f1bf62] border border-[#121416] z-10 shadow-md"></div>
+            </div>
+            
+            <p class="text-[11px] text-[#c6c6ce]/50 leading-relaxed uppercase tracking-wider text-center mt-6 max-w-xs font-semibold">
+              ოქროსფერი ხაზი ასახავს თქვენს მიმდინარე ბალანსს, ხოლო თეთრი წყვეტილი ალმასი — იდეალურ წონასწორობას.
+            </p>
+          </div>
+
         </div>
-        <h2 class="text-3xl md:text-4xl font-headline italic mb-4">დარჩით კავშირზე</h2>
-        <p class="text-on-surface-variant mb-12 max-w-lg mx-auto font-light">
-          მიიღეთ ყოველთვიური Insights და ექსკლუზიური რესურსები პირდაპირ თქვენს ფოსტაზე.
-        </p>
-        <form class="flex flex-col md:flex-row gap-4 max-w-xl mx-auto contact-form">
-          <input class="flex-grow bg-surface-container border border-outline-variant/30 rounded-xl px-6 py-4 text-on-surface focus:border-secondary focus:ring-0 transition-all outline-none" placeholder="თქვენი ელ-ფოსტა" type="email" required/>
-          <button class="bg-secondary-container text-on-secondary-container px-10 py-4 rounded-xl font-label text-sm uppercase tracking-widest hover:opacity-90 transition-all font-semibold" type="submit">
-            გამოწერა
-          </button>
-        </form>
+
+        <!-- Dynamic AI Results Window (Hidden by default) -->
+        <div id="balance-results-panel" class="mt-12 pt-8 border-t border-white/10 hidden animate-fade-in">
+          <div class="bg-black/35 p-8 rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl">
+            <div class="absolute top-0 left-0 w-[3px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
+            
+            <div class="flex items-center space-x-3 mb-6">
+              <span class="material-symbols-outlined text-[#f1bf62] text-3xl animate-pulse">insights</span>
+              <h3 class="text-xl font-bold tracking-wide text-[#f1bf62] uppercase font-headline">სიღრმისეული ფსიქო-ტრანსფორმაციული ანალიზი</h3>
+            </div>
+
+            <!-- Loading Spinner inside results -->
+            <div id="ai-loading" class="flex flex-col items-center justify-center py-12 space-y-4">
+              <div class="w-10 h-10 border-4 border-[#f1bf62] border-t-transparent rounded-full animate-spin"></div>
+              <p class="text-xs uppercase tracking-widest text-[#f1bf62] font-semibold animate-pulse font-headline">მიმდინარეობს მონაცემების დამუშავება პოზიტიურ ფსიქოთერაპიაში...</p>
+            </div>
+
+            <!-- Dynamic Markdown Content Container -->
+            <div id="ai-response-container" class="prose prose-invert max-w-none text-sm md:text-base leading-relaxed text-[#c6c6ce] space-y-4 font-medium hidden">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+        </div>
+
       </div>
-    </section>
+    </div>
   </main>
+
   <!-- Footer -->
   <footer class="relative z-10 bg-[#121416] border-t border-[#45464d]/15 py-9 px-6 md:px-12 mt-8">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-start w-full">
@@ -355,18 +380,153 @@
       <p class="text-xs text-[#c6c6ce]/40">© 2024 აიდისი. ყველა უფლება დაცულია.</p>
     </div>
   </footer>
+
+  <!-- Interactive script for Nossrat Peseschkian's Balance Model -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('mobile-menu-btn');
-      const menu = document.getElementById('mobile-menu');
-      if(btn && menu) {
-        btn.addEventListener('click', () => {
-          menu.classList.toggle('hidden');
-        });
+      // 1. DOM Elements
+      const sliders = {
+        body: document.getElementById('slider-body'),
+        achievement: document.getElementById('slider-achievement'),
+        contact: document.getElementById('slider-contact'),
+        future: document.getElementById('slider-future')
+      };
+      
+      const displays = {
+        body: document.getElementById('val-body'),
+        achievement: document.getElementById('val-achievement'),
+        contact: document.getElementById('val-contact'),
+        future: document.getElementById('val-future')
+      };
+
+      const totalVal = document.getElementById('total-val');
+      const totalSuccess = document.getElementById('total-success');
+      const totalWarning = document.getElementById('total-warning');
+      const btnSubmit = document.getElementById('btn-submit-balance');
+      const svgPolygon = document.getElementById('svg-polygon');
+      const resultsPanel = document.getElementById('balance-results-panel');
+      const aiLoading = document.getElementById('ai-loading');
+      const aiContainer = document.getElementById('ai-response-container');
+
+      // 2. State & Sync sliders
+      function getValues() {
+        return {
+          body: Number(sliders.body.value),
+          achievement: Number(sliders.achievement.value),
+          contact: Number(sliders.contact.value),
+          future: Number(sliders.future.value)
+        };
       }
+
+      function updateUI() {
+        const vals = getValues();
+        
+        // Display values
+        displays.body.textContent = vals.body + '%';
+        displays.achievement.textContent = vals.achievement + '%';
+        displays.contact.textContent = vals.contact + '%';
+        displays.future.textContent = vals.future + '%';
+
+        // Calculation total
+        const total = vals.body + vals.achievement + vals.contact + vals.future;
+        totalVal.textContent = total + '%';
+
+        if (total === 100) {
+          totalVal.className = "text-emerald-400";
+          totalSuccess.classList.remove('hidden');
+          totalWarning.classList.add('hidden');
+          btnSubmit.disabled = false;
+          btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
+        } else {
+          totalVal.className = "text-red-400";
+          totalSuccess.classList.add('hidden');
+          totalWarning.classList.remove('hidden');
+          totalWarning.textContent = `⚠️ ჯამი: ${total}% (უნდა იყოს 100%)`;
+          btnSubmit.disabled = true;
+          btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        // Draw current dynamic polygon shape inside R=25 center ideal frame
+        // Coordinate mapping: Center is (50,50)
+        // Top (Body): (50, 50 - r)
+        // Right (Future): (50 + r, 50)
+        // Bottom (Contact): (50, 50 + r)
+        // Left (Achievement): (50 - r, 50)
+        // Base scale: max 100% maps to r = 45 pixels maximum
+        const scale = 0.45;
+        const pBody = { x: 50, y: 50 - (vals.body * scale) };
+        const pFuture = { x: 50 + (vals.future * scale), y: 50 };
+        const pContact = { x: 50, y: 50 + (vals.contact * scale) };
+        const pAchievement = { x: 50 - (vals.achievement * scale), y: 50 };
+
+        svgPolygon.setAttribute('points', `${pBody.x},${pBody.y} ${pFuture.x},${pFuture.y} ${pContact.x},${pContact.y} ${pAchievement.x},${pAchievement.y}`);
+      }
+
+      // Sliders listeners
+      Object.keys(sliders).forEach(key => {
+        sliders[key].addEventListener('input', updateUI);
+      });
+
+      // Submit API request
+      btnSubmit.addEventListener('click', async () => {
+        const vals = getValues();
+        const total = vals.body + vals.achievement + vals.contact + vals.future;
+        if (total !== 100) return;
+
+        // Show loading Panel
+        resultsPanel.classList.remove('hidden');
+        aiLoading.classList.remove('hidden');
+        aiContainer.classList.add('hidden');
+        
+        // Scroll to results cleanly
+        resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        const phone = localStorage.getItem("user_phone") || "";
+
+        try {
+          const res = await fetch('/api/balance-analysis', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              bodyScore: vals.body,
+              achievementScore: vals.achievement,
+              contactScore: vals.contact,
+              futureScore: vals.future,
+              phone
+            })
+          });
+
+          const data = await res.json();
+          if (data.success) {
+            // Render text response, replacing asterisks with bold / lists or clean paragraph blocks
+            aiLoading.classList.add('hidden');
+            aiContainer.classList.remove('hidden');
+
+            // Format markdown response nicely for html output
+            let formattedContent = data.content
+              .replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#f1bf62] font-bold">$1</strong>')
+              .replace(/### (.*?)\n/g, '<h4 class="text-sm font-black uppercase tracking-wider text-[#f1bf62] mt-6 border-b border-white/5 pb-2">$1</h4>')
+              .replace(/## (.*?)\n/g, '<h3 class="text-lg font-headline font-black text-[#f1bf62] mt-8">$1</h3>')
+              .replace(/\n\n/g, '</p><p class="mt-4">')
+              .replace(/- (.*?)\n/g, '<li class="ml-4 list-disc text-sm text-[#c6c6ce]">$1</li>');
+
+            aiContainer.innerHTML = '<p class="text-base text-white/90 leading-relaxed font-medium">' + formattedContent + '</p>';
+          } else {
+            throw new Error(data.error);
+          }
+        } catch (err) {
+          aiLoading.classList.add('hidden');
+          aiContainer.classList.remove('hidden');
+          aiContainer.innerHTML = `<div class="p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-xs font-semibold">შეცდომა ანალიზისას: ${err.message || "კავშირი ვერ დამყარდა"}</div>`;
+        }
+      });
+
+      // Initial draw
+      updateUI();
     });
   </script>
-  <!-- Global Search Bar Spotlight Functionality -->
+
+  <!-- Navigation Global Search functionality -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const searchBtn = document.getElementById('nav-search-btn');
@@ -432,14 +592,7 @@
           { title: "იდენტობის მატრიცა", desc: "დასავლური ჰოროსკოპი, ენიაგრამა, პითაგორას ფსიქომატრიცა და ბაზი", url: "cosmic.html" },
           { title: "ბალანსის მოდელი", desc: "ცხოვრების 4 განზომილება - სხეული, მიღწევა, კონტაქტი და მომავალი", url: "balance.html" },
           { title: "ჩვენს შესახებ", desc: "IDC აიდისი ცენტრის ისტორია, ხედვა და ფსიქოლოგები", url: "about.html" },
-          { title: "კონტაქტი", desc: "სამუშაო საათები, მისამართი და საკონტაქტო ნომრები", url: "contact.html" },
-          { title: "ინდივიდუალური თერაპია", desc: "პერსონალური ფსიქოთერაპიული მხარდაჭერა და კონსულტაცია", url: "services.html" },
-          { title: "წყვილთა ფსიქოთერაპია", desc: "რეზონანსი, კომუნიკაცია და ურთიერთობის კრიზისების მართვა", url: "services.html" },
-          { title: "ჯგუფური თერაპია", desc: "ერთობლივი მხარდაჭერა და ჯგუფური სესიები", url: "services.html" },
-          { title: "ქოუჩინგი", desc: "ინდივიდუალური ქოუჩინგ-სესიები და მიზნების დასახვა", url: "services.html" },
-          { title: "ჯგუფური ქოუჩინგი", desc: "ერთობლივი მუშაობა საერთო მიზნების გარშემო და მხარდაჭერა", url: "services.html" },
-          { title: "ენიაგრამის ანალიზი", desc: "პიროვნების 9 ტიპი, შიშები და ზრდის გზები", url: "cosmic.html" },
-          { title: "პითაგორას მატრიცა", desc: "ციფრული ანალიზი: ენერგია, ნიჭი და ხასიათი", url: "cosmic.html" }
+          { title: "კონტაქტი", desc: "სამუშაო საათები, მისამართი და საკონტაქტო ნომრები", url: "contact.html" }
         ];
 
         searchInput.addEventListener('input', (e) => {

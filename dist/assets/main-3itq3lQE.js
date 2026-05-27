@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded",()=>{y(),v(),h(),w(),L(),k(),E(),B(),A(),I(),q()});function y(){const e=document.getElementById("mobile-menu-btn"),t=document.getElementById("mobile-menu");e&&t&&(e.addEventListener("click",o=>{o.stopPropagation(),t.classList.toggle("hidden");const a=e.querySelector("span");a&&(t.classList.contains("hidden")?a.textContent="menu":a.textContent="close")}),document.addEventListener("click",o=>{if(!t.contains(o.target)&&o.target!==e){t.classList.add("hidden");const a=e.querySelector("span");a&&(a.textContent="menu")}}))}function v(){document.body.insertAdjacentHTML("beforeend",`
     <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-      <div class="bg-[#1e2022] border border-[#45464d]/15 p-8 md:p-12 rounded-none max-w-2xl w-full relative shadow-2xl transition-all duration-300 transform scale-95 max-h-[90vh] overflow-y-auto" id="booking-modal-card">
+      <div class="bg-surface-container-high p-8 md:p-12 rounded-2xl max-w-2xl w-full relative shadow-2xl transition-all duration-300 transform scale-95 max-h-[90vh] overflow-y-auto" id="booking-modal-card">
         <button id="close-modal-btn" class="absolute top-6 right-6 text-[#c6c6ce] hover:text-secondary transition-colors focus:outline-none">
           <span class="material-symbols-outlined text-3xl">close</span>
         </button>
