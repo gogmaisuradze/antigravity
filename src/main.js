@@ -89,8 +89,10 @@ function initBookingModal() {
             <select class="w-full bg-[#121416] border border-outline-variant/30 focus:border-secondary focus:ring-0 rounded-xl py-3.5 px-4 text-on-surface appearance-none transition-colors">
               <option>ინდივიდუალური თერაპია</option>
               <option>წყვილთა თერაპია</option>
-              <option>ჯგუფური სესია</option>
-              <option>ონლაინ კონსულტაცია</option>
+              <option>ჯგუფური თერაპია</option>
+              <option>კონსულტაცია</option>
+              <option>ქოუჩინგი</option>
+              <option>ჯგუფური ქოუჩინგი</option>
             </select>
           </div>
           
@@ -274,6 +276,25 @@ function initBlogFilters() {
    4. Form Validation & Toast Notifications
    ========================================================================== */
 function initFormValidation() {
+  // Global custom validation messages in Georgian
+  document.addEventListener('invalid', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+      e.target.setCustomValidity('გთხოვთ სწორად შეავსოთ ველი');
+    }
+  }, true);
+
+  document.addEventListener('input', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+      e.target.setCustomValidity('');
+    }
+  });
+
+  document.addEventListener('change', (e) => {
+    if (e.target.tagName === 'SELECT') {
+      e.target.setCustomValidity('');
+    }
+  });
+
   // Inject premium Toast Notification container to document body
   const toastHTML = `
     <div id="toast-container" class="fixed bottom-8 right-8 z-[200] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 max-w-sm w-full">

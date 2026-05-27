@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
 @layer base {
   body {
@@ -105,61 +104,163 @@
 /* Floating Navbar dynamic shrinking effect */
 .nav-scrolled {
   margin-top: 1rem !important;
-  background: rgba(30, 32, 34, 0.8) !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(30, 32, 34, 0.75) !important;
+  border-color: rgba(241, 191, 98, 0.25) !important;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Global Premium Surface Overrides for Ambient Video Visibility (Crisp & Clear) */
+/* Global Premium Surface Overrides for Ambient Video Visibility (Frosted Glass Aesthetics) */
 .bg-surface {
-  background-color: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(30, 32, 34, 0.25) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.12) !important;
 }
 .bg-surface-container {
-  background-color: rgba(30, 32, 34, 0.18) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(30, 32, 34, 0.25) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.15) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
 }
 .bg-surface-container-low {
-  background-color: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(30, 32, 34, 0.18) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.1) !important;
 }
 .bg-surface-container-lowest {
-  background-color: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(30, 32, 34, 0.12) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 .bg-surface-container-high {
-  background-color: rgba(40, 42, 44, 0.2) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(40, 42, 44, 0.3) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.18) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4) !important;
 }
 .bg-surface-container-highest {
-  background-color: rgba(51, 53, 55, 0.2) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(51, 53, 55, 0.35) !important;
+  backdrop-filter: blur(22px) !important;
+  -webkit-backdrop-filter: blur(22px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.2) !important;
 }
 .bg-primary-container {
-  background-color: rgba(47, 57, 86, 0.22) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(47, 57, 86, 0.25) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.15) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
 }
 .bg-background {
   background-color: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+}
+
+/* Glassmorphism overrides for Header Nav, Dropdowns, and Mobile Menus */
+#main-nav, .glass-nav {
+  background: rgba(30, 32, 34, 0.45) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.18) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.absolute.left-0.mt-2, .absolute.right-0.mt-2, #mobile-menu {
+  background: rgba(30, 32, 34, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.2) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* contact-form inputs re-styling to rounded glassmorphic fields */
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 14px 20px !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(8px) !important;
+  transition: all 0.3s ease !important;
+  font-family: inherit;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+  outline: none !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: #f1bf62 !important;
+  box-shadow: 0 0 15px rgba(241, 191, 98, 0.25) !important;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(198, 198, 206, 0.45) !important;
+}
+
+/* Premium Card Glow Hover Effect Override */
+.hover-glow {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.hover-glow:hover {
+  transform: translateY(-6px) scale(1.01) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(241, 191, 98, 0.4) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(241, 191, 98, 0.15) !important;
 }
 
 /* Increase top header logo size and separate it from text */
 header img[alt="IDC Logo"] {
-  width: 90px !important;
-  height: 90px !important;
-  margin-right: 1.25rem !important;
+  width: 48px !important;
+  height: 48px !important;
+  margin-right: 0.75rem !important;
   object-fit: contain !important;
   transition: all 0.3s ease !important;
 }
 
+/* Smooth hover transition for all non-header text elements to become maximally white on hover */
+p:not(header *):not(input):not(textarea),
+h1:not(header *),
+h2:not(header *),
+h3:not(header *),
+h4:not(header *),
+h5:not(header *),
+h6:not(header *),
+li:not(header *),
+span:not(header *):not(.material-symbols-outlined):not([class*="booking-btn"]):not([class*="btn"]):not(button *),
+a:not(header *):not([class*="hover:text-"]):not([class*="booking-btn"]):not([class*="btn"]),
+label:not(header *),
+strong:not(header *),
+em:not(header *):not(.material-symbols-outlined),
+b:not(header *),
+i:not(header *),
+td:not(header *),
+th:not(header *) {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
 
-
+p:not(header *):not(input):not(textarea):hover,
+h1:not(header *):hover,
+h2:not(header *):hover,
+h3:not(header *):hover,
+h4:not(header *):hover,
+h5:not(header *):hover,
+h6:not(header *):hover,
+li:not(header *):hover,
+span:not(header *):not(.material-symbols-outlined):not([class*="booking-btn"]):not([class*="btn"]):not(button *):hover,
+a:not(header *):not([class*="hover:text-"]):not([class*="booking-btn"]):not([class*="btn"]):hover,
+label:not(header *):hover,
+strong:not(header *):hover,
+em:not(header *):not(.material-symbols-outlined):hover,
+b:not(header *):hover,
+i:not(header *):hover,
+td:not(header *):hover,
+th:not(header *):hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+}
