@@ -9,17 +9,17 @@
   <link rel="stylesheet" href="/src/input.css"/>
   <style>
     .introspection-card {
-      background: rgba(30, 32, 34, 0.06) !important;
-      backdrop-filter: blur(15px) !important;
-      -webkit-backdrop-filter: blur(15px) !important;
-      border: none !important;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+      background: rgba(18, 20, 22, 0.65) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border: 1px solid rgba(241, 191, 98, 0.15) !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45) !important;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .introspection-card:hover {
-      background: rgba(30, 32, 34, 0.12) !important;
-      border: none !important;
-      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.5), 0 0 25px rgba(241, 191, 98, 0.05) !important;
+      background: rgba(18, 20, 22, 0.80) !important;
+      border: 1px solid rgba(241, 191, 98, 0.3) !important;
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.6), 0 0 25px rgba(241, 191, 98, 0.1) !important;
       transform: translateY(-5px);
     }
   </style>
@@ -271,26 +271,48 @@
               <span class="text-xs font-label">ახალი კურსი: "ემოციური ინტელექტი"</span>
             </div>
           </div>
+          <div class="bg-surface-container-high p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent">
+            <div>
+              <span class="material-symbols-outlined text-secondary text-4xl mb-8">business_center</span>
+              <h3 class="text-2xl font-headline text-white mb-4">კორპორატიული ტრენინგები</h3>
+              <p class="text-on-surface-variant text-sm leading-relaxed font-light">ფსიქოლოგიური კორპორატიული პროგრამები გუნდური ეფექტურობისა და მენტალური ჯანმრთელობისთვის.</p>
+            </div>
+            <div class="mt-8 h-20 bg-surface-container rounded-lg flex items-center px-4 gap-4 border border-white/5">
+              <div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+              <span class="text-xs font-label">ახალი: "Stress Management"</span>
+            </div>
+          </div>
+          <div class="bg-surface-container-high p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent">
+            <div>
+              <span class="material-symbols-outlined text-secondary text-4xl mb-8">library_books</span>
+              <h3 class="text-2xl font-headline text-white mb-4">ბიბლიოთეკა & რესურსები</h3>
+              <p class="text-on-surface-variant text-sm leading-relaxed font-light">სამეცნიერო პუბლიკაციები, ფსიქოლოგიური წიგნები და თვითშეფასების ტესტები.</p>
+            </div>
+            <div class="mt-8 h-20 bg-surface-container rounded-lg flex items-center px-4 gap-4 border border-white/5">
+              <div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+              <span class="text-xs font-label">წვდომა: 50+ უფასო რესურსი</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Contact Path Section -->
     <section class="py-40 px-12 bg-background relative reveal-hidden">
-      <div class="max-w-4xl mx-auto bg-primary-container/20 rounded-[2rem] p-12 md:p-16 text-center relative overflow-hidden backdrop-blur-sm border border-outline-variant/10">
+      <div class="max-w-4xl mx-auto bg-[#121416]/75 rounded-[2rem] p-12 md:p-16 text-center relative overflow-hidden backdrop-blur-xl border border-[#f1bf62]/15 shadow-3xl">
         <h2 class="text-6xl font-headline text-white mb-8 italic z-10 relative">მზად ხართ ცვლილებებისთვის?</h2>
         <p class="text-[#e2e2e9] text-xl font-light mb-16 max-w-2xl mx-auto leading-relaxed z-10 relative">
           თქვენი პირველი ნაბიჯი ჰარმონიისკენ იწყება აქ. დაგვიტოვეთ შეტყობინება და ჩვენ დაგეხმარებით საუკეთესო გზის შერჩევაში.
         </p>
         <form class="space-y-12 text-left max-w-2xl mx-auto contact-form z-10 relative">
           <div class="relative group">
-            <input class="w-full bg-transparent border-0 border-b border-white/20 py-4 text-white focus:ring-0 focus:border-[#f1bf62] transition-all placeholder:text-[#c6c6ce]/70" placeholder="თქვენი სახელი" type="text" required/>
+            <input class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300" placeholder="თქვენი სახელი" type="text" required/>
           </div>
           <div class="relative group">
-            <input class="w-full bg-transparent border-0 border-b border-white/20 py-4 text-white focus:ring-0 focus:border-[#f1bf62] transition-all placeholder:text-[#c6c6ce]/70" placeholder="ელ-ფოსტა" type="email" required/>
+            <input class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300" placeholder="ელ-ფოსტა" type="email" required/>
           </div>
           <div class="relative group">
-            <textarea class="w-full bg-transparent border-0 border-b border-white/20 py-4 text-white focus:ring-0 focus:border-[#f1bf62] transition-all placeholder:text-[#c6c6ce]/70 resize-none" placeholder="მოკლე შეტყობინება" rows="1" required></textarea>
+            <textarea class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300 resize-none" placeholder="მოკლე შეტყობინება" rows="1" required></textarea>
           </div>
           <div class="pt-8 text-center">
             <button class="bg-[#f1bf62] text-[#121416] px-16 py-5 rounded-full font-label font-bold tracking-widest hover:scale-105 transition-transform shadow-2xl shadow-[#f1bf62]/20 cursor-pointer" type="submit">
