@@ -160,9 +160,17 @@
     }
   </style>
 </head>
-<body class="h-screen w-screen flex flex-col antialiased selection:bg-[#f1bf62]/20 selection:text-[#f1bf62] bg-[#040506]">
+<body class="h-screen w-screen flex flex-col antialiased selection:bg-[#f1bf62]/20 selection:text-[#f1bf62] bg-[#040506] relative">
+  <!-- Ambient Video Background -->
+  <div class="ambient-video-bg fixed inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+    <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-60" style="transform: scale(1.1);">
+      <source src="/background.mp4?v=4" type="video/mp4"/>
+    </video>
+    <div class="absolute inset-0 bg-[#040506]/40 backdrop-blur-[3px]"></div>
+  </div>
+
   <!-- Top Bar -->
-  <header class="h-20 border-b border-white/5 bg-[#040506]/90 backdrop-blur-md px-8 flex items-center justify-between z-30 select-none relative">
+  <header class="h-20 border-b border-white/5 bg-[#040506]/40 backdrop-blur-md px-8 flex items-center justify-between z-30 select-none relative">
     <!-- Left Title (Gold Brand) -->
     <div class="flex items-center gap-2 select-none z-10">
       <span class="text-xl md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62]">IDC პოზიტიური ფსიქოთერაპია</span>

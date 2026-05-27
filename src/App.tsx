@@ -133,18 +133,30 @@ export default function App() {
   const getWhatsAppShareURL = () => {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
-    const message = `ჩემი ${reading.title} მზად არის ხელოვნური ინტელექტის საფუძველზე! 🔮🌟\n\n${reading.title}-ს პირველივე ნაწილი:\n"${reading.content.substring(0, 150)}..."\n\nშეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
+    const message = `გამარჯობა, გაზიარებთ ჩემი იდენტობის მატრიცის ანალიზს 🔮🌟\n\n` +
+      `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
+      `დაბადების თარიღი: ${userProfile.day}/${userProfile.month}/${userProfile.year}\n` +
+      `დაბადების ადგილი: ${userProfile.birthPlace || "საქართველო"}\n\n` +
+      `ანალიზის სათაური: ${reading.title}\n` +
+      `ანალიზი:\n${reading.content.substring(0, 800)}...\n\n` +
+      `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
 
-    return `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+    return `https://api.whatsapp.com/send?phone=995598324020&text=${encodeURIComponent(message)}`;
   };
 
   const getCustomWhatsAppShareURL = (phone: string) => {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
     const cleanPhone = phone.trim().replace(/\s+/g, "");
-    const message = `ჩემი ${reading.title} მზად არის ხელოვნური ინტელექტის საფუძველზე! 🔮🌟\n\n${reading.title}-ს სრული პასუხი:\n"${reading.content.substring(0, 400)}..."\n\nშეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
+    const message = `გამარჯობა, გაზიარებთ ჩემი იდენტობის მატრიცის ანალიზს 🔮🌟\n\n` +
+      `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
+      `დაბადების თარიღი: ${userProfile.day}/${userProfile.month}/${userProfile.year}\n` +
+      `ტელეფონი: ${cleanPhone}\n\n` +
+      `ანალიზის სათაური: ${reading.title}\n` +
+      `ანალიზი:\n${reading.content.substring(0, 800)}...\n\n` +
+      `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
 
-    return `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+    return `https://api.whatsapp.com/send?phone=995598324020&text=${encodeURIComponent(message)}`;
   };
 
   const handleLinkPhoneAndShare = async () => {
