@@ -7,6 +7,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@300;400;600&amp;family=Noto+Sans+Georgian:wght@100..900&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/src/input.css"/>
+  <style>
+    .introspection-card {
+      background: rgba(30, 32, 34, 0.12) !important;
+      backdrop-filter: blur(45px) !important;
+      -webkit-backdrop-filter: blur(45px) !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.04) !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .introspection-card:hover {
+      background: rgba(30, 32, 34, 0.22) !important;
+      border-color: rgba(241, 191, 98, 0.25) !important;
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.5), 0 0 25px rgba(241, 191, 98, 0.05) !important;
+      transform: translateY(-5px);
+    }
+  </style>
   <script type="module" src="/src/main.js"></script>
 </head>
 <body class="selection:bg-secondary/30 selection:text-secondary bg-[#121416] text-[#c6c6ce]">
@@ -21,7 +37,7 @@
   <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-12 pt-6 pointer-events-none">
     <nav id="main-nav" class="pointer-events-auto flex items-center px-8 md:px-12 py-2 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
       <a href="logic.html" class="flex items-center gap-4 hover:opacity-90 transition-opacity duration-300 pointer-events-auto">
-        <img alt="IDC Logo" class="object-contain" src="/src/logo.png" style="mix-blend-mode: screen; height: 350px; width: 350px; margin-top: -140px; margin-bottom: -140px; max-width: none;"/>
+        <img alt="IDC Logo" class="object-contain" src="/src/logo.png" style="mix-blend-mode: screen; height: 390px; width: 390px; margin-top: -160px; margin-bottom: -160px; max-width: none;"/>
         <span class="text-2xl font-headline text-[#f1bf62] tracking-tighter italic">აიდისი</span>
       </a>
       <div class="hidden md:flex items-center gap-10 font-headline italic text-lg tracking-wide ml-auto mr-10">
@@ -174,18 +190,18 @@
               ჩვენი მიდგომა უარყოფს კლინიკურ სიმკაცრეს. ჩვენ ვქმნით სივრცეს, სადაც ყოველი ფიქრი და ემოცია პოულობს თავის ადგილს საერთო ჰარმონიაში.
             </p>
           </div>
-          <div class="md:w-1/2 space-y-32 pt-20">
-            <div class="group cursor-default">
+          <div class="md:w-1/2 space-y-8 pt-6">
+            <div class="group cursor-default introspection-card p-8 rounded-3xl">
               <span class="text-secondary font-headline text-4xl block mb-4">01</span>
               <h3 class="text-2xl font-headline text-white mb-4">პერსონალური არქიტექტურა</h3>
               <p class="text-on-surface-variant font-light leading-relaxed">ინდივიდუალური თერაპია, რომელიც ორიენტირებულია თქვენი შინაგანი სამყაროს რეკონსტრუქციაზე.</p>
             </div>
-            <div class="group cursor-default">
+            <div class="group cursor-default introspection-card p-8 rounded-3xl">
               <span class="text-secondary font-headline text-4xl block mb-4">02</span>
               <h3 class="text-2xl font-headline text-white mb-4">კარმული ბალანსი</h3>
               <p class="text-on-surface-variant font-light leading-relaxed">მიზეზ-შედეგობრივი კავშირების გააზრება და მომავლის შეგნებული ფორმირება.</p>
             </div>
-            <div class="group cursor-default">
+            <div class="group cursor-default introspection-card p-8 rounded-3xl">
               <span class="text-secondary font-headline text-4xl block mb-4">03</span>
               <h3 class="text-2xl font-headline text-white mb-4">სულიერი სიმშვიდე</h3>
               <p class="text-on-surface-variant font-light leading-relaxed">მედიტაციური პრაქტიკები და მენტალური ჰიგიენა თანამედროვე ქაოსში.</p>
@@ -434,6 +450,7 @@
 
       if (searchInput && searchDropdown && resultsContainer) {
         const searchIndex = [
+          { title: "ლალი ბადრიძე", desc: "დამფუძნებელი, წამყვანი ფსიქოთერაპევტი - 15-წლიანი გამოცდილება კლინიკურ ფსიქოლოგიასა და ეგზისტენციალურ თერაპიაში", url: "about.html" },
           { title: "მთავარი გვერდი", desc: "IDC აიდისი ფსიქოთერაპიის ცენტრის მთავარი გვერდი", url: "index.html" },
           { title: "ჩვენი სერვისები", desc: "ინდივიდუალური, წყვილთა და ჯგუფური თერაპია", url: "services.html" },
           { title: "ფსიქოთერაპიის განათლება", desc: "პოზიტიური ფსიქოთერაპიის საბაზისო და სამაგისტრო კურსები, სემინარები", url: "education.html" },

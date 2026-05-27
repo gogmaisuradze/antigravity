@@ -171,7 +171,7 @@
     <!-- Center Logo (Maximized Emblem) -->
     <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto h-full z-10">
       <a href="index.html" class="hover:opacity-90 transition-opacity duration-300 flex items-center">
-        <img alt="IDC Logo" class="h-24 md:h-28 w-auto" src="/src/logo.png" style="mix-blend-mode: screen;"/>
+        <img alt="IDC Logo" class="object-contain" src="/src/logo.png" style="mix-blend-mode: screen; height: 280px; width: 280px; margin-top: -100px; margin-bottom: -100px; max-width: none;"/>
       </a>
     </div>
 
@@ -225,6 +225,24 @@
           </div>
         </div>
 
+        <!-- Dynamic Node Description Container (Increased text sizes) -->
+        <div class="space-y-3 pt-2">
+          <div id="details-empty-state" class="text-center py-6 space-y-2 border border-white/5 rounded-2xl bg-white/5">
+            <span class="material-symbols-outlined text-slate-500 text-3xl">info</span>
+            <p class="text-xs text-slate-500 max-w-[180px] mx-auto leading-relaxed">მიიტანეთ მაუსი კვანძზე ან მოძებნეთ დეტალური ინფორმაციისთვის.</p>
+          </div>
+          <div class="details-card-wrapper transition-all duration-300">
+            <div id="details-content" class="hidden space-y-3 p-4 border border-white/5 rounded-2xl bg-[#121416]/50 shadow-inner">
+              <div>
+                <span id="node-detail-category" class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold">კატეგორია</span>
+                <h4 id="node-detail-title" class="text-lg font-headline font-bold text-white tracking-tight leading-snug italic mt-1">კვანძის სათაური</h4>
+              </div>
+              <div class="h-px bg-white/5"></div>
+              <p id="node-detail-desc" class="text-xs text-slate-200 leading-relaxed font-light">დეტალური აღწერა...</p>
+            </div>
+          </div>
+        </div>
+
         <!-- Interactive Structure Directory (All white initially, lights yellow on hover/click) -->
         <div class="bg-white/5 border border-white/5 p-3.5 rounded-2xl space-y-2.5">
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block border-b border-white/5 pb-1">ნეირო-რუკის სტრუქტურა</span>
@@ -255,22 +273,6 @@
                 <span>გამოყენების სფეროები</span>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Dynamic Node Description Container (Increased text sizes) -->
-        <div class="space-y-3 pt-2">
-          <div id="details-empty-state" class="text-center py-6 space-y-2 border border-white/5 rounded-2xl bg-white/5">
-            <span class="material-symbols-outlined text-slate-500 text-3xl">info</span>
-            <p class="text-xs text-slate-500 max-w-[180px] mx-auto leading-relaxed">მიიტანეთ მაუსი კვანძზე ან მოძებნეთ დეტალური ინფორმაციისთვის.</p>
-          </div>
-          <div id="details-content" class="hidden space-y-3 p-4 border border-white/5 rounded-2xl bg-[#121416]/50 shadow-inner">
-            <div>
-              <span id="node-detail-category" class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold">კატეგორია</span>
-              <h4 id="node-detail-title" class="text-lg font-headline font-bold text-white tracking-tight leading-snug italic mt-1">კვანძის სათაური</h4>
-            </div>
-            <div class="h-px bg-white/5"></div>
-            <p id="node-detail-desc" class="text-xs text-slate-200 leading-relaxed font-light">დეტალური აღწერა...</p>
           </div>
         </div>
       </div>
@@ -607,6 +609,12 @@
 
       // Comprehensive Database of 28 Node Descriptions (Georgian Localized)
       const nodeDescriptions = {
+        'node-lali': {
+          title: 'ლალი ბადრიძე',
+          category: 'დამფუძნებელი • წამყვანი ფსიქოთერაპევტი',
+          desc: '15-წლიანი გამოცდილება კლინიკურ ფსიქოლოგიასა და ეგზისტენციალურ თერაპიაში. ლალის მიდგომა აერთიანებს დასავლურ მეცნიერულ მეთოდებსა და აღმოსავლურ ფილოსოფიურ სიბრძნეს, რაც პაციენტებს ეხმარება პრობლემის არა მხოლოდ სიმპტომურ, არამედ ძირეულ გააზრებაში. კვალიფიკაცია: PhD ფსიქოლოგიაში, ვენის უნივერსიტეტი. სპეციალიზაცია: ეგზისტენციალური ანალიზი, ტრავმათერაპია.',
+          isStaff: true
+        },
         'node-center': {
           title: 'პოზიტიური ფსიქოთერაპია (PPT)',
           category: 'მთავარი სისტემა',
@@ -1131,7 +1139,11 @@
             `;
             
             searchItem.addEventListener('click', () => {
-              focusAndOpenNode(nodeId);
+              if (nodeData.isStaff) {
+                showNodeDetails(nodeId);
+              } else {
+                focusAndOpenNode(nodeId);
+              }
             });
             
             searchResultsList.appendChild(searchItem);
