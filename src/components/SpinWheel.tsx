@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { CalculationType } from "../types";
 import { Sparkles, Target, Grid3x3, Hash, BrainCircuit, Moon, Compass, Users } from "lucide-react";
-import { RollerPicker } from "./RollerPicker";
 
 export interface WheelItem {
   id: CalculationType;
@@ -100,7 +99,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
     };
   }, []);
 
-  // Rotate the wheel when selectedType changes from outside (e.g. ProfileForm or RollerPicker)
+  // Rotate the wheel when selectedType changes from outside (e.g. ProfileForm)
   useEffect(() => {
     if (selectedType && !isSpinning) {
       const index = WHEEL_ITEMS.findIndex((item) => item.id === selectedType);
@@ -136,11 +135,21 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
       if (itemIndex < 0) itemIndex = 0;
       if (itemIndex >= WHEEL_ITEMS.length) itemIndex = WHEEL_ITEMS.length - 1;
 
-      onSelect(WHEEL_ITEMS[itemIndex].id);
-
-      // Align it nicely to the top pointer position
+      // Align it nicely to the top pointer position immediately with a quick transition
       const targetDeg = (360 - itemIndex * sliceAngle) - (sliceAngle / 2);
-      setRotation((prev) => Math.floor(prev / 360) * 360 + targetDeg);
+      
+      setRotation((prev) => {
+        const currentModulo = prev % 360;
+        const diff = targetDeg - currentModulo;
+        const shortestDiff = ((diff + 180) % 360 + 360) % 360 - 180;
+        return prev + shortestDiff;
+      });
+
+      // TRIGGER ANALYSIS immediately after the quick 300ms alignment transition completes!
+      spinTimeoutRef.current = setTimeout(() => {
+        onSelect(WHEEL_ITEMS[itemIndex].id);
+        spinTimeoutRef.current = null;
+      }, 300);
       return;
     }
 
@@ -157,6 +166,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
     const newRotation = rotation + targetDeg;
     setRotation(newRotation);
 
+    // Trigger analysis ONLY when the 5000ms transition finishes and the wheel stops!
     spinTimeoutRef.current = setTimeout(() => {
       setIsSpinning(false);
       onSelect(WHEEL_ITEMS[itemIndex].id);
@@ -167,18 +177,24 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
   const handleSliceClick = (index: number) => {
     if (disabled) return;
     
-    // Stop any active spin immediately when selecting manually
+    // Stop any active spin/timeout immediately when selecting manually
     if (spinTimeoutRef.current) {
       clearTimeout(spinTimeoutRef.current);
       spinTimeoutRef.current = null;
     }
-    setIsSpinning(false);
-    onSelect(WHEEL_ITEMS[index].id);
     
-    // Rotate to point smoothly to the clicked slice at the top
+    setIsSpinning(false);
+    
+    // Rotate to point smoothly to the clicked slice at the top (800ms transition)
     const sliceAngle = 360 / WHEEL_ITEMS.length;
     const targetDeg = (360 - index * sliceAngle) - (sliceAngle / 2);
     setRotation((prev) => Math.floor(prev / 360) * 360 + targetDeg);
+    
+    // TRIGGER ANALYSIS ONLY when the 800ms rotation transition finishes and the wheel stops!
+    spinTimeoutRef.current = setTimeout(() => {
+      onSelect(WHEEL_ITEMS[index].id);
+      spinTimeoutRef.current = null;
+    }, 800);
   };
 
   // Helper to generate coordinates for SVG path
@@ -267,11 +283,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                 <stop offset="100%" stopColor="#12110e" />
               </linearGradient>
 
-              {/* DYNAMIC TEXT PATHS DEFINITION FOR CIRCULAR LABELS - MOVED TO THE OUTER EDGE */}
+              {/* DYNAMIC TEXT PATHS DEFINITION FOR CIRCULAR LABELS - PLACED AT THE OUTER EDGE */}
               {WHEEL_ITEMS.map((item, index) => {
                 const angle1 = (index * 45 - 90) * Math.PI / 180;
                 const angle2 = ((index + 1) * 45 - 90) * Math.PI / 180;
-                // Placed extremely close to the outer edge (radius 0.82)
                 const r = 0.81;
                 const x1 = r * Math.cos(angle1);
                 const y1 = r * Math.sin(angle1);
@@ -365,7 +380,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                     fill={(isSelected || isHovered) ? "#ffd885" : "#ffffff"}
                     className="transition-colors duration-300 font-headline"
                     style={{
-                      fontSize: "0.066px", // Enlarged font size for maximum readability near edge
+                      fontSize: "0.066px",
                       fontWeight: 900,
                       letterSpacing: "0.03em",
                       dominantBaseline: "middle",
@@ -477,7 +492,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
         </button>
       </div>
 
-      {/* Selected Theme Name and Description in clean, flat gold/silver text - ENLARGED AS REQUESTED */}
+      {/* Selected Theme Name and Description in clean, flat gold/silver text - ENLARGED */}
       <div className="mt-10 text-center px-6 max-w-[480px] space-y-2 min-h-[90px]">
         {(() => {
           const displayedItem = hoveredIndex !== null 
@@ -498,35 +513,8 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
         })()}
       </div>
 
-      {/* Dark Roller Picker Alternative Selector */}
-      <div className="w-full max-w-[280px] mx-auto mt-6 mb-2">
-        <RollerPicker
-          variant="ios-dark"
-          items={WHEEL_ITEMS.map((item) => ({ value: item.id, label: item.title }))}
-          selectedValue={selectedType || CalculationType.HOROSCOPE}
-          onChange={(val) => {
-            const index = WHEEL_ITEMS.findIndex((item) => item.id === val);
-            if (index >= 0) {
-              handleSliceClick(index);
-            }
-          }}
-        />
-      </div>
-
-      {/* Selected Theme Subtitle under Roller Picker - ENLARGED */}
-      <div className="text-center mt-1 mb-2.5 min-h-[25px]">
-        <span className="text-base sm:text-lg md:text-xl font-black text-[#f1bf62] uppercase tracking-widest font-headline drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
-          {(() => {
-            const displayedItem = hoveredIndex !== null 
-              ? WHEEL_ITEMS[hoveredIndex] 
-              : (selectedType ? WHEEL_ITEMS.find((item) => item.id === selectedType) : null);
-            return displayedItem ? displayedItem.title : "";
-          })()}
-        </span>
-      </div>
-
       {/* Manual Selection Instructions */}
-      <p className="text-[12px] font-bold tracking-wider text-white/60 mt-4 text-center uppercase">
+      <p className="text-[12px] font-bold tracking-wider text-white/60 mt-6 text-center uppercase">
         დააჭირე <span className="text-[#f1bf62] font-black underline">სტარტს</span>, ან <span className="text-[#f1bf62] font-black underline">აირჩიე ხელით</span> სასურველი სექტორი
       </p>
     </div>
