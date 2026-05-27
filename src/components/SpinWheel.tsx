@@ -191,35 +191,70 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
   return (
     <div className="flex flex-col items-center justify-center py-8 select-none relative bg-transparent">
       {/* Subtle background shadow blur highlight */}
-      <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full bg-[#f1bf62]/5 blur-3xl -z-10 pointer-events-none"></div>
+      <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full bg-[#f1bf62]/8 blur-3xl -z-10 pointer-events-none"></div>
 
-      {/* Elegant Pointer at the 12 o'clock position (Top) */}
-      <div className="relative z-30 -mb-6 flex flex-col items-center pointer-events-none">
-        {/* Custom Circular Pointer with hand icon pointing down */}
-        <div className="w-11 h-11 bg-[#121416] rounded-full border border-white/10 flex items-center justify-center shadow-2xl relative z-30">
-          <Pointer className="w-5 h-5 text-[#f1bf62] fill-[#f1bf62] transform rotate-180" />
+      {/* Elegant Pointer at the 12 o'clock position (Top) - Gold rim with head pointer */}
+      <div className="relative z-30 -mb-7 flex flex-col items-center pointer-events-none">
+        {/* Circular Pointer head with gold-bronze metallic ring */}
+        <div className="w-13 h-13 bg-gradient-to-b from-[#403524] via-[#1e2022] to-[#0a0b0c] rounded-full border-2 border-[#f1bf62] flex items-center justify-center shadow-[0_6px_16px_rgba(0,0,0,0.9)] relative z-30">
+          {/* Inner concentric ring inside pointer */}
+          <div className="absolute inset-0.5 rounded-full border border-black/40"></div>
+          <div className="absolute inset-1.5 rounded-full border border-[#f1bf62]/20"></div>
+          <BrainCircuit className="w-5 h-5 text-[#f1bf62] relative z-10" style={{ filter: "drop-shadow(0 0 4px rgba(241,191,98,0.6))" }} />
         </div>
-        {/* Needle/anchor that overlaps with the wheel rim */}
-        <div className="w-3.5 h-5 bg-[#1e2022] border-x border-white/5 shadow-sm -mt-2.5 z-20" />
+        {/* Golden Triangle Point Pointer pointing down */}
+        <div className="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[16px] border-t-[#f1bf62] -mt-2.5 z-20 drop-shadow-[0_3px_5px_rgba(0,0,0,0.7)]" />
       </div>
 
-      {/* Outer Luxury Wheel Rim */}
-      <div className="relative w-[320px] h-[320px] md:w-[400px] md:h-[400px] p-4 bg-[#1e2022]/45 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl flex items-center justify-center">
-        {/* Glamorous active border pulse */}
-        <div className="absolute inset-0 rounded-full border border-white/5 pointer-events-none"></div>
-        <div className="absolute inset-4 rounded-full border border-[#f1bf62]/10 pointer-events-none"></div>
+      {/* Outer Luxury Wheel Rim (Heavy concentric golden/bronze gold plated metal) */}
+      <div className="relative w-[320px] h-[320px] md:w-[410px] md:h-[410px] p-4 bg-gradient-to-b from-[#2a2318] via-[#151718] to-[#090a0a] rounded-full shadow-[0_15px_45px_rgba(0,0,0,0.9),inset_0_2px_4px_rgba(255,255,255,0.05)] flex items-center justify-center border border-white/5">
+        {/* Golden Concentric Rings Overlay */}
+        <div className="absolute inset-0 rounded-full border-4 border-[#f1bf62]/35 pointer-events-none"></div>
+        <div className="absolute inset-1 rounded-full border border-black/80 pointer-events-none"></div>
+        <div className="absolute inset-2.5 rounded-full border-2 border-double border-[#f1bf62]/20 pointer-events-none"></div>
+        <div className="absolute inset-[13px] rounded-full border border-black/50 pointer-events-none"></div>
 
         {/* The Rotatable Wheel Segment */}
         <div
           id="roulette_wheel"
-          className="relative w-full h-full rounded-full overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.6)] cursor-pointer"
+          className="relative w-full h-full rounded-full overflow-hidden shadow-[inset_0_0_30px_rgba(0,0,0,0.9)] cursor-pointer border border-[#f1bf62]/10"
           style={{
             transform: `rotate(${rotation}deg)`,
             transition: isSpinning ? "transform 5000ms cubic-bezier(0.1, 0.9, 0.2, 1)" : "transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1)",
           }}
         >
-          {/* Slices container using SVGs for visual precision */}
+          {/* Slices container using SVGs for visual precision and custom definitions */}
           <svg viewBox="-1 -1 2 2" className="w-full h-full -rotate-90">
+            <defs>
+              {/* Premium dark bronze metallic linear gradient 1 */}
+              <linearGradient id="metallicSliceA" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#282520" />
+                <stop offset="30%" stopColor="#1c1a16" />
+                <stop offset="60%" stopColor="#12110e" />
+                <stop offset="100%" stopColor="#0c0b0a" />
+              </linearGradient>
+              {/* Premium dark bronze metallic linear gradient 2 */}
+              <linearGradient id="metallicSliceB" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#201d19" />
+                <stop offset="35%" stopColor="#151310" />
+                <stop offset="70%" stopColor="#0e0d0b" />
+                <stop offset="100%" stopColor="#050504" />
+              </linearGradient>
+              {/* Radiant gold metallic gradient for slice divider lines */}
+              <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ffd885" />
+                <stop offset="35%" stopColor="#f1bf62" />
+                <stop offset="70%" stopColor="#b58728" />
+                <stop offset="100%" stopColor="#ffd885" />
+              </linearGradient>
+              {/* Elegant golden radial glow for selection & hover highlights */}
+              <radialGradient id="selectedGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#ffd885" stopOpacity="0.25" />
+                <stop offset="50%" stopColor="#f1bf62" stopOpacity="0.12" />
+                <stop offset="100%" stopColor="#b8860b" stopOpacity="0" />
+              </radialGradient>
+            </defs>
+
             {WHEEL_ITEMS.map((item, index) => {
               const startPercent = index / WHEEL_ITEMS.length;
               const endPercent = (index + 1) / WHEEL_ITEMS.length;
@@ -233,42 +268,55 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                 `Z`,
               ].join(" ");
 
-              // Elegant alternating space/slate colors for dark theme
-              const colors = [
-                "rgba(30, 32, 34, 0.85)",
-                "rgba(18, 20, 22, 0.85)",
-                "rgba(30, 32, 34, 0.85)",
-                "rgba(18, 20, 22, 0.85)",
-                "rgba(30, 32, 34, 0.85)",
-                "rgba(18, 20, 22, 0.85)",
-                "rgba(30, 32, 34, 0.85)",
-                "rgba(18, 20, 22, 0.85)",
-              ];
-
               const isSelected = selectedType === item.id;
-
               const isHovered = hoveredIndex === index;
+              const sliceFill = index % 2 === 0 ? "url(#metallicSliceA)" : "url(#metallicSliceB)";
+
               return (
-                <path
-                  key={item.id}
-                  d={pathData}
-                  fill={colors[index % colors.length]}
-                  stroke="rgba(255, 255, 255, 0.05)"
-                  strokeWidth="0.010"
-                  className="transition-all hover:fill-white/5 duration-300 cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSliceClick(index);
-                  }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  style={{
-                    opacity: hoveredIndex !== null ? (isHovered ? 1 : 0.8) : 1,
-                    fill: (isSelected || isHovered) ? "rgba(241, 191, 98, 0.12)" : undefined,
-                  }}
-                />
+                <g key={item.id}>
+                  {/* Base Metallic Slice */}
+                  <path
+                    d={pathData}
+                    fill={sliceFill}
+                    stroke="url(#goldStroke)"
+                    strokeWidth="0.008"
+                    className="transition-all duration-300 cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSliceClick(index);
+                    }}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    style={{
+                      opacity: hoveredIndex !== null ? (isHovered ? 1 : 0.85) : 1,
+                    }}
+                  />
+                  {/* Radiant Glow Overlay when selected or hovered */}
+                  {(isSelected || isHovered) && (
+                    <path
+                      d={pathData}
+                      fill="url(#selectedGlow)"
+                      className="pointer-events-none mix-blend-screen transition-opacity duration-300"
+                    />
+                  )}
+                </g>
               );
             })}
+
+            {/* Concentric Grooves to mimic brushed dark bronze metal dial dial */}
+            <circle cx="0" cy="0" r="0.95" fill="none" stroke="rgba(0, 0, 0, 0.45)" strokeWidth="0.003" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.90" fill="none" stroke="rgba(241, 191, 98, 0.04)" strokeWidth="0.002" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.85" fill="none" stroke="rgba(0, 0, 0, 0.4)" strokeWidth="0.003" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.80" fill="none" stroke="rgba(241, 191, 98, 0.03)" strokeWidth="0.002" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.75" fill="none" stroke="rgba(0, 0, 0, 0.45)" strokeWidth="0.003" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.70" fill="none" stroke="rgba(241, 191, 98, 0.04)" strokeWidth="0.002" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.65" fill="none" stroke="rgba(0, 0, 0, 0.4)" strokeWidth="0.003" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.60" fill="none" stroke="rgba(241, 191, 98, 0.03)" strokeWidth="0.002" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.55" fill="none" stroke="rgba(0, 0, 0, 0.45)" strokeWidth="0.003" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.50" fill="none" stroke="rgba(241, 191, 98, 0.04)" strokeWidth="0.002" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.45" fill="none" stroke="rgba(0, 0, 0, 0.4)" strokeWidth="0.003" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.40" fill="none" stroke="rgba(241, 191, 98, 0.02)" strokeWidth="0.002" pointerEvents="none" />
+            <circle cx="0" cy="0" r="0.35" fill="none" stroke="rgba(0, 0, 0, 0.45)" strokeWidth="0.003" pointerEvents="none" />
           </svg>
 
           {/* Slices Text & Icons positioned absolutely over SVG */}
@@ -279,15 +327,18 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
             return (
               <div
                 key={item.id}
-                className="absolute inset-0 flex flex-col items-center pt-8 md:pt-12 pointer-events-none"
+                className="absolute inset-0 flex flex-col items-center pt-8 md:pt-11 pointer-events-none"
                 style={{
                   transform: `rotate(${angle}deg)`,
                   transformOrigin: "50% 50%",
                 }}
               >
+                {/* Circular framed icon with sleek circular borders, gold gradients and subtle inner shadows */}
                 <div 
-                  className={`flex flex-col items-center justify-center p-1.5 rounded-full backdrop-blur-xs border transition-all duration-350 pointer-events-auto cursor-pointer ${
-                    (isSelected || isHovered) ? "scale-115 border-[#f1bf62] bg-[#f1bf62] text-[#121416] shadow-lg shadow-[#f1bf62]/20" : "border-white/10 bg-[#1e2022]/90 text-[#c6c6ce] hover:border-white/20"
+                  className={`flex flex-col items-center justify-center w-8.5 h-8.5 rounded-full border transition-all duration-350 pointer-events-auto cursor-pointer shadow-md ${
+                    (isSelected || isHovered) 
+                      ? "scale-125 border-[#f1bf62] bg-gradient-to-b from-[#f1bf62] to-[#c79a3c] text-[#121416] shadow-[0_0_12px_rgba(241,191,98,0.4),inset_0_1px_2px_rgba(255,255,255,0.3)]" 
+                      : "border-[#f1bf62]/45 bg-gradient-to-b from-[#2a251e] to-[#12110e] text-[#c6c6ce] hover:border-[#f1bf62] hover:text-white shadow-[inset_0_1px_3px_rgba(255,255,255,0.05),0_2px_6px_rgba(0,0,0,0.6)]"
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -298,14 +349,14 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                 >
                   {/* render icon with elegant colors */}
                   {React.cloneElement(item.icon as React.ReactElement<any>, {
-                    className: (isSelected || isHovered) ? "w-5 h-5 text-[#121416]" : "w-5 h-5 text-[#c6c6ce]"
+                    className: (isSelected || isHovered) ? "w-4 h-4 text-[#121416]" : "w-4 h-4 text-[#c6c6ce]"
                   })}
                 </div>
                 
-                {/* Short labels for georgian wheel */}
+                {/* Short labels for georgian wheel - whiter, bolder and larger */}
                 <span 
-                  className={`text-[9px] md:text-[10px] uppercase tracking-widest text-center mt-2 max-w-[50px] md:max-w-[70px] leading-tight transition-all duration-350 pointer-events-auto cursor-pointer ${
-                    (isSelected || isHovered) ? "text-[#f1bf62] font-extrabold scale-105" : "text-[#c6c6ce]/75 font-semibold hover:text-white"
+                  className={`text-[11.5px] md:text-[13px] uppercase tracking-[0.14em] text-center mt-3 max-w-[55px] md:max-w-[80px] leading-tight transition-all duration-350 pointer-events-auto cursor-pointer ${
+                    (isSelected || isHovered) ? "text-[#f1bf62] font-black scale-108" : "text-white font-black hover:text-[#f1bf62]"
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -313,6 +364,9 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                   }}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
+                  style={{
+                    textShadow: "0 2px 4px rgba(0,0,0,1), 0 1px 2px rgba(0,0,0,0.9)",
+                  }}
                 >
                   {item.title.split(" ")[0]}
                 </span>
@@ -321,43 +375,47 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
           })}
         </div>
 
-        {/* Central Core Spin Button (White/Silver/Gold classy layout) */}
+        {/* Central Core Spin Button (Concentric metallic dome structure) */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             spin();
           }}
           disabled={disabled}
-          className={`absolute w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#121416] text-[#c6c6ce] shadow-2xl flex flex-col items-center justify-center z-10 transition-all duration-500 cursor-pointer border border-white/10 hover:border-[#f1bf62]/40 hover:text-white shadow-[0_0_25px_rgba(0,0,0,0.8)] ${
-            isSpinning 
-              ? "hover:scale-105 hover:bg-red-950/30 active:scale-95 saturate-150" 
-              : "hover:scale-105 hover:bg-white/5 active:scale-95"
-          }`}
+          className={`absolute w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-b from-[#2d2a22] via-[#151718] to-[#080909] flex flex-col items-center justify-center z-10 transition-all duration-500 cursor-pointer border border-[#f1bf62]/70 shadow-[0_10px_30px_rgba(0,0,0,0.95),inset_0_1px_3px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95`}
         >
-          {isSpinning ? (
-            <>
-              <span className="text-xs font-black tracking-widest uppercase animate-pulse text-red-400">
-                სტოპი
-              </span>
-              <span className="text-[8px] tracking-widest uppercase mt-0.5 font-semibold text-white/50">
-                გაჩერება
-              </span>
-            </>
-          ) : (
-            <>
-              <span className="text-sm md:text-base font-black tracking-[0.15em] uppercase text-[#f1bf62] font-headline">
-                სტარტი
-              </span>
-              <span className="text-[9px] tracking-widest uppercase mt-0.5 font-bold text-[#c6c6ce]/60">
-                ტრიალი
-              </span>
-            </>
-          )}
+          {/* Inner Golden concentric rings */}
+          <div className="absolute inset-1 rounded-full border border-black/80 pointer-events-none"></div>
+          <div className="absolute inset-2 rounded-full border border-[#f1bf62]/35 pointer-events-none"></div>
+          <div className="absolute inset-3 rounded-full border border-black/60 pointer-events-none animate-[spin_60s_linear_infinite]"></div>
+          
+          {/* Inner Dome Content */}
+          <div className="relative z-10 flex flex-col items-center justify-center">
+            {isSpinning ? (
+              <>
+                <span className="text-[13px] md:text-[15px] font-black tracking-widest uppercase text-red-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] animate-pulse">
+                  სტოპი
+                </span>
+                <span className="text-[7.5px] tracking-widest uppercase mt-0.5 font-extrabold text-white/50">
+                  გაჩერება
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="text-[15px] md:text-[17px] font-black tracking-[0.14em] uppercase text-white font-headline drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+                  სტარტი
+                </span>
+                <span className="text-[8px] tracking-widest uppercase mt-1 font-extrabold text-[#f1bf62]/90">
+                  ტრიალი
+                </span>
+              </>
+            )}
+          </div>
         </button>
       </div>
 
       {/* Selected Theme Name and Description in clean, flat gold/silver text */}
-      <div className="mt-6 text-center px-6 max-w-[380px] space-y-1.5 min-h-[70px]">
+      <div className="mt-7 text-center px-6 max-w-[380px] space-y-1.5 min-h-[70px]">
         {(() => {
           const displayedItem = hoveredIndex !== null 
             ? WHEEL_ITEMS[hoveredIndex] 
@@ -366,10 +424,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
           if (!displayedItem) return null;
           return (
             <>
-              <h3 className="text-[16px] font-extrabold text-[#f1bf62] uppercase tracking-wider font-headline">
+              <h3 className="text-[16px] font-extrabold text-[#f1bf62] uppercase tracking-wider font-headline drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] animate-fade-in">
                 {displayedItem.title}
               </h3>
-              <p className="text-[13px] text-[#c6c6ce]/90 font-semibold leading-relaxed">
+              <p className="text-[13px] text-white/90 font-semibold leading-relaxed animate-fade-in">
                 {displayedItem.description}
               </p>
             </>
@@ -394,7 +452,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
 
       {/* Selected Theme Subtitle under Roller Picker */}
       <div className="text-center mt-1 mb-2.5 min-h-[20px]">
-        <span className="text-sm font-extrabold text-[#f1bf62]/80 uppercase tracking-widest font-headline">
+        <span className="text-sm font-extrabold text-[#f1bf62] uppercase tracking-widest font-headline">
           {(() => {
             const displayedItem = hoveredIndex !== null 
               ? WHEEL_ITEMS[hoveredIndex] 
@@ -405,7 +463,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
       </div>
 
       {/* Manual Selection Instructions */}
-      <p className="text-[12px] font-bold tracking-wider text-[#c6c6ce]/60 mt-4 text-center uppercase">
+      <p className="text-[12px] font-bold tracking-wider text-white/60 mt-4 text-center uppercase">
         დააჭირე <span className="text-[#f1bf62] font-black underline">სტარტს</span>, ან <span className="text-[#f1bf62] font-black underline">აირჩიე ხელით</span> სასურველი სექტორი
       </p>
     </div>

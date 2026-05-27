@@ -3,7 +3,7 @@ import { BirthProfile, CalculationType, ReadingResponse } from "./types";
 import { ProfileForm } from "./components/ProfileForm";
 import { SpinWheel } from "./components/SpinWheel";
 import { CompatibilityPanel } from "./components/CompatibilityPanel";
-import { Sparkles, RefreshCw, MessageSquare, Edit3, UserCheck, Star, ShieldAlert, ArrowLeft } from "lucide-react";
+import { Sparkles, RefreshCw, MessageSquare, Edit3, UserCheck, Star, ShieldAlert, ArrowLeft, Send, Facebook, Link, Share2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 export default function App() {
@@ -21,6 +21,7 @@ export default function App() {
   const [linkingPhone, setLinkingPhone] = useState(false);
   const [linkedSuccessfully, setLinkedSuccessfully] = useState(false);
   const [linkError, setLinkError] = useState<string | null>(null);
+  const [copiedLink, setCopiedLink] = useState(false);
 
   // Reassuring cosmic loading messages in Georgian
   const loadingMessages = [
@@ -144,6 +145,33 @@ export default function App() {
     return `https://api.whatsapp.com/send?phone=995598324020&text=${encodeURIComponent(message)}`;
   };
 
+  const getTelegramShareURL = () => {
+    if (!reading || !userProfile) return "";
+    const appUrl = window.location.origin;
+    const message = `გამარჯობა, გაზიარებთ ჩემი იდენტობის მატრიცის ანალიზს 🔮🌟\n\n` +
+      `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
+      `ანალიზის სათაური: ${reading.title}\n\n` +
+      `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:`;
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
+    return `https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(message)}`;
+  };
+
+  const getFacebookShareURL = () => {
+    if (!userProfile) return "";
+    const appUrl = window.location.origin;
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
+    return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`;
+  };
+
+  const handleCopyLink = () => {
+    if (!userProfile) return;
+    const appUrl = window.location.origin;
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
+    navigator.clipboard.writeText(shareLink);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 3000);
+  };
+
   const getCustomWhatsAppShareURL = (phone: string) => {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
@@ -157,6 +185,26 @@ export default function App() {
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
 
     return `https://api.whatsapp.com/send?phone=995598324020&text=${encodeURIComponent(message)}`;
+  };
+
+  const getCustomTelegramShareURL = (phone: string) => {
+    if (!reading || !userProfile) return "";
+    const appUrl = window.location.origin;
+    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    const message = `გამარჯობა, გაზიარებთ ჩემი იდენტობის მატრიცის ანალიზს 🔮🌟\n\n` +
+      `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
+      `ანალიზის სათაური: ${reading.title}\n\n` +
+      `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:`;
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
+    return `https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(message)}`;
+  };
+
+  const getCustomFacebookShareURL = (phone: string) => {
+    if (!userProfile) return "";
+    const appUrl = window.location.origin;
+    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
+    return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`;
   };
 
   const handleLinkPhoneAndShare = async () => {
@@ -232,7 +280,7 @@ export default function App() {
           />
         ) : (
           /* Active Profile Overview Card */
-          <div className="w-full bg-[#1e2022]/60 p-7 rounded-2xl border border-white/5 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative backdrop-blur-md">
+          <div className="w-full bg-[#1e2022]/60 p-7 rounded-2xl border border-[#f1bf62]/10 hover:border-[#f1bf62]/20 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative backdrop-blur-md transition-all duration-300 hover:shadow-[0_15px_35px_rgba(0,0,0,0.5),0_0_20px_rgba(241,191,98,0.03)]">
             <div className="absolute top-0 left-0 w-[2px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
             
             {showDeleteConfirm ? (
@@ -405,16 +453,67 @@ export default function App() {
                         </span>
                       </div>
                       
-                      {/* Share specific horoscope report */}
-                      <a
-                        href={getWhatsAppShareURL()}
-                        target="_blank"
-                        referrerPolicy="no-referrer"
-                        className="inline-flex bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] text-[11px] font-bold tracking-widest uppercase py-3.5 px-6 rounded-xl shadow-[0_0_15px_rgba(241,191,98,0.3)] items-center space-x-2 transition-all cursor-pointer self-start sm:self-auto"
-                      >
-                        <MessageSquare className="w-4 h-4 text-[#121416] mr-1" />
-                        <span>გაუზიარე WhatsApp-ით</span>
-                      </a>
+                      {/* Premium Multi-Channel Social Sharing Row */}
+                      <div className="flex flex-wrap items-center gap-2.5 p-1.5 bg-white/3 border border-white/5 rounded-2xl backdrop-blur-md shadow-2xl relative self-start sm:self-auto">
+                        {/* WhatsApp sharing */}
+                        <a
+                          href={getWhatsAppShareURL()}
+                          target="_blank"
+                          referrerPolicy="no-referrer"
+                          title="გააზიარე WhatsApp-ზე"
+                          className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)]"
+                        >
+                          <MessageSquare className="w-4 h-4 mr-2 text-[#f1bf62]" />
+                          <span className="text-[11px] font-black uppercase tracking-wider">WhatsApp</span>
+                        </a>
+
+                        {/* Telegram sharing */}
+                        <a
+                          href={getTelegramShareURL()}
+                          target="_blank"
+                          referrerPolicy="no-referrer"
+                          title="გააზიარე Telegram-ზე"
+                          className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)]"
+                        >
+                          <Send className="w-4 h-4 mr-2 text-[#f1bf62]" />
+                          <span className="text-[11px] font-black uppercase tracking-wider">Telegram</span>
+                        </a>
+
+                        {/* Facebook sharing */}
+                        <a
+                          href={getFacebookShareURL()}
+                          target="_blank"
+                          referrerPolicy="no-referrer"
+                          title="გააზიარე Facebook-ზე"
+                          className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)]"
+                        >
+                          <Facebook className="w-4 h-4 mr-2 text-[#f1bf62]" />
+                          <span className="text-[11px] font-black uppercase tracking-wider">Facebook</span>
+                        </a>
+
+                        {/* Copy link */}
+                        <button
+                          onClick={handleCopyLink}
+                          title="ბმულის კოპირება"
+                          className={`inline-flex items-center justify-center px-4 py-3 rounded-xl border transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] relative ${
+                            copiedLink 
+                              ? "bg-[#f1bf62]/15 border-[#f1bf62] text-[#f1bf62] shadow-[0_0_15px_rgba(241,191,98,0.2)]" 
+                              : "bg-gradient-to-b from-white/8 to-white/2 border-white/10 text-white hover:border-[#f1bf62] hover:text-[#f1bf62]"
+                          }`}
+                        >
+                          <Link className="w-4 h-4 mr-2 text-[#f1bf62]" />
+                          <span className="text-[11px] font-black uppercase tracking-wider">
+                            {copiedLink ? "ლინკი კოპირებულია" : "კოპირება"}
+                          </span>
+                          
+                          {/* Success Tooltip */}
+                          {copiedLink && (
+                            <span className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-[#f1bf62] text-[#121416] text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-md shadow-lg pointer-events-none animate-bounce z-50 whitespace-nowrap border border-white/10">
+                              ბმული კოპირებულია!
+                            </span>
+                          )}
+                        </button>
+                      </div>
                     </div>
                     
                     {/* Render Markdown Response elegantly */}
@@ -477,15 +576,38 @@ export default function App() {
                               <p className="text-[12px] text-emerald-400 uppercase tracking-wider font-bold">
                                 პროფილი წარმატებით შეინახა ტელეფონზე! 🎉
                               </p>
-                              <a
-                                href={getCustomWhatsAppShareURL(phoneNumberInput)}
-                                target="_blank"
-                                referrerPolicy="no-referrer"
-                                className="inline-flex bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold tracking-widest uppercase py-3 px-5 rounded-xl items-center space-x-1.5 transition-colors cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-                              >
-                                <MessageSquare className="w-3.5 h-3.5 text-white" />
-                                <span>გახსენით WhatsApp და გააგზავნეთ</span>
-                              </a>
+                              
+                              <div className="flex flex-wrap gap-2.5">
+                                <a
+                                  href={getCustomWhatsAppShareURL(phoneNumberInput)}
+                                  target="_blank"
+                                  referrerPolicy="no-referrer"
+                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
+                                >
+                                  <MessageSquare className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
+                                  <span>WhatsApp</span>
+                                </a>
+
+                                <a
+                                  href={getCustomTelegramShareURL(phoneNumberInput)}
+                                  target="_blank"
+                                  referrerPolicy="no-referrer"
+                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
+                                >
+                                  <Send className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
+                                  <span>Telegram</span>
+                                </a>
+
+                                <a
+                                  href={getCustomFacebookShareURL(phoneNumberInput)}
+                                  target="_blank"
+                                  referrerPolicy="no-referrer"
+                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
+                                >
+                                  <Facebook className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
+                                  <span>Facebook</span>
+                                </a>
+                              </div>
                             </div>
                           )}
                         </div>
