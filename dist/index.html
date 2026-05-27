@@ -6,32 +6,80 @@
   <title>მთავარი - IDC აიდისი</title>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@300;400;600&amp;family=Noto+Sans+Georgian:wght@100..900&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-  <script type="module" crossorigin src="/stitch/assets/main-Cn0ShLa-.js"></script>
-  <link rel="stylesheet" crossorigin href="/stitch/assets/main-cM0N9Cok.css">
+  <style>
+    .introspection-card {
+      background: rgba(30, 32, 34, 0.06) !important;
+      backdrop-filter: blur(15px) !important;
+      -webkit-backdrop-filter: blur(15px) !important;
+      border: none !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35) !important;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .introspection-card:hover {
+      background: rgba(30, 32, 34, 0.12) !important;
+      border: none !important;
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.5), 0 0 25px rgba(241, 191, 98, 0.05) !important;
+      transform: translateY(-5px);
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="/assets/main--V_D-DNF.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/input-BDR1ZlCE.css">
 </head>
 <body class="selection:bg-secondary/30 selection:text-secondary bg-[#121416] text-[#c6c6ce]">
   <!-- Ambient Video Background -->
   <div class="ambient-video-bg fixed inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
     <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-85" style="transform: scale(1.1);">
-      <source src="/stitch/background.mp4?v=4" type="video/mp4"/>
+      <source src="/background.mp4?v=4" type="video/mp4"/>
     </video>
     <div class="absolute inset-0 bg-gradient-to-b from-[#121416]/40 via-transparent to-[#121416]/50"></div>
   </div>
   <!-- Floating Island Header -->
   <header class="fixed top-0 left-0 right-0 z-50 px-4 md:px-12 pt-6 pointer-events-none">
-    <nav id="main-nav" class="pointer-events-auto flex justify-between items-center px-8 md:px-12 py-2 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
-      <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition-opacity duration-300 pointer-events-auto">
-        <img alt="IDC Logo" class="h-20 w-20 object-contain" src="/stitch/assets/logo-BGH6ul5V.png" style="mix-blend-mode: screen;"/>
-        <span class="text-2xl font-headline text-[#f1bf62] tracking-tighter italic">აიდისი</span>
+    <nav id="main-nav" class="pointer-events-auto flex items-center px-8 md:px-12 py-2 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
+      <a href="logic.html" class="flex items-center gap-4 hover:opacity-90 transition-opacity duration-300 pointer-events-auto pl-2 md:pl-4">
+        <img alt="IDC Logo" class="object-contain transition-transform duration-300 hover:scale-105" src="/assets/logo-BGH6ul5V.png" style="mix-blend-mode: screen; height: 72px; width: 72px; margin: 0; max-width: none;"/>
+        <span class="text-3xl md:text-4xl font-headline font-bold text-[#f1bf62] tracking-normal italic drop-shadow-[0_2px_6px_rgba(241,191,98,0.2)]">აიდისი</span>
       </a>
-      <div class="hidden md:flex items-center gap-10 font-headline italic text-lg tracking-wide">
+      <div class="hidden md:flex items-center gap-10 font-headline italic text-lg tracking-wide ml-auto mr-10">
         <a class="text-[#f1bf62] border-b border-[#f1bf62] pb-1 hover:opacity-80 transition-opacity duration-300" href="index.html">მთავარი</a>
-        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="services.html">სერვისები</a>
-        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="about.html">ჩვენს შესახებ</a>
-        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="blog.html">ბლოგი</a>
-        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="contact.html">კონტაქტი</a>
+        <div class="relative group">
+          <button class="flex items-center gap-1 text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300 focus:outline-none cursor-pointer">
+            <span>სერვისები</span>
+            <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
+          </button>
+          <div class="absolute left-0 mt-2 w-48 rounded-xl bg-[#1e2022]/95 border border-white/5 backdrop-blur-xl shadow-2xl py-2 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50 font-normal">
+            <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="services.html">სერვისები</a>
+            <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="education.html">განათლება</a>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="flex items-center gap-1 text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300 focus:outline-none cursor-pointer">
+            <span>ინტერაქცია</span>
+            <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
+          </button>
+          <div class="absolute right-0 mt-2 w-48 rounded-xl bg-[#1e2022]/95 border border-white/5 backdrop-blur-xl shadow-2xl py-2 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50 font-normal">
+            <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="cosmic.html">იდენტობის მატრიცა</a>
+            <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="blog.html">ბლოგი</a>
+          </div>
+        </div>
+        <div class="relative group">
+          <button class="flex items-center gap-1 text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300 focus:outline-none cursor-pointer">
+            <span>ჩვენს შესახებ</span>
+            <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
+          </button>
+          <div class="absolute right-0 mt-2 w-48 rounded-xl bg-[#1e2022]/95 border border-white/5 backdrop-blur-xl shadow-2xl py-2 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50 font-normal">
+            <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="about.html">ჩვენს შესახებ</a>
+            <a class="block px-4 py-2 text-sm text-[#c6c6ce] hover:text-[#f1bf62] hover:bg-white/5 transition-colors" href="contact.html">კონტაქტი</a>
+          </div>
+        </div>
       </div>
       <div class="flex items-center gap-4">
+        <!-- Search Toggle Button -->
+        <button id="nav-search-btn" class="h-10 w-10 flex items-center justify-center text-[#c6c6ce] hover:text-[#f1bf62] transition-colors focus:outline-none cursor-pointer pointer-events-auto">
+          <span class="material-symbols-outlined text-2xl">search</span>
+        </button>
+
         <button class="booking-btn bg-secondary-container text-on-secondary-container px-6 py-2.5 rounded-xl font-medium scale-102 transition-transform hover:opacity-90 font-label">
           ჯავშანი
         </button>
@@ -40,13 +88,50 @@
         </button>
       </div>
     </nav>
+    
+    <!-- Slide Down Search Bar -->
+    <div id="search-bar-panel" class="pointer-events-auto max-w-2xl mx-auto mt-3 bg-[#1e2022]/90 border border-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-4 transition-all duration-300 transform -translate-y-8 opacity-0 pointer-events-none">
+      <div class="relative flex items-center">
+        <span class="material-symbols-outlined absolute left-4 text-xl text-[#f1bf62]">search</span>
+        <input id="nav-search-input" type="text" placeholder="ჩაწერეთ საძიებო სიტყვა..." class="w-full bg-[#121416]/60 border border-white/5 focus:border-[#f1bf62] focus:outline-none rounded-xl pl-12 pr-10 py-3.5 text-sm text-[#c6c6ce] placeholder-[#c6c6ce]/40 transition-colors"/>
+        <button id="close-search-btn" class="absolute right-4 text-[#c6c6ce]/60 hover:text-white transition-colors focus:outline-none">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+      
+      <!-- Instant search results inside the panel -->
+      <div id="search-results-dropdown" class="mt-4 border-t border-white/5 pt-3 hidden">
+        <div class="px-2 py-1 text-[10px] uppercase tracking-widest text-[#f1bf62] font-semibold border-b border-white/5 pb-2 mb-2">ძიების შედეგები</div>
+        <div id="search-results-container" class="max-h-60 overflow-y-auto space-y-1">
+          <!-- Dynamic search results populated by js -->
+        </div>
+      </div>
+    </div>
+
     <!-- Mobile Navigation Menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-[#1e2022]/95 border border-white/5 rounded-2xl mt-4 px-8 py-6 space-y-4 shadow-2xl pointer-events-auto">
       <a class="block text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="index.html">მთავარი</a>
-      <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="services.html">სერვისები</a>
-      <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="about.html">ჩვენს შესახებ</a>
-      <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2 border-b border-white/5" href="blog.html">ბლოგი</a>
-      <a class="block text-[#c6c6ce] hover:text-[#f1bf62] font-headline italic text-lg py-2" href="contact.html">კონტაქტი</a>
+      <div class="py-2 border-b border-white/5">
+        <span class="block text-[#c6c6ce] font-headline italic text-lg pb-1">სერვისები</span>
+        <div class="pl-4 space-y-2 mt-1">
+          <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="services.html">სერვისები</a>
+          <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="education.html">განათლება</a>
+        </div>
+      </div>
+      <div class="py-2 border-b border-white/5">
+        <span class="block text-[#c6c6ce] font-headline italic text-lg pb-1">ინტერაქცია</span>
+        <div class="pl-4 space-y-2 mt-1">
+          <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="cosmic.html">იდენტობის მატრიცა</a>
+          <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="blog.html">ბლოგი</a>
+        </div>
+      </div>
+      <div class="py-2">
+        <span class="block text-[#c6c6ce] font-headline italic text-lg pb-1">ჩვენს შესახებ</span>
+        <div class="pl-4 space-y-2 mt-1">
+          <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="about.html">ჩვენს შესახებ</a>
+          <a class="block text-sm text-[#c6c6ce]/80 hover:text-[#f1bf62]" href="contact.html">კონტაქტი</a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -60,22 +145,33 @@
             გააცნობიერე
           </h1>
           <p class="text-secondary font-headline text-3xl md:text-4xl mt-6 italic tracking-wide">
-            პოზიტიური ცვლილებები იწყება აქ
+            პოზიტიური ფსიქოთერაპიის ცენტრი
           </p>
           <p class="mt-6 text-primary max-w-lg text-lg font-light leading-relaxed">
-            ფსიქოთერაპია არა როგორც მკურნალობა, არამედ როგორც ტრანსფორმაციული მოგზაურობა საკუთარ თავსა და სამყაროს შორის ჰარმონიის საპოვნელად.
+            „ადამიანი ფასდაუდებელი საფასურის მქონე, ძვირფასი ქვებით მდიდარი საბადოა.“
           </p>
           <div class="mt-12 flex items-center gap-6">
-            <button class="booking-btn bg-secondary-container text-on-secondary-container px-10 py-4 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all shadow-xl">
-              დაიწყე მოგზაურობა
-            </button>
+            <a href="logic.html" class="booking-btn bg-secondary-container text-on-secondary-container px-10 py-4 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all shadow-xl no-underline inline-block text-center">
+              გონებრივი რუკა
+            </a>
             <div class="h-px w-24 bg-outline-variant/30"></div>
-            <span class="text-sm font-label italic text-on-surface-variant">პოზიტიური ფსიქოთერაპიის პრინციპებით</span>
+            <span class="text-sm font-label italic text-on-surface-variant">ნოსრატ პეზეშკიანი</span>
           </div>
         </div>
         <div class="hidden md:flex md:col-span-4 justify-end">
-          <div class="relative w-full aspect-[3/4] rounded-full overflow-hidden grayscale contrast-125 opacity-30 hover:opacity-50 transition-opacity duration-1000">
+          <div class="relative w-full aspect-[3/4] overflow-hidden opacity-35 hover:opacity-60 transition-opacity duration-1000 group cursor-pointer"
+               style="mix-blend-mode: screen; mask-image: radial-gradient(circle, black 30%, transparent 75%); -webkit-mask-image: radial-gradient(circle, black 30%, transparent 75%);"
+               onmouseenter="const v = document.getElementById('hero-ball-video'); if(v) v.play();"
+               onmouseleave="const v = document.getElementById('hero-ball-video'); if(v) v.pause();">
             <img class="w-full h-full object-cover" alt="abstract minimalist feather" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1eoJmQicEl2W4nkEvD8EXgY-H3jNybGNk5ccwn30AmUCkykavp2oT-y7Ya-tJSGpaM_JQ4VWwS_31DmayAd3cStS-0lPNohVRe8p2aTmCNaPd7ewfrO8aqwRGByAKBWhQ7-GQqg0l2QxXpRidhUTa72ufp9S_Sdi8P6sGlH96dd8tX-NyLw0RSEU1XzlPHEwyuPimb4aT2EV2Z16kGH-4SRk2C4TkNJDwj6GRo_LxNCgg-J66SJLnr9_hfkAu3SP0ZOqORRlvQtS"/>
+            <video 
+              id="hero-ball-video"
+              src="/ბურთი.mp4" 
+              class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
+              muted 
+              loop 
+              playsinline>
+            </video>
           </div>
         </div>
       </div>
@@ -87,7 +183,7 @@
     </section>
 
     <!-- Asymmetric Content Block: Reflection -->
-    <section class="py-32 px-12 bg-surface reveal-hidden">
+    <section class="py-32 px-12 reveal-hidden">
       <div class="max-w-5xl mx-auto">
         <div class="flex flex-col md:flex-row gap-20 items-start">
           <div class="md:w-1/2 sticky top-32">
@@ -96,21 +192,21 @@
               ჩვენი მიდგომა უარყოფს კლინიკურ სიმკაცრეს. ჩვენ ვქმნით სივრცეს, სადაც ყოველი ფიქრი და ემოცია პოულობს თავის ადგილს საერთო ჰარმონიაში.
             </p>
           </div>
-          <div class="md:w-1/2 space-y-32 pt-20">
-            <div class="group cursor-default">
-              <span class="text-secondary font-headline text-4xl block mb-4">01</span>
-              <h3 class="text-2xl font-headline text-white mb-4">პერსონალური არქიტექტურა</h3>
-              <p class="text-on-surface-variant font-light leading-relaxed">ინდივიდუალური თერაპია, რომელიც ორიენტირებულია თქვენი შინაგანი სამყაროს რეკონსტრუქციაზე.</p>
+          <div class="md:w-1/2 space-y-5 pt-4">
+            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-3xl block mb-2">01</span>
+              <h3 class="text-xl font-headline text-white mb-2">პერსონალური არქიტექტურა</h3>
+              <p class="text-on-surface-variant text-sm font-light leading-relaxed">ინდივიდუალური თერაპია, რომელიც ორიენტირებულია თქვენი შინაგანი სამყაროს რეკონსტრუქციაზე.</p>
             </div>
-            <div class="group cursor-default">
-              <span class="text-secondary font-headline text-4xl block mb-4">02</span>
-              <h3 class="text-2xl font-headline text-white mb-4">კარმული ბალანსი</h3>
-              <p class="text-on-surface-variant font-light leading-relaxed">მიზეზ-შედეგობრივი კავშირების გააზრება და მომავლის შეგნებული ფორმირება.</p>
+            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-3xl block mb-2">02</span>
+              <h3 class="text-xl font-headline text-white mb-2">კარმული ბალანსი</h3>
+              <p class="text-on-surface-variant text-sm font-light leading-relaxed">მიზეზ-შედეგობრივი კავშირების გააზრება და მომავლის შეგნებული ფორმირება.</p>
             </div>
-            <div class="group cursor-default">
-              <span class="text-secondary font-headline text-4xl block mb-4">03</span>
-              <h3 class="text-2xl font-headline text-white mb-4">სულიერი სიმშვიდე</h3>
-              <p class="text-on-surface-variant font-light leading-relaxed">მედიტაციური პრაქტიკები და მენტალური ჰიგიენა თანამედროვე ქაოსში.</p>
+            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-3xl block mb-2">03</span>
+              <h3 class="text-xl font-headline text-white mb-2">სულიერი სიმშვიდე</h3>
+              <p class="text-on-surface-variant text-sm font-light leading-relaxed">მედიტაციური პრაქტიკები და მენტალური ჰიგიენა თანამედროვე ქაოსში.</p>
             </div>
           </div>
         </div>
@@ -124,30 +220,35 @@
         <blockquote class="text-3xl md:text-5xl font-headline text-primary italic leading-snug max-w-4xl mx-auto">
           "შენი ცხოვრება არის ის, რასაც შენი ფიქრები ქმნიან. გააცნობიერე შენი ძალა და ჰარმონია თავისით მოვა."
         </blockquote>
-        <!-- Decorative Subtle Tree Watermark -->
-        <div class="absolute -bottom-20 -right-20 opacity-5 w-96 h-96">
-          <img alt="Decorative tree of life symbol" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzzanhLHW5L1XylpbTwkl_VzattGKqmc-VxF91-BqvDjTNgHC4XYDvTbF6syAjOwmCIL7lCX6UqdJHQ9m1ygeqs41OUAvTlX7lo75Iiz_tXSI8Drf0_eGXEB-Nh7qkBa-zpWlsK7M30VWBE0eJJaJ2kdV_2sKc7s6TCZcHiCI4P4Bx4DPRrIvD3t4OlzSgjIKIsFDQFrb1xxxWGoeSbhfTh7dKHqCRtG6m_jnCvmPaX8x8A33OEzPFzOH0q_JMqjih3AD4qrdgfXtv"/>
-        </div>
       </div>
     </section>
 
     <!-- Services Section: Bento Grid -->
-    <section class="py-32 px-12 bg-surface-container-low reveal-hidden">
+    <section class="py-32 px-12 reveal-hidden">
       <div class="max-w-7xl mx-auto">
         <div class="mb-20">
           <h2 class="text-4xl font-headline text-white italic">გზები ჰარმონიისკენ</h2>
           <div class="h-1 w-20 bg-secondary mt-4"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="md:col-span-2 bg-surface-container p-12 rounded-xl hover-glow border border-transparent group">
+          <div class="md:col-span-2 bg-surface-container p-12 rounded-xl hover-glow border border-transparent group cursor-pointer"
+               onmouseenter="const v = document.getElementById('sessions-bell-video'); if(v) v.play();"
+               onmouseleave="const v = document.getElementById('sessions-bell-video'); if(v) v.pause();">
             <div class="flex justify-between items-start mb-12">
               <span class="material-symbols-outlined text-secondary text-4xl">psychology</span>
               <span class="text-xs font-label tracking-widest opacity-40">INDIVIDUAL</span>
             </div>
             <h3 class="text-3xl font-headline text-white mb-6">ინდივიდუალური სესიები</h3>
             <p class="text-white max-w-md leading-relaxed font-light">სიღრმისეული მუშაობა საკუთარ თავთან, ტრავმების გააზრება და ახალი პერსპექტივების აღმოჩენა.</p>
-            <div class="mt-12 overflow-hidden h-48 rounded-xl opacity-40 group-hover:opacity-75 transition-opacity">
-              <img class="w-full h-full object-cover" alt="cozy warm therapeutic office with two armchairs" src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=1000&q=80"/>
+            <div class="mt-12 overflow-hidden h-48 rounded-xl relative border border-white/5">
+              <video 
+                id="sessions-bell-video"
+                src="/ზანზალაკი.mp4" 
+                class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 scale-100 group-hover:scale-110 transition-all duration-1000 pointer-events-none"
+                muted 
+                loop 
+                playsinline>
+              </video>
             </div>
           </div>
           <div class="bg-primary-container p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group">
@@ -171,39 +272,29 @@
               <span class="text-xs font-label">ახალი კურსი: "ემოციური ინტელექტი"</span>
             </div>
           </div>
-          <div class="md:col-span-2 bg-surface p-12 border border-outline-variant/20 rounded-xl flex flex-col md:flex-row gap-12 items-center hover-glow">
-            <div class="flex-1">
-              <h3 class="text-2xl font-headline text-white mb-4">ექსპრეს კონსულტაცია</h3>
-              <p class="text-on-surface-variant text-sm leading-relaxed font-light">სწრაფი მხარდაჭერა კრიზისულ სიტუაციებში ან გადაუდებელი კითხვების შემთხვევაში.</p>
-              <button class="booking-btn mt-8 text-primary border border-primary/30 px-6 py-2 rounded-xl hover:bg-primary/10 transition-all font-label">დაჯავშნა</button>
-            </div>
-            <div class="w-full md:w-64 h-40 rounded-xl overflow-hidden grayscale opacity-70">
-              <img class="w-full h-full object-cover" alt="zen stones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFgvDzFq_peS2qmEUa48VhWA7pZSCVh1vc-Wd4bAcUMsRwFCIt71j_hdHu5F06ogyDo9wOOeME2ofR-CL1hyJeZ0M7Mi8bgODE5HMtTsBULMKqlGdpzOdUbj37GvoBGQrm9pLoWqwzTWWln740Yil-moTq-KGfnk9o0pDEv4IvxR127UxvpTHGwRh3N-6v5nO-zcumN3-vMGp84PuxAXVNes8M5tbObvkwxf2pco1wC4YsfsljGTEKiQWafl-ZzW-sRHj52ypVOr-Y"/>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
     <!-- Contact Path Section -->
     <section class="py-40 px-12 bg-background relative reveal-hidden">
-      <div class="max-w-4xl mx-auto text-center z-10 relative">
-        <h2 class="text-6xl font-headline text-white mb-8 italic">მზად ხართ ცვლილებებისთვის?</h2>
-        <p class="text-on-surface-variant text-xl font-light mb-16 max-w-2xl mx-auto leading-relaxed">
+      <div class="max-w-4xl mx-auto bg-primary-container/20 rounded-[2rem] p-12 md:p-16 text-center relative overflow-hidden backdrop-blur-sm border border-outline-variant/10">
+        <h2 class="text-6xl font-headline text-white mb-8 italic z-10 relative">მზად ხართ ცვლილებებისთვის?</h2>
+        <p class="text-[#e2e2e9] text-xl font-light mb-16 max-w-2xl mx-auto leading-relaxed z-10 relative">
           თქვენი პირველი ნაბიჯი ჰარმონიისკენ იწყება აქ. დაგვიტოვეთ შეტყობინება და ჩვენ დაგეხმარებით საუკეთესო გზის შერჩევაში.
         </p>
-        <form class="space-y-12 text-left max-w-2xl mx-auto contact-form">
+        <form class="space-y-12 text-left max-w-2xl mx-auto contact-form z-10 relative">
           <div class="relative group">
-            <input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-4 text-white focus:ring-0 focus:border-secondary transition-all placeholder:text-outline-variant" placeholder="თქვენი სახელი" type="text" required/>
+            <input class="w-full bg-transparent border-0 border-b border-white/20 py-4 text-white focus:ring-0 focus:border-[#f1bf62] transition-all placeholder:text-[#c6c6ce]/70" placeholder="თქვენი სახელი" type="text" required/>
           </div>
           <div class="relative group">
-            <input class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-4 text-white focus:ring-0 focus:border-secondary transition-all placeholder:text-outline-variant" placeholder="ელ-ფოსტა" type="email" required/>
+            <input class="w-full bg-transparent border-0 border-b border-white/20 py-4 text-white focus:ring-0 focus:border-[#f1bf62] transition-all placeholder:text-[#c6c6ce]/70" placeholder="ელ-ფოსტა" type="email" required/>
           </div>
           <div class="relative group">
-            <textarea class="w-full bg-transparent border-0 border-b border-outline-variant/30 py-4 text-white focus:ring-0 focus:border-secondary transition-all placeholder:text-outline-variant resize-none" placeholder="მოკლე შეტყობინება" rows="1" required></textarea>
+            <textarea class="w-full bg-transparent border-0 border-b border-white/20 py-4 text-white focus:ring-0 focus:border-[#f1bf62] transition-all placeholder:text-[#c6c6ce]/70 resize-none" placeholder="მოკლე შეტყობინება" rows="1" required></textarea>
           </div>
           <div class="pt-8 text-center">
-            <button class="bg-secondary text-on-secondary px-16 py-5 rounded-full font-label font-bold tracking-widest hover:scale-105 transition-transform shadow-2xl shadow-secondary/20" type="submit">
+            <button class="bg-[#f1bf62] text-[#121416] px-16 py-5 rounded-full font-label font-bold tracking-widest hover:scale-105 transition-transform shadow-2xl shadow-[#f1bf62]/20 cursor-pointer" type="submit">
               გაგზავნა
             </button>
           </div>
@@ -213,32 +304,40 @@
   </main>
 
   <!-- Footer -->
-  <footer class="relative z-10 bg-[#121416] border-t border-[#45464d]/15 py-16 px-12 mt-20">
-    <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-      <div class="space-y-6">
-        <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity duration-300">
-          <img alt="Logo" class="w-auto h-12" src="/stitch/assets/logo-BGH6ul5V.png" style="mix-blend-mode: screen;"/>
-          <span class="text-xl font-serif text-[#f1bf62]">აიდისი</span>
-        </a>
-        <p class="text-sm text-[#c6c6ce]/60 leading-relaxed font-light">
-          თქვენი ფსიქიკური ჯანმრთელობის მცველი. ჩვენ გთავაზობთ პროფესიონალურ მომსახურებას და ემოციურ მხარდაჭერას.
-        </p>
+  <footer class="relative z-10 bg-[#121416] border-t border-[#45464d]/15 py-12 px-6 md:px-12 mt-10">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+      <div class="flex flex-col md:flex-row gap-8 md:gap-x-16 lg:gap-x-24 items-start w-full md:w-auto">
+        <!-- Logo & Brand Column -->
+        <div class="max-w-[350px] space-y-6">
+          <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity duration-300">
+            <img alt="Logo" class="w-auto h-12" src="/assets/logo-BGH6ul5V.png" style="mix-blend-mode: screen;"/>
+            <span class="text-xl font-serif text-[#f1bf62]">აიდისი</span>
+          </a>
+          <p class="text-sm text-[#c6c6ce]/60 leading-relaxed font-light">
+            თქვენი ფსიქიკური ჯანმრთელობის მცველი. ჩვენ გთავაზობთ პროფესიონალურ მომსახურებას და ემოციურ მხარდაჭერას.
+          </p>
+        </div>
+        <!-- Navigation Column -->
+        <div class="flex flex-col space-y-4">
+          <h4 class="text-white font-medium mb-2">ნავიგაცია</h4>
+          <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">კონფიდენციალურობა</a>
+          <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">წესები და პირობები</a>
+          <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">ხშირად დასმული კითხვები</a>
+        </div>
       </div>
-      <div class="flex flex-col space-y-4">
-        <h4 class="text-on-surface font-medium mb-2">ნავიგაცია</h4>
-        <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">კონფიდენციალურობა</a>
-        <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">წესები და პირობები</a>
-        <a class="text-sm text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors" href="#">ხშირად დასმული კითხვები</a>
-      </div>
+      <!-- Contact Column -->
       <div class="space-y-4">
-        <h4 class="text-on-surface font-medium mb-2">კონტაქტი</h4>
-        <div class="flex items-center space-x-3 text-[#c6c6ce]/60">
+        <h4 class="text-white font-medium mb-2">კონტაქტი</h4>
+        <a href="mailto:idcgeo1@gmail.com" class="flex items-center space-x-3 text-[#c6c6ce]/60 hover:text-[#f1bf62] transition-colors duration-300 pointer-events-auto cursor-pointer">
           <span class="material-symbols-outlined text-sm">mail</span>
           <span class="text-sm">idcgeo1@gmail.com</span>
-        </div>
-        <div class="flex items-center space-x-3 text-[#c6c6ce]/60">
-          <span class="material-symbols-outlined text-sm">call</span>
-          <span class="text-sm">+995 598 32 40 20 / +995 579 71 00 55</span>
+        </a>
+        <div class="flex items-start space-x-3 text-[#c6c6ce]/60">
+          <span class="material-symbols-outlined text-sm mt-1">call</span>
+          <div class="flex flex-col space-y-1">
+            <a href="tel:+995598324020" class="text-sm hover:text-[#f1bf62] transition-colors duration-300 pointer-events-auto cursor-pointer">+995 598 32 40 20</a>
+            <a href="tel:+995579710055" class="text-sm hover:text-[#f1bf62] transition-colors duration-300 pointer-events-auto cursor-pointer">+995 579 71 00 55</a>
+          </div>
         </div>
         <div class="pt-4 flex space-x-3">
           <!-- Facebook -->
@@ -260,7 +359,7 @@
             </svg>
           </a>
           <!-- WhatsApp -->
-          <a class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-[#c6c6ce]/60 hover:border-[#25D366] hover:text-[#25D366] hover:bg-[#25D366]/10 transition-all hover:scale-110" href="https://wa.me/995551408640" target="_blank" title="WhatsApp">
+          <a class="w-8 h-8 rounded-full border border-outline-variant/30 flex items-center justify-center text-[#c6c6ce]/60 hover:border-[#25D366] hover:text-[#25D366] hover:bg-[#25D366]/10 transition-all hover:scale-110" href="https://wa.me/995598324020" target="_blank" title="WhatsApp">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.249 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.458L0 24zm6.59-4.846c1.6.95 3.197 1.45 4.817 1.451 5.4 0 9.794-4.394 9.798-9.794.002-2.617-1.018-5.077-2.873-6.932-1.854-1.854-4.312-2.873-6.924-2.874-5.405 0-9.799 4.393-9.802 9.794-.001 1.705.454 3.371 1.316 4.856l-.993 3.63 3.731-.979zm11.238-6.84c-.266-.134-1.582-.78-1.83-.87-.247-.089-.427-.134-.607.135-.18.267-.697.87-.852 1.047-.157.178-.314.2-.58.067-.266-.134-1.127-.415-2.147-1.325-.793-.706-1.33-1.579-1.485-1.846-.157-.267-.017-.411.117-.544.12-.12.267-.312.4-.467.133-.156.177-.267.266-.445.09-.178.044-.334-.022-.467-.067-.134-.607-1.464-.83-2.005-.218-.524-.458-.453-.628-.461-.163-.008-.349-.01-.536-.01-.186 0-.49.07-.747.347-.257.278-.98.957-.98 2.335s1.002 2.703 1.142 2.89c.14.188 1.972 3.012 4.778 4.221.668.288 1.19.46 1.597.59.67.213 1.28.183 1.761.111.537-.08 1.582-.647 1.805-1.272.223-.624.223-1.157.157-1.272-.067-.116-.247-.183-.514-.316z"/>
             </svg>
@@ -268,9 +367,117 @@
         </div>
       </div>
     </div>
-    <div class="max-w-screen-2xl mx-auto mt-16 pt-8 border-t border-outline-variant/10 text-center">
+    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-outline-variant/10 text-center px-4 md:px-12">
       <p class="text-xs text-[#c6c6ce]/40">© 2024 აიდისი. ყველა უფლება დაცულია.</p>
     </div>
   </footer>
+  <!-- Global Search Bar Spotlight Functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchBtn = document.getElementById('nav-search-btn');
+      const closeSearchBtn = document.getElementById('close-search-btn');
+      const searchPanel = document.getElementById('search-bar-panel');
+      const searchInput = document.getElementById('nav-search-input');
+      const searchDropdown = document.getElementById('search-results-dropdown');
+      const resultsContainer = document.getElementById('search-results-container');
+
+      if (searchBtn && searchPanel && searchInput) {
+        searchBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = !searchPanel.classList.contains('opacity-0');
+          if (isOpen) {
+            closeSearch();
+          } else {
+            openSearch();
+          }
+        });
+
+        if (closeSearchBtn) {
+          closeSearchBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeSearch();
+          });
+        }
+
+        // Prevent click inside from closing
+        searchPanel.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+
+        // Close on clicking outside
+        document.addEventListener('click', () => {
+          closeSearch();
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeSearch();
+        });
+
+        function openSearch() {
+          searchPanel.classList.remove('-translate-y-8', 'opacity-0', 'pointer-events-none');
+          searchPanel.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+          setTimeout(() => searchInput.focus(), 100);
+        }
+
+        function closeSearch() {
+          searchPanel.classList.add('-translate-y-8', 'opacity-0', 'pointer-events-none');
+          searchPanel.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+          searchInput.value = '';
+          if (searchDropdown) searchDropdown.classList.add('hidden');
+        }
+      }
+
+      if (searchInput && searchDropdown && resultsContainer) {
+        const searchIndex = [
+          { title: "ლალი ბადრიძე", desc: "დამფუძნებელი, წამყვანი ფსიქოთერაპევტი - 15-წლიანი გამოცდილება კლინიკურ ფსიქოლოგიასა და ეგზისტენციალურ თერაპიაში", url: "about.html" },
+          { title: "მთავარი გვერდი", desc: "IDC აიდისი ფსიქოთერაპიის ცენტრის მთავარი გვერდი", url: "index.html" },
+          { title: "ჩვენი სერვისები", desc: "ინდივიდუალური, წყვილთა და ჯგუფური თერაპია", url: "services.html" },
+          { title: "ფსიქოთერაპიის განათლება", desc: "პოზიტიური ფსიქოთერაპიის საბაზისო და სამაგისტრო კურსები, სემინარები", url: "education.html" },
+          { title: "ფსიქოლოგიური ბლოგი", desc: "სტატიები თვითგანვითარების, ტრანსფორმაციისა და მედიტაციის შესახებ", url: "blog.html" },
+          { title: "იდენტობის მატრიცა", desc: "დასავლური ჰოროსკოპი, ენიაგრამა, პითაგორას ფსიქომატრიცა და ბაზი", url: "cosmic.html" },
+          { title: "ჩვენს შესახებ", desc: "IDC აიდისი ცენტრის ისტორია, ხედვა და ფსიქოლოგები", url: "about.html" },
+          { title: "კონტაქტი", desc: "სამუშაო საათები, მისამართი და საკონტაქტო ნომრები", url: "contact.html" },
+          { title: "ინდივიდუალური თერაპია", desc: "პერსონალური ფსიქოთერაპიული მხარდაჭერა და კონსულტაცია", url: "services.html" },
+          { title: "წყვილთა ფსიქოთერაპია", desc: "რეზონანსი, კომუნიკაცია და ურთიერთობის კრიზისების მართვა", url: "services.html" },
+          { title: "ჯგუფური თერაპია", desc: "ერთობლივი მხარდაჭერა და ჯგუფური სესიები", url: "services.html" },
+          { title: "ქოუჩინგი", desc: "ინდივიდუალური ქოუჩინგ-სესიები და მიზნების დასახვა", url: "services.html" },
+          { title: "ჯგუფური ქოუჩინგი", desc: "ერთობლივი მუშაობა საერთო მიზნების გარშემო და მხარდაჭერა", url: "services.html" },
+          { title: "ენიაგრამის ანალიზი", desc: "პიროვნების 9 ტიპი, შიშები და ზრდის გზები", url: "cosmic.html" },
+          { title: "პითაგორას მატრიცა", desc: "ციფრული ანალიზი: ენერგია, ნიჭი და ხასიათი", url: "cosmic.html" }
+        ];
+
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          if (!query) {
+            searchDropdown.classList.add('hidden');
+            return;
+          }
+
+          const filtered = searchIndex.filter(item => 
+            item.title.toLowerCase().includes(query) || 
+            item.desc.toLowerCase().includes(query)
+          );
+
+          resultsContainer.innerHTML = '';
+          if (filtered.length === 0) {
+            resultsContainer.innerHTML = `<div class="px-4 py-3 text-xs text-[#c6c6ce]/50 italic">შედეგები ვერ მოიძებნა</div>`;
+          } else {
+            filtered.forEach(item => {
+              const el = document.createElement('a');
+              el.href = item.url;
+              el.className = 'block px-4 py-2 rounded-lg hover:bg-white/5 transition-colors text-left';
+              el.innerHTML = `
+                <div class="text-xs font-bold text-[#f1bf62]">${item.title}</div>
+                <div class="text-[10px] text-[#c6c6ce]/60 truncate mt-0.5">${item.desc}</div>
+              `;
+              resultsContainer.appendChild(el);
+            });
+          }
+          searchDropdown.classList.remove('hidden');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
