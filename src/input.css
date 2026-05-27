@@ -111,47 +111,47 @@
 
 /* Global Premium Surface Overrides for Ambient Video Visibility (Frosted Glass Aesthetics) */
 .bg-surface {
-  background-color: rgba(30, 32, 34, 0.25) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.12) !important;
+  background-color: rgba(30, 32, 34, 0.06) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.08) !important;
 }
 .bg-surface-container {
-  background-color: rgba(30, 32, 34, 0.25) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.15) !important;
+  background-color: rgba(30, 32, 34, 0.08) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.1) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
 }
 .bg-surface-container-low {
-  background-color: rgba(30, 32, 34, 0.18) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.1) !important;
-}
-.bg-surface-container-lowest {
-  background-color: rgba(30, 32, 34, 0.12) !important;
+  background-color: rgba(30, 32, 34, 0.04) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.05) !important;
+}
+.bg-surface-container-lowest {
+  background-color: rgba(30, 32, 34, 0.02) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
 }
 .bg-surface-container-high {
-  background-color: rgba(40, 42, 44, 0.3) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.18) !important;
+  background-color: rgba(40, 42, 44, 0.1) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.12) !important;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4) !important;
 }
 .bg-surface-container-highest {
-  background-color: rgba(51, 53, 55, 0.35) !important;
-  backdrop-filter: blur(22px) !important;
-  -webkit-backdrop-filter: blur(22px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.2) !important;
+  background-color: rgba(51, 53, 55, 0.14) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.15) !important;
 }
 .bg-primary-container {
-  background-color: rgba(47, 57, 86, 0.25) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.15) !important;
+  background-color: rgba(47, 57, 86, 0.08) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(241, 191, 98, 0.1) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
 }
 .bg-background {
