@@ -476,7 +476,7 @@ app.post("/api/n8n-chat", async (req, res) => {
 async function startServer() {
   await initDb();
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== "production" && !process.env.RENDER) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
