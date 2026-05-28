@@ -435,6 +435,43 @@ app.post("/api/compatibility", async (req, res) => {
   }
 });
 
+// Proxy endpoint for n8n AI Chat Agent to avoid CORS issues and protect webhook URL
+app.post("/api/n8n-chat", async (req, res) => {
+  try {
+    const { message, sessionId, sourceUrl } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({ success: false, error: "შეტყობინება ცარიელია" });
+    }
+
+    const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || 'https://meticulous-oyster.pikapod.net/webhook/idc-website-chat';
+
+    const response = await fetch(N8N_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message,
+        sessionId,
+        sourceUrl,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("n8n webhook response error:", errorText);
+      return res.status(response.status).json({ success: false, error: "ვერ მოხერხდა n8n სერვერთან დაკავშირება" });
+    }
+
+    const data = await response.json();
+    res.json(data);
+  } catch (error: any) {
+    console.error("Error in n8n-chat proxy:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // Setup Vite middleware for development, serve index.html for unknown routes
 async function startServer() {
   await initDb();

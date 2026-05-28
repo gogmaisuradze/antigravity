@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFAQAccordion();
   initBlogQuickRead();
   initVideoScrollScrub();
+  initN8nChat();
 });
 
 /* ==========================================================================
@@ -56,58 +57,65 @@ function initBookingModal() {
   // Inject Modal HTML into the bottom of body
   const modalHTML = `
     <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-      <div class="bg-surface-container-high p-8 md:p-12 rounded-2xl max-w-2xl w-full relative shadow-2xl transition-all duration-300 transform scale-95 max-h-[90vh] overflow-y-auto" id="booking-modal-card">
-        <button id="close-modal-btn" class="absolute top-6 right-6 text-[#c6c6ce] hover:text-secondary transition-colors focus:outline-none">
+      <div class="bg-surface-container-low p-10 md:p-12 rounded-[2rem] shadow-[0px_40px_80px_rgba(0,0,0,0.85)] border border-outline-variant/10 max-w-2xl w-full relative hover-glow transition-all duration-500 transform scale-95 max-h-[90vh] overflow-y-auto" id="booking-modal-card">
+        <button id="close-modal-btn" class="absolute top-6 right-6 text-[#c6c6ce] hover:text-secondary transition-colors focus:outline-none z-50">
           <span class="material-symbols-outlined text-3xl">close</span>
         </button>
         
-        <div class="text-center mb-8">
-          <span class="material-symbols-outlined text-secondary text-5xl mb-3 block" style="font-variation-settings: 'FILL' 1;">edit_calendar</span>
-          <h2 class="text-3xl font-headline italic text-white leading-tight">სესიის დაჯავშნა</h2>
-          <p class="text-sm text-on-surface-variant mt-2">შეავსეთ ფორმა და ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ</p>
+        <div class="mb-10 text-left relative flex items-start justify-between">
+          <div>
+            <h2 class="text-3xl font-headline italic text-on-surface">სესიის დაჯავშნა</h2>
+            <p class="text-sm text-outline-variant mt-2">შეავსეთ ფორმა და ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ</p>
+          </div>
+          <div class="bg-secondary/10 border border-secondary/20 p-3.5 rounded-2xl hidden sm:flex items-center justify-center text-secondary shadow-lg">
+            <span class="material-symbols-outlined text-3xl" style='font-variation-settings: "FILL" 1;'>edit_calendar</span>
+          </div>
         </div>
         
-        <form class="space-y-6 contact-form" id="booking-modal-form">
-          <div class="space-y-2">
-            <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი და გვარი</label>
-            <input type="text" required class="w-full bg-[#121416] border border-outline-variant/30 focus:border-secondary focus:ring-0 rounded-xl py-3.5 px-4 text-on-surface placeholder:text-outline-variant/50 transition-colors" placeholder="თქვენი სახელი"/>
-          </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form class="space-y-8 contact-form" id="booking-modal-form">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი და გვარი</label>
+              <input type="text" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი სახელი"/>
+            </div>
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
-              <input type="tel" required class="w-full bg-[#121416] border border-outline-variant/30 focus:border-secondary focus:ring-0 rounded-xl py-3.5 px-4 text-on-surface placeholder:text-outline-variant/50 transition-colors" placeholder="+995 5__ __ __ __"/>
+              <input type="tel" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="+995"/>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
+              <select class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface appearance-none">
+                <option>ინდივიდუალური თერაპია</option>
+                <option>წყვილთა თერაპია</option>
+                <option>ჯგუფური თერაპია</option>
+                <option>კონსულტაცია</option>
+                <option>ქოუჩინგი</option>
+                <option>ჯგუფური ქოუჩინგი</option>
+              </select>
             </div>
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">თარიღი</label>
-              <input type="date" required class="w-full bg-[#121416] border border-outline-variant/30 focus:border-secondary focus:ring-0 rounded-xl py-3.5 px-4 text-on-surface transition-colors" style="color-scheme: dark;"/>
+              <input type="date" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface" style="color-scheme: dark;"/>
             </div>
-          </div>
-          
-          <div class="space-y-2">
-            <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
-            <select class="w-full bg-[#121416] border border-outline-variant/30 focus:border-secondary focus:ring-0 rounded-xl py-3.5 px-4 text-on-surface appearance-none transition-colors">
-              <option>ინდივიდუალური თერაპია</option>
-              <option>წყვილთა თერაპია</option>
-              <option>ჯგუფური თერაპია</option>
-              <option>კონსულტაცია</option>
-              <option>ქოუჩინგი</option>
-              <option>ჯგუფური ქოუჩინგი</option>
-            </select>
           </div>
           
           <div class="space-y-2">
             <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">მოკლე შეტყობინება</label>
-            <textarea rows="2" class="w-full bg-[#121416] border border-outline-variant/30 focus:border-secondary focus:ring-0 rounded-xl py-3.5 px-4 text-on-surface placeholder:text-outline-variant/50 resize-none transition-colors" placeholder="დაგვიწერეთ მოკლედ თქვენი მოთხოვნის შესახებ..."></textarea>
+            <textarea rows="3" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50 resize-none" placeholder="დაგვიწერეთ მოკლედ თქვენი მოთხოვნის შესახებ..."></textarea>
           </div>
           
-          <button type="submit" class="w-full bg-secondary text-on-secondary py-4 rounded-xl font-semibold text-lg hover:brightness-110 active:scale-98 transition-all shadow-xl flex items-center justify-center gap-3">
-            დაჯავშნა
-            <span class="material-symbols-outlined">arrow_forward</span>
-          </button>
+          <div class="pt-6">
+            <button type="submit" class="w-full bg-secondary-container text-on-secondary-container py-5 rounded-xl font-semibold text-lg hover:brightness-110 active:scale-98 transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
+              დაჯავშნა
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
         </form>
         
-        <div class="relative flex py-4 items-center">
+        <div class="relative flex py-6 items-center">
           <div class="flex-grow border-t border-[#45464d]/20"></div>
           <span class="flex-shrink mx-4 text-xs text-outline-variant tracking-wider uppercase font-semibold text-outline-variant/60">ან დაჯავშნე პირდაპირ</span>
           <div class="flex-grow border-t border-[#45464d]/20"></div>
@@ -908,5 +916,242 @@ function initVideoScrollScrub() {
     }
   }
 }
+
+/* ==========================================================================
+   12. n8n AI Chat Agent Webhook Integration (Premium Glassmorphic Chatbot)
+   ========================================================================== */
+function initN8nChat() {
+  if (document.getElementById('n8n-chat-widget')) return;
+  
+  // Define default webhook URL. Highly configurable!
+  const N8N_WEBHOOK_URL = '/api/n8n-chat';
+
+  // Unique session ID for conversation memory
+  const sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+
+  const styleHTML = `
+    <style>
+      #n8n-chat-messages::-webkit-scrollbar { width: 4px; }
+      #n8n-chat-messages::-webkit-scrollbar-track { background: transparent; }
+      #n8n-chat-messages::-webkit-scrollbar-thumb { background: rgba(241, 191, 98, 0.2); border-radius: 10px; }
+      #n8n-chat-messages::-webkit-scrollbar-thumb:hover { background: rgba(241, 191, 98, 0.5); }
+      .chat-typing-dots { display: flex; align-items: center; justify-content: center; gap: 4px; width: 30px; height: 12px; }
+      .chat-typing-dot { width: 5px; height: 5px; background: #f1bf62; border-radius: 50%; opacity: 0.3; animation: typing-blink 1.4s infinite both; }
+      .chat-typing-dot:nth-child(2) { animation-delay: .2s; }
+      .chat-typing-dot:nth-child(3) { animation-delay: .4s; }
+      @keyframes typing-blink { 0% { opacity: .3; transform: scale(1); } 20% { opacity: 1; transform: scale(1.1); } 100% { opacity: .3; transform: scale(1); } }
+    </style>
+  `;
+
+  const chatHTML = `
+    ${styleHTML}
+    <div id="n8n-chat-widget" class="fixed bottom-6 right-6 z-[100] font-sans">
+      <!-- Floating Action Chat Button -->
+      <button id="n8n-chat-trigger" class="w-14 h-14 rounded-full bg-[#1e2022]/80 border border-[#f1bf62]/20 text-[#f1bf62] hover:text-white flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(241,191,98,0.2)] hover:border-[#f1bf62]/40 backdrop-blur-md cursor-pointer transition-all duration-300 hover:-translate-y-1">
+        <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+      </button>
+      
+      <!-- Interactive Frosted Glass Chat Window -->
+      <div id="n8n-chat-window" class="hidden absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] flex flex-col bg-[#1e2022]/90 border border-white/10 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-300 scale-95 opacity-0 origin-bottom-right">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5">
+          <div class="flex items-center gap-3">
+            <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
+            <div>
+              <h3 class="text-sm font-bold text-white font-headline">AI ასისტენტი</h3>
+              <p class="text-[10px] text-[#c6c6ce]/60 font-semibold uppercase tracking-wider">ონლაინ მხარდაჭერა</p>
+            </div>
+          </div>
+          <button id="n8n-chat-close" class="text-[#c6c6ce] hover:text-[#f1bf62] transition-colors focus:outline-none cursor-pointer">
+            <span class="material-symbols-outlined text-2xl">close</span>
+          </button>
+        </div>
+        
+        <!-- Messages Area -->
+        <div id="n8n-chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col">
+          <div class="flex flex-col gap-1 max-w-[85%] self-start">
+            <div class="bg-white/5 border border-white/5 backdrop-blur-md text-[#c6c6ce] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed">
+              მოგესალმებით! მე ვარ აიდისი-ს ხელოვნური ინტელექტის ასისტენტი. რით შემიძლია დაგეხმაროთ დღეს? 🔮
+            </div>
+            <span class="text-[9px] text-[#c6c6ce]/40 font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
+          </div>
+        </div>
+        
+        <!-- Input Form -->
+        <form id="n8n-chat-form" class="p-4 border-t border-white/5 bg-white/3 flex gap-2.5 items-center">
+          <input id="n8n-chat-input" type="text" placeholder="ჩაწერეთ შეტყობინება..." required class="flex-grow bg-[#121416]/50 border border-white/10 focus:border-[#f1bf62] focus:outline-none rounded-xl px-4 py-3 text-sm text-white placeholder-[#c6c6ce]/40 transition-colors font-medium"/>
+          <button type="submit" class="w-11 h-11 rounded-xl bg-[#f1bf62] text-[#121416] hover:bg-white hover:text-[#121416] flex items-center justify-center shrink-0 cursor-pointer shadow-[0_4px_12px_rgba(241,191,98,0.25)] hover:shadow-[0_4px_12px_rgba(255,255,255,0.25)] transition-all duration-300">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">send</span>
+          </button>
+        </form>
+        
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', chatHTML);
+
+  const triggerBtn = document.getElementById('n8n-chat-trigger');
+  const chatWindow = document.getElementById('n8n-chat-window');
+  const closeBtn = document.getElementById('n8n-chat-close');
+  const chatForm = document.getElementById('n8n-chat-form');
+  const chatInput = document.getElementById('n8n-chat-input');
+  const chatMessages = document.getElementById('n8n-chat-messages');
+
+  if (!triggerBtn || !chatWindow || !closeBtn || !chatForm || !chatInput || !chatMessages) return;
+
+  const openChat = () => {
+    const isHidden = chatWindow.classList.contains('hidden');
+    if (isHidden) {
+      chatWindow.classList.remove('hidden');
+      setTimeout(() => {
+        chatWindow.style.transform = 'scale(1)';
+        chatWindow.style.opacity = '1';
+        chatInput.focus();
+      }, 10);
+      triggerBtn.style.transform = 'scale(0) rotate(180deg)';
+      triggerBtn.style.opacity = '0';
+    }
+  };
+
+  // Toggle chat window visibility
+  triggerBtn.addEventListener('click', openChat);
+
+  const closeChat = () => {
+    chatWindow.style.transform = 'scale(0.95)';
+    chatWindow.style.opacity = '0';
+    setTimeout(() => {
+      chatWindow.classList.add('hidden');
+      triggerBtn.style.transform = 'scale(1) rotate(0deg)';
+      triggerBtn.style.opacity = '1';
+    }, 300);
+  };
+
+  closeBtn.addEventListener('click', closeChat);
+
+  // Automatically open the chat window after a premium 1.5s delay
+  setTimeout(openChat, 1500);
+
+  // Send message
+  chatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const userMessage = chatInput.value.trim();
+    if (!userMessage) return;
+
+    chatInput.value = '';
+
+    // Append User Message to UI
+    const userMessageHTML = `
+      <div class="flex flex-col gap-1 max-w-[85%] self-end items-end animate-fade-in">
+        <div class="bg-[#f1bf62]/10 border border-[#f1bf62]/30 text-[#f1bf62] px-4 py-3 rounded-2xl rounded-tr-none text-sm font-medium leading-relaxed">
+          ${escapeHtml(userMessage)}
+        </div>
+        <span class="text-[9px] text-[#f1bf62]/50 font-bold uppercase tracking-wider pr-1">თქვენ</span>
+      </div>
+    `;
+    chatMessages.insertAdjacentHTML('beforeend', userMessageHTML);
+    scrollChatToBottom();
+
+    // Append typing indicator
+    const typingIndicatorId = 'typing-' + Date.now();
+    const typingHTML = `
+      <div id="${typingIndicatorId}" class="flex flex-col gap-1 max-w-[80%] self-start animate-fade-in">
+        <div class="bg-white/5 border border-white/5 backdrop-blur-md text-[#c6c6ce] px-5 py-4 rounded-2xl rounded-tl-none">
+          <div class="chat-typing-dots">
+            <span class="chat-typing-dot"></span>
+            <span class="chat-typing-dot"></span>
+            <span class="chat-typing-dot"></span>
+          </div>
+        </div>
+        <span class="text-[9px] text-[#c6c6ce]/40 font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
+      </div>
+    `;
+    chatMessages.insertAdjacentHTML('beforeend', typingHTML);
+    scrollChatToBottom();
+
+    // Call n8n Webhook API
+    try {
+      let botResponseText = 'სამწუხაროდ, კავშირის შეცდომაა. გთხოვთ სცადოთ მოგვიანებით.';
+      
+      if (N8N_WEBHOOK_URL && N8N_WEBHOOK_URL.trim() !== '') {
+        const response = await fetch(N8N_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: userMessage,
+            sessionId: sessionId,
+            sourceUrl: window.location.href
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          botResponseText = data.output || data.response || data.text || (typeof data === 'string' ? data : JSON.stringify(data));
+        }
+      } else {
+        botResponseText = 'AI ასისტენტის ვებჰუკი ჯერ არ არის კონფიგურირებული. გთხოვთ მიუთითოთ n8n Webhook URL კოდში (`src/main.js`).';
+      }
+
+      // Remove typing indicator
+      const typingEl = document.getElementById(typingIndicatorId);
+      if (typingEl) typingEl.remove();
+
+      // Append Bot Response
+      const botMessageHTML = `
+        <div class="flex flex-col gap-1 max-w-[85%] self-start animate-fade-in">
+          <div class="bg-white/5 border border-white/5 backdrop-blur-md text-[#c6c6ce] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed">
+            ${parseMarkdown(botResponseText)}
+          </div>
+          <span class="text-[9px] text-[#c6c6ce]/40 font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
+        </div>
+      `;
+      chatMessages.insertAdjacentHTML('beforeend', botMessageHTML);
+      scrollChatToBottom();
+
+    } catch (err) {
+      console.error('n8n integration error:', err);
+      const typingEl = document.getElementById(typingIndicatorId);
+      if (typingEl) typingEl.remove();
+
+      const errorMessageHTML = `
+        <div class="flex flex-col gap-1 max-w-[85%] self-start animate-fade-in text-red-400">
+          <div class="bg-red-950/20 border border-red-500/20 px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed">
+            კავშირი ვერ დამყარდა n8n სერვერთან. გთხოვთ შეამოწმოთ ვებჰუკის მისამართი და სერვერის სტატუსი.
+          </div>
+          <span class="text-[9px] text-red-500/50 font-bold uppercase tracking-wider pl-1">სისტემური შეცდომა</span>
+        </div>
+      `;
+      chatMessages.insertAdjacentHTML('beforeend', errorMessageHTML);
+      scrollChatToBottom();
+    }
+  });
+
+  function scrollChatToBottom() {
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function escapeHtml(text) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+  }
+
+  function parseMarkdown(text) {
+    if (typeof text !== 'string') return '';
+    let html = escapeHtml(text);
+    
+    // Bold: **text** to <strong>text</strong>
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-white">$1</strong>');
+    
+    // Links: [Text](URL) to styled <a>
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="inline-flex items-center gap-0.5 text-[#f1bf62] hover:text-white underline decoration-[#f1bf62]/40 hover:decoration-white transition-all font-semibold">$1<span class="material-symbols-outlined text-[10px] inline-block align-middle ml-0.5">arrow_outward</span></a>');
+    
+    // Newlines to breaks
+    html = html.replace(/\n/g, '<br/>');
+    
+    return html;
+  }
+}
+
 
 

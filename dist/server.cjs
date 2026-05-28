@@ -390,6 +390,36 @@ app.post("/api/compatibility", async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+app.post("/api/n8n-chat", async (req, res) => {
+  try {
+    const { message, sessionId, sourceUrl } = req.body;
+    if (!message) {
+      return res.status(400).json({ success: false, error: "\u10E8\u10D4\u10E2\u10E7\u10DD\u10D1\u10D8\u10DC\u10D4\u10D1\u10D0 \u10EA\u10D0\u10E0\u10D8\u10D4\u10DA\u10D8\u10D0" });
+    }
+    const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || "https://meticulous-oyster.pikapod.net/webhook/idc-website-chat";
+    const response = await fetch(N8N_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message,
+        sessionId,
+        sourceUrl
+      })
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("n8n webhook response error:", errorText);
+      return res.status(response.status).json({ success: false, error: "\u10D5\u10D4\u10E0 \u10DB\u10DD\u10EE\u10D4\u10E0\u10EE\u10D3\u10D0 n8n \u10E1\u10D4\u10E0\u10D5\u10D4\u10E0\u10D7\u10D0\u10DC \u10D3\u10D0\u10D9\u10D0\u10D5\u10E8\u10D8\u10E0\u10D4\u10D1\u10D0" });
+    }
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error in n8n-chat proxy:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 async function startServer() {
   await initDb();
   if (process.env.NODE_ENV !== "production") {

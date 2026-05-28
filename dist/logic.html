@@ -158,7 +158,7 @@
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
   </style>
-  <link rel="stylesheet" crossorigin href="/assets/input-LOPcwHEK.css">
+  <link rel="stylesheet" crossorigin href="/assets/input-B2rEf78q.css">
 </head>
 <body class="h-screen w-screen flex flex-col antialiased selection:bg-[#f1bf62]/20 selection:text-[#f1bf62] bg-[#040506] relative">
   <!-- Ambient Video Background -->
@@ -196,7 +196,7 @@
   <div class="flex-grow flex overflow-hidden w-full relative">
     
     <!-- Dynamic Slide-out Details Panel (Replaces Sidebar) -->
-    <aside id="details-sidebar" class="details-panel w-85 bg-[#0c0e10]/65 border-r border-white/5 backdrop-blur-2xl shadow-2xl p-6 z-20 flex flex-col justify-between absolute left-0 top-0 h-full transform -translate-x-full select-none">
+    <aside id="details-sidebar" class="details-panel w-85 bg-[#0c0e10]/95 border-r border-[#f1bf62]/10 backdrop-blur-2xl shadow-2xl p-6 z-20 flex flex-col justify-between absolute left-0 top-0 h-full transform -translate-x-full select-none">
       <div class="space-y-4 overflow-y-auto max-h-[88%] scrollbar-thin">
         
         <!-- Details Sidebar Header (Enlarged prominent golden title) -->
@@ -223,7 +223,7 @@
           
           <div id="search-input-container" class="max-h-0 overflow-hidden transition-all duration-300">
             <div class="relative flex items-center mt-2.5">
-              <input type="text" id="node-search-input" placeholder="მოძებნეთ კვანძი..." class="w-full bg-[#121416]/90 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#f1bf62]/40 font-medium transition-all" />
+              <input type="text" id="node-search-input" placeholder="მოძებნეთ კვანძი..." class="w-full bg-[#121416]/90 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#f1bf62]/40 font-medium transition-all" />
               <button id="search-clear-btn" class="absolute right-2 text-slate-500 hover:text-white hidden transition-colors focus:outline-none">
                 <span class="material-symbols-outlined text-sm">close</span>
               </button>
@@ -236,47 +236,47 @@
         <!-- Dynamic Node Description Container (Increased text sizes) -->
         <div class="space-y-3 pt-2">
           <div id="details-empty-state" class="text-center py-6 space-y-2 border border-white/5 rounded-2xl bg-white/5">
-            <span class="material-symbols-outlined text-slate-500 text-3xl">info</span>
-            <p class="text-xs text-slate-500 max-w-[180px] mx-auto leading-relaxed">მიიტანეთ მაუსი კვანძზე ან მოძებნეთ დეტალური ინფორმაციისთვის.</p>
+            <span class="material-symbols-outlined text-slate-400 text-3xl">info</span>
+            <p class="text-sm text-slate-355 max-w-[200px] mx-auto leading-relaxed">მიიტანეთ მაუსი კვანძზე ან მოძებნეთ დეტალური ინფორმაციისთვის.</p>
           </div>
           <div class="details-card-wrapper transition-all duration-300">
             <div id="details-content" class="hidden space-y-3 p-4 border border-white/5 rounded-2xl bg-[#121416]/50 shadow-inner">
               <div>
-                <span id="node-detail-category" class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold">კატეგორია</span>
-                <h4 id="node-detail-title" class="text-lg font-headline font-bold text-white tracking-tight leading-snug italic mt-1">კვანძის სათაური</h4>
+                <span id="node-detail-category" class="text-[11px] uppercase tracking-widest text-amber-300 font-bold">კატეგორია</span>
+                <h4 id="node-detail-title" class="text-xl md:text-2xl font-headline font-bold text-[#f1bf62] tracking-tight leading-snug italic mt-1.5">კვანძის სათაური</h4>
               </div>
               <div class="h-px bg-white/5"></div>
-              <p id="node-detail-desc" class="text-xs text-slate-200 leading-relaxed font-light">დეტალური აღწერა...</p>
+              <p id="node-detail-desc" class="text-[14px] text-white leading-relaxed font-normal">დეტალური აღწერა...</p>
             </div>
           </div>
         </div>
 
         <!-- Interactive Structure Directory (All white initially, lights yellow on hover/click) -->
         <div class="bg-white/5 border border-white/5 p-3.5 rounded-2xl space-y-2.5">
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block border-b border-white/5 pb-1">ნეირო-რუკის სტრუქტურა</span>
+          <span class="text-[12px] font-bold text-white uppercase tracking-wider block border-b border-white/5 pb-1">ნეირო-რუკის სტრუქტურა</span>
           <div class="space-y-2 text-[11px] overflow-y-auto max-h-[200px] scrollbar-thin">
             <div class="space-y-1.5 font-medium">
-              <div id="dir-node-layer1-1" class="dir-item text-slate-300 hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-1')">
+              <div id="dir-node-layer1-1" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-1')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-[#f1bf62]"></span>
                 <span>ფილოსოფიური საფუძვლები</span>
               </div>
-              <div id="dir-node-layer1-2" class="dir-item text-slate-300 hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-2')">
+              <div id="dir-node-layer1-2" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-2')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-[#f1bf62]"></span>
                 <span>ძირითადი პრინციპები</span>
               </div>
-              <div id="dir-node-layer1-3" class="dir-item text-slate-300 hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-3')">
+              <div id="dir-node-layer1-3" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-3')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
                 <span>დიაგნოსტიკური მოდელები</span>
               </div>
-              <div id="dir-node-layer1-4" class="dir-item text-slate-300 hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-4')">
+              <div id="dir-node-layer1-4" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-4')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
                 <span>კონფლიქტის დინამიკა</span>
               </div>
-              <div id="dir-node-layer1-5" class="dir-item text-slate-300 hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-5')">
+              <div id="dir-node-layer1-5" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-5')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-[#f1bf62]"></span>
                 <span>თერაპიული პროცესი</span>
               </div>
-              <div id="dir-node-layer1-6" class="dir-item text-slate-300 hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-6')">
+              <div id="dir-node-layer1-6" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-6')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-[#f1bf62]"></span>
                 <span>გამოყენების სფეროები</span>
               </div>
@@ -1438,25 +1438,8 @@
         graphContainer.style.cursor = 'grab';
       });
 
-      // Click empty graph canvas to close details sidebar
-      graphContainer.addEventListener('click', (e) => {
-        if (e.target === graphContainer || e.target === svg || e.target === viewport || e.target.classList.contains('concave-bg-layer')) {
-          sidebar.classList.add('-translate-x-full');
-        }
-      });
-
-      // Zoom Controls
-      document.getElementById('zoom-in-btn').addEventListener('click', () => {
-        scale = Math.min(scale + 0.1, 1.8);
-        updateViewport();
-      });
-
-      document.getElementById('zoom-out-btn').addEventListener('click', () => {
-        scale = Math.max(scale - 0.1, 0.45);
-        updateViewport();
-      });
-
-      document.getElementById('zoom-reset-btn').addEventListener('click', () => {
+      // Function to collapse all branches and reset back to initial zoomed state ("გათიშვა")
+      function collapseAndResetAll() {
         scale = 1.75;
         panX = 0;
         panY = 140;
@@ -1475,6 +1458,7 @@
           // Reset custom dragged offsets back to absolute CSS default offsets!
           node.style.left = '';
           node.style.top = '';
+          node.classList.remove('focused-card');
         });
         
         // Reset sidebar directory list row highlights
@@ -1492,6 +1476,28 @@
         sidebar.classList.add('-translate-x-full');
         updateViewport();
         startRedrawLoop(500);
+      }
+
+      // Click empty graph canvas to close details sidebar and collapse all branches!
+      graphContainer.addEventListener('click', (e) => {
+        if (e.target === graphContainer || e.target === svg || e.target === viewport || e.target.classList.contains('concave-bg-layer')) {
+          collapseAndResetAll();
+        }
+      });
+
+      // Zoom Controls
+      document.getElementById('zoom-in-btn').addEventListener('click', () => {
+        scale = Math.min(scale + 0.1, 1.8);
+        updateViewport();
+      });
+
+      document.getElementById('zoom-out-btn').addEventListener('click', () => {
+        scale = Math.max(scale - 0.1, 0.45);
+        updateViewport();
+      });
+
+      document.getElementById('zoom-reset-btn').addEventListener('click', () => {
+        collapseAndResetAll();
       });
 
       // Mouse Wheel to Zoom
@@ -1505,10 +1511,14 @@
       // Initial drawing and alignment on window changes
       window.addEventListener('resize', () => requestAnimationFrame(drawConnections));
       
-      // Initialize viewport with standard zoomed in position centered on root
+      // Initialize viewport with standard zoomed in position centered on root and auto-expand central node branches
       setTimeout(() => {
         updateViewport();
-      }, 150);
+        const rootNode = document.getElementById('node-center');
+        if (rootNode) {
+          rootNode.click();
+        }
+      }, 300);
     });
   </script>
 </body>
