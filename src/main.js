@@ -940,6 +940,19 @@ function initN8nChat() {
       .chat-typing-dot:nth-child(2) { animation-delay: .2s; }
       .chat-typing-dot:nth-child(3) { animation-delay: .4s; }
       @keyframes typing-blink { 0% { opacity: .3; transform: scale(1); } 20% { opacity: 1; transform: scale(1.1); } 100% { opacity: .3; transform: scale(1); } }
+      @media (max-width: 640px) {
+        #n8n-chat-window {
+          position: fixed !important;
+          bottom: 5.5rem !important;
+          left: 1rem !important;
+          right: 1rem !important;
+          width: auto !important;
+          max-width: none !important;
+          height: calc(100% - 7rem) !important;
+          max-height: 70vh !important;
+          transform-origin: bottom center !important;
+        }
+      }
     </style>
   `;
 
