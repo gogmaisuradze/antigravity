@@ -940,6 +940,24 @@ function initN8nChat() {
       .chat-typing-dot:nth-child(2) { animation-delay: .2s; }
       .chat-typing-dot:nth-child(3) { animation-delay: .4s; }
       @keyframes typing-blink { 0% { opacity: .3; transform: scale(1); } 20% { opacity: 1; transform: scale(1.1); } 100% { opacity: .3; transform: scale(1); } }
+      @keyframes gold-glow-pulse {
+        0% { box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0px rgba(241, 191, 98, 0); }
+        50% { box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(241, 191, 98, 0.6); }
+        100% { box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0px rgba(241, 191, 98, 0); }
+      }
+      .glow-pulse-active {
+        animation: gold-glow-pulse 2s infinite ease-in-out !important;
+      }
+      #n8n-chat-tooltip {
+        opacity: 0;
+        transform: translateY(8px);
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+      }
+      #n8n-chat-widget:not(.chat-opened):hover #n8n-chat-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+      }
       @media (max-width: 640px) {
         #n8n-chat-window {
           position: fixed !important;
@@ -959,9 +977,16 @@ function initN8nChat() {
   const chatHTML = `
     ${styleHTML}
     <div id="n8n-chat-widget" class="fixed bottom-6 right-6 z-[100] font-sans">
+      <!-- Tooltip showing purpose -->
+      <div id="n8n-chat-tooltip" class="absolute bottom-16 right-0 mb-3 w-48 bg-[#1e2022]/95 border border-[#f1bf62]/20 text-[#c6c6ce] text-[11px] font-semibold px-4 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md text-center">
+        ინტელექტუალური ასისტენტი 🔮
+        <div class="text-[9px] text-[#f1bf62] mt-0.5 font-bold uppercase tracking-wider">ჰკითხეთ კალენდარი და სერვისები</div>
+        <div class="absolute bottom-[-5px] right-6 w-2.5 h-2.5 bg-[#1e2022]/95 border-r border-b border-[#f1bf62]/20 rotate-45"></div>
+      </div>
+
       <!-- Floating Action Chat Button -->
-      <button id="n8n-chat-trigger" class="w-14 h-14 rounded-full bg-[#1e2022]/80 border border-[#f1bf62]/20 text-[#f1bf62] hover:text-white flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(241,191,98,0.2)] hover:border-[#f1bf62]/40 backdrop-blur-md cursor-pointer transition-all duration-300 hover:-translate-y-1">
-        <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+      <button id="n8n-chat-trigger" class="glow-pulse-active w-14 h-14 rounded-full bg-[#1e2022]/80 border border-[#f1bf62]/20 text-[#f1bf62] hover:text-white flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(241,191,98,0.2)] hover:border-[#f1bf62]/40 backdrop-blur-md cursor-pointer transition-all duration-300 hover:-translate-y-1">
+        <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
       </button>
       
       <!-- Interactive Frosted Glass Chat Window -->
@@ -1005,6 +1030,7 @@ function initN8nChat() {
 
   document.body.insertAdjacentHTML('beforeend', chatHTML);
 
+  const widgetContainer = document.getElementById('n8n-chat-widget');
   const triggerBtn = document.getElementById('n8n-chat-trigger');
   const chatWindow = document.getElementById('n8n-chat-window');
   const closeBtn = document.getElementById('n8n-chat-close');
@@ -1012,12 +1038,20 @@ function initN8nChat() {
   const chatInput = document.getElementById('n8n-chat-input');
   const chatMessages = document.getElementById('n8n-chat-messages');
 
-  if (!triggerBtn || !chatWindow || !closeBtn || !chatForm || !chatInput || !chatMessages) return;
+  if (!widgetContainer || !triggerBtn || !chatWindow || !closeBtn || !chatForm || !chatInput || !chatMessages) return;
+
+  let autoOpenTimeout = null;
 
   const openChat = () => {
     const isHidden = chatWindow.classList.contains('hidden');
     if (isHidden) {
+      if (autoOpenTimeout) {
+        clearTimeout(autoOpenTimeout);
+        autoOpenTimeout = null;
+      }
       chatWindow.classList.remove('hidden');
+      widgetContainer.classList.add('chat-opened');
+      triggerBtn.classList.remove('glow-pulse-active');
       setTimeout(() => {
         chatWindow.style.transform = 'scale(1)';
         chatWindow.style.opacity = '1';
@@ -1036,6 +1070,8 @@ function initN8nChat() {
     chatWindow.style.opacity = '0';
     setTimeout(() => {
       chatWindow.classList.add('hidden');
+      widgetContainer.classList.remove('chat-opened');
+      triggerBtn.classList.add('glow-pulse-active');
       triggerBtn.style.transform = 'scale(1) rotate(0deg)';
       triggerBtn.style.opacity = '1';
     }, 300);
@@ -1043,8 +1079,8 @@ function initN8nChat() {
 
   closeBtn.addEventListener('click', closeChat);
 
-  // Automatically open the chat window after a premium 1.5s delay
-  setTimeout(openChat, 1500);
+  // Automatically open the chat window after a premium 20s delay
+  autoOpenTimeout = setTimeout(openChat, 20000);
 
   // Send message
   chatForm.addEventListener('submit', async (e) => {
