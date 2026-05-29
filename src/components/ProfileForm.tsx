@@ -18,77 +18,148 @@ const getTarotIllustration = (type: CalculationType) => {
   switch (type) {
     case CalculationType.HOROSCOPE:
       return (
-        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-          <path d="M16 8a4 4 0 0 0-4-4v8z" fill="currentColor" opacity="0.15" />
-          <circle cx="7" cy="7" r="0.5" fill="currentColor" />
-          <circle cx="17" cy="17" r="0.5" fill="currentColor" />
+        <svg className="w-12 h-12 text-[#f1bf62] transition-all duration-500 group-hover:scale-115" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          {/* Cosmic orbital circles */}
+          <circle cx="50" cy="50" r="40" strokeDasharray="3 3" opacity="0.4" />
+          <circle cx="50" cy="50" r="28" strokeWidth="0.8" opacity="0.6" />
+          {/* Mystic crescent moon and sun merging */}
+          <path d="M50 25 A 25 25 0 0 1 75 50 A 25 25 0 0 0 50 25" fill="#f1bf62" fillOpacity="0.25" />
+          <circle cx="50" cy="50" r="10" fill="currentColor" fillOpacity="0.1" />
+          {/* Diamond stars / constellation lines */}
+          <path d="M50 15 L50 20 M50 80 L50 85 M15 50 L20 50 M80 50 L85 50" />
+          <path d="M50 35 L48 44 L39 46 L48 48 L50 57 L52 48 L61 46 L52 44 Z" fill="currentColor" />
+          {/* Floating tiny dots */}
+          <circle cx="28" cy="28" r="1.5" fill="currentColor" />
+          <circle cx="72" cy="72" r="1" fill="currentColor" />
+          <circle cx="30" cy="68" r="1.2" fill="currentColor" />
+          <circle cx="70" cy="30" r="1.5" fill="currentColor" />
         </svg>
       );
     case CalculationType.ENNEAGRAM:
       return (
-        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-          <path d="M12 3L2 20h20L12 3z" />
-          <path d="M12 8a3 3 0 0 0-3 3c0 2 3 5 3 5s3-3 3-5a3 3 0 0 0-3-3z" fill="currentColor" opacity="0.15" />
-          <circle cx="12" cy="11.5" r="1.5" fill="currentColor" />
-          <path d="M8 12h8" />
+        <svg className="w-12 h-12 text-[#f1bf62] transition-all duration-500 group-hover:scale-115" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          {/* Outer sacred circle */}
+          <circle cx="50" cy="50" r="42" opacity="0.5" />
+          <circle cx="50" cy="50" r="45" strokeWidth="0.5" strokeDasharray="2 2" opacity="0.3" />
+          {/* Enneagram-inspired geometric nested triangles */}
+          <path d="M50 8 L86 72 L14 72 Z" strokeWidth="1.2" />
+          <path d="M50 92 L86 28 L14 28 Z" strokeWidth="0.8" opacity="0.4" />
+          <circle cx="50" cy="50" r="14" strokeWidth="0.8" strokeDasharray="4 2" fill="currentColor" fillOpacity="0.1" />
+          {/* Point markers */}
+          <circle cx="50" cy="8" r="2.5" fill="currentColor" />
+          <circle cx="86" cy="72" r="2.5" fill="currentColor" />
+          <circle cx="14" cy="72" r="2.5" fill="currentColor" />
+          {/* Radiating geometry */}
+          <line x1="50" y1="8" x2="50" y2="92" strokeWidth="0.5" opacity="0.3" />
+          <line x1="14" y1="72" x2="86" y2="28" strokeWidth="0.5" opacity="0.3" />
+          <line x1="86" y1="72" x2="14" y2="28" strokeWidth="0.5" opacity="0.3" />
         </svg>
       );
     case CalculationType.PSYCHOMATRIX:
       return (
-        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-          <path d="M5 5v14h14L5 5z" />
-          <path d="M5 19L19 19L5 5z" fill="currentColor" opacity="0.15" />
-          <path d="M9 19v-4M13 19v-8M5 15h4M5 11h8" />
+        <svg className="w-12 h-12 text-[#f1bf62] transition-all duration-500 group-hover:scale-115" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          {/* Abstract logarithmic spiral of life within matrix frame */}
+          <rect x="15" y="15" width="70" height="70" rx="10" strokeDasharray="4 4" opacity="0.3" />
+          <path d="M15 38 H85 M15 62 H85 M38 15 V85 M62 15 V85" strokeWidth="0.8" opacity="0.5" />
+          {/* Fibonacci Spiral representing mathematical nature */}
+          <path d="M50 50 A 5 5 0 0 1 55 50 A 10 10 0 0 1 45 50 A 20 20 0 0 1 65 50 A 30 30 0 0 1 35 50 A 40 40 0 0 1 75 50" strokeWidth="1.2" strokeLinecap="round" opacity="0.9" />
+          {/* Sparkling dots on grid intersections */}
+          <circle cx="38" cy="38" r="2" fill="currentColor" />
+          <circle cx="62" cy="62" r="2" fill="currentColor" />
+          <circle cx="38" cy="62" r="1.5" fill="currentColor" opacity="0.7" />
+          <circle cx="62" cy="38" r="1.5" fill="currentColor" opacity="0.7" />
+          <circle cx="50" cy="50" r="3" fill="#f1bf62" className="animate-pulse" />
         </svg>
       );
     case CalculationType.NUMEROLOGY:
       return (
-        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-          <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" />
-          <path d="M12 3a9 9 0 0 0 0 18V3z" fill="currentColor" opacity="0.15" />
-          <path d="M7 12a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" />
-          <path d="M11 12a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" />
+        <svg className="w-12 h-12 text-[#f1bf62] transition-all duration-500 group-hover:scale-115" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          {/* Overlapping circles (Vesica Piscis) */}
+          <circle cx="40" cy="50" r="24" opacity="0.6" />
+          <circle cx="60" cy="50" r="24" opacity="0.6" />
+          <circle cx="50" cy="50" r="38" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.4" />
+          {/* Mystical Infinity symbol */}
+          <path d="M35 50 C 35 40, 47 40, 50 50 C 53 60, 65 60, 65 50 C 65 40, 53 40, 50 50 C 47 60, 35 60, 35 50 Z" strokeWidth="1.5" fill="currentColor" fillOpacity="0.1" />
+          {/* Cosmic rays */}
+          <line x1="50" y1="12" x2="50" y2="25" strokeWidth="0.8" />
+          <line x1="50" y1="75" x2="50" y2="88" strokeWidth="0.8" />
+          <line x1="12" y1="50" x2="25" y2="50" strokeWidth="0.8" />
+          <line x1="75" y1="50" x2="88" y2="50" strokeWidth="0.8" />
+          <circle cx="50" cy="12" r="1.5" fill="currentColor" />
+          <circle cx="50" cy="88" r="1.5" fill="currentColor" />
         </svg>
       );
     case CalculationType.HUMAN_DESIGN:
       return (
-        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-          <path d="M12 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="currentColor" opacity="0.2" />
-          <path d="M12 6v10M6 14l6-4 6 4M12 16l-3 5M12 16l3 5" />
-          <circle cx="12" cy="10" r="1" fill="currentColor" />
-          <circle cx="12" cy="14" r="1.5" fill="currentColor" />
-          <circle cx="6" cy="14" r="1" fill="currentColor" />
-          <circle cx="18" cy="14" r="1" fill="currentColor" />
+        <svg className="w-12 h-12 text-[#f1bf62] transition-all duration-500 group-hover:scale-115" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          {/* Crown energy center triangle */}
+          <polygon points="50,12 60,25 40,25" strokeWidth="1.2" fill="currentColor" fillOpacity="0.1" />
+          {/* Ajna inverted triangle */}
+          <polygon points="50,42 60,30 40,30" strokeWidth="0.8" />
+          {/* Heart / Throat channel lines and circles */}
+          <circle cx="50" cy="52" r="7" strokeWidth="1.2" fill="currentColor" fillOpacity="0.15" />
+          <polygon points="50,68 64,84 36,84" strokeWidth="1.2" />
+          {/* Connected energy gates and channels */}
+          <line x1="50" y1="25" x2="50" y2="30" strokeWidth="1.5" />
+          <line x1="50" y1="42" x2="50" y2="45" strokeWidth="1.5" />
+          <line x1="50" y1="59" x2="50" y2="68" strokeWidth="1.5" />
+          <circle cx="28" cy="52" r="4.5" opacity="0.6" />
+          <circle cx="72" cy="52" r="4.5" opacity="0.6" />
+          <line x1="32.5" y1="52" x2="43" y2="52" strokeWidth="0.8" strokeDasharray="2 1" />
+          <line x1="67.5" y1="52" x2="57" y2="52" strokeWidth="0.8" strokeDasharray="2 1" />
+          <line x1="28" y1="52" x2="36" y2="84" strokeWidth="0.6" opacity="0.5" />
+          <line x1="72" y1="52" x2="64" y2="84" strokeWidth="0.6" opacity="0.5" />
         </svg>
       );
     case CalculationType.VEDIC:
       return (
-        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-          <circle cx="12" cy="12" r="8" />
-          <circle cx="12" cy="12" r="5" fill="currentColor" opacity="0.15" />
-          <path d="M12 2v20M2 12h20M5 5l14 14M5 19L19 5" />
-          <circle cx="12" cy="12" r="2" />
+        <svg className="w-12 h-12 text-[#f1bf62] transition-all duration-500 group-hover:scale-115" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          {/* Sacred lotus mandala */}
+          <circle cx="50" cy="50" r="42" strokeDasharray="4 4" opacity="0.3" />
+          {/* Multi-layered stars/lotus petals */}
+          <path d="M50 15 C45 30 30 45 15 50 C30 55 45 70 50 85 C55 70 70 55 85 50 C70 45 55 30 50 15 Z" strokeWidth="1.2" fill="currentColor" fillOpacity="0.1" />
+          <path d="M50 25 C47 35 35 47 25 50 C35 53 47 65 50 75 C53 65 65 53 75 50 C65 47 53 35 50 25 Z" strokeWidth="0.8" fill="#f1bf62" fillOpacity="0.2" />
+          {/* Central sun orb */}
+          <circle cx="50" cy="50" r="8" fill="currentColor" />
+          <circle cx="50" cy="50" r="12" strokeWidth="0.5" opacity="0.7" />
+          {/* Karma dots */}
+          <circle cx="25" cy="25" r="1" fill="currentColor" />
+          <circle cx="75" cy="25" r="1" fill="currentColor" />
+          <circle cx="25" cy="75" r="1" fill="currentColor" />
+          <circle cx="75" cy="75" r="1" fill="currentColor" />
         </svg>
       );
     case CalculationType.BAZI:
       return (
-        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M12 3a9 9 0 0 0 0 18 4.5 4.5 0 0 0 0-9 4.5 4.5 0 0 1 0-9z" fill="currentColor" opacity="0.25" />
-          <circle cx="12" cy="7.5" r="1.5" fill="currentColor" />
-          <circle cx="12" cy="16.5" r="1.5" fill="currentColor" />
+        <svg className="w-12 h-12 text-[#f1bf62] transition-all duration-500 group-hover:scale-115" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          {/* Yin Yang absolute balance sphere */}
+          <circle cx="50" cy="50" r="42" opacity="0.4" />
+          <path d="M50 8 A 21 21 0 0 0 50 50 A 21 21 0 0 1 50 92 A 42 42 0 0 0 50 8 Z" fill="currentColor" fillOpacity="0.15" />
+          <circle cx="50" cy="29" r="4" fill="currentColor" />
+          <circle cx="50" cy="71" r="4" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          {/* 5 elements surrounding curves */}
+          <path d="M22 30 Q 35 20 50 30" strokeWidth="0.8" opacity="0.7" />
+          <path d="M78 30 Q 65 20 50 30" strokeWidth="0.8" opacity="0.7" />
+          <path d="M22 70 Q 35 80 50 70" strokeWidth="0.8" opacity="0.7" />
+          <path d="M78 70 Q 65 80 50 70" strokeWidth="0.8" opacity="0.7" />
+          <circle cx="50" cy="50" r="15" strokeWidth="0.5" strokeDasharray="3 2" opacity="0.5" />
         </svg>
       );
     case CalculationType.ARCHETYPE:
       return (
-        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-          <circle cx="12" cy="9" r="6" />
-          <path d="M6 15c0-4 3-6 6-6s6 2 6 6M12 15v5M9 20h6" />
-          <path d="M12 3a6 6 0 0 0-6 6c0 2.5 1.5 4.5 3.5 5.5" fill="currentColor" opacity="0.15" />
-          <circle cx="10" cy="8" r="0.8" fill="currentColor" />
-          <circle cx="14" cy="8" r="0.8" fill="currentColor" />
+        <svg className="w-12 h-12 text-[#f1bf62] transition-all duration-500 group-hover:scale-115" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+          {/* Mystical Consciousness Eye */}
+          <path d="M12 50 C 30 22, 70 22, 88 50 C 70 78, 30 78, 12 50 Z" strokeWidth="1.2" fill="currentColor" fillOpacity="0.1" />
+          <circle cx="50" cy="50" r="16" strokeWidth="1" />
+          {/* Glowing pupil */}
+          <circle cx="50" cy="50" r="7" fill="currentColor" />
+          <circle cx="47" cy="47" r="1.8" fill="#121416" />
+          {/* Ethereal rays */}
+          <path d="M50 15 L50 24 M50 76 L50 85 M15 50 L24 50 M76 50 L85 50" strokeWidth="0.8" />
+          <path d="M25 25 L32 32 M75 25 L68 32 M25 75 L32 68 M75 75 L68 68" strokeWidth="0.8" />
+          {/* Crescent moon shadows */}
+          <path d="M78 40 A 10 10 0 0 1 78 60 A 8 8 0 0 0 78 40" fill="currentColor" opacity="0.6" />
+          <path d="M22 40 A 10 10 0 0 0 22 60 A 8 8 0 0 1 22 40" fill="currentColor" opacity="0.6" />
         </svg>
       );
     default:
@@ -116,6 +187,17 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [hoveredTheme, setHoveredTheme] = useState<CalculationType | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [useStandardCalendar, setUseStandardCalendar] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(1024);
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const cardSpacing = windowWidth < 480 ? 34 : windowWidth < 640 ? 46 : windowWidth < 768 ? 68 : windowWidth < 1024 ? 80 : 96;
+  const cardScale = windowWidth < 480 ? 0.75 : windowWidth < 640 ? 0.85 : 1.0;
 
   // Auto-fill from saved profile
   useEffect(() => {
@@ -341,8 +423,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
             ანალიზის თემა (აირჩიეთ ტაროს კარტი)
           </label>
           
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 max-w-6xl mx-auto w-full px-2 py-4 select-none">
-            {THEMES.map((theme) => {
+          <div className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] flex items-center justify-center overflow-visible my-10 select-none px-4">
+            {THEMES.map((theme, index) => {
               const isSelected = selectedTheme === theme.value;
               const isHovered = hoveredTheme === theme.value;
               
@@ -362,45 +444,66 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                 }
               };
 
+              const distanceFromCenter = index - 3.5;
+              const dx = distanceFromCenter * cardSpacing;
+              const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 1.5 : 2.5);
+              const rot = distanceFromCenter * (windowWidth < 640 ? 4.5 : 6);
+
+              let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotate(${rot}deg) scale(${cardScale})`;
+              let zIndexVal = 10 + Math.round(10 - Math.abs(distanceFromCenter));
+
+              if (isHovered) {
+                transformStr = `translate3d(calc(-50% + ${dx}px), -45px, 80px) rotate(0deg) scale(${cardScale * 1.3})`;
+                zIndexVal = 100;
+              } else if (isSelected) {
+                transformStr = `translate3d(calc(-50% + ${dx}px), -15px, 40px) rotate(${rot * 0.3}deg) scale(${cardScale * 1.15})`;
+                zIndexVal = 80;
+              }
+
               return (
                 <div
                   key={theme.value}
                   onClick={handleCardClick}
                   onMouseEnter={() => setHoveredTheme(theme.value)}
                   onMouseLeave={() => setHoveredTheme(null)}
-                  className={`relative w-full aspect-[2/3] rounded-2xl p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
+                  style={{
+                    transform: transformStr,
+                    zIndex: zIndexVal,
+                    transformOrigin: "bottom center",
+                  }}
+                  className={`absolute left-1/2 bottom-4 w-[86px] sm:w-[105px] md:w-[115px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
                     isHovered 
-                      ? "border-[#f1bf62] shadow-[0_20px_45px_rgba(241,191,98,0.3)] -translate-y-6 scale-105 z-30"
+                      ? "border-[#f1bf62] shadow-[0_20px_45px_rgba(241,191,98,0.35)]"
                       : isSelected
-                      ? "border-[#f1bf62] shadow-[0_0_25px_rgba(241,191,98,0.2)] bg-[#f1bf62]/5 -translate-y-3 scale-102 z-20"
-                      : "border-white/10 hover:border-white/20 translate-y-0 scale-100 opacity-80 hover:opacity-100"
+                      ? "border-[#f1bf62] shadow-[0_0_30px_rgba(241,191,98,0.25)] bg-[#f1bf62]/5"
+                      : "border-white/10 hover:border-white/20 opacity-75 hover:opacity-100"
                   }`}
                 >
                   {/* Ornate Inner Border like authentic Tarot Cards */}
-                  <div className={`absolute inset-1.5 rounded-[12px] border pointer-events-none transition-colors duration-500 ${
+                  <div className={`absolute inset-1 sm:inset-1.5 rounded-[10px] sm:rounded-[12px] border pointer-events-none transition-colors duration-500 ${
                     isSelected || isHovered ? "border-[#f1bf62]/35" : "border-white/5"
                   }`}>
                     {/* Stars in the corners of the card */}
-                    <div className="absolute top-1 left-1 text-[8px] text-[#f1bf62]/40 font-serif">✦</div>
-                    <div className="absolute top-1 right-1 text-[8px] text-[#f1bf62]/40 font-serif">✦</div>
-                    <div className="absolute bottom-1 left-1 text-[8px] text-[#f1bf62]/40 font-serif">✦</div>
-                    <div className="absolute bottom-1 right-1 text-[8px] text-[#f1bf62]/40 font-serif">✦</div>
+                    <div className="absolute top-1 left-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
+                    <div className="absolute top-1 right-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
+                    <div className="absolute bottom-1 left-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
+                    <div className="absolute bottom-1 right-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
                   </div>
 
                   {/* Top: Roman Numeral representing card's order */}
-                  <span className={`text-[10px] font-serif font-extrabold tracking-widest text-center mt-1 z-10 transition-colors uppercase ${
+                  <span className={`text-[8.5px] sm:text-[9.5px] font-serif font-extrabold tracking-widest text-center mt-1 z-10 transition-colors uppercase ${
                     isSelected || isHovered ? "text-[#f1bf62]" : "text-[#c6c6ce]/40"
                   }`}>
                     {theme.numeral}
                   </span>
 
                   {/* Center: Thematic Mystical Illustration Drawing */}
-                  <div className="flex-grow flex items-center justify-center py-2 z-10">
+                  <div className="flex-grow flex items-center justify-center py-2 z-10 w-full">
                     {getTarotIllustration(theme.value)}
                   </div>
 
                   {/* Bottom: Card Label Cover Title */}
-                  <span className={`text-[10px] sm:text-[10.5px] font-extrabold text-center tracking-wider leading-tight z-10 pb-1.5 transition-colors uppercase ${
+                  <span className={`text-[8px] sm:text-[9.5px] font-extrabold text-center tracking-wider leading-tight z-10 pb-1 sm:pb-1.5 transition-colors uppercase ${
                     isSelected || isHovered ? "text-[#f1bf62]" : "text-[#c6c6ce]/75 group-hover:text-white"
                   }`}>
                     {theme.label.split(" (")[0]}
@@ -427,26 +530,29 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           })()}
         </div>
 
-        {/* Action Button */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full mt-8 bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold uppercase tracking-widest py-4 px-6 rounded-xl shadow-[0_0_15px_rgba(241,191,98,0.3)] transition-all cursor-pointer active:scale-98 flex items-center justify-center space-x-2.5 disabled:opacity-50 text-[12px]"
-        >
-          {loading ? (
-            <>
-              <RefreshCw className="w-4.5 h-4.5 animate-spin text-[#121416]" />
-              <span>მიმდინარეობს სინქრონიზაცია...</span>
-            </>
-          ) : (
-            <>
-              <Sparkles className="w-4.5 h-4.5 fill-[#121416] flex-shrink-0 text-[#121416]" />
-              <span>
-                {savedProfile ? "მონაცემების განახლება" : "დაწყება"}
-              </span>
-            </>
-          )}
-        </button>
+        {/* Action Button Container */}
+        <div className="flex justify-center w-full mt-8">
+          <button
+            type="submit"
+            disabled={loading}
+            className={`transition-all duration-700 ease-in-out cursor-pointer active:scale-95 flex items-center justify-center border font-bold uppercase tracking-widest disabled:opacity-80 text-[12px] shadow-[0_0_20px_rgba(241,191,98,0.2)] ${
+              loading 
+                ? "w-14 h-14 rounded-full bg-transparent border-[#f1bf62]/80 text-[#f1bf62]" 
+                : "w-full max-w-[480px] h-14 rounded-xl bg-[#f1bf62] border-[#f1bf62] text-[#121416] hover:bg-[#f1bf62]/90 hover:shadow-[0_0_25px_rgba(241,191,98,0.4)]"
+            }`}
+          >
+            {loading ? (
+              <RefreshCw className="w-5 h-5 animate-spin text-[#f1bf62]" />
+            ) : (
+              <>
+                <Sparkles className="w-4.5 h-4.5 fill-[#121416] flex-shrink-0 text-[#121416] mr-2" />
+                <span>
+                  {savedProfile ? "მონაცემების განახლება" : "დაწყება"}
+                </span>
+              </>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );
