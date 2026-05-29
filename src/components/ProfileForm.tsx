@@ -196,7 +196,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const cardSpacing = windowWidth < 480 ? 34 : windowWidth < 640 ? 46 : windowWidth < 768 ? 68 : windowWidth < 1024 ? 80 : 96;
+  const cardSpacing = windowWidth < 480 ? 20 : windowWidth < 640 ? 28 : windowWidth < 768 ? 42 : windowWidth < 1024 ? 52 : 62;
   const cardScale = windowWidth < 480 ? 0.75 : windowWidth < 640 ? 0.85 : 1.0;
 
   // Auto-fill from saved profile
@@ -343,7 +343,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </div>
 
         {/* Unified iOS-Style Circular Date Selector or Standard Calendar alternative */}
-        <div className="space-y-3 py-2">
+        <div className="space-y-4 pt-6 pb-3 md:pt-8 md:pb-5">
           <label className="block text-[12px] font-extrabold uppercase tracking-widest text-[#c6c6ce]/80 mb-1 text-center w-full">
             {useStandardCalendar 
               ? "დაბადების თარიღი (დააწკაპუნეთ კალენდრიდან ასარჩევად)" 
@@ -370,9 +370,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               />
             </div>
           ) : (
-            <div className="relative bg-[#1e2022]/40 rounded-2xl py-2 px-6 shadow-2xl border border-white/5 max-w-[480px] mx-auto overflow-hidden select-none">
+            <div className="relative bg-[#1e2022]/45 rounded-2xl py-4 px-6 shadow-2xl border-2 border-[#f1bf62]/20 max-w-[480px] mx-auto overflow-hidden select-none">
               {/* Horizontal highlighted selection band in center across all column rollers */}
-              <div className="absolute top-[50%] -translate-y-[50%] left-2 right-2 h-9 bg-white/5 rounded-lg pointer-events-none z-0" />
+              <div className="absolute top-[50%] -translate-y-[50%] left-2 right-2 h-11 bg-white/5 rounded-lg pointer-events-none z-0" />
               
               {/* The side-by-side rollers */}
               <div className="relative flex flex-row items-center justify-between gap-4 z-10 w-full">
@@ -423,7 +423,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
             ანალიზის თემა (აირჩიეთ ტაროს კარტი)
           </label>
           
-          <div className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] flex items-center justify-center overflow-visible my-10 select-none px-4">
+          <div 
+            style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
+            className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] flex items-center justify-center overflow-visible my-10 select-none px-4"
+          >
             {THEMES.map((theme, index) => {
               const isSelected = selectedTheme === theme.value;
               const isHovered = hoveredTheme === theme.value;
@@ -446,17 +449,18 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
               const distanceFromCenter = index - 3.5;
               const dx = distanceFromCenter * cardSpacing;
-              const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 1.5 : 2.5);
-              const rot = distanceFromCenter * (windowWidth < 640 ? 4.5 : 6);
+              const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 1.0 : 1.8);
+              const rotZ = distanceFromCenter * (windowWidth < 640 ? 3 : 4.5);
+              const rotY = distanceFromCenter < 0 ? 38 : -38;
 
-              let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotate(${rot}deg) scale(${cardScale})`;
+              let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
               let zIndexVal = 10 + Math.round(10 - Math.abs(distanceFromCenter));
 
               if (isHovered) {
-                transformStr = `translate3d(calc(-50% + ${dx}px), -45px, 80px) rotate(0deg) scale(${cardScale * 1.3})`;
+                transformStr = `translate3d(calc(-50% + ${dx}px), -55px, 120px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.35})`;
                 zIndexVal = 100;
               } else if (isSelected) {
-                transformStr = `translate3d(calc(-50% + ${dx}px), -15px, 40px) rotate(${rot * 0.3}deg) scale(${cardScale * 1.15})`;
+                transformStr = `translate3d(calc(-50% + ${dx}px), -25px, 60px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.2})`;
                 zIndexVal = 80;
               }
 
@@ -470,6 +474,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                     transform: transformStr,
                     zIndex: zIndexVal,
                     transformOrigin: "bottom center",
+                    transformStyle: "preserve-3d",
                   }}
                   className={`absolute left-1/2 bottom-4 w-[86px] sm:w-[105px] md:w-[115px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
                     isHovered 

@@ -181,7 +181,7 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
       
       <div 
         ref={containerRef}
-        className={`relative flex flex-col items-center justify-center h-28 w-full min-w-[70px] select-none py-1 transition-colors ${
+        className={`relative flex flex-col items-center justify-center h-36 w-full min-w-[80px] select-none py-2 transition-colors ${
           isIos 
             ? "bg-transparent border-0 overflow-hidden" 
             : "bg-black/40 border border-white/5 rounded-none overflow-hidden group"
@@ -218,7 +218,7 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
 
         {/* Center active highlighted bar indicator */}
         {(variant === "dark" || variant === "ios-dark") && (
-          <div className="absolute left-1.5 right-1.5 h-8 border-y border-white/10 bg-white/5 pointer-events-none z-0 rounded-lg" />
+          <div className="absolute left-1.5 right-1.5 h-10 border-y-2 border-[#f1bf62]/45 bg-[#f1bf62]/5 shadow-[0_0_15px_rgba(241,191,98,0.1)] pointer-events-none z-0 rounded-lg" />
         )}
 
         {/* Navigation Buttons visible on hover */}
@@ -248,17 +248,17 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
             const isCenter = offset === 0;
             const dist = Math.abs(offset);
             
-            const opacity = dist === 0 ? 1 : dist === 1 ? 0.55 : 0.16;
-            const scale = dist === 0 ? 1.12 : dist === 1 ? 0.90 : 0.72;
+            const opacity = dist === 0 ? 1.0 : dist === 1 ? 0.65 : 0.22;
+            const scale = dist === 0 ? 1.25 : dist === 1 ? 0.96 : 0.74;
             const translateY = offset === 0 
               ? 0 
               : offset === 1 
-              ? 26 
+              ? 34 
               : offset === -1 
-              ? -26 
+              ? -34 
               : offset === 2 
-              ? 48 
-              : -48;
+              ? 64 
+              : -64;
             const rotateX = offset * -28;
 
             // Styles for light vs dark theme
@@ -272,21 +272,23 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
               : (!isLight && isCenter)
               ? "0 0 10px rgba(255, 255, 255, 0.3)"
               : "none";
-            const fontWeightValue = isCenter ? 700 : 500;
+            const fontWeightValue = isCenter ? 900 : 700;
 
             return (
               <div
                 key={`${offset}-${itemIdx}`}
                 onClick={() => onChange(item.value)}
                 className={`absolute w-full px-1 text-center transition-all duration-300 ease-out cursor-pointer ${
-                  isIos ? "text-sm tracking-wide" : "text-xs uppercase"
+                  isIos 
+                    ? (isCenter ? "text-lg sm:text-xl tracking-wide font-black" : "text-sm sm:text-base tracking-wide font-bold") 
+                    : "text-xs uppercase"
                 }`}
                 style={{
                   transform: `translateY(${translateY}px) scale(${scale}) rotateX(${rotateX}deg)`,
                   opacity: opacity,
                   color: textColor,
                   fontWeight: fontWeightValue,
-                  letterSpacing: isIos ? "0.02em" : "0.12em",
+                  letterSpacing: isIos ? "0.03em" : "0.12em",
                   textShadow: textShadowValue,
                   transformStyle: "preserve-3d",
                 }}
