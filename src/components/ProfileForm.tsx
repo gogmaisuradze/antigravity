@@ -200,7 +200,8 @@ interface ProfileFormProps {
 }
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedProfile, loading }) => {
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [birthPlace, setBirthPlace] = useState("საქართველო");
   const [day, setDay] = useState(1);
   const [month, setMonth] = useState(1);
@@ -227,7 +228,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   // Auto-fill from saved profile
   useEffect(() => {
     if (savedProfile) {
-      setFullName(`${savedProfile.name} ${savedProfile.surname}`.trim());
+      setFirstName(savedProfile.name || "");
+      setLastName(savedProfile.surname || "");
       setBirthPlace(savedProfile.birthPlace || "საქართველო");
       setDay(savedProfile.day);
       setMonth(savedProfile.month);
@@ -264,20 +266,33 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     e.preventDefault();
     setError(null);
 
-    const nameParts = fullName.trim().split(/\s+/);
-    if (!fullName.trim() || nameParts.length < 2) {
-      return setError("გთხოვთ შეიყვანოთ სახელი და გვარი (უნდა შეიცავდეს ორ სიტყვას)");
-    }
-    const name = nameParts[0];
-    const surname = nameParts.slice(1).join(" ");
+    const cleanName = firstName.trim();
+    const cleanSurname = lastName.trim();
 
-    const trimmedPhone = phone.trim();
-    if (!trimmedPhone) {
-      return setError("გთხოვთ შეიყვანოთ ტელეფონის ნომერი");
+    if (cleanName.length < 2) {
+      return setError("სახელი უნდა შედგებოდეს მინიმუმ 2 ასოსგან და არ უნდა შეიცავდეს ციფრებს");
+    }
+    if (cleanSurname.length < 2) {
+      return setError("გვარი უნდა შედგებოდეს მინიმუმ 2 ასოსგან და არ უნდა შეიცავდეს ციფრებს");
+    }
+    if (/\d/.test(cleanName) || /\d/.test(cleanSurname)) {
+      return setError("სახელი და გვარი არ უნდა შეიცავდეს ციფრებს");
+    }
+
+    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    let normalizedPhone = cleanPhone;
+    if (normalizedPhone.startsWith("+995")) {
+      normalizedPhone = normalizedPhone.slice(4);
+    } else if (normalizedPhone.startsWith("995")) {
+      normalizedPhone = normalizedPhone.slice(3);
+    }
+
+    if (!/^5\d{8}$/.test(normalizedPhone)) {
+      return setError("ტელეფონის ნომერი აუცილებლად უნდა იწყებოდეს 5-ით და შედგებოდეს 9 ციფრისგან (მაგ: 5XXXXXXXX)");
     }
 
     if (!selectedTheme) {
-      return setError("გთხოვთ აირჩიოთ ანალიზის თემა (ტაროს კარტი)");
+      return setError("გთხოვთ აირჩიოთ ანალიზის თემა");
     }
 
     const finalBirthPlace = birthPlace.trim() || "საქართველო";
@@ -347,31 +362,43 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       )}
 
       <form id="profile-form" onSubmit={handleSubmit} className="space-y-6">
-        {/* Row for Name/Surname and Phone number aligned next to each other, narrowed to match compact theme */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-2 max-w-[480px] mx-auto w-full">
-          {/* Name & Surname Field Combined */}
+        {/* Separate Name and Surname Fields, side-by-side grid, narrowed to match compact theme */}
+        <div className="grid grid-cols-2 gap-5 pb-2 max-w-[480px] mx-auto w-full">
+          {/* Name Input */}
           <div>
             <input
               type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="სახელი გვარი"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="სახელი"
               className="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
               required
             />
           </div>
 
-          {/* Phone Field */}
+          {/* Surname Input */}
           <div>
             <input
               type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="ტელ:"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="გვარი"
               className="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
               required
             />
           </div>
+        </div>
+
+        {/* Phone Field */}
+        <div className="pb-2 max-w-[480px] mx-auto w-full">
+          <input
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="ტელეფონი (მაგ: 5XXXXXXXX)"
+            className="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
+            required
+          />
         </div>
 
         {/* Unified iOS-Style Circular Date Selector or Standard Calendar alternative */}
@@ -500,9 +527,18 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                   playExitCapSound();
                   
                   // If form is already filled out, automatically submit the form to calculate the matrix
-                  const nameParts = fullName.trim().split(/\s+/);
-                  const trimmedPhone = phone.trim();
-                  if (fullName.trim() && nameParts.length >= 2 && trimmedPhone) {
+                  const cleanName = firstName.trim();
+                  const cleanSurname = lastName.trim();
+                  const cleanPhone = phone.trim().replace(/\s+/g, "");
+                  let normalizedPhone = cleanPhone;
+                  if (normalizedPhone.startsWith("+995")) normalizedPhone = normalizedPhone.slice(4);
+                  else if (normalizedPhone.startsWith("995")) normalizedPhone = normalizedPhone.slice(3);
+
+                  const isNameValid = cleanName.length >= 2 && !/\d/.test(cleanName);
+                  const isSurnameValid = cleanSurname.length >= 2 && !/\d/.test(cleanSurname);
+                  const isPhoneValid = /^5\d{8}$/.test(normalizedPhone);
+
+                  if (isNameValid && isSurnameValid && isPhoneValid) {
                     setTimeout(() => {
                       const formEl = document.getElementById("profile-form") as HTMLFormElement;
                       if (formEl) {
