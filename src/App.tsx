@@ -3,7 +3,7 @@ import { BirthProfile, CalculationType, ReadingResponse } from "./types";
 import { ProfileForm } from "./components/ProfileForm";
 import { SpinWheel } from "./components/SpinWheel";
 import { CompatibilityPanel } from "./components/CompatibilityPanel";
-import { Sparkles, RefreshCw, MessageSquare, Edit3, UserCheck, Star, ShieldAlert, ArrowLeft, Send, Facebook, Link, Share2 } from "lucide-react";
+import { Sparkles, RefreshCw, MessageSquare, Edit3, UserCheck, Star, ShieldAlert, ArrowLeft, Send, Facebook, Link, Share2, Smartphone, MessageCircle } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 export default function App() {
@@ -161,6 +161,62 @@ export default function App() {
     const appUrl = window.location.origin;
     const shareLink = `${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
     return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`;
+  };
+
+  const getMessengerShareURL = () => {
+    if (!userProfile) return "";
+    const appUrl = window.location.origin;
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      return `fb-messenger://share/?link=${encodeURIComponent(shareLink)}`;
+    }
+    return `https://www.facebook.com/dialog/send?link=${encodeURIComponent(shareLink)}&app_id=966242223397117&redirect_uri=${encodeURIComponent(appUrl)}`;
+  };
+
+  const handleNativeShare = () => {
+    if (!userProfile) return;
+    const appUrl = window.location.origin;
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
+    if (navigator.share) {
+      navigator.share({
+        title: reading?.title || "იდენტობის მატრიცა",
+        text: `გამარჯობა, გაზიარებთ ჩემი იდენტობის მატრიცის ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
+        url: shareLink,
+      }).catch(() => {});
+    } else {
+      const smsBody = `გამარჯობა, გაზიარებთ ჩემი იდენტობის მატრიცის ანალიზს 🔮🌟\n\n${shareLink}`;
+      window.open(`sms:?body=${encodeURIComponent(smsBody)}`);
+    }
+  };
+
+  const getCustomMessengerShareURL = (phone: string) => {
+    if (!userProfile) return "";
+    const appUrl = window.location.origin;
+    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      return `fb-messenger://share/?link=${encodeURIComponent(shareLink)}`;
+    }
+    return `https://www.facebook.com/dialog/send?link=${encodeURIComponent(shareLink)}&app_id=966242223397117&redirect_uri=${encodeURIComponent(appUrl)}`;
+  };
+
+  const handleCustomNativeShare = (phone: string) => {
+    if (!userProfile) return;
+    const appUrl = window.location.origin;
+    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    const shareLink = `${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
+    if (navigator.share) {
+      navigator.share({
+        title: reading?.title || "იდენტობის მატრიცა",
+        text: `გამარჯობა, გაზიარებთ ჩემი იდენტობის მატრიცის ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
+        url: shareLink,
+      }).catch(() => {});
+    } else {
+      const smsBody = `გამარჯობა, გაზიარებთ ჩემი იდენტობის მატრიცის ანალიზს 🔮🌟\n\n${shareLink}`;
+      window.open(`sms:?body=${encodeURIComponent(smsBody)}`);
+    }
   };
 
   const handleCopyLink = () => {
@@ -454,7 +510,7 @@ export default function App() {
                           title="გააზიარე WhatsApp-ზე"
                           className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)]"
                         >
-                          <MessageSquare className="w-4 h-4 mr-2 text-[#f1bf62]" />
+                          <MessageSquare className="w-4 h-4 mr-2 text-[#f1bf62] shrink-0" />
                           <span className="text-[11px] font-black uppercase tracking-wider">WhatsApp</span>
                         </a>
 
@@ -470,6 +526,18 @@ export default function App() {
                           <span className="text-[11px] font-black uppercase tracking-wider">Telegram</span>
                         </a>
 
+                        {/* Messenger sharing */}
+                        <a
+                          href={getMessengerShareURL()}
+                          target="_blank"
+                          referrerPolicy="no-referrer"
+                          title="გააზიარე Messenger-ზე"
+                          className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)]"
+                        >
+                          <MessageCircle className="w-4 h-4 mr-2 text-[#f1bf62]" />
+                          <span className="text-[11px] font-black uppercase tracking-wider">Messenger</span>
+                        </a>
+
                         {/* Facebook sharing */}
                         <a
                           href={getFacebookShareURL()}
@@ -481,6 +549,16 @@ export default function App() {
                           <Facebook className="w-4 h-4 mr-2 text-[#f1bf62]" />
                           <span className="text-[11px] font-black uppercase tracking-wider">Facebook</span>
                         </a>
+
+                        {/* Native phone sharing */}
+                        <button
+                          onClick={handleNativeShare}
+                          title="გააზიარე ტელეფონში"
+                          className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] cursor-pointer"
+                        >
+                          <Smartphone className="w-4 h-4 mr-2 text-[#f1bf62]" />
+                          <span className="text-[11px] font-black uppercase tracking-wider">ტელეფონში</span>
+                        </button>
 
                         {/* Copy link */}
                         <button
@@ -590,6 +668,16 @@ export default function App() {
                                 </a>
 
                                 <a
+                                  href={getCustomMessengerShareURL(phoneNumberInput)}
+                                  target="_blank"
+                                  referrerPolicy="no-referrer"
+                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
+                                >
+                                  <MessageCircle className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
+                                  <span>Messenger</span>
+                                </a>
+
+                                <a
                                   href={getCustomFacebookShareURL(phoneNumberInput)}
                                   target="_blank"
                                   referrerPolicy="no-referrer"
@@ -598,6 +686,14 @@ export default function App() {
                                   <Facebook className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
                                   <span>Facebook</span>
                                 </a>
+
+                                <button
+                                  onClick={() => handleCustomNativeShare(phoneNumberInput)}
+                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest cursor-pointer"
+                                >
+                                  <Smartphone className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
+                                  <span>ტელეფონში</span>
+                                </button>
                               </div>
                             </div>
                           )}

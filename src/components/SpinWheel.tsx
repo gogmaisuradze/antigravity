@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { CalculationType } from "../types";
 import { Sparkles, Target, Grid3x3, Hash, BrainCircuit, Moon, Compass, Users } from "lucide-react";
+import { playTickSound } from "./RollerPicker";
 
 export interface WheelItem {
   id: CalculationType;
@@ -94,11 +95,15 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   const spinTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const tickAnimRef = useRef<number | null>(null);
 
   useEffect(() => {
     return () => {
       if (spinTimeoutRef.current) {
         clearTimeout(spinTimeoutRef.current);
+      }
+      if (tickAnimRef.current) {
+        cancelAnimationFrame(tickAnimRef.current);
       }
     };
   }, []);
@@ -134,6 +139,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
       if (spinTimeoutRef.current) {
         clearTimeout(spinTimeoutRef.current);
         spinTimeoutRef.current = null;
+      }
+      if (tickAnimRef.current) {
+        cancelAnimationFrame(tickAnimRef.current);
+        tickAnimRef.current = null;
       }
       setIsSpinning(false);
 
@@ -179,9 +188,46 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
     const newRotation = rotation + targetDeg;
     setRotation(newRotation);
 
+    // Procedural satisfaction "tktktktktk" clicking loop synchronized with visual spin easing
+    if (tickAnimRef.current) {
+      cancelAnimationFrame(tickAnimRef.current);
+    }
+    
+    const startTime = performance.now();
+    const duration = 5000; // Match 5000ms transition
+    const startRotation = rotation;
+    const endRotation = newRotation;
+    let lastPegIndex = Math.floor(startRotation / 15); // 15 degrees peg spacing (24 pegs per rev)
+
+    const tickLoop = (now: number) => {
+      const elapsed = now - startTime;
+      if (elapsed >= duration) {
+        return;
+      }
+      
+      // Easing cubic ease-out calculation to mimic physical inertia slowdown
+      const t = elapsed / duration;
+      const easeOut = 1 - Math.pow(1 - t, 3);
+      
+      const currentRotation = startRotation + (endRotation - startRotation) * easeOut;
+      const currentPegIndex = Math.floor(currentRotation / 15);
+      
+      if (currentPegIndex > lastPegIndex) {
+        playTickSound();
+        lastPegIndex = currentPegIndex;
+      }
+      
+      tickAnimRef.current = requestAnimationFrame(tickLoop);
+    };
+    tickAnimRef.current = requestAnimationFrame(tickLoop);
+
     // Trigger analysis ONLY when the 5000ms transition finishes and the wheel stops!
     spinTimeoutRef.current = setTimeout(() => {
       setIsSpinning(false);
+      if (tickAnimRef.current) {
+        cancelAnimationFrame(tickAnimRef.current);
+        tickAnimRef.current = null;
+      }
       setLocalSelectedId(WHEEL_ITEMS[itemIndex].id);
       onSelect(WHEEL_ITEMS[itemIndex].id);
       spinTimeoutRef.current = null;
@@ -483,7 +529,11 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
             spin();
           }}
           disabled={disabled}
-          className={`absolute w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-b from-[#2d2a22] via-[#151718] to-[#080909] flex flex-col items-center justify-center z-10 transition-all duration-500 cursor-pointer border border-[#f1bf62]/70 shadow-[0_12px_36px_rgba(0,0,0,0.95),inset_0_1px_3px_rgba(255,255,255,0.1)] hover:scale-105 active:scale-95`}
+          className={`absolute w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-b from-[#2d2a22] via-[#151718] to-[#080909] flex flex-col items-center justify-center z-10 transition-all duration-500 border border-[#f1bf62]/70 shadow-[0_12px_36px_rgba(0,0,0,0.95),inset_0_1px_3px_rgba(255,255,255,0.1)] ${
+            disabled 
+              ? "opacity-55 cursor-not-allowed scale-95 border-gray-600/40" 
+              : "cursor-pointer hover:scale-105 active:scale-95"
+          }`}
         >
           {/* Inner Golden concentric rings */}
           <div className="absolute inset-1.5 rounded-full border border-black/80 pointer-events-none"></div>
@@ -492,7 +542,16 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
           
           {/* Inner Dome Content */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center">
-            {isSpinning ? (
+            {disabled ? (
+              <>
+                <span className="text-[11px] sm:text-[12px] md:text-[13px] font-black tracking-widest uppercase text-gray-400 font-headline drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] animate-pulse">
+                  ანალიზი...
+                </span>
+                <span className="text-[7px] sm:text-[7.5px] md:text-[8px] tracking-widest uppercase mt-1 font-extrabold text-[#f1bf62]/60">
+                  მიმდინარეობს
+                </span>
+              </>
+            ) : isSpinning ? (
               <>
                 <span className="text-[14px] sm:text-[16px] md:text-[18px] font-black tracking-widest uppercase text-red-500 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] animate-pulse font-headline">
                   სტოპი
