@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BirthProfile, CalculationType } from "../types";
 import { MapPin, Calendar, ShieldAlert, Sparkles, RefreshCw } from "lucide-react";
-import { RollerPicker } from "./RollerPicker";
+import { RollerPicker, playTickSound, getSharedAudioContext } from "./RollerPicker";
 
 const THEMES = [
   { value: CalculationType.HOROSCOPE, label: "დასავლური ჰოროსკოპი", description: "ზოდიაქოს ნიშანი, ხასიათი, სტიქიები და კოსმოსური ტრენდები.", numeral: "I" },
@@ -164,6 +164,31 @@ const getTarotIllustration = (type: CalculationType) => {
       );
     default:
       return null;
+  }
+};
+const playExitCapSound = () => {
+  try {
+    const ctx = getSharedAudioContext();
+    if (!ctx) return;
+    
+    const osc = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    osc.type = "sine";
+    // Low-frequency hollow thud representing a cap snap / exit close
+    osc.frequency.setValueAtTime(320, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.08);
+    
+    gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
+    
+    osc.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    osc.start();
+    osc.stop(ctx.currentTime + 0.1);
+  } catch (e) {
+    // Fail silently
   }
 };
 
@@ -453,9 +478,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
         {/* Mystical Tarot Card Deck Theme Selector */}
         <div className="space-y-6 py-4">
-          <label className="block text-[12px] font-extrabold uppercase tracking-widest text-[#c6c6ce]/80 mb-1 text-center w-full">
-            ანალიზის თემა (აირჩიეთ ტაროს კარტი)
-          </label>
           
           <div 
             style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
@@ -469,8 +491,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                 if (selectedTheme === theme.value) {
                   // Clicking a second time deselects the card and returns it back to the deck pose!
                   setSelectedTheme(null);
+                  playExitCapSound();
                 } else {
                   setSelectedTheme(theme.value);
+                  playTickSound();
                   
                   // If form is already filled out, automatically submit the form to calculate the matrix
                   const nameParts = fullName.trim().split(/\s+/);
@@ -491,11 +515,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 1.0 : 1.8);
               
               // All cards share a uniform sideways Y-rotation in one direction to look like a real stacked deck
-              const rotY = -72;
+              const rotY = -78;
               const rotZ = 0;
 
               let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
-              // Left-to-right stacking to perfectly handle the overlap of Y(-72deg) rotation
+              // Left-to-right stacking to perfectly handle the overlap of Y(-78deg) rotation
               let zIndexVal = 20 + index;
 
               if (isHovered) {

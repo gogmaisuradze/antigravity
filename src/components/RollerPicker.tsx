@@ -14,12 +14,37 @@ interface RollerPickerProps {
   variant?: "dark" | "ios-light" | "ios-dark";
 }
 
-// Low-latency procedural satisfaction click ("ტკ ტკ") sound using Web Audio API
-const playTickSound = () => {
-  try {
+let sharedAudioCtx: AudioContext | null = null;
+
+export const getSharedAudioContext = () => {
+  if (typeof window === "undefined") return null;
+  if (!sharedAudioCtx) {
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-    if (!AudioContextClass) return;
-    const ctx = new AudioContextClass();
+    if (AudioContextClass) {
+      sharedAudioCtx = new AudioContextClass();
+    }
+  }
+  if (sharedAudioCtx && sharedAudioCtx.state === "suspended") {
+    sharedAudioCtx.resume().catch(() => {});
+  }
+  return sharedAudioCtx;
+};
+
+if (typeof window !== "undefined") {
+  const resumeAudio = () => {
+    if (sharedAudioCtx && sharedAudioCtx.state === "suspended") {
+      sharedAudioCtx.resume().catch(() => {});
+    }
+  };
+  window.addEventListener("click", resumeAudio, { once: true });
+  window.addEventListener("touchstart", resumeAudio, { once: true });
+}
+
+// Low-latency procedural satisfaction click ("ტკ ტკ") sound using Web Audio API
+export const playTickSound = () => {
+  try {
+    const ctx = getSharedAudioContext();
+    if (!ctx) return;
     
     const osc = ctx.createOscillator();
     const gainNode = ctx.createGain();
