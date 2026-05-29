@@ -385,16 +385,7 @@ export default function App() {
         {/* The Spin Wheel & Interactive Reading section */}
         {userProfile && (
           <div className="space-y-12">
-            {/* 1. Spinner (ბზრიალა) container */}
-            <div className="bg-[#1e2022]/60 p-6 rounded-2xl border border-white/5 shadow-2xl overflow-hidden relative backdrop-blur-md">
-              <SpinWheel
-                onSelect={(type) => handleSelectReading(userProfile.phone, type)}
-                selectedType={selectedType}
-                disabled={loadingReading}
-              />
-            </div>
-
-            {/* 2. Reading Display panel */}
+            {/* 1. Reading Display panel */}
             {(loadingReading || reading || error) && (
               <div className="w-full bg-[#1e2022]/60 p-8 rounded-2xl border border-white/5 shadow-2xl transition-all relative backdrop-blur-md">
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62] rounded-t-2xl"></div>
@@ -618,11 +609,20 @@ export default function App() {
               </div>
             )}
 
-            {/* 3. Relationship Compatibility Panel */}
+            {/* 2. Relationship Compatibility Panel */}
             <CompatibilityPanel
               userProfile={userProfile}
               invitedPhone={invitedPhone}
             />
+
+            {/* 3. Spinner (ბზრიალა) container */}
+            <div className="bg-[#1e2022]/60 p-6 rounded-2xl border border-white/5 shadow-2xl overflow-hidden relative backdrop-blur-md">
+              <SpinWheel
+                onSelect={(type) => handleSelectReading(userProfile.phone, type)}
+                selectedType={selectedType}
+                disabled={loadingReading}
+              />
+            </div>
           </div>
         )}
       </div>

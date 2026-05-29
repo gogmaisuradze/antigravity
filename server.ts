@@ -304,7 +304,7 @@ app.post("/api/generate-reading", async (req, res) => {
     }
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         systemInstruction,
@@ -367,7 +367,7 @@ ${userProfileStr ? `მონაცემები: ${userProfileStr}\n` : ""}
 4. **ნაბიჯ-ნაბიჯ სტრატეგია წონასწორობის აღდგენისთვის**: მინიმუმ 3-4 ძალიან კონკრეტული, ყოველდღიურად განხორციელებადი პრაქტიკული რეკომენდაცია თითოეული პრობლემური სფეროს ჰარმონიზაციისთვის.`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         systemInstruction,
@@ -442,7 +442,7 @@ app.post("/api/compatibility", async (req, res) => {
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: jsonPrompt,
       config: {
         systemInstruction,
