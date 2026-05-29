@@ -450,16 +450,21 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               const distanceFromCenter = index - 3.5;
               const dx = distanceFromCenter * cardSpacing;
               const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 1.0 : 1.8);
-              const rotZ = distanceFromCenter * (windowWidth < 640 ? 3 : 4.5);
-              const rotY = distanceFromCenter < 0 ? 38 : -38;
+              
+              // All cards share a uniform sideways Y-rotation in one direction to look like a real stacked deck
+              const rotY = -50;
+              const rotZ = 0;
 
               let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
-              let zIndexVal = 10 + Math.round(10 - Math.abs(distanceFromCenter));
+              // Left-to-right stacking to perfectly handle the overlap of Y(-50deg) rotation
+              let zIndexVal = 20 + index;
 
               if (isHovered) {
+                // Pop face forward and float way up towards the screen
                 transformStr = `translate3d(calc(-50% + ${dx}px), -55px, 120px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.35})`;
                 zIndexVal = 100;
               } else if (isSelected) {
+                // Selected card stays popped up and face forward
                 transformStr = `translate3d(calc(-50% + ${dx}px), -25px, 60px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.2})`;
                 zIndexVal = 80;
               }
