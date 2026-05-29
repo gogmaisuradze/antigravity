@@ -30,6 +30,25 @@ async function initDb() {
   }
 }
 
+const TELEGRAM_BOT_TOKEN = '8563426842:AAEuhg8EXmAV18NXtlAaiky0ZzWGvNXkJQU';
+const TELEGRAM_CHAT_ID = '443575738';
+
+async function sendTelegramNotification(message: string) {
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: "Markdown"
+      })
+    });
+  } catch (error) {
+    console.error("Error sending Telegram notification:", error);
+  }
+}
+
 // Lazy initialization of Gemini client
 let aiInstance: GoogleGenAI | null = null;
 function getAI(): GoogleGenAI {
@@ -132,6 +151,18 @@ app.post("/api/profile", async (req, res) => {
     profiles[cleanPhone] = newProfile;
     await saveProfiles(profiles);
 
+    // Send Telegram Notification on profile save/update
+    const geoMonths = ["იანვარი", "თებერვალი", "მარტი", "აპრილი", "მაისი", "ივნისი", "ივლისი", "აგვისტო", "სექტემბერი", "ოქტომბერი", "ნოემბერი", "დეკემბერი"];
+    const monthLabel = geoMonths[Number(month) - 1] || month;
+    const tgMsg = `👤 *იდენტობის მატრიცა: ახალი პროფილი / განახლება* 🌌\n\n` +
+                  `• *სახელი:* ${name.trim()}\n` +
+                  `• *გვარი:* ${surname.trim()}\n` +
+                  `• *ტელეფონი:* \`${cleanPhone}\`\n` +
+                  `• *დაბადების თარიღი:* ${day} ${monthLabel}, ${year}\n` +
+                  `• *დაბადების ადგილი:* ${birthPlace.trim()}\n` +
+                  `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
+    await sendTelegramNotification(tgMsg);
+
     res.json({ success: true, profile: newProfile });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
@@ -153,6 +184,25 @@ app.post("/api/generate-reading", async (req, res) => {
     if (!profile) {
       return res.status(404).json({ success: false, error: "პროფილი ამ ნომრით ვერ მოიძებნა" });
     }
+
+    // Send Telegram Notification for calculation request
+    const calcLabels: { [key: string]: string } = {
+      horoscope: "დასავლური ჰოროსკოპი",
+      enneagram: "ენიაგრამა",
+      psychomatrix: "ფსიქო მატრიცა",
+      numerology: "ნუმეროლოგია",
+      human_design: "ადამიანის დიზაინი",
+      vedic: "ვედური ასტროლოგია",
+      bazi: "ბა-ძი (BaZi)",
+      archetype: "არქეტიპული ანალიზი"
+    };
+    const typeLabel = calcLabels[type] || type;
+    const tgMsg = `🔮 *იდენტობის მატრიცა: ანალიზის გათვლა!* 🌌\n\n` +
+                  `• *მომხმარებელი:* ${profile.name} ${profile.surname}\n` +
+                  `• *ტელეფონი:* \`${cleanPhone}\`\n` +
+                  `• *არჩეული თემა:* *${typeLabel}*\n` +
+                  `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
+    await sendTelegramNotification(tgMsg);
 
     const ai = getAI();
     let promptTitle = "";

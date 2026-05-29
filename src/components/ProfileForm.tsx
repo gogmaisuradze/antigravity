@@ -395,7 +395,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
             type="text"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="ტელეფონი (მაგ: 5XXXXXXXX)"
+            placeholder="ტელ:"
             className="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
             required
           />
