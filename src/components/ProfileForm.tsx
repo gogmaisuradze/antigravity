@@ -183,7 +183,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [phone, setPhone] = useState(() => {
     return savedProfile?.phone || "";
   });
-  const [selectedTheme, setSelectedTheme] = useState<CalculationType>(CalculationType.HOROSCOPE);
+  const [selectedTheme, setSelectedTheme] = useState<CalculationType | null>(null);
   const [hoveredTheme, setHoveredTheme] = useState<CalculationType | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [useStandardCalendar, setUseStandardCalendar] = useState(false);
@@ -249,6 +249,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     const trimmedPhone = phone.trim();
     if (!trimmedPhone) {
       return setError("გთხოვთ შეიყვანოთ ტელეფონის ნომერი");
+    }
+
+    if (!selectedTheme) {
+      return setError("გთხოვთ აირჩიოთ ანალიზის თემა (ტაროს კარტი)");
     }
 
     const finalBirthPlace = birthPlace.trim() || "საქართველო";
@@ -417,6 +421,36 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           </div>
         </div>
 
+        {/* Active / Hovered Card detailed description box - Now between dates and the deck */}
+        {(() => {
+          const activeDisplayTheme = THEMES.find(t => t.value === (hoveredTheme || selectedTheme));
+          return (
+            <div className="p-5 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-xl shadow-xl max-w-xl mx-auto text-center space-y-2 transform transition-all duration-500 hover-glow my-6">
+              {activeDisplayTheme ? (
+                <>
+                  <h4 className="text-[14px] font-extrabold text-[#f1bf62] uppercase tracking-widest flex items-center justify-center gap-2">
+                    <Sparkles className="w-4 h-4 text-[#f1bf62] animate-pulse" />
+                    {activeDisplayTheme.label}
+                  </h4>
+                  <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/85 font-semibold leading-relaxed min-h-[40px]">
+                    {activeDisplayTheme.description}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h4 className="text-[14px] font-extrabold text-[#f1bf62]/60 uppercase tracking-widest flex items-center justify-center gap-2">
+                    <Sparkles className="w-4 h-4 text-[#f1bf62]/40" />
+                    აირჩიეთ ანალიზის თემა
+                  </h4>
+                  <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/50 font-semibold leading-relaxed min-h-[40px]">
+                    მიიტანეთ მაუსი ან დააწკაპუნეთ ტაროს ბარათზე დეტალური აღწერის სანახავად და სინქრონიზაციისთვის
+                  </p>
+                </>
+              )}
+            </div>
+          );
+        })()}
+
         {/* Mystical Tarot Card Deck Theme Selector */}
         <div className="space-y-6 py-4">
           <label className="block text-[12px] font-extrabold uppercase tracking-widest text-[#c6c6ce]/80 mb-1 text-center w-full">
@@ -432,18 +466,23 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               const isHovered = hoveredTheme === theme.value;
               
               const handleCardClick = () => {
-                setSelectedTheme(theme.value);
-                
-                // If form is already filled out, automatically submit the form to calculate the matrix
-                const nameParts = fullName.trim().split(/\s+/);
-                const trimmedPhone = phone.trim();
-                if (fullName.trim() && nameParts.length >= 2 && trimmedPhone) {
-                  setTimeout(() => {
-                    const formEl = document.getElementById("profile-form") as HTMLFormElement;
-                    if (formEl) {
-                      formEl.requestSubmit();
-                    }
-                  }, 50);
+                if (selectedTheme === theme.value) {
+                  // Clicking a second time deselects the card and returns it back to the deck pose!
+                  setSelectedTheme(null);
+                } else {
+                  setSelectedTheme(theme.value);
+                  
+                  // If form is already filled out, automatically submit the form to calculate the matrix
+                  const nameParts = fullName.trim().split(/\s+/);
+                  const trimmedPhone = phone.trim();
+                  if (fullName.trim() && nameParts.length >= 2 && trimmedPhone) {
+                    setTimeout(() => {
+                      const formEl = document.getElementById("profile-form") as HTMLFormElement;
+                      if (formEl) {
+                        formEl.requestSubmit();
+                      }
+                    }, 50);
+                  }
                 }
               };
 
