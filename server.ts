@@ -161,7 +161,7 @@ app.post("/api/profile", async (req, res) => {
                   `• *დაბადების თარიღი:* ${day} ${monthLabel}, ${year}\n` +
                   `• *დაბადების ადგილი:* ${birthPlace.trim()}\n` +
                   `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
-    await sendTelegramNotification(tgMsg);
+    sendTelegramNotification(tgMsg);
 
     res.json({ success: true, profile: newProfile });
   } catch (error: any) {
@@ -202,7 +202,7 @@ app.post("/api/generate-reading", async (req, res) => {
                   `• *ტელეფონი:* \`${cleanPhone}\`\n` +
                   `• *არჩეული თემა:* *${typeLabel}*\n` +
                   `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
-    await sendTelegramNotification(tgMsg);
+    sendTelegramNotification(tgMsg);
 
     const ai = getAI();
     let promptTitle = "";
