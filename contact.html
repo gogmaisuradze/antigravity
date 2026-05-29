@@ -204,24 +204,30 @@
             <form class="space-y-8 contact-form">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="space-y-2">
-                  <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი და გვარი</label>
-                  <input class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი სახელი" type="text" required/>
+                  <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი</label>
+                  <input class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="სახელი" type="text" name="first_name" required/>
                 </div>
                 <div class="space-y-2">
-                  <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
-                  <input class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="+995" type="tel" required/>
+                  <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">გვარი</label>
+                  <input class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="გვარი" type="text" name="last_name" required/>
                 </div>
               </div>
-              <div class="space-y-2">
-                <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
-                <select class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface appearance-none">
-                  <option>ინდივიდუალური თერაპია</option>
-                  <option>წყვილთა თერაპია</option>
-                  <option>ჯგუფური თერაპია</option>
-                  <option>კონსულტაცია</option>
-                  <option>ქოუჩინგი</option>
-                  <option>ჯგუფური ქოუჩინგი</option>
-                </select>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-2">
+                  <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
+                  <input class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="5XXXXXXXX" type="tel" name="phone" required/>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
+                  <select name="service" class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface appearance-none">
+                    <option>ინდივიდუალური თერაპია</option>
+                    <option>წყვილთა თერაპია</option>
+                    <option>ჯგუფური თერაპია</option>
+                    <option>კონსულტაცია</option>
+                    <option>ქოუჩინგი</option>
+                    <option>ჯგუფური ქოუჩინგი</option>
+                  </select>
+                </div>
               </div>
               <div class="space-y-2">
                 <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">შეტყობინება</label>

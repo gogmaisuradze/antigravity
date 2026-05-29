@@ -75,19 +75,23 @@ function initBookingModal() {
         <form class="space-y-5 sm:space-y-8 contact-form" id="booking-modal-form">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
             <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი და გვარი</label>
-              <input type="text" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი სახელი"/>
+              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი</label>
+              <input type="text" id="booking-first-name" name="first_name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი სახელი"/>
             </div>
             <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
-              <input type="tel" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="+995"/>
+              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">გვარი</label>
+              <input type="text" id="booking-last-name" name="last_name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი გვარი"/>
             </div>
           </div>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
             <div class="space-y-2">
+              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
+              <input type="tel" id="booking-phone" name="phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="5XXXXXXXX"/>
+            </div>
+            <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
-              <select class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none">
+              <select name="service" class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none">
                 <option>ინდივიდუალური თერაპია</option>
                 <option>წყვილთა თერაპია</option>
                 <option>ჯგუფური თერაპია</option>
@@ -96,10 +100,11 @@ function initBookingModal() {
                 <option>ჯგუფური ქოუჩინგი</option>
               </select>
             </div>
-            <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">თარიღი</label>
-              <input type="date" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface" style="color-scheme: dark;"/>
-            </div>
+          </div>
+          
+          <div class="space-y-2">
+            <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">თარიღი</label>
+            <input type="date" name="date" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface" style="color-scheme: dark;"/>
           </div>
           
           <div class="space-y-2">
@@ -348,28 +353,109 @@ function initFormValidation() {
       
       const form = e.target;
       
-      const telInput = form.querySelector('input[type="tel"]');
-      if (telInput && telInput.value) {
-        const val = telInput.value.replace(/\s+/g, '');
-        if (val.length < 5) {
-          alert('გთხოვთ მიუთითოთ სწორი ტელეფონის ნომერი');
-          return;
-        }
-      }
-
-      // Collect data for n8n automation
-      const nameInput = form.querySelector('input[type="text"]');
-      const phoneInput = form.querySelector('input[type="tel"]');
+      // Parse fields dynamically
+      const firstNameInput = form.querySelector('[name="first_name"]') || form.querySelector('[id*="first-name"]') || form.querySelector('input[placeholder*="სახელი"]');
+      const lastNameInput = form.querySelector('[name="last_name"]') || form.querySelector('[id*="last-name"]') || form.querySelector('input[placeholder*="გვარი"]');
+      const phoneInput = form.querySelector('input[type="tel"]') || form.querySelector('[name="phone"]') || form.querySelector('[id*="phone"]');
       const dateInput = form.querySelector('input[type="date"]');
       const serviceSelect = form.querySelector('select');
       const messageTextarea = form.querySelector('textarea');
+      const emailInput = form.querySelector('input[type="email"]');
+
+      // Check if this is a newsletter subscription form (no name/phone inputs, only email input)
+      const isNewsletter = !firstNameInput && !lastNameInput && !phoneInput;
+      if (isNewsletter) {
+        const email = emailInput ? emailInput.value.trim() : '';
+        if (!email) {
+          alert('გთხოვთ მიუთითოთ ელ-ფოსტა');
+          if (emailInput) emailInput.focus();
+          return;
+        }
+
+        // Send to Telegram if credentials are set
+        if (telegramBotToken && telegramChatId) {
+          const telegramMessage = `📧 *ახალი გამოწერა საიტიდან!* 📰\n\n` +
+            `📧 *ელ-ფოსტა:* ${email}\n\n` +
+            `🔗 *გვერდი:* ${window.location.href}`;
+
+          fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              chat_id: telegramChatId,
+              text: telegramMessage,
+              parse_mode: 'Markdown'
+            })
+          })
+          .catch(err => console.error('Error sending subscription to Telegram:', err));
+        }
+
+        showToast('მადლობა გამოწერისთვის!');
+        form.reset();
+        return;
+      }
+
+      // 1. Strict Validation: Name and Surname must be separate and >= 2 characters
+      const firstName = firstNameInput ? firstNameInput.value.trim() : '';
+      const lastName = lastNameInput ? lastNameInput.value.trim() : '';
+
+      if (!firstName || firstName.length < 2) {
+        alert('გთხოვთ მიუთითოთ სახელი (მინიმუმ 2 ასო)');
+        if (firstNameInput) firstNameInput.focus();
+        return;
+      }
+      if (!lastName || lastName.length < 2) {
+        alert('გთხოვთ მიუთითოთ გვარი (მინიმუმ 2 ასო)');
+        if (lastNameInput) lastNameInput.focus();
+        return;
+      }
+
+      // 2. Strict Validation: Phone number must start with 5 and be exactly 9 digits
+      if (phoneInput) {
+        const phoneRaw = phoneInput.value.trim();
+        let phoneClean = phoneRaw.replace(/\s+/g, '').replace(/-/g, '').replace(/\+/g, '');
+        if (phoneClean.startsWith('995')) {
+          phoneClean = phoneClean.substring(3);
+        }
+        
+        if (!/^5\d{8}$/.test(phoneClean)) {
+          alert('ტელეფონის ნომერი უნდა იწყებოდეს 5-იანით და შედგებოდეს ზუსტად 9 ციფრისგან (მაგ: 5XXXXXXXX)');
+          phoneInput.focus();
+          return;
+        }
+      } else {
+        alert('ტელეფონის ნომერი სავალდებულოა');
+        return;
+      }
+
+      // 3. Strict Validation: All visible form fields must be fully filled
+      if (emailInput && !emailInput.value.trim()) {
+        alert('გთხოვთ შეავსოთ ელ-ფოსტის ველი');
+        emailInput.focus();
+        return;
+      }
+      if (dateInput && !dateInput.value) {
+        alert('გთხოვთ შეავსოთ თარიღის ველი');
+        dateInput.focus();
+        return;
+      }
+      if (messageTextarea && !messageTextarea.value.trim()) {
+        alert('გთხოვთ შეავსოთ შეტყობინების ველი');
+        messageTextarea.focus();
+        return;
+      }
 
       const bookingData = {
-        name: nameInput ? nameInput.value : '',
-        phone: phoneInput ? phoneInput.value : '',
+        firstName,
+        lastName,
+        name: `${firstName} ${lastName}`,
+        phone: phoneInput ? phoneInput.value.trim() : 'N/A',
+        email: emailInput ? emailInput.value.trim() : 'N/A',
         date: dateInput ? dateInput.value : 'N/A',
         service: serviceSelect ? serviceSelect.value : 'ინდივიდუალური თერაპია',
-        message: messageTextarea ? messageTextarea.value : '',
+        message: messageTextarea ? messageTextarea.value.trim() : '',
         timestamp: new Date().toISOString(),
         sourceUrl: window.location.href
       };
@@ -395,10 +481,11 @@ function initFormValidation() {
 
       // Send to Telegram if Bot Credentials are configured
       if (telegramBotToken && telegramChatId) {
-        // Beautifully formatted markdown notification message
         const telegramMessage = `🔔 *ახალი ჯავშანი საიტიდან!* 📅\n\n` +
-          `👤 *სახელი:* ${bookingData.name}\n` +
+          `👤 *სახელი:* ${bookingData.firstName}\n` +
+          `👤 *გვარი:* ${bookingData.lastName}\n` +
           `📞 *ტელეფონი:* ${bookingData.phone}\n` +
+          `📧 *ელ-ფოსტა:* ${bookingData.email}\n` +
           `📅 *თარიღი:* ${bookingData.date}\n` +
           `💼 *სერვისი:* ${bookingData.service}\n` +
           `✉️ *შეტყობინება:* ${bookingData.message || 'ცარიელი'}\n\n` +
@@ -989,8 +1076,8 @@ function initN8nChat() {
         <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
       </button>
       
-      <!-- Interactive Frosted Glass Chat Window -->
-      <div id="n8n-chat-window" class="hidden absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] flex flex-col bg-[#1e2022]/90 border border-white/10 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-300 scale-95 opacity-0 origin-bottom-right">
+      <!-- Interactive Frosted Glass Chat Window (Slightly Transparent bg-[#1e2022]/75) -->
+      <div id="n8n-chat-window" class="hidden absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] flex flex-col bg-[#1e2022]/75 border border-white/10 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-300 scale-95 opacity-0 origin-bottom-right">
         
         <!-- Header -->
         <div class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5">
@@ -1063,9 +1150,13 @@ function initN8nChat() {
   };
 
   // Toggle chat window visibility
-  triggerBtn.addEventListener('click', openChat);
+  triggerBtn.addEventListener('click', () => {
+    localStorage.setItem('n8n_chat_closed_by_user', 'true');
+    openChat();
+  });
 
   const closeChat = () => {
+    localStorage.setItem('n8n_chat_closed_by_user', 'true');
     chatWindow.style.transform = 'scale(0.95)';
     chatWindow.style.opacity = '0';
     setTimeout(() => {
@@ -1079,8 +1170,10 @@ function initN8nChat() {
 
   closeBtn.addEventListener('click', closeChat);
 
-  // Automatically open the chat window after a premium 20s delay
-  autoOpenTimeout = setTimeout(openChat, 20000);
+  // Automatically open the chat window after a premium 20s delay, unless user has already closed/opened it in the past
+  if (!localStorage.getItem('n8n_chat_closed_by_user')) {
+    autoOpenTimeout = setTimeout(openChat, 20000);
+  }
 
   // Send message
   chatForm.addEventListener('submit', async (e) => {

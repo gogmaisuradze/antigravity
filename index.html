@@ -309,14 +309,24 @@
           თქვენი პირველი ნაბიჯი ჰარმონიისკენ იწყება აქ. დაგვიტოვეთ შეტყობინება და ჩვენ დაგეხმარებით საუკეთესო გზის შერჩევაში.
         </p>
         <form class="space-y-12 text-left max-w-2xl mx-auto contact-form z-10 relative">
-          <div class="relative group">
-            <input class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300" placeholder="თქვენი სახელი" type="text" required/>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div class="relative group">
+              <input class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300" placeholder="სახელი" type="text" name="first_name" required/>
+            </div>
+            <div class="relative group">
+              <input class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300" placeholder="გვარი" type="text" name="last_name" required/>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div class="relative group">
+              <input class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300" placeholder="ტელეფონი (5XXXXXXXX)" type="tel" name="phone" required/>
+            </div>
+            <div class="relative group">
+              <input class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300" placeholder="ელ-ფოსტა" type="email" name="email" required/>
+            </div>
           </div>
           <div class="relative group">
-            <input class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300" placeholder="ელ-ფოსტა" type="email" required/>
-          </div>
-          <div class="relative group">
-            <textarea class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300 resize-none" placeholder="მოკლე შეტყობინება" rows="1" required></textarea>
+            <textarea class="w-full bg-transparent border-0 border-b border-white/10 hover:border-white/40 focus:border-[#f1bf62] py-4 text-white focus:ring-0 transition-all placeholder:text-white/35 hover:placeholder:text-white focus:placeholder:text-white duration-300 resize-none" placeholder="მოკლე შეტყობინება" name="message" rows="1" required></textarea>
           </div>
           <div class="pt-8 text-center">
             <button class="bg-[#f1bf62] text-[#121416] px-16 py-5 rounded-full font-label font-bold tracking-widest hover:scale-105 transition-transform shadow-2xl shadow-[#f1bf62]/20 cursor-pointer" type="submit">
