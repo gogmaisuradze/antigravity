@@ -450,7 +450,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         {(() => {
           const activeDisplayTheme = THEMES.find(t => t.value === (hoveredTheme || selectedTheme));
           return (
-            <div className="p-5 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-xl shadow-xl max-w-xl mx-auto text-center space-y-2 transform transition-all duration-500 hover-glow my-6">
+            <div className="p-5 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-xl shadow-xl max-w-xl mx-auto text-center space-y-2 transform transition-all duration-500 hover-glow my-4">
               {activeDisplayTheme ? (
                 <>
                   <h4 className="text-[14px] font-extrabold text-[#f1bf62] uppercase tracking-widest flex items-center justify-center gap-2">
@@ -468,7 +468,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                     აირჩიეთ ანალიზის თემა
                   </h4>
                   <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/50 font-semibold leading-relaxed min-h-[40px]">
-                    მიიტანეთ მაუსი ან დააწკაპუნეთ ტაროს ბარათზე დეტალური აღწერის სანახავად და სინქრონიზაციისთვის
+                    მიიტანეთ მაუსი ან დააწკაპუნეთ სასურველ ბარათზე დეტალური აღწერის სანახავად და სინქრონიზაციისთვის
                   </p>
                 </>
               )}
@@ -477,11 +477,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         })()}
 
         {/* Mystical Tarot Card Deck Theme Selector */}
-        <div className="space-y-6 py-4">
+        <div className="py-2">
           
           <div 
             style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
-            className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] flex items-center justify-center overflow-visible my-10 select-none px-4"
+            className="relative w-full h-[230px] sm:h-[260px] md:h-[300px] flex items-center justify-center overflow-visible mt-2 mb-4 select-none px-4"
           >
             {THEMES.map((theme, index) => {
               const isSelected = selectedTheme === theme.value;
@@ -512,14 +512,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
               const distanceFromCenter = index - 3.5;
               const dx = distanceFromCenter * cardSpacing;
-              const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 1.0 : 1.8);
+              const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 0.7 : 1.3);
               
-              // All cards share a uniform sideways Y-rotation in one direction to look like a real stacked deck
-              const rotY = -78;
+              // All cards share a uniform sideways Y-rotation in one direction to look like a real stacked deck, now rotated more towards the screen (from -78deg to -55deg)
+              const rotY = -55;
               const rotZ = 0;
 
               let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
-              // Left-to-right stacking to perfectly handle the overlap of Y(-78deg) rotation
+              // Left-to-right stacking to perfectly handle the overlap of Y(-55deg) rotation
               let zIndexVal = 20 + index;
 
               if (isHovered) {
@@ -544,7 +544,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                     transformOrigin: "bottom center",
                     transformStyle: "preserve-3d",
                   }}
-                  className={`absolute left-1/2 bottom-4 w-[86px] sm:w-[105px] md:w-[115px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
+                  className={`absolute left-1/2 bottom-10 w-[86px] sm:w-[105px] md:w-[115px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
                     isHovered 
                       ? "border-[#f1bf62] shadow-[0_20px_45px_rgba(241,191,98,0.35)]"
                       : isSelected
@@ -585,22 +585,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               );
             })}
           </div>
-          
-          {/* Active / Hovered Card detailed description box */}
-          {(() => {
-            const activeDisplayTheme = THEMES.find(t => t.value === (hoveredTheme || selectedTheme));
-            return (
-              <div className="mt-4 p-5 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-xl shadow-xl max-w-xl mx-auto text-center space-y-2 transform transition-all duration-500 hover-glow">
-                <h4 className="text-[14px] font-extrabold text-[#f1bf62] uppercase tracking-widest flex items-center justify-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#f1bf62] animate-pulse" />
-                  {activeDisplayTheme?.label}
-                </h4>
-                <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/85 font-semibold leading-relaxed min-h-[40px]">
-                  {activeDisplayTheme?.description}
-                </p>
-              </div>
-            );
-          })()}
         </div>
 
         {/* Action Button Container */}
