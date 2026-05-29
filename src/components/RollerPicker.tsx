@@ -162,10 +162,10 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
     onChange(items[nextIdx].value);
   };
 
-  // Get index offsets for a clean, flat 3-position picker
-  // Index -1, 0, +1 relative to active index
+  // Get index offsets for a clean, 3D 5-position picker
+  // Index -2, -1, 0, 1, 2 relative to active index
   const getOffsets = () => {
-    return [-1, 0, 1];
+    return [-2, -1, 0, 1, 2];
   };
 
   const isLight = variant === "ios-light";
@@ -248,16 +248,25 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
             const isCenter = offset === 0;
             const dist = Math.abs(offset);
             
-            const opacity = dist === 0 ? 1 : 0.35;
-            const scale = dist === 0 ? 1.08 : 0.88;
-            const translateY = offset * 28; // Vertical spacing
+            const opacity = dist === 0 ? 1 : dist === 1 ? 0.55 : 0.16;
+            const scale = dist === 0 ? 1.12 : dist === 1 ? 0.90 : 0.72;
+            const translateY = offset === 0 
+              ? 0 
+              : offset === 1 
+              ? 26 
+              : offset === -1 
+              ? -26 
+              : offset === 2 
+              ? 48 
+              : -48;
+            const rotateX = offset * -28;
 
             // Styles for light vs dark theme
             const textColor = variant === "ios-light"
-              ? (isCenter ? "#1c1c1e" : "#a1a1aa")
+              ? (isCenter ? "#1c1c1e" : dist === 1 ? "rgba(161, 161, 170, 0.7)" : "rgba(161, 161, 170, 0.3)")
               : variant === "ios-dark"
-              ? (isCenter ? "#f1bf62" : "rgba(198, 198, 206, 0.35)")
-              : (isCenter ? "#FFFFFF" : "#888888");
+              ? (isCenter ? "#f1bf62" : dist === 1 ? "rgba(198, 198, 206, 0.55)" : "rgba(198, 198, 206, 0.16)")
+              : (isCenter ? "#FFFFFF" : dist === 1 ? "rgba(136, 136, 136, 0.6)" : "rgba(136, 136, 136, 0.2)");
             const textShadowValue = (variant === "ios-dark" && isCenter)
               ? "0 0 15px rgba(241, 191, 98, 0.4)"
               : (!isLight && isCenter)
@@ -273,12 +282,13 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
                   isIos ? "text-sm tracking-wide" : "text-xs uppercase"
                 }`}
                 style={{
-                  transform: `translateY(${translateY}px) scale(${scale})`,
+                  transform: `translateY(${translateY}px) scale(${scale}) rotateX(${rotateX}deg)`,
                   opacity: opacity,
                   color: textColor,
                   fontWeight: fontWeightValue,
                   letterSpacing: isIos ? "0.02em" : "0.12em",
                   textShadow: textShadowValue,
+                  transformStyle: "preserve-3d",
                 }}
               >
                 {item.label}
