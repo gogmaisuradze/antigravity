@@ -40,7 +40,7 @@ if (typeof window !== "undefined") {
   window.addEventListener("touchstart", resumeAudio, { once: true });
 }
 
-// Low-latency procedural satisfaction "cap" sound using Web Audio API
+// Low-latency procedural satisfaction "tk" sound using Web Audio API
 export const playTickSound = () => {
   try {
     const ctx = getSharedAudioContext();
@@ -50,18 +50,18 @@ export const playTickSound = () => {
     const gainNode = ctx.createGain();
     
     osc.type = "sine";
-    // Low-frequency hollow thud representing a cap snap
-    osc.frequency.setValueAtTime(320, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.08);
+    // Sharper mechanical tick sound (from 900Hz down to 150Hz in 20ms)
+    osc.frequency.setValueAtTime(900, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.02);
     
-    gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
+    gainNode.gain.setValueAtTime(0.08, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.022);
     
     osc.connect(gainNode);
     gainNode.connect(ctx.destination);
     
     osc.start();
-    osc.stop(ctx.currentTime + 0.1);
+    osc.stop(ctx.currentTime + 0.03);
   } catch (e) {
     // Fail silently if browser blocks audio before user interaction
   }

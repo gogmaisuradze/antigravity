@@ -175,18 +175,44 @@ const playExitCapSound = () => {
     const gainNode = ctx.createGain();
     
     osc.type = "sine";
-    // Low-frequency hollow thud representing a cap snap / exit close
-    osc.frequency.setValueAtTime(320, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.08);
+    // Sharper mechanical tick sound (from 900Hz down to 150Hz in 20ms)
+    osc.frequency.setValueAtTime(900, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.02);
     
-    gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
+    gainNode.gain.setValueAtTime(0.08, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.022);
     
     osc.connect(gainNode);
     gainNode.connect(ctx.destination);
     
     osc.start();
-    osc.stop(ctx.currentTime + 0.1);
+    osc.stop(ctx.currentTime + 0.03);
+  } catch (e) {
+    // Fail silently
+  }
+};
+
+const playErrorSound = () => {
+  try {
+    const ctx = getSharedAudioContext();
+    if (!ctx) return;
+    
+    const osc = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    // Soft deep error warning buzzer
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(150, ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.15);
+    
+    gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+    
+    osc.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    osc.start();
+    osc.stop(ctx.currentTime + 0.2);
   } catch (e) {
     // Fail silently
   }
@@ -220,6 +246,50 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Keyboard Arrow Keys Navigation for Tarot Cards
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't intercept arrow keys if the user is actively typing in inputs
+      if (
+        document.activeElement?.tagName === "INPUT" ||
+        document.activeElement?.tagName === "TEXTAREA"
+      ) {
+        return;
+      }
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setSelectedTheme((prev) => {
+          if (prev === null) {
+            playExitCapSound();
+            return THEMES[THEMES.length - 1].value;
+          }
+          const currIdx = THEMES.findIndex((t) => t.value === prev);
+          const nextIdx = (currIdx - 1 + THEMES.length) % THEMES.length;
+          playExitCapSound();
+          return THEMES[nextIdx].value;
+        });
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setSelectedTheme((prev) => {
+          if (prev === null) {
+            playExitCapSound();
+            return THEMES[0].value;
+          }
+          const currIdx = THEMES.findIndex((t) => t.value === prev);
+          const nextIdx = (currIdx + 1) % THEMES.length;
+          playExitCapSound();
+          return THEMES[nextIdx].value;
+        });
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   const cardSpacing = windowWidth < 480 ? 20 : windowWidth < 640 ? 28 : windowWidth < 768 ? 36 : windowWidth < 1024 ? 45 : 54;
@@ -270,12 +340,15 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     const cleanSurname = lastName.trim();
 
     if (cleanName.length < 2) {
+      playErrorSound();
       return setError("სახელი უნდა შედგებოდეს მინიმუმ 2 ასოსგან და არ უნდა შეიცავდეს ციფრებს");
     }
     if (cleanSurname.length < 2) {
+      playErrorSound();
       return setError("გვარი უნდა შედგებოდეს მინიმუმ 2 ასოსგან და არ უნდა შეიცავდეს ციფრებს");
     }
     if (/\d/.test(cleanName) || /\d/.test(cleanSurname)) {
+      playErrorSound();
       return setError("სახელი და გვარი არ უნდა შეიცავდეს ციფრებს");
     }
 
@@ -288,10 +361,12 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     }
 
     if (!/^5\d{8}$/.test(normalizedPhone)) {
+      playErrorSound();
       return setError("ტელეფონის ნომერი აუცილებლად უნდა იწყებოდეს 5-ით და შედგებოდეს 9 ციფრისგან (მაგ: 5XXXXXXXX)");
     }
 
     if (!selectedTheme) {
+      playErrorSound();
       return setError("გთხოვთ აირჩიოთ ანალიზის თემა");
     }
 
@@ -302,13 +377,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.trim(),
-          surname: surname.trim(),
+          name: cleanName,
+          surname: cleanSurname,
           birthPlace: finalBirthPlace,
           day,
           month,
           year,
-          phone: trimmedPhone
+          phone: normalizedPhone
         }),
       });
 
@@ -316,9 +391,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       if (data.success) {
         onProfileSaved(data.profile, selectedTheme);
       } else {
+        playErrorSound();
         setError(data.error || "შეცდომა შენახვისას");
       }
     } catch (err: any) {
+      playErrorSound();
       setError("ვერ დაუკავშირდა სერვერს. სცადეთ მოგვიანებით.");
     }
   };
