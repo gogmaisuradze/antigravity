@@ -141,169 +141,250 @@
           </p>
         </div>
 
-        <!-- Informative text panel -->
-        <div class="bg-white/5 border border-white/5 p-6 rounded-2xl mb-8 space-y-4 text-[#c6c6ce] leading-relaxed">
+        <!-- Informative text panel (introductory explanation) -->
+        <div id="balance-intro-panel" class="bg-white/5 border border-white/5 p-6 rounded-2xl mb-8 space-y-4 text-[#c6c6ce] leading-relaxed">
           <p class="text-sm md:text-base font-medium">
             წარმოიდგინეთ, რომ თქვენი სასიცოცხლო ენერგია არის <strong class="text-[#f1bf62] font-extrabold text-base">100%</strong> (შინაგანი რესურსი და არა უბრალოდ ფიზიკური დრო).
           </p>
           <p class="text-sm md:text-base font-medium">
-            თეორიის მიხედვით, იდეალურ შემთხვევაში ენერგია ოთხ სფეროზე დინამიურად, <strong class="text-[#f1bf62] font-extrabold">25-25%-ით</strong> უნდა ნაწილდებოდეს. თუმცა რეალობაში ეს ასე იშვიათადაა.
+            ნოსრატ პეზეშკიანის პოზიტიური ფსიქოთერაპიის მოდელის მიხედვით, იდეალურ შემთხვევაში ენერგია ოთხ სფეროზე თანაბრად, <strong class="text-[#f1bf62] font-extrabold">25-25%-ით</strong> უნდა ნაწილდებოდეს (ალმასის ფორმა).
           </p>
           <p class="text-xs md:text-sm font-bold uppercase tracking-widest text-[#f1bf62]/90 border-t border-white/5 pt-3">
-            გადაანაწილეთ თქვენი 100% ოთხ სფეროზე იმის მიხედვით, თუ როგორ ხარჯავთ მას ამჟამად:
+            შეავსეთ 20-კითხვიანი სკრინინგი, რათა დაადგინოთ თქვენი ენერგიის რეალური გადანაწილება და მიიღოთ სიღრმისეული ფსიქოლოგიური ანალიზი:
           </p>
         </div>
 
-        <!-- Interactive App Container -->
-        <div id="balance-interactive-form" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          
-          <!-- Sliders Side -->
-          <div class="space-y-6 bg-black/25 p-6 md:p-8 rounded-2xl border border-white/5 shadow-inner">
-            
-            <!-- Health & Body -->
-            <div class="space-y-2">
-              <div class="flex justify-between items-center">
-                <label class="text-xs font-black uppercase tracking-widest text-emerald-400 flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">favorite</span> სხეული / ჯანმრთელობა
-                </label>
-                <span class="text-lg font-mono font-bold text-white" id="val-body">25%</span>
-              </div>
-              <input type="range" min="0" max="100" value="25" id="slider-body" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#f1bf62]"/>
-              <p class="text-[11px] text-[#c6c6ce]/60 leading-relaxed uppercase tracking-wider font-semibold pl-1">
-                ძილი, კვება, ფიზიკური აქტივობა, სპორტი, დასვენება და გარეგნობაზე ზრუნვა.
-              </p>
+        <!-- Interactive 20-Question Screening Wizard -->
+        <div id="balance-quiz-wizard" class="space-y-8 animate-fade-in">
+          <!-- Progress Header -->
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest pl-1">
+              <span id="quiz-step-title" class="text-white">ბლოკი 1 / 4: სხეული და ჯანმრთელობა (Body & Health)</span>
+              <span id="quiz-step-progress-percent" class="text-[#f1bf62] font-mono">25% დასრულებული</span>
             </div>
-
-            <!-- Achievement & Work -->
-            <div class="space-y-2 pt-2">
-              <div class="flex justify-between items-center">
-                <label class="text-xs font-black uppercase tracking-widest text-blue-400 flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">work</span> მიღწევები / სამუშაო
-                </label>
-                <span class="text-lg font-mono font-bold text-white" id="val-achievement">25%</span>
-              </div>
-              <input type="range" min="0" max="100" value="25" id="slider-achievement" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#f1bf62]"/>
-              <p class="text-[11px] text-[#c6c6ce]/60 leading-relaxed uppercase tracking-wider font-semibold pl-1">
-                კარიერა, პროფესია, სწავლა, ფინანსების მართვა და საოჯახო საქმეები.
-              </p>
+            <!-- Gorgeous Custom Progress Bar -->
+            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/5 relative">
+              <div id="quiz-progress-fill" class="h-full bg-gradient-to-r from-[#f1bf62]/70 to-[#f1bf62] transition-all duration-500 rounded-full" style="width: 25%;"></div>
             </div>
+          </div>
 
-            <!-- Contacts & Relationships -->
-            <div class="space-y-2 pt-2">
-              <div class="flex justify-between items-center">
-                <label class="text-xs font-black uppercase tracking-widest text-pink-400 flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">group</span> კონტაქტები / ურთიერთობები
-                </label>
-                <span class="text-lg font-mono font-bold text-white" id="val-contact">25%</span>
-              </div>
-              <input type="range" min="0" max="100" value="25" id="slider-contact" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#f1bf62]"/>
-              <p class="text-[11px] text-[#c6c6ce]/60 leading-relaxed uppercase tracking-wider font-semibold pl-1">
-                ოჯახი, მეგობრები, პარტნიორი და სოციალურ გარემოსთან ურთიერთობის ემოციური ენერგია.
-              </p>
+          <!-- Instruction box for rating scale -->
+          <div class="bg-black/20 border border-white/5 px-6 py-4 rounded-xl flex flex-wrap gap-4 items-center justify-between text-xs md:text-sm text-[#c6c6ce]/80">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[#f1bf62] text-lg">info</span>
+              <span>შეაფასეთ თითოეული დებულება თქვენი რეალური ყოველდღიურობიდან გამომდინარე:</span>
             </div>
-
-            <!-- Future & Fantasy -->
-            <div class="space-y-2 pt-2">
-              <div class="flex justify-between items-center">
-                <label class="text-xs font-black uppercase tracking-widest text-purple-400 flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">wb_sunny</span> მომავალი / ფანტაზია
-                </label>
-                <span class="text-lg font-mono font-bold text-white" id="val-future">25%</span>
-              </div>
-              <input type="range" min="0" max="100" value="25" id="slider-future" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#f1bf62]"/>
-              <p class="text-[11px] text-[#c6c6ce]/60 leading-relaxed uppercase tracking-wider font-semibold pl-1">
-                გეგმები, მედიტაცია, სულიერი პრაქტიკა, შემოქმედება და ცხოვრების საზრისზე ფიქრი.
-              </p>
+            <div class="flex gap-4 font-semibold text-[#f1bf62]/90">
+              <span>1 = საერთოდ არ ვეთანხმები</span>
+              <span>5 = სრულად ვეთანხმები</span>
             </div>
+          </div>
 
-            <!-- Verification Ring & Total Indicator -->
-            <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                <span class="text-[11px] uppercase tracking-widest text-[#c6c6ce]/60 block font-bold">ჯამური განაწილება</span>
-                <div class="text-2xl font-black font-mono mt-1" id="total-percent-display">
-                  <span class="text-emerald-400" id="total-val">100%</span> / 100%
-                </div>
-              </div>
-              
-              <div class="text-right">
-                <span class="text-[10px] font-black uppercase tracking-widest block text-red-400 hidden" id="total-warning">
-                  ⚠️ ჯამი უნდა იყოს ზუსტად 100%!
-                </span>
-                <span class="text-[10px] font-black uppercase tracking-widest block text-emerald-400" id="total-success">
-                  ✓ განაწილება იდეალურია
-                </span>
-              </div>
-            </div>
+          <!-- Questions Container -->
+          <div id="quiz-questions-list" class="space-y-6">
+            <!-- Active Step Questions will be dynamically rendered here by JS -->
+          </div>
 
-            <!-- Submit Button -->
-            <button id="btn-submit-balance" class="w-full bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold uppercase tracking-widest py-4 px-6 rounded-xl shadow-[0_0_15px_rgba(241,191,98,0.3)] transition-all cursor-pointer flex items-center justify-center space-x-2 text-[12px]">
-              <span class="material-symbols-outlined text-[#121416] font-bold text-lg">psychology</span>
-              <span>სიღრმისეული ანალიზის გენერირება</span>
+          <!-- Navigation Action buttons -->
+          <div class="flex justify-between items-center pt-6 border-t border-white/10">
+            <button id="btn-quiz-back" class="hidden bg-white/5 hover:bg-white/10 text-white font-bold uppercase tracking-widest py-3.5 px-8 rounded-xl border border-white/10 transition-all cursor-pointer flex items-center gap-2 text-xs">
+              <span class="material-symbols-outlined text-sm font-bold">arrow_back</span>
+              <span>უკან</span>
             </button>
-
+            <div class="flex-grow"></div>
+            <button id="btn-quiz-next" class="bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold uppercase tracking-widest py-3.5 px-8 rounded-xl shadow-[0_0_15px_rgba(241,191,98,0.3)] transition-all cursor-pointer flex items-center gap-2 text-xs opacity-50 cursor-not-allowed" disabled>
+              <span>შემდეგი</span>
+              <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+            </button>
           </div>
-
-          <!-- Visual Diagram Preview Side -->
-          <div class="flex flex-col items-center justify-center bg-black/15 p-8 rounded-2xl border border-white/5 min-h-[380px] relative shadow-inner">
-            <!-- Custom CSS Circular Wheel Visualization representing the balance -->
-            <div class="relative w-72 h-72 rounded-full border border-white/10 shadow-2xl flex items-center justify-center bg-[#1e2022]/60 overflow-hidden" id="diagram-circle">
-              <!-- Grid lines dividing the dimensions -->
-              <div class="absolute inset-0 border-t border-white/5 pointer-events-none top-1/2"></div>
-              <div class="absolute inset-0 border-l border-white/5 pointer-events-none left-1/2"></div>
-              
-              <!-- 4 Colored dynamic quadrant backdrops -->
-              <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors flex items-center justify-center border-b border-l border-white/5">
-                <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-black absolute top-4 right-4">სხეული</span>
-              </div>
-              <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-blue-500/5 hover:bg-blue-500/10 transition-colors flex items-center justify-center border-b border-r border-white/5">
-                <span class="text-[9px] uppercase tracking-widest text-blue-400 font-black absolute top-4 left-4">საქმე</span>
-              </div>
-              <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-pink-500/5 hover:bg-pink-500/10 transition-colors flex items-center justify-center border-t border-r border-white/5">
-                <span class="text-[9px] uppercase tracking-widest text-pink-400 font-black absolute bottom-4 left-4">კონტაქტი</span>
-              </div>
-              <div class="absolute bottom-0 right-0 w-1/2 h-1/2 bg-purple-500/5 hover:bg-purple-500/10 transition-colors flex items-center justify-center border-t border-l border-white/5">
-                <span class="text-[9px] uppercase tracking-widest text-purple-400 font-black absolute bottom-4 right-4">მომავალი</span>
-              </div>
-
-              <!-- Animated inner dynamic shape indicating current distribution -->
-              <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                <polygon points="50,50 50,50 50,50 50,50" fill="rgba(241, 191, 98, 0.15)" stroke="#f1bf62" stroke-width="1" id="svg-polygon" class="transition-all duration-300"/>
-                <!-- Outer reference ideal 25% diamond -->
-                <polygon points="50,25 75,50 50,75 25,50" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" stroke-dasharray="2,2"/>
-              </svg>
-
-              <!-- Central core anchor -->
-              <div class="w-4 h-4 rounded-full bg-[#f1bf62] border border-[#121416] z-10 shadow-md"></div>
-            </div>
-            
-            <p class="text-[11px] text-[#c6c6ce]/50 leading-relaxed uppercase tracking-wider text-center mt-6 max-w-xs font-semibold">
-              ოქროსფერი ხაზი ასახავს თქვენს მიმდინარე ბალანსს, ხოლო თეთრი წყვეტილი ალმასი — იდეალურ წონასწორობას.
-            </p>
-          </div>
-
         </div>
 
-        <!-- Dynamic AI Results Window (Hidden by default) -->
-        <div id="balance-results-panel" class="mt-12 pt-8 border-t border-white/10 hidden animate-fade-in">
-          <div class="bg-black/35 p-8 rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl">
-            <div class="absolute top-0 left-0 w-[3px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
+        <!-- Dynamic Results Screen (Hidden initially) -->
+        <div id="balance-results-container" class="hidden space-y-12 animate-fade-in">
+          
+          <!-- Dynamic Results Header / Summary -->
+          <div class="bg-gradient-to-r from-emerald-500/10 via-blue-500/10 to-purple-500/10 border border-white/10 p-6 md:p-8 rounded-3xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-2 text-center md:text-left">
+              <span class="bg-[#f1bf62]/20 text-[#f1bf62] px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-[#f1bf62]/30">ტესტირება დასრულებულია</span>
+              <h2 class="text-2xl md:text-3xl font-headline italic font-bold text-white mt-2">თქვენი ცხოვრების ბალანსის რუკა</h2>
+              <p class="text-xs md:text-sm text-[#c6c6ce]/70 leading-relaxed font-medium">
+                პოზიტიური ფსიქოთერაპიის მოდელის მათემატიკურად დაბალანსებული ფარდობითი პროცენტები:
+              </p>
+            </div>
+            <!-- Restart button -->
+            <button id="btn-quiz-restart" class="bg-white/5 hover:bg-white/10 text-white font-bold uppercase tracking-widest py-3 px-6 rounded-xl border border-white/10 transition-all cursor-pointer flex items-center gap-2 text-xs">
+              <span class="material-symbols-outlined text-sm">restart_alt</span>
+              <span>ტესტის თავიდან დაწყება</span>
+            </button>
+          </div>
+
+          <!-- Main visual results area -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
-            <div class="flex items-center space-x-3 mb-6">
-              <span class="material-symbols-outlined text-[#f1bf62] text-3xl animate-pulse">insights</span>
-              <h3 class="text-xl font-bold tracking-wide text-[#f1bf62] uppercase font-headline">სიღრმისეული ფსიქო-ტრანსფორმაციული ანალიზი</h3>
+            <!-- Proportions & Stats side (5 cols on lg) -->
+            <div class="lg:col-span-5 space-y-6">
+              
+              <div class="bg-black/25 p-6 md:p-8 rounded-2xl border border-white/5 shadow-inner space-y-6">
+                <h3 class="text-sm font-black uppercase tracking-wider text-[#f1bf62] border-b border-white/5 pb-3">ენერგიის გადანაწილება</h3>
+                
+                <!-- Health & Body Stat -->
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs font-black uppercase tracking-widest text-emerald-400 flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm">favorite</span> სხეული / ჯანმრთელობა
+                    </span>
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-lg font-mono font-bold text-white" id="stat-val-body">0%</span>
+                      <span class="text-[10px] text-[#c6c6ce]/40 font-semibold uppercase font-mono" id="raw-val-body">(0/25 ქულა)</span>
+                    </div>
+                  </div>
+                  <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div id="bar-val-body" class="h-full bg-emerald-400 transition-all duration-1000 rounded-full" style="width: 0%;"></div>
+                  </div>
+                  <p class="text-[10px] text-[#c6c6ce]/50 leading-relaxed uppercase tracking-wider font-semibold pl-1">
+                    ძილი, კვება, ფიზიკური აქტივობა, სპორტი, დასვენება და გარეგნობაზე ზრუნვა.
+                  </p>
+                </div>
+
+                <!-- Achievement & Work Stat -->
+                <div class="space-y-2 pt-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs font-black uppercase tracking-widest text-blue-400 flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm">work</span> მიღწევები / სამუშაო
+                    </span>
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-lg font-mono font-bold text-white" id="stat-val-achievement">0%</span>
+                      <span class="text-[10px] text-[#c6c6ce]/40 font-semibold uppercase font-mono" id="raw-val-achievement">(0/25 ქულა)</span>
+                    </div>
+                  </div>
+                  <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div id="bar-val-achievement" class="h-full bg-blue-400 transition-all duration-1000 rounded-full" style="width: 0%;"></div>
+                  </div>
+                  <p class="text-[10px] text-[#c6c6ce]/50 leading-relaxed uppercase tracking-wider font-semibold pl-1">
+                    კარიერა, პროფესია, სწავლა, ფინანსების მართვა და საოჯახო საქმეები.
+                  </p>
+                </div>
+
+                <!-- Contacts & Relationships Stat -->
+                <div class="space-y-2 pt-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs font-black uppercase tracking-widest text-pink-400 flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm">group</span> კონტაქტები / ურთიერთობები
+                    </span>
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-lg font-mono font-bold text-white" id="stat-val-contact">0%</span>
+                      <span class="text-[10px] text-[#c6c6ce]/40 font-semibold uppercase font-mono" id="raw-val-contact">(0/25 ქულა)</span>
+                    </div>
+                  </div>
+                  <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div id="bar-val-contact" class="h-full bg-pink-400 transition-all duration-1000 rounded-full" style="width: 0%;"></div>
+                  </div>
+                  <p class="text-[10px] text-[#c6c6ce]/50 leading-relaxed uppercase tracking-wider font-semibold pl-1">
+                    ოჯახი, მეგობრები, პარტნიორი და სოციალურ გარემოსთან ურთიერთობის ემოციური ენერგია.
+                  </p>
+                </div>
+
+                <!-- Future & Fantasy Stat -->
+                <div class="space-y-2 pt-2">
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs font-black uppercase tracking-widest text-purple-400 flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm">wb_sunny</span> მომავალი / ფანტაზია
+                    </span>
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-lg font-mono font-bold text-white" id="stat-val-future">0%</span>
+                      <span class="text-[10px] text-[#c6c6ce]/40 font-semibold uppercase font-mono" id="raw-val-future">(0/25 ქულა)</span>
+                    </div>
+                  </div>
+                  <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div id="bar-val-future" class="h-full bg-purple-400 transition-all duration-1000 rounded-full" style="width: 0%;"></div>
+                  </div>
+                  <p class="text-[10px] text-[#c6c6ce]/50 leading-relaxed uppercase tracking-wider font-semibold pl-1">
+                    გეგმები, მედიტაცია, სულიერი პრაქტიკა, შემოქმედება და ცხოვრების საზრისზე ფიქრი.
+                  </p>
+                </div>
+
+                <!-- Proportional Balance Verification Ring -->
+                <div class="border-t border-white/5 pt-6 flex items-center justify-between">
+                  <div>
+                    <span class="text-[10px] uppercase tracking-widest text-[#c6c6ce]/40 block font-bold">ჯამური ენერგეტიკული წილი</span>
+                    <div class="text-xl font-black font-mono mt-1 text-emerald-400">
+                      <span>100%</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 font-sans">
+                      ✓ ალგორითმი დაცულია
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
-            <!-- Loading Spinner inside results -->
-            <div id="ai-loading" class="flex flex-col items-center justify-center py-12 space-y-4">
-              <div class="w-10 h-10 border-4 border-[#f1bf62] border-t-transparent rounded-full animate-spin"></div>
-              <p class="text-xs uppercase tracking-widest text-[#f1bf62] font-semibold animate-pulse font-headline">მიმდინარეობს მონაცემების დამუშავება პოზიტიურ ფსიქოთერაპიაში...</p>
+            <!-- Visual Diagram Preview Side (7 cols on lg) -->
+            <div class="lg:col-span-7 flex flex-col items-center justify-center bg-black/15 p-8 rounded-2xl border border-white/5 min-h-[380px] relative shadow-inner">
+              <!-- Custom CSS Circular Wheel Visualization representing the balance -->
+              <div class="relative w-72 h-72 rounded-full border border-white/10 shadow-2xl flex items-center justify-center bg-[#1e2022]/60 overflow-hidden" id="diagram-circle">
+                <!-- Grid lines dividing the dimensions -->
+                <div class="absolute inset-0 border-t border-white/5 pointer-events-none top-1/2"></div>
+                <div class="absolute inset-0 border-l border-white/5 pointer-events-none left-1/2"></div>
+                
+                <!-- 4 Colored dynamic quadrant backdrops -->
+                <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors flex items-center justify-center border-b border-l border-white/5">
+                  <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-black absolute top-4 right-4">სხეული</span>
+                </div>
+                <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-blue-500/5 hover:bg-blue-500/10 transition-colors flex items-center justify-center border-b border-r border-white/5">
+                  <span class="text-[9px] uppercase tracking-widest text-blue-400 font-black absolute top-4 left-4">საქმე</span>
+                </div>
+                <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-pink-500/5 hover:bg-pink-500/10 transition-colors flex items-center justify-center border-t border-r border-white/5">
+                  <span class="text-[9px] uppercase tracking-widest text-pink-400 font-black absolute bottom-4 left-4">კონტაქტი</span>
+                </div>
+                <div class="absolute bottom-0 right-0 w-1/2 h-1/2 bg-purple-500/5 hover:bg-purple-500/10 transition-colors flex items-center justify-center border-t border-l border-white/5">
+                  <span class="text-[9px] uppercase tracking-widest text-purple-400 font-black absolute bottom-4 right-4">მომავალი</span>
+                </div>
+
+                <!-- Animated inner dynamic shape indicating current distribution -->
+                <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                  <polygon points="50,50 50,50 50,50 50,50" fill="rgba(241, 191, 98, 0.15)" stroke="#f1bf62" stroke-width="1" id="svg-polygon" class="transition-all duration-500"/>
+                  <!-- Outer reference ideal 25% diamond -->
+                  <polygon points="50,25 75,50 50,75 25,50" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" stroke-dasharray="2,2"/>
+                </svg>
+
+                <!-- Central core anchor -->
+                <div class="w-4 h-4 rounded-full bg-[#f1bf62] border border-[#121416] z-10 shadow-md"></div>
+              </div>
+              
+              <p class="text-[11px] text-[#c6c6ce]/50 leading-relaxed uppercase tracking-wider text-center mt-6 max-w-xs font-semibold">
+                ოქროსფერი ხაზი ასახავს თქვენს მიმდინარე ბალანსს, ხოლო თეთრი წყვეტილი ალმასი — იდეალურ წონასწორობას (25% თითოეულ სფეროში).
+              </p>
             </div>
 
-            <!-- Dynamic Markdown Content Container -->
-            <div id="ai-response-container" class="prose prose-invert max-w-none text-sm md:text-base leading-relaxed text-[#c6c6ce] space-y-4 font-medium hidden">
-              <!-- Populated dynamically via JS -->
+          </div>
+
+          <!-- AI Evaluation section (automatic trigger) -->
+          <div id="balance-results-panel" class="pt-8 border-t border-white/10">
+            <div class="bg-black/35 p-8 rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl">
+              <div class="absolute top-0 left-0 w-[3px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
+              
+              <div class="flex items-center space-x-3 mb-6">
+                <span class="material-symbols-outlined text-[#f1bf62] text-3xl animate-pulse">insights</span>
+                <h3 class="text-xl font-bold tracking-wide text-[#f1bf62] uppercase font-headline">სიღრმისეული ფსიქო-ტრანსფორმაციული ანალიზი</h3>
+              </div>
+
+              <!-- Loading Spinner inside results -->
+              <div id="ai-loading" class="flex flex-col items-center justify-center py-12 space-y-4">
+                <div class="w-10 h-10 border-4 border-[#f1bf62] border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-xs uppercase tracking-widest text-[#f1bf62] font-semibold animate-pulse font-headline">მიმდინარეობს მონაცემების დამუშავება პოზიტიურ ფსიქოთერაპიაში...</p>
+              </div>
+
+              <!-- Dynamic Markdown Content Container -->
+              <div id="ai-response-container" class="prose prose-invert max-w-none text-sm md:text-base leading-relaxed text-[#c6c6ce] space-y-4 font-medium hidden">
+                <!-- Populated dynamically via JS -->
+              </div>
             </div>
           </div>
+
         </div>
 
       </div>
@@ -383,102 +464,254 @@
   <!-- Interactive script for Nossrat Peseschkian's Balance Model -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. DOM Elements
-      const sliders = {
-        body: document.getElementById('slider-body'),
-        achievement: document.getElementById('slider-achievement'),
-        contact: document.getElementById('slider-contact'),
-        future: document.getElementById('slider-future')
-      };
-      
-      const displays = {
-        body: document.getElementById('val-body'),
-        achievement: document.getElementById('val-achievement'),
-        contact: document.getElementById('val-contact'),
-        future: document.getElementById('val-future')
-      };
+      // 1. 20-Question Screening Matrix Data Structure
+      const questions = [
+        // Block 1: Body & Health (სხეული და ჯანმრთელობა)
+        { id: 1, block: 0, text: "ყოველდღიურად მძინავს საკმარისად (7-8 საათი) და გაღვიძებისას თავს დასვენებულად ვგრძნობ." },
+        { id: 2, block: 0, text: "რეგულარულად ვუთმობ დროს ფიზიკურ აქტივობას, სპორტს ან ფეხით სიარულს." },
+        { id: 3, block: 0, text: "ვაკონტროლებ ჩემს კვებას და ვცდილობ მივიღო ჩემი ორგანიზმისთვის ჯანსაღი პროდუქტები." },
+        { id: 4, block: 0, text: "სამუშაო დღის განმავლობაშიც კი ვპოულობ დროს სრულფასოვანი დასვენებისა და განტვირთვისთვის." },
+        { id: 5, block: 0, text: "აქტიურად ვზრუნავ ჩემს გარეგნობაზე, სხეულის მოვლასა და ჯანმრთელობის პრევენციაზე." },
 
-      const totalVal = document.getElementById('total-val');
-      const totalSuccess = document.getElementById('total-success');
-      const totalWarning = document.getElementById('total-warning');
-      const btnSubmit = document.getElementById('btn-submit-balance');
+        // Block 2: Work & Achievement (მიღწევები და სამუშაო)
+        { id: 6, block: 1, text: "ჩემი პროფესიული საქმიანობა, სამსახური ან სწავლა ჩემი ცხოვრების უმნიშვნელოვანესი ნაწილია." },
+        { id: 7, block: 1, text: "ყოველთვის ვცდილობ დასახულ მიზნებს მივაღწიო და მუდმივად ორიენტირებული ვარ წარმატებაზე." },
+        { id: 8, block: 1, text: "აქტიურად ვხარჯავ ენერგიას ახალი ცოდნის მისაღებად, წიგნების საკითხავად ან კვალიფიკაციის ასამაღლებლად." },
+        { id: 9, block: 1, text: "ეფექტურად ვმართავ ჩემს ფინანსებს, ბიუჯეტს და მუდმივად ვზრუნავ მატერიალურ წინსვლაზე." },
+        { id: 10, block: 1, text: "დიდ ენერგიასა და დროს ვუთმობ საოჯახო საქმეების მოწესრიგებასა და ყოველდღიურ ვალდებულებებს." },
+
+        // Block 3: Contacts & Relationships (კონტაქტები და ურთიერთობები)
+        { id: 11, block: 2, text: "მაქვს მჭიდრო, ხარისხიანი და ემოციურად თბილი ურთიერთობა ჩემს ოჯახის წევრებთან ან პარტნიორთან." },
+        { id: 12, block: 2, text: "რეგულარულად ვხვდები მეგობრებს და მათთან ერთად დროს აქტიურად ვატარებ." },
+        { id: 13, block: 2, text: "მარტივად შევდივარ ახალ სოციალურ კონტაქტებში და აქტიურად ვმონაწილეობ საზოგადოებრივ ცხოვრებაში." },
+        { id: 14, block: 2, text: "ახლობელ ადამიანებს ყოველთვის შეუძლიათ ჩემი ემოციური მხარდაჭერისა და თანაგრძნობის იმედი ჰქონდეთ." },
+        { id: 15, block: 2, text: "ჩემს ცხოვრებაში ადამიანებთან კომუნიკაციას უფრო მეტი ენერგია მიაქვს, ვიდრე მარტო ყოფნას." },
+
+        // Block 4: Future & Fantasy (მომავალი და ფანტაზია)
+        { id: 16, block: 3, text: "ხშირად ვფიქრობ ჩემს სამომავლო გეგმებზე, მიზნებსა და გრძელვადიან პერსპექტივებზე." },
+        { id: 17, block: 3, text: "ვუთმობ დროს მედიტაციას, სულიერ პრაქტიკას ან უბრალოდ საკუთარ ფიქრებთან მარტო დარჩენას." },
+        { id: 18, block: 3, text: "მაქვს შემოქმედებითი ჰობი (ხატვა, წერა, მუსიკა, იდეების გენერირება) ან უბრალოდ მიყვარს ოცნება." },
+        { id: 19, block: 3, text: "ხშირად ვუღრმავდები ფილოსოფიურ კითხვებს, ცხოვრების საზრისსა და ჩემს შინაგან მისიას." },
+        { id: 20, block: 3, text: "კრიზისულ მომენტებშიც კი მაქვს იმედი და რწმენა, რომ მომავალი უკეთესი იქნება." }
+      ];
+
+      const blockNames = [
+        "სხეული და ჯანმრთელობა (Body & Health)",
+        "მიღწევები და სამუშაო (Work & Achievement)",
+        "კონტაქტები და ურთიერთობები (Contacts & Relationships)",
+        "მომავალი და ფანტაზია (Fantasy & Future)"
+      ];
+
+      // 2. Wizard State
+      let currentStep = 0;
+      const answers = {};
+
+      // 3. DOM Elements
+      const quizWizard = document.getElementById('balance-quiz-wizard');
+      const resultsContainer = document.getElementById('balance-results-container');
+      const quizStepTitle = document.getElementById('quiz-step-title');
+      const quizStepProgressPercent = document.getElementById('quiz-step-progress-percent');
+      const quizProgressFill = document.getElementById('quiz-progress-fill');
+      const quizQuestionsList = document.getElementById('quiz-questions-list');
+      const btnQuizBack = document.getElementById('btn-quiz-back');
+      const btnQuizNext = document.getElementById('btn-quiz-next');
+      const btnQuizRestart = document.getElementById('btn-quiz-restart');
+      
       const svgPolygon = document.getElementById('svg-polygon');
-      const resultsPanel = document.getElementById('balance-results-panel');
       const aiLoading = document.getElementById('ai-loading');
       const aiContainer = document.getElementById('ai-response-container');
 
-      // 2. State & Sync sliders
-      function getValues() {
-        return {
-          body: Number(sliders.body.value),
-          achievement: Number(sliders.achievement.value),
-          contact: Number(sliders.contact.value),
-          future: Number(sliders.future.value)
-        };
+      // 4. Utility: Proportional relative math distribution ensuring exactly 100% total sum
+      function calculatePercentages(s1, s2, s3, s4) {
+        const total = s1 + s2 + s3 + s4;
+        if (total === 0) return { body: 25, achievement: 25, contact: 25, future: 25 };
+        
+        let p1 = Math.round((s1 / total) * 100);
+        let p2 = Math.round((s2 / total) * 100);
+        let p3 = Math.round((s3 / total) * 100);
+        let p4 = Math.round((s4 / total) * 100);
+        
+        // Handle rounding differences to guarantee exactly 100%
+        let currentSum = p1 + p2 + p3 + p4;
+        let diff = 100 - currentSum;
+        
+        if (diff !== 0) {
+          const items = [
+            { key: 'p1', val: (s1 / total) * 100, rounded: p1 },
+            { key: 'p2', val: (s2 / total) * 100, rounded: p2 },
+            { key: 'p3', val: (s3 / total) * 100, rounded: p3 },
+            { key: 'p4', val: (s4 / total) * 100, rounded: p4 }
+          ];
+          
+          // Sort by fractional differences
+          items.sort((a, b) => {
+            const diffA = a.val - a.rounded;
+            const diffB = b.val - b.rounded;
+            return diff > 0 ? diffB - diffA : diffA - diffB;
+          });
+          
+          for (let i = 0; i < Math.abs(diff); i++) {
+            if (items[i].key === 'p1') p1 += Math.sign(diff);
+            else if (items[i].key === 'p2') p2 += Math.sign(diff);
+            else if (items[i].key === 'p3') p3 += Math.sign(diff);
+            else if (items[i].key === 'p4') p4 += Math.sign(diff);
+          }
+        }
+        
+        return { body: p1, achievement: p2, contact: p3, future: p4 };
       }
 
-      function updateUI() {
-        const vals = getValues();
-        
-        // Display values
-        displays.body.textContent = vals.body + '%';
-        displays.achievement.textContent = vals.achievement + '%';
-        displays.contact.textContent = vals.contact + '%';
-        displays.future.textContent = vals.future + '%';
+      // 5. Validation Check
+      function validateStep() {
+        const stepQuestions = questions.filter(q => q.block === currentStep);
+        return stepQuestions.every(q => answers[q.id] !== undefined);
+      }
 
-        // Calculation total
-        const total = vals.body + vals.achievement + vals.contact + vals.future;
-        totalVal.textContent = total + '%';
+      // 6. UI Update
+      function renderStep() {
+        // Scroll slightly up to question card top when shifting step
+        quizQuestionsList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-        if (total === 100) {
-          totalVal.className = "text-emerald-400";
-          totalSuccess.classList.remove('hidden');
-          totalWarning.classList.add('hidden');
-          btnSubmit.disabled = false;
-          btnSubmit.classList.remove('opacity-50', 'cursor-not-allowed');
+        // Update step titles & progress bars
+        quizStepTitle.textContent = `ბლოკი ${currentStep + 1} / 4: ${blockNames[currentStep]}`;
+        const completionRate = Math.round(((currentStep + 1) / 4) * 100);
+        quizStepProgressPercent.textContent = `${completionRate}% დასრულებული`;
+        quizProgressFill.style.width = `${completionRate}%`;
+
+        // Render questions
+        const stepQuestions = questions.filter(q => q.block === currentStep);
+        quizQuestionsList.innerHTML = stepQuestions.map((q, idx) => {
+          const selectedVal = answers[q.id];
+          return `
+            <div class="flex flex-col space-y-4 p-5 rounded-2xl bg-white/5 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 shadow-lg">
+              <div class="text-sm md:text-base font-medium text-white/90 leading-relaxed pl-1">
+                <span class="text-[#f1bf62] font-mono font-bold mr-1.5">${currentStep * 5 + idx + 1}.</span>
+                ${q.text}
+              </div>
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                <span class="text-[10px] text-[#c6c6ce]/40 font-black uppercase tracking-widest pl-1 font-sans">არ ვეთანხმები</span>
+                
+                <div class="flex items-center gap-3">
+                  ${[1, 2, 3, 4, 5].map(num => {
+                    const isActive = selectedVal === num;
+                    const activeClass = isActive 
+                      ? 'bg-gradient-to-r from-[#f1bf62] to-[#dfab4c] text-[#121416] font-bold border-[#f1bf62] shadow-[0_0_12px_rgba(241,191,98,0.4)] scale-105' 
+                      : 'bg-white/5 hover:bg-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce]/80 border-white/5';
+                    return `
+                      <button type="button" 
+                        data-question-id="${q.id}" 
+                        data-value="${num}" 
+                        class="rating-btn w-10 h-10 rounded-full border flex items-center justify-center text-sm font-semibold transition-all duration-300 transform active:scale-95 cursor-pointer ${activeClass}">
+                        ${num}
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+
+                <span class="text-[10px] text-[#f1bf62]/80 font-black uppercase tracking-widest pr-1 font-sans">სრულად ვეთანხმები</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Add action listeners to dynamically generated rating buttons
+        const ratingBtns = quizQuestionsList.querySelectorAll('.rating-btn');
+        ratingBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const questionId = parseInt(btn.getAttribute('data-question-id'));
+            const value = parseInt(btn.getAttribute('data-value'));
+            answers[questionId] = value;
+            renderStep();
+          });
+        });
+
+        // Toggle back button visibility
+        if (currentStep === 0) {
+          btnQuizBack.classList.add('hidden');
         } else {
-          totalVal.className = "text-red-400";
-          totalSuccess.classList.add('hidden');
-          totalWarning.classList.remove('hidden');
-          totalWarning.textContent = `⚠️ ჯამი: ${total}% (უნდა იყოს 100%)`;
-          btnSubmit.disabled = true;
-          btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+          btnQuizBack.classList.remove('hidden');
         }
 
-        // Draw current dynamic polygon shape inside R=25 center ideal frame
-        // Coordinate mapping: Center is (50,50)
-        // Top (Body): (50, 50 - r)
-        // Right (Future): (50 + r, 50)
-        // Bottom (Contact): (50, 50 + r)
-        // Left (Achievement): (50 - r, 50)
-        // Base scale: max 100% maps to r = 45 pixels maximum
-        const scale = 0.45;
-        const pBody = { x: 50, y: 50 - (vals.body * scale) };
-        const pFuture = { x: 50 + (vals.future * scale), y: 50 };
-        const pContact = { x: 50, y: 50 + (vals.contact * scale) };
-        const pAchievement = { x: 50 - (vals.achievement * scale), y: 50 };
+        // Validate state to style/enable Next button
+        const isValid = validateStep();
+        if (isValid) {
+          btnQuizNext.disabled = false;
+          btnQuizNext.classList.remove('opacity-50', 'cursor-not-allowed');
+          btnQuizNext.classList.add('shadow-[0_0_15px_rgba(241,191,98,0.35)]');
+        } else {
+          btnQuizNext.disabled = true;
+          btnQuizNext.classList.add('opacity-50', 'cursor-not-allowed');
+          btnQuizNext.classList.remove('shadow-[0_0_15px_rgba(241,191,98,0.35)]');
+        }
 
-        svgPolygon.setAttribute('points', `${pBody.x},${pBody.y} ${pFuture.x},${pFuture.y} ${pContact.x},${pContact.y} ${pAchievement.x},${pAchievement.y}`);
+        // Adjust Next button content for final step
+        if (currentStep === 3) {
+          btnQuizNext.innerHTML = `
+            <span>შედეგების გენერირება</span>
+            <span class="material-symbols-outlined text-sm font-bold animate-pulse">insights</span>
+          `;
+        } else {
+          btnQuizNext.innerHTML = `
+            <span>შემდეგი</span>
+            <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+          `;
+        }
       }
 
-      // Sliders listeners
-      Object.keys(sliders).forEach(key => {
-        sliders[key].addEventListener('input', updateUI);
-      });
+      // 7. Results transition and calculation
+      function calculateAndShowResults() {
+        // Calculate raw sums per block
+        let s1 = 0, s2 = 0, s3 = 0, s4 = 0;
+        for (let i = 1; i <= 5; i++) s1 += answers[i] || 0;
+        for (let i = 6; i <= 10; i++) s2 += answers[i] || 0;
+        for (let i = 11; i <= 15; i++) s3 += answers[i] || 0;
+        for (let i = 16; i <= 20; i++) s4 += answers[i] || 0;
 
-      // Submit API request
-      btnSubmit.addEventListener('click', async () => {
-        const vals = getValues();
-        const total = vals.body + vals.achievement + vals.contact + vals.future;
-        if (total !== 100) return;
+        // Proportional relative calculation ensuring sum = 100%
+        const percentages = calculatePercentages(s1, s2, s3, s4);
 
-        // Show loading Panel
-        resultsPanel.classList.remove('hidden');
+        // Populate results fields
+        document.getElementById('stat-val-body').textContent = `${percentages.body}%`;
+        document.getElementById('raw-val-body').textContent = `(${s1}/25 ქულა)`;
+        document.getElementById('bar-val-body').style.width = `${percentages.body}%`;
+
+        document.getElementById('stat-val-achievement').textContent = `${percentages.achievement}%`;
+        document.getElementById('raw-val-achievement').textContent = `(${s2}/25 ქულა)`;
+        document.getElementById('bar-val-achievement').style.width = `${percentages.achievement}%`;
+
+        document.getElementById('stat-val-contact').textContent = `${percentages.contact}%`;
+        document.getElementById('raw-val-contact').textContent = `(${s3}/25 ქულა)`;
+        document.getElementById('bar-val-contact').style.width = `${percentages.contact}%`;
+
+        document.getElementById('stat-val-future').textContent = `${percentages.future}%`;
+        document.getElementById('raw-val-future').textContent = `(${s4}/25 ქულა)`;
+        document.getElementById('bar-val-future').style.width = `${percentages.future}%`;
+
+        // Draw custom diamond chart dynamically
+        const scale = 0.45;
+        const pBody = { x: 50, y: 50 - (percentages.body * scale) };
+        const pFuture = { x: 50 + (percentages.future * scale), y: 50 };
+        const pContact = { x: 50, y: 50 + (percentages.contact * scale) };
+        const pAchievement = { x: 50 - (percentages.achievement * scale), y: 50 };
+
+        svgPolygon.setAttribute('points', `${pBody.x},${pBody.y} ${pFuture.x},${pFuture.y} ${pContact.x},${pContact.y} ${pAchievement.x},${pAchievement.y}`);
+
+        // Transition screens
+        document.getElementById('balance-intro-panel').classList.add('hidden');
+        quizWizard.classList.add('hidden');
+        resultsContainer.classList.remove('hidden');
+
+        // Scroll to results container cleanly
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Trigger automatic AI analysis fetch
+        triggerAIAnalysis(percentages);
+      }
+
+      // 8. Call backend API for AI Psychological Analysis
+      async function triggerAIAnalysis(percentages) {
         aiLoading.classList.remove('hidden');
         aiContainer.classList.add('hidden');
-        
-        // Scroll to results cleanly
-        resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
         const phone = localStorage.getItem("user_phone") || "";
 
@@ -487,41 +720,81 @@
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              bodyScore: vals.body,
-              achievementScore: vals.achievement,
-              contactScore: vals.contact,
-              futureScore: vals.future,
+              bodyScore: percentages.body,
+              achievementScore: percentages.achievement,
+              contactScore: percentages.contact,
+              futureScore: percentages.future,
               phone
             })
           });
 
           const data = await res.json();
           if (data.success) {
-            // Render text response, replacing asterisks with bold / lists or clean paragraph blocks
             aiLoading.classList.add('hidden');
             aiContainer.classList.remove('hidden');
 
             // Format markdown response nicely for html output
             let formattedContent = data.content
               .replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#f1bf62] font-bold">$1</strong>')
-              .replace(/### (.*?)\n/g, '<h4 class="text-sm font-black uppercase tracking-wider text-[#f1bf62] mt-6 border-b border-white/5 pb-2">$1</h4>')
+              .replace(/### (.*?)\n/g, '<h4 class="text-sm font-black uppercase tracking-wider text-[#f1bf62] mt-6 border-b border-white/5 pb-2 font-sans">$1</h4>')
               .replace(/## (.*?)\n/g, '<h3 class="text-lg font-headline font-black text-[#f1bf62] mt-8">$1</h3>')
               .replace(/\n\n/g, '</p><p class="mt-4">')
               .replace(/- (.*?)\n/g, '<li class="ml-4 list-disc text-sm text-[#c6c6ce]">$1</li>');
 
-            aiContainer.innerHTML = '<p class="text-base text-white/90 leading-relaxed font-medium">' + formattedContent + '</p>';
+            aiContainer.innerHTML = '<div class="text-base text-white/90 leading-relaxed font-medium">' + formattedContent + '</div>';
           } else {
             throw new Error(data.error);
           }
         } catch (err) {
           aiLoading.classList.add('hidden');
           aiContainer.classList.remove('hidden');
-          aiContainer.innerHTML = `<div class="p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-xs font-semibold">შეცდომა ანალიზისას: ${err.message || "კავშირი ვერ დამყარდა"}</div>`;
+          aiContainer.innerHTML = `<div class="p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-xs font-semibold font-sans">შეცდომა ანალიზისას: ${err.message || "კავშირი ვერ დამყარდა"}</div>`;
+        }
+      }
+
+      // 9. Reset and retake quiz wizard
+      function resetQuiz() {
+        // Reset state
+        currentStep = 0;
+        for (const key in answers) {
+          delete answers[key];
+        }
+
+        // Show intro & wizard, hide results
+        document.getElementById('balance-intro-panel').classList.remove('hidden');
+        quizWizard.classList.remove('hidden');
+        resultsContainer.classList.add('hidden');
+
+        // Draw initial step
+        renderStep();
+        
+        // Scroll to top of app root cleanly
+        document.getElementById('balance-app-root').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // 10. Bind Navigation Button Clicks
+      btnQuizBack.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          renderStep();
         }
       });
 
-      // Initial draw
-      updateUI();
+      btnQuizNext.addEventListener('click', () => {
+        if (validateStep()) {
+          if (currentStep < 3) {
+            currentStep++;
+            renderStep();
+          } else {
+            calculateAndShowResults();
+          }
+        }
+      });
+
+      btnQuizRestart.addEventListener('click', resetQuiz);
+
+      // 11. Start first step
+      renderStep();
     });
   </script>
 
