@@ -135,9 +135,12 @@
             ჩვენ გთავაზობთ უსაფრთხო სივრცეს თვითშემეცნებისა და განკურნებისთვის. თითოეული სესია არის ნაბიჯი თქვენი ემოციური წონასწორობის აღდგენისკენ.
           </p>
         </div>
-        <div class="relative group">
-          <div class="absolute -inset-4 bg-primary-container/20 rounded-3xl blur-3xl group-hover:bg-primary-container/30 transition-all"></div>
-          <img class="relative rounded-2xl w-full h-[500px] object-cover shadow-2xl grayscale transition-all duration-700 group-hover:grayscale-0" alt="ethereal meditation room interior" src="/services_hero.png"/>
+        <div class="relative group cursor-pointer overflow-hidden rounded-2xl">
+          <div class="absolute -inset-4 bg-primary-container/20 rounded-3xl blur-3xl group-hover:bg-primary-container/30 transition-all duration-700"></div>
+          <!-- Faded default meditation room interior photo -->
+          <img class="relative rounded-2xl w-full h-[500px] object-cover opacity-30 grayscale transition-all duration-700 group-hover:opacity-10 group-hover:scale-105" alt="ethereal meditation room interior" src="/services_hero.png"/>
+          <!-- Glowing IDC Hands Orb photo that appears fully visible on hover -->
+          <img class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-0 scale-95 transition-all duration-700 group-hover:opacity-100 group-hover:scale-100 shadow-3xl" alt="ethereal hands holding IDC glowing orb" src="/idc_hands_orb.png"/>
         </div>
       </div>
     </section>
