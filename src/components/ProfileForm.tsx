@@ -4,15 +4,98 @@ import { MapPin, Calendar, ShieldAlert, Sparkles, RefreshCw } from "lucide-react
 import { RollerPicker } from "./RollerPicker";
 
 const THEMES = [
-  { value: CalculationType.HOROSCOPE, label: "დასავლური ჰოროსკოპი", description: "ზოდიაქოს ნიშანი, ხასიათი, სტიქიები და კოსმოსური ტრენდები." },
-  { value: CalculationType.ENNEAGRAM, label: "ენიაგრამა", description: "თქვენი ფსიქოტიპი, ფარული მოტივაციები, შიშები და ზრდის გზები." },
-  { value: CalculationType.PSYCHOMATRIX, label: "ფსიქო მატრიცა", description: "პითაგორას ციფრული მატრიცა: ჯანმრთელობა, იღბალი, ენერგია და ნიჭი." },
-  { value: CalculationType.NUMEROLOGY, label: "ნუმეროლოგია", description: "ბედისწერის რიცხვი, თქვენი უმაღლესი მისია და ცხოვრებისეული გზა." },
-  { value: CalculationType.HUMAN_DESIGN, label: "ადამიანის დიზაინი", description: "ენერგეტიკული ტიპი, პროფილი, ავტორიტეტი და ცხოვრებისეული სტრატეგია." },
-  { value: CalculationType.VEDIC, label: "ვედური ასტროლოგია", description: "ჯიოტიში: მთვარის ნიშანი, ნაკშატრები და კარმული ვალდებულებები." },
-  { value: CalculationType.BAZI, label: "ბა-ძი (BaZi)", description: "ბედისწერის 4 სვეტი: დღის მბრძანებელი და 5 ელემენტის ბალანსი." },
-  { value: CalculationType.ARCHETYPE, label: "არქეტიპული ანალიზი", description: "იუნგის 12 ფსიქოლოგიური არქეტიპი და ჩრდილოვანი მხარეები." },
+  { value: CalculationType.HOROSCOPE, label: "დასავლური ჰოროსკოპი", description: "ზოდიაქოს ნიშანი, ხასიათი, სტიქიები და კოსმოსური ტრენდები.", numeral: "I" },
+  { value: CalculationType.ENNEAGRAM, label: "ენიაგრამა", description: "თქვენი ფსიქოტიპი, ფარული მოტივაციები, შიშები და ზრდის გზები.", numeral: "II" },
+  { value: CalculationType.PSYCHOMATRIX, label: "ფსიქო მატრიცა", description: "პითაგორას ციფრული მატრიცა: ჯანმრთელობა, იღბალი, ენერგია და ნიჭი.", numeral: "III" },
+  { value: CalculationType.NUMEROLOGY, label: "ნუმეროლოგია", description: "ბედისწერის რიცხვი, თქვენი უმაღლესი მისია და ცხოვრებისეული გზა.", numeral: "IV" },
+  { value: CalculationType.HUMAN_DESIGN, label: "ადამიანის დიზაინი", description: "ენერგეტიკული ტიპი, პროფილი, ავტორიტეტი და ცხოვრებისეული სტრატეგია.", numeral: "V" },
+  { value: CalculationType.VEDIC, label: "ვედური ასტროლოგია", description: "ჯიოტიში: მთვარის ნიშანი, ნაკშატრები და კარმული ვალდებულებები.", numeral: "VI" },
+  { value: CalculationType.BAZI, label: "ბა-ძი (BaZi)", description: "ბედისწერის 4 სვეტი: დღის მბრძანებელი და 5 ელემენტის ბალანსი.", numeral: "VII" },
+  { value: CalculationType.ARCHETYPE, label: "არქეტიპული ანალიზი", description: "იუნგის 12 ფსიქოლოგიური არქეტიპი და ჩრდილოვანი მხარეები.", numeral: "VIII" },
 ];
+
+const getTarotIllustration = (type: CalculationType) => {
+  switch (type) {
+    case CalculationType.HOROSCOPE:
+      return (
+        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          <path d="M16 8a4 4 0 0 0-4-4v8z" fill="currentColor" opacity="0.15" />
+          <circle cx="7" cy="7" r="0.5" fill="currentColor" />
+          <circle cx="17" cy="17" r="0.5" fill="currentColor" />
+        </svg>
+      );
+    case CalculationType.ENNEAGRAM:
+      return (
+        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <path d="M12 3L2 20h20L12 3z" />
+          <path d="M12 8a3 3 0 0 0-3 3c0 2 3 5 3 5s3-3 3-5a3 3 0 0 0-3-3z" fill="currentColor" opacity="0.15" />
+          <circle cx="12" cy="11.5" r="1.5" fill="currentColor" />
+          <path d="M8 12h8" />
+        </svg>
+      );
+    case CalculationType.PSYCHOMATRIX:
+      return (
+        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <path d="M5 5v14h14L5 5z" />
+          <path d="M5 19L19 19L5 5z" fill="currentColor" opacity="0.15" />
+          <path d="M9 19v-4M13 19v-8M5 15h4M5 11h8" />
+        </svg>
+      );
+    case CalculationType.NUMEROLOGY:
+      return (
+        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" />
+          <path d="M12 3a9 9 0 0 0 0 18V3z" fill="currentColor" opacity="0.15" />
+          <path d="M7 12a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" />
+          <path d="M11 12a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" />
+        </svg>
+      );
+    case CalculationType.HUMAN_DESIGN:
+      return (
+        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <path d="M12 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="currentColor" opacity="0.2" />
+          <path d="M12 6v10M6 14l6-4 6 4M12 16l-3 5M12 16l3 5" />
+          <circle cx="12" cy="10" r="1" fill="currentColor" />
+          <circle cx="12" cy="14" r="1.5" fill="currentColor" />
+          <circle cx="6" cy="14" r="1" fill="currentColor" />
+          <circle cx="18" cy="14" r="1" fill="currentColor" />
+        </svg>
+      );
+    case CalculationType.VEDIC:
+      return (
+        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <circle cx="12" cy="12" r="8" />
+          <circle cx="12" cy="12" r="5" fill="currentColor" opacity="0.15" />
+          <path d="M12 2v20M2 12h20M5 5l14 14M5 19L19 5" />
+          <circle cx="12" cy="12" r="2" />
+        </svg>
+      );
+    case CalculationType.BAZI:
+      return (
+        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 3a9 9 0 0 0 0 18 4.5 4.5 0 0 0 0-9 4.5 4.5 0 0 1 0-9z" fill="currentColor" opacity="0.25" />
+          <circle cx="12" cy="7.5" r="1.5" fill="currentColor" />
+          <circle cx="12" cy="16.5" r="1.5" fill="currentColor" />
+        </svg>
+      );
+    case CalculationType.ARCHETYPE:
+      return (
+        <svg className="w-12 h-12 text-[#f1bf62] transition-transform duration-500 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
+          <circle cx="12" cy="9" r="6" />
+          <path d="M6 15c0-4 3-6 6-6s6 2 6 6M12 15v5M9 20h6" />
+          <path d="M12 3a6 6 0 0 0-6 6c0 2.5 1.5 4.5 3.5 5.5" fill="currentColor" opacity="0.15" />
+          <circle cx="10" cy="8" r="0.8" fill="currentColor" />
+          <circle cx="14" cy="8" r="0.8" fill="currentColor" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
 
 interface ProfileFormProps {
   onProfileSaved: (profile: BirthProfile, initialTheme: CalculationType) => void;
@@ -30,6 +113,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     return savedProfile?.phone || "";
   });
   const [selectedTheme, setSelectedTheme] = useState<CalculationType>(CalculationType.HOROSCOPE);
+  const [hoveredTheme, setHoveredTheme] = useState<CalculationType | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [useStandardCalendar, setUseStandardCalendar] = useState(false);
 
@@ -47,18 +131,18 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = [
-    { value: 1, label: "January" },
-    { value: 2, label: "February" },
-    { value: 3, label: "March" },
-    { value: 4, label: "April" },
-    { value: 5, label: "May" },
-    { value: 6, label: "June" },
-    { value: 7, label: "July" },
-    { value: 8, label: "August" },
-    { value: 9, label: "September" },
-    { value: 10, label: "October" },
-    { value: 11, label: "November" },
-    { value: 12, label: "December" },
+    { value: 1, label: "იანვარი" },
+    { value: 2, label: "თებერვალი" },
+    { value: 3, label: "მარტი" },
+    { value: 4, label: "აპრილი" },
+    { value: 5, label: "მაისი" },
+    { value: 6, label: "ივნისი" },
+    { value: 7, label: "ივლისი" },
+    { value: 8, label: "აგვისტო" },
+    { value: 9, label: "სექტემბერი" },
+    { value: 10, label: "ოქტომბერი" },
+    { value: 11, label: "ნოემბერი" },
+    { value: 12, label: "დეკემბერი" },
   ];
   
   const currentYear = 2026;
@@ -148,7 +232,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form id="profile-form" onSubmit={handleSubmit} className="space-y-6">
         {/* Row for Name/Surname and Phone number aligned next to each other, narrowed to match compact theme */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-2 max-w-[480px] mx-auto w-full">
           {/* Name & Surname Field Combined */}
@@ -251,56 +335,73 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           </div>
         </div>
 
-        {/* Visual CD/Vinyl Record Album Grid Theme Selector */}
-        <div className="space-y-4 py-2">
-          <label className="block text-[12px] font-extrabold uppercase tracking-widest text-[#c6c6ce]/80 mb-2 text-center w-full">
-            ანალიზის თემა (აირჩიეთ ფირფიტა)
+        {/* Mystical Tarot Card Deck Theme Selector */}
+        <div className="space-y-6 py-4">
+          <label className="block text-[12px] font-extrabold uppercase tracking-widest text-[#c6c6ce]/80 mb-1 text-center w-full">
+            ანალიზის თემა (აირჩიეთ ტაროს კარტი)
           </label>
           
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 max-w-6xl mx-auto w-full px-2 py-4 select-none">
             {THEMES.map((theme) => {
               const isSelected = selectedTheme === theme.value;
+              const isHovered = hoveredTheme === theme.value;
+              
+              const handleCardClick = () => {
+                setSelectedTheme(theme.value);
+                
+                // If form is already filled out, automatically submit the form to calculate the matrix
+                const nameParts = fullName.trim().split(/\s+/);
+                const trimmedPhone = phone.trim();
+                if (fullName.trim() && nameParts.length >= 2 && trimmedPhone) {
+                  setTimeout(() => {
+                    const formEl = document.getElementById("profile-form") as HTMLFormElement;
+                    if (formEl) {
+                      formEl.requestSubmit();
+                    }
+                  }, 50);
+                }
+              };
+
               return (
                 <div
                   key={theme.value}
-                  onClick={() => setSelectedTheme(theme.value)}
-                  className={`relative overflow-hidden rounded-2xl p-4 transition-all duration-500 cursor-pointer flex flex-col items-center justify-center aspect-square select-none group border ${
-                    isSelected 
-                      ? "bg-[#f1bf62]/10 border-[#f1bf62] shadow-[0_15px_30px_rgba(241,191,98,0.2)] -translate-y-2 scale-105" 
-                      : "bg-[#1e2022]/40 border-white/5 hover:border-white/20 hover:-translate-y-1"
+                  onClick={handleCardClick}
+                  onMouseEnter={() => setHoveredTheme(theme.value)}
+                  onMouseLeave={() => setHoveredTheme(null)}
+                  className={`relative w-full aspect-[2/3] rounded-2xl p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
+                    isHovered 
+                      ? "border-[#f1bf62] shadow-[0_20px_45px_rgba(241,191,98,0.3)] -translate-y-6 scale-105 z-30"
+                      : isSelected
+                      ? "border-[#f1bf62] shadow-[0_0_25px_rgba(241,191,98,0.2)] bg-[#f1bf62]/5 -translate-y-3 scale-102 z-20"
+                      : "border-white/10 hover:border-white/20 translate-y-0 scale-100 opacity-80 hover:opacity-100"
                   }`}
                 >
-                  {/* Vinyl Record / CD Disc emerging out of the sleeve when selected */}
-                  <div className="relative w-20 h-20 mb-3 flex items-center justify-center">
-                    {/* Vinyl Sleeve Back (Static) */}
-                    <div className="absolute inset-0 rounded-lg bg-black/40 border border-white/10 z-10" />
-
-                    {/* Vinyl Record (Spins & slides upwards when selected) */}
-                    <div 
-                      className={`absolute w-18 h-18 rounded-full bg-[#121416] border-4 border-[#222]/80 flex items-center justify-center shadow-lg transition-all duration-700 z-20 ${
-                        isSelected 
-                          ? "-translate-y-8 rotate-[360deg] scale-105 border-[#f1bf62]/30 shadow-[0_8px_20px_rgba(241,191,98,0.15)]" 
-                          : "translate-y-0 rotate-0 group-hover:-translate-y-2 group-hover:rotate-45"
-                      }`}
-                    >
-                      {/* Vinyl Ridges / Grooves */}
-                      <div className="absolute inset-1.5 rounded-full border border-white/5 opacity-60"></div>
-                      <div className="absolute inset-3 rounded-full border border-white/5 opacity-40"></div>
-                      <div className="absolute inset-4.5 rounded-full border border-white/5 opacity-30"></div>
-                      
-                      {/* Center Sticker */}
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors ${
-                        isSelected ? "bg-[#f1bf62]" : "bg-white/10"
-                      }`}>
-                        {/* Spindle hole */}
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#121416]"></div>
-                      </div>
-                    </div>
+                  {/* Ornate Inner Border like authentic Tarot Cards */}
+                  <div className={`absolute inset-1.5 rounded-[12px] border pointer-events-none transition-colors duration-500 ${
+                    isSelected || isHovered ? "border-[#f1bf62]/35" : "border-white/5"
+                  }`}>
+                    {/* Stars in the corners of the card */}
+                    <div className="absolute top-1 left-1 text-[8px] text-[#f1bf62]/40 font-serif">✦</div>
+                    <div className="absolute top-1 right-1 text-[8px] text-[#f1bf62]/40 font-serif">✦</div>
+                    <div className="absolute bottom-1 left-1 text-[8px] text-[#f1bf62]/40 font-serif">✦</div>
+                    <div className="absolute bottom-1 right-1 text-[8px] text-[#f1bf62]/40 font-serif">✦</div>
                   </div>
 
-                  {/* Album Sleeve Cover Label */}
-                  <span className={`text-[11px] sm:text-[12px] font-bold tracking-wider text-center leading-tight z-30 transition-colors uppercase ${
-                    isSelected ? "text-[#f1bf62]" : "text-[#c6c6ce]/80 group-hover:text-white"
+                  {/* Top: Roman Numeral representing card's order */}
+                  <span className={`text-[10px] font-serif font-extrabold tracking-widest text-center mt-1 z-10 transition-colors uppercase ${
+                    isSelected || isHovered ? "text-[#f1bf62]" : "text-[#c6c6ce]/40"
+                  }`}>
+                    {theme.numeral}
+                  </span>
+
+                  {/* Center: Thematic Mystical Illustration Drawing */}
+                  <div className="flex-grow flex items-center justify-center py-2 z-10">
+                    {getTarotIllustration(theme.value)}
+                  </div>
+
+                  {/* Bottom: Card Label Cover Title */}
+                  <span className={`text-[10px] sm:text-[10.5px] font-extrabold text-center tracking-wider leading-tight z-10 pb-1.5 transition-colors uppercase ${
+                    isSelected || isHovered ? "text-[#f1bf62]" : "text-[#c6c6ce]/75 group-hover:text-white"
                   }`}>
                     {theme.label.split(" (")[0]}
                   </span>
@@ -309,16 +410,21 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
             })}
           </div>
           
-          {/* Active selected Album description box */}
-          <div className="mt-6 p-5 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-xl shadow-xl max-w-xl mx-auto text-center space-y-2 transform transition-all duration-500 hover-glow">
-            <h4 className="text-[14px] font-extrabold text-[#f1bf62] uppercase tracking-widest flex items-center justify-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#f1bf62]" />
-              {THEMES.find(t => t.value === selectedTheme)?.label}
-            </h4>
-            <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/85 font-semibold leading-relaxed">
-              {THEMES.find(t => t.value === selectedTheme)?.description}
-            </p>
-          </div>
+          {/* Active / Hovered Card detailed description box */}
+          {(() => {
+            const activeDisplayTheme = THEMES.find(t => t.value === (hoveredTheme || selectedTheme));
+            return (
+              <div className="mt-4 p-5 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-xl shadow-xl max-w-xl mx-auto text-center space-y-2 transform transition-all duration-500 hover-glow">
+                <h4 className="text-[14px] font-extrabold text-[#f1bf62] uppercase tracking-widest flex items-center justify-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#f1bf62] animate-pulse" />
+                  {activeDisplayTheme?.label}
+                </h4>
+                <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/85 font-semibold leading-relaxed min-h-[40px]">
+                  {activeDisplayTheme?.description}
+                </p>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Action Button */}
