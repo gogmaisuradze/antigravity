@@ -221,7 +221,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const cardSpacing = windowWidth < 480 ? 16 : windowWidth < 640 ? 24 : windowWidth < 768 ? 32 : windowWidth < 1024 ? 40 : 48;
+  const cardSpacing = windowWidth < 480 ? 20 : windowWidth < 640 ? 28 : windowWidth < 768 ? 36 : windowWidth < 1024 ? 45 : 54;
   const cardScale = windowWidth < 480 ? 0.75 : windowWidth < 640 ? 0.85 : 1.0;
 
   // Auto-fill from saved profile
@@ -316,7 +316,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       <div className="flex flex-col items-center justify-center text-center space-y-3 mb-8">
         <button 
           type="button"
-          onClick={() => setUseStandardCalendar(!useStandardCalendar)}
+          onClick={() => {
+            setUseStandardCalendar(!useStandardCalendar);
+            playExitCapSound();
+          }}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all cursor-pointer ${
             useStandardCalendar 
               ? 'bg-[#f1bf62] text-[#121416] border-[#f1bf62] shadow-[0_0_15px_rgba(241,191,98,0.3)] scale-105' 
@@ -494,7 +497,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                   playExitCapSound();
                 } else {
                   setSelectedTheme(theme.value);
-                  playTickSound();
+                  playExitCapSound();
                   
                   // If form is already filled out, automatically submit the form to calculate the matrix
                   const nameParts = fullName.trim().split(/\s+/);
@@ -592,6 +595,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           <button
             type="submit"
             disabled={loading}
+            onClick={playExitCapSound}
             className={`transition-all duration-700 ease-in-out cursor-pointer active:scale-95 flex items-center justify-center border font-bold uppercase tracking-widest disabled:opacity-80 text-[12px] shadow-[0_0_20px_rgba(241,191,98,0.2)] ${
               loading 
                 ? "w-14 h-14 rounded-full bg-transparent border-[#f1bf62]/80 text-[#f1bf62]" 
