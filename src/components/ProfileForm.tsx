@@ -196,7 +196,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const cardSpacing = windowWidth < 480 ? 20 : windowWidth < 640 ? 28 : windowWidth < 768 ? 42 : windowWidth < 1024 ? 52 : 62;
+  const cardSpacing = windowWidth < 480 ? 16 : windowWidth < 640 ? 24 : windowWidth < 768 ? 32 : windowWidth < 1024 ? 40 : 48;
   const cardScale = windowWidth < 480 ? 0.75 : windowWidth < 640 ? 0.85 : 1.0;
 
   // Auto-fill from saved profile
@@ -377,7 +377,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               {/* The side-by-side rollers */}
               <div className="relative flex flex-row items-center justify-between gap-4 z-10 w-full">
                 {/* Month */}
-                <div className="flex-1 min-w-[120px]">
+                <div className="flex-1 min-w-[130px]">
                   <RollerPicker
                     variant="ios-dark"
                     items={monthsItems}
@@ -397,7 +397,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                 </div>
 
                 {/* Year */}
-                <div className="flex-1 min-w-[80px]">
+                <div className="flex-1 min-w-[95px]">
                   <RollerPicker
                     variant="ios-dark"
                     items={yearsItems}
@@ -452,11 +452,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 1.0 : 1.8);
               
               // All cards share a uniform sideways Y-rotation in one direction to look like a real stacked deck
-              const rotY = -50;
+              const rotY = -72;
               const rotZ = 0;
 
               let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
-              // Left-to-right stacking to perfectly handle the overlap of Y(-50deg) rotation
+              // Left-to-right stacking to perfectly handle the overlap of Y(-72deg) rotation
               let zIndexVal = 20 + index;
 
               if (isHovered) {

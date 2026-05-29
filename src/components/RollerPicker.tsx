@@ -278,7 +278,7 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
               <div
                 key={`${offset}-${itemIdx}`}
                 onClick={() => onChange(item.value)}
-                className={`absolute w-full px-1 text-center transition-all duration-300 ease-out cursor-pointer ${
+                className={`absolute w-full px-1 text-center whitespace-nowrap transition-all duration-300 ease-out cursor-pointer ${
                   isIos 
                     ? (isCenter ? "text-lg sm:text-xl tracking-wide font-black" : "text-sm sm:text-base tracking-wide font-bold") 
                     : "text-xs uppercase"
