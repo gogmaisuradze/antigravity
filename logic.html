@@ -170,24 +170,24 @@
   </div>
 
   <!-- Top Bar -->
-  <header class="h-20 border-b border-white/5 bg-[#040506]/40 backdrop-blur-md px-8 flex items-center justify-between z-30 select-none relative">
+  <header class="h-20 border-b border-white/5 bg-[#040506]/40 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-30 select-none relative">
     <!-- Left Title (Gold Brand) -->
     <div class="flex items-center gap-2 select-none z-10">
-      <span class="text-xl md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62]">IDC პოზიტიური ფსიქოთერაპია</span>
+      <span class="text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62] whitespace-nowrap">IDC პოზიტიური ფსიქოთერაპია</span>
     </div>
 
     <!-- Center Logo (Maximized Emblem) -->
     <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto h-full z-10">
       <a href="logic.html" class="hover:opacity-90 transition-opacity duration-300 flex items-center">
-        <img alt="IDC Logo" class="object-contain" src="/src/logo.png" style="mix-blend-mode: screen; height: 550px; width: 550px; margin-top: -235px; margin-bottom: -235px; max-width: none;"/>
+        <img alt="IDC Logo" class="object-contain max-w-none h-[180px] w-[180px] sm:h-[320px] sm:w-[320px] md:h-[550px] md:w-[550px] mt-[-55px] sm:mt-[-125px] md:mt-[-235px] mb-[-55px] sm:mb-[-125px] md:mb-[-235px] transition-all duration-300" src="/src/logo.png" style="mix-blend-mode: screen;"/>
       </a>
     </div>
 
     <!-- Right Header Actions (Home button moved here) -->
     <div class="flex items-center gap-6 z-10">
-      <a href="index.html" class="bg-[#1c2022] hover:bg-[#252a2d] text-[#f1bf62] border border-[#f1bf62]/30 px-5 py-2 rounded-xl text-sm font-semibold shadow-[0_0_15px_rgba(241,191,98,0.06)] hover:shadow-[0_0_20px_rgba(241,191,98,0.2)] flex items-center gap-2 transition-all cursor-pointer no-underline">
+      <a href="index.html" class="bg-[#1c2022] hover:bg-[#252a2d] text-[#f1bf62] border border-[#f1bf62]/30 px-3 sm:px-5 py-2 rounded-xl text-sm font-semibold shadow-[0_0_15px_rgba(241,191,98,0.06)] hover:shadow-[0_0_20px_rgba(241,191,98,0.2)] flex items-center gap-2 transition-all cursor-pointer no-underline">
         <span class="material-symbols-outlined text-sm">home</span>
-        <span>მთავარზე გადასვლა</span>
+        <span class="hidden sm:inline">მთავარზე გადასვლა</span>
       </a>
     </div>
   </header>
@@ -196,7 +196,7 @@
   <div class="flex-grow flex overflow-hidden w-full relative">
     
     <!-- Dynamic Slide-out Details Panel (Replaces Sidebar) -->
-    <aside id="details-sidebar" class="details-panel w-85 bg-[#0c0e10]/95 border-r border-[#f1bf62]/10 backdrop-blur-2xl shadow-2xl p-6 z-20 flex flex-col justify-between absolute left-0 top-0 h-full transform -translate-x-full select-none">
+    <aside id="details-sidebar" class="details-panel w-[90%] max-w-[340px] sm:w-85 bg-[#0c0e10]/95 border-r border-[#f1bf62]/10 backdrop-blur-2xl shadow-2xl p-6 z-20 flex flex-col justify-between absolute left-0 top-0 h-full transform -translate-x-full select-none">
       <div class="space-y-4 overflow-y-auto max-h-[88%] scrollbar-thin">
         
         <!-- Details Sidebar Header (Enlarged prominent golden title) -->

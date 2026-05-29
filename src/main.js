@@ -56,38 +56,38 @@ function initMobileMenu() {
 function initBookingModal() {
   // Inject Modal HTML into the bottom of body
   const modalHTML = `
-    <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-      <div class="bg-surface-container-low p-10 md:p-12 rounded-[2rem] shadow-[0px_40px_80px_rgba(0,0,0,0.85)] border border-outline-variant/10 max-w-2xl w-full relative hover-glow transition-all duration-500 transform scale-95 max-h-[90vh] overflow-y-auto" id="booking-modal-card">
-        <button id="close-modal-btn" class="absolute top-6 right-6 text-[#c6c6ce] hover:text-secondary transition-colors focus:outline-none z-50">
-          <span class="material-symbols-outlined text-3xl">close</span>
+    <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+      <div class="bg-surface-container-low p-6 sm:p-10 md:p-12 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_40px_80px_rgba(0,0,0,0.85)] border border-outline-variant/10 max-w-2xl w-full relative hover-glow transition-all duration-500 transform scale-95 max-h-[90vh] overflow-y-auto" id="booking-modal-card">
+        <button id="close-modal-btn" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-[#c6c6ce] hover:text-secondary transition-colors focus:outline-none z-50">
+          <span class="material-symbols-outlined text-2xl sm:text-3xl">close</span>
         </button>
         
-        <div class="mb-10 text-left relative flex items-start justify-between">
+        <div class="mb-6 sm:mb-10 text-left relative flex items-start justify-between">
           <div>
-            <h2 class="text-3xl font-headline italic text-on-surface">სესიის დაჯავშნა</h2>
-            <p class="text-sm text-outline-variant mt-2">შეავსეთ ფორმა და ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ</p>
+            <h2 class="text-2xl sm:text-3xl font-headline italic text-on-surface">სესიის დაჯავშნა</h2>
+            <p class="text-xs sm:text-sm text-outline-variant mt-2">შეავსეთ ფორმა და ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ</p>
           </div>
           <div class="bg-secondary/10 border border-secondary/20 p-3.5 rounded-2xl hidden sm:flex items-center justify-center text-secondary shadow-lg">
             <span class="material-symbols-outlined text-3xl" style='font-variation-settings: "FILL" 1;'>edit_calendar</span>
           </div>
         </div>
         
-        <form class="space-y-8 contact-form" id="booking-modal-form">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <form class="space-y-5 sm:space-y-8 contact-form" id="booking-modal-form">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი და გვარი</label>
-              <input type="text" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი სახელი"/>
+              <input type="text" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი სახელი"/>
             </div>
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
-              <input type="tel" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="+995"/>
+              <input type="tel" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="+995"/>
             </div>
           </div>
           
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
-              <select class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface appearance-none">
+              <select class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none">
                 <option>ინდივიდუალური თერაპია</option>
                 <option>წყვილთა თერაპია</option>
                 <option>ჯგუფური თერაპია</option>
@@ -98,24 +98,24 @@ function initBookingModal() {
             </div>
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">თარიღი</label>
-              <input type="date" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface" style="color-scheme: dark;"/>
+              <input type="date" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface" style="color-scheme: dark;"/>
             </div>
           </div>
           
           <div class="space-y-2">
             <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">მოკლე შეტყობინება</label>
-            <textarea rows="3" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-on-surface placeholder:text-outline-variant/50 resize-none" placeholder="დაგვიწერეთ მოკლედ თქვენი მოთხოვნის შესახებ..."></textarea>
+            <textarea rows="3" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50 resize-none" placeholder="დაგვიწერეთ მოკლედ თქვენი მოთხოვნის შესახებ..."></textarea>
           </div>
           
-          <div class="pt-6">
-            <button type="submit" class="w-full bg-secondary-container text-on-secondary-container py-5 rounded-xl font-semibold text-lg hover:brightness-110 active:scale-98 transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
+          <div class="pt-3 sm:pt-6">
+            <button type="submit" class="w-full bg-secondary-container text-on-secondary-container py-4 sm:py-5 rounded-xl font-semibold text-base sm:text-lg hover:brightness-110 active:scale-98 transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
               დაჯავშნა
-              <span class="material-symbols-outlined">arrow_forward</span>
+              <span class="material-symbols-outlined text-xl">arrow_forward</span>
             </button>
           </div>
         </form>
         
-        <div class="relative flex py-6 items-center">
+        <div class="relative flex py-4 sm:py-6 items-center">
           <div class="flex-grow border-t border-[#45464d]/20"></div>
           <span class="flex-shrink mx-4 text-xs text-outline-variant tracking-wider uppercase font-semibold text-outline-variant/60">ან დაჯავშნე პირდაპირ</span>
           <div class="flex-grow border-t border-[#45464d]/20"></div>
@@ -123,32 +123,32 @@ function initBookingModal() {
         
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <!-- Telegram -->
-          <a href="https://t.me/IDCPositivepsychotherapybot" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
-            <svg class="w-6 h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <a href="https://t.me/IDCPositivepsychotherapybot" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-2.5 sm:py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.89 1.2-5.33 3.52-.5.35-.96.52-1.37.51-.45-.01-1.32-.26-1.97-.47-.8-.26-1.43-.4-1.38-.85.03-.24.36-.49.99-.75 3.86-1.68 6.43-2.78 7.72-3.3 3.67-1.49 4.43-1.75 4.93-1.76.11 0 .36.03.52.16.13.11.17.26.19.37z"/>
             </svg>
             <span class="text-[10px] sm:text-xs font-semibold tracking-wide">Telegram</span>
           </a>
 
           <!-- Facebook -->
-          <a href="https://www.facebook.com/IDCgeorgia" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
-            <svg class="w-6 h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <a href="https://www.facebook.com/IDCgeorgia" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-2.5 sm:py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
             </svg>
             <span class="text-[10px] sm:text-xs font-semibold tracking-wide">Facebook</span>
           </a>
 
           <!-- Instagram -->
-          <a href="https://www.instagram.com/idcgeo/" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
-            <svg class="w-6 h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <a href="https://www.instagram.com/idcgeo/" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-2.5 sm:py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
             </svg>
             <span class="text-[10px] sm:text-xs font-semibold tracking-wide">Instagram</span>
           </a>
 
           <!-- WhatsApp -->
-          <a href="https://wa.me/995598324020" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
-            <svg class="w-6 h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <a href="https://wa.me/995598324020" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-2.5 sm:py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.249 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.458L0 24zm6.59-4.846c1.6.95 3.197 1.45 4.817 1.451 5.4 0 9.794-4.394 9.798-9.794.002-2.617-1.018-5.077-2.873-6.932-1.854-1.854-4.312-2.873-6.924-2.874-5.405 0-9.799 4.393-9.802 9.794-.001 1.705.454 3.371 1.316 4.856l-.993 3.63 3.731-.979zm11.238-6.84c-.266-.134-1.582-.78-1.83-.87-.247-.089-.427-.134-.607.135-.18.267-.697.87-.852 1.047-.157.178-.314.2-.58.067-.266-.134-1.127-.415-2.147-1.325-.793-.706-1.33-1.579-1.485-1.846-.157-.267-.017-.411.117-.544.12-.12.267-.312.4-.467.133-.156.177-.267.266-.445.09-.178.044-.334-.022-.467-.067-.134-.607-1.464-.83-2.005-.218-.524-.458-.453-.628-.461-.163-.008-.349-.01-.536-.01-.186 0-.49.07-.747.347-.257.278-.98.957-.98 2.335s1.002 2.703 1.142 2.89c.14.188 1.972 3.012 4.778 4.221.668.288 1.19.46 1.597.59.67.213 1.28.183 1.761.111.537-.08 1.582-.647 1.805-1.272.223-.624.223-1.157.157-1.272-.067-.116-.247-.183-.514-.316z"/>
             </svg>
             <span class="text-[10px] sm:text-xs font-semibold tracking-wide">WhatsApp</span>
