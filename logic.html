@@ -185,10 +185,6 @@
 
     <!-- Right Header Actions (Home and page links moved here) -->
     <div class="flex items-center gap-2 sm:gap-4 md:gap-6 z-10">
-      <a href="cosmic.html" class="bg-[#1c2022] hover:bg-[#252a2d] text-[#f1bf62] border border-[#f1bf62]/30 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-[0_0_15px_rgba(241,191,98,0.06)] hover:shadow-[0_0_20px_rgba(241,191,98,0.2)] flex items-center gap-2 transition-all cursor-pointer no-underline">
-        <span class="material-symbols-outlined text-sm">auto_awesome</span>
-        <span>იდენტობის მატრიცა</span>
-      </a>
       <a href="balance.html" class="bg-[#1c2022] hover:bg-[#252a2d] text-[#f1bf62] border border-[#f1bf62]/30 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-[0_0_15px_rgba(241,191,98,0.06)] hover:shadow-[0_0_20px_rgba(241,191,98,0.2)] flex items-center gap-2 transition-all cursor-pointer no-underline">
         <span class="material-symbols-outlined text-sm">scale</span>
         <span>ბალანსის მოდელი</span>
@@ -265,11 +261,11 @@
           <div class="space-y-2 text-[11px] overflow-y-auto max-h-[200px] scrollbar-thin">
             <div class="space-y-1.5 font-medium">
               <div id="dir-node-layer1-1" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-1')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-[#f1bf62]"></span>
+                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
                 <span>ფილოსოფიური საფუძვლები</span>
               </div>
               <div id="dir-node-layer1-2" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-2')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-[#f1bf62]"></span>
+                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
                 <span>ძირითადი პრინციპები</span>
               </div>
               <div id="dir-node-layer1-3" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-3')">
@@ -281,12 +277,16 @@
                 <span>კონფლიქტის დინამიკა</span>
               </div>
               <div id="dir-node-layer1-5" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-5')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-[#f1bf62]"></span>
+                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
                 <span>თერაპიული პროცესი</span>
               </div>
               <div id="dir-node-layer1-6" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-6')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-[#f1bf62]"></span>
+                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
                 <span>გამოყენების სფეროები</span>
+              </div>
+              <div id="dir-node-layer1-7" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-7')">
+                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
+                <span>ორგანიზაციული სტრუქტურა</span>
               </div>
             </div>
           </div>
@@ -309,7 +309,7 @@
       <div id="graph-viewport" class="absolute w-full h-full top-0 left-0 z-10 flex items-center justify-center">
         
         <!-- Center-offset canvas (Shared container for both SVG and cards) -->
-        <div class="relative w-[1400px] h-[950px] shrink-0">
+        <div class="relative w-[1600px] h-[950px] shrink-0">
           
           <!-- SVG connections container (Perfect magnetic snap lines) -->
           <svg id="connections-svg" class="absolute inset-0 pointer-events-none w-full h-full z-0">
@@ -322,7 +322,7 @@
           </svg>
 
           <!-- CENTRAL CORE NODE (PPT) - Shifted top:220px for perfect initial centering -->
-          <div id="node-center" class="visible absolute left-[570px] top-[220px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#f1bf62] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover">
+          <div id="node-center" class="visible absolute left-[670px] top-[220px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#f1bf62] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover">
             <div class="text-[10px] uppercase tracking-widest text-[#f1bf62] font-bold mb-1">მთავარი სისტემა</div>
             <h4 class="text-lg font-headline font-bold text-white tracking-tight leading-tight italic select-none">პოზიტიური ფსიქოთერაპია (PPT)</h4>
             <div class="w-full bg-[#f1bf62]/10 h-[2px] mt-3 rounded-full overflow-hidden">
@@ -334,45 +334,45 @@
 
           <!-- COLUMN 1: ფილოსოფიური საფუძვლები (left = 40px) -->
           <div id="node-layer1-1" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 40px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">პირველი დონე</div>
+            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
             <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ფილოსოფიური საფუძვლები</h5>
             <div id="ind-node-layer1-1" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
           <!-- Leaf Nodes feature leaf-close-indicators in red to hide cards individually -->
-          <div id="node-l2-1" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 40px; top: 470px;">
+          <div id="node-l2-1" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 25px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">ადამიანის ხედვა</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
-          <div id="node-l2-2" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 40px; top: 580px;">
+          <div id="node-l2-2" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 60px; top: 580px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">აღმოსავლეთ-დასავლეთის სიბრძნე</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
-          <div id="node-l2-13" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 40px; top: 690px;">
+          <div id="node-l2-13" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 30px; top: 690px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">უნივერსალური თერაპია</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
-          <div id="node-l2-14" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 40px; top: 800px;">
+          <div id="node-l2-14" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 55px; top: 800px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">სულიერი განზომილება</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
 
-          <!-- COLUMN 2: ძირითადი პრინციპები (left = 265px) -->
-          <div id="node-layer1-2" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 265px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">პირველი დონე</div>
+          <!-- COLUMN 2: ძირითადი პრინციპები (left = 250px) -->
+          <div id="node-layer1-2" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 250px; top: 360px;">
+            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
             <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ძირითადი პრინციპები</h5>
             <div id="ind-node-layer1-2" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
-          <div id="node-l2-3" data-parent="node-layer1-2" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 265px; top: 470px;">
+          <div id="node-l2-3" data-parent="node-layer1-2" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 235px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">იმედის პრინციპი (Positum)</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
@@ -384,133 +384,194 @@
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
-          <div id="node-l2-15" data-parent="node-layer1-2" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 265px; top: 690px;">
+          <div id="node-l2-15" data-parent="node-layer1-2" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 240px; top: 690px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">თვითდახმარების პრინციპი</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
 
-          <!-- COLUMN 3: დიაგნოსტიკური მოდელები (left = 490px - გატოტებები) -->
-          <div id="node-layer1-3" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 490px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">პირველი დონე</div>
+          <!-- COLUMN 3: დიაგნოსტიკური მოდელები (left = 460px) -->
+          <div id="node-layer1-3" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 460px; top: 360px;">
+            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
             <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">დიაგნოსტიკური მოდელები</h5>
             <div id="ind-node-layer1-3" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
           <!-- L2 Node with L3 child -->
-          <div id="node-l2-5" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 490px; top: 470px;">
+          <div id="node-l2-5" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 445px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">ბალანსის მოდელი (4 სფერო)</h6>
             <div id="ind-node-l2-5" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
           
           <!-- L3 Child of L2 Node 5 (Leaf node closes itself!) -->
-          <div id="node-l3-3" data-parent="node-l2-5" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 490px; top: 580px;">
+          <div id="node-l3-3" data-parent="node-l2-5" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 440px; top: 580px;">
             <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
             <h6 class="text-xs font-semibold text-slate-300">სხეული, საქმიანობა, კონტაქტი, მომავალი</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
+          <!-- WIPPF Questionnaire Node -->
+          <div id="node-l2-23" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 475px; top: 690px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">WIPPF კითხვარი</h6>
+            <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
+          </div>
+
           <!-- L2 Node with L3 child -->
-          <div id="node-l2-6" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 490px; top: 690px;">
+          <div id="node-l2-6" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 480px; top: 800px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">შესაძლებლობების დიფერენციაცია</h6>
             <div id="ind-node-l2-6" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
           <!-- L3 Child of L2 Node 6 (Leaf close!) -->
-          <div id="node-l3-7" data-parent="node-l2-6" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 490px; top: 800px;">
+          <div id="node-l3-7" data-parent="node-l2-6" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 470px; top: 910px;">
             <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
             <h6 class="text-xs font-semibold text-slate-300">პირველადი და მეორადი შესაძლებლობები</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
-          <div id="node-l2-7" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 490px; top: 910px;">
+          <div id="node-l2-7" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 450px; top: 1020px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">ჰუმანისტური დიაგნოსტიკა</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
 
-          <!-- COLUMN 4: კონფლიქტის დინამიკა (left = 715px - გატოტებები) -->
-          <div id="node-layer1-4" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 715px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">პირველი დონე</div>
+          <!-- COLUMN 4: კონფლიქტის დინამიკა (left = 670px) -->
+          <div id="node-layer1-4" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 670px; top: 360px;">
+            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
             <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">კონფლიქტის დინამიკა</h5>
             <div id="ind-node-layer1-4" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
           <!-- L2 Node with L3 child -->
-          <div id="node-l2-8" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 715px; top: 470px;">
+          <div id="node-l2-8" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 650px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">კონფლიქტების მოდელი</h6>
             <div id="ind-node-l2-8" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
-          <!-- L3 Child of L2 Node 8 (Leaf close!) -->
-          <div id="node-l3-4" data-parent="node-l2-8" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 715px; top: 580px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">აქტუალური, საბაზისო და შინაგანი</h6>
+          <!-- მიკროტრავმები Node -->
+          <div id="node-l2-24" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 685px; top: 580px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">მიკროტრავმები</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
           <!-- L2 Node with L3 child -->
-          <div id="node-l2-9" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 715px; top: 690px;">
+          <div id="node-l2-9" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 690px; top: 690px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">რეაგირების ოთხი სტილი</h6>
             <div id="ind-node-l2-9" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
           <!-- L3 Child of L2 Node 9 (Leaf close!) -->
-          <div id="node-l3-5" data-parent="node-l2-9" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 715px; top: 800px;">
+          <div id="node-l3-5" data-parent="node-l2-9" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 680px; top: 800px;">
             <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
             <h6 class="text-xs font-semibold text-slate-300">სხეული, საქმიანობა, კონტაქტი, ფანტაზია</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
-          <div id="node-l2-10" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 715px; top: 910px;">
+          <!-- კონფლიქტის ტიპები Node -->
+          <div id="node-l2-25" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover group cursor-pointer" style="left: 655px; top: 910px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">კონფლიქტის ტიპები</h6>
+            <div id="ind-node-l2-25" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
+          </div>
+
+          <!-- L3 Child of L2 Node 25 (L3 parent update!) -->
+          <div id="node-l3-4" data-parent="node-l2-25" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 650px; top: 1020px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">აქტუალური, საბაზისო და შინაგანი</h6>
+            <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
+          </div>
+
+          <div id="node-l2-10" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 660px; top: 1130px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">ფსიქოდინამიკური ფაქტორები</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
 
-          <!-- COLUMN 5: თერაპიული პროცესი (left = 940px) -->
-          <div id="node-layer1-5" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 940px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">პირველი დონე</div>
+          <!-- COLUMN 5: თერაპიული პროცესი (left = 880px) -->
+          <div id="node-layer1-5" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 880px; top: 360px;">
+            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
             <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">თერაპიული პროცესი</h5>
             <div id="ind-node-layer1-5" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
-          <div id="node-l2-11" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 940px; top: 470px;">
+          <div id="node-l2-11" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 865px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">კლინიკური ფსიქოთერაპია</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
-          <div id="node-l2-12" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 940px; top: 580px;">
+          <!-- ტრანსკულტურული მიდგომა Node -->
+          <div id="node-l2-21" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 895px; top: 580px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">ტრანსკულტურული მიდგომა</h6>
+            <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
+          </div>
+
+          <div id="node-l2-12" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 870px; top: 690px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">ოჯახური და წყვილთა თერაპია</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
+          <!-- სტრუქტურირებული ინტერვიუ Node -->
+          <div id="node-l2-22" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 900px; top: 800px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">სტრუქტურირებული ინტერვიუ</h6>
+            <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
+          </div>
 
-          <!-- COLUMN 6: გამოყენების სფეროები (left = 1165px) -->
-          <div id="node-layer1-6" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1165px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">პირველი დონე</div>
+
+          <!-- COLUMN 6: გამოყენების სფეროები (left = 1090px) -->
+          <div id="node-layer1-6" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1090px; top: 360px;">
+            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
             <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">გამოყენების სფეროები</h5>
             <div id="ind-node-layer1-6" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
-          <div id="node-l2-16" data-parent="node-layer1-6" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1165px; top: 470px;">
+          <div id="node-l2-16" data-parent="node-layer1-6" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1075px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">ბიზნეს ქოუჩინგი & მენეჯმენტი</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
-          <div id="node-l2-17" data-parent="node-layer1-6" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1165px; top: 580px;">
+          <div id="node-l2-17" data-parent="node-layer1-6" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1105px; top: 580px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">პედაგოგიკა და თვითდახმარება</h6>
+            <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
+          </div>
+
+
+          <!-- COLUMN 7: ორგანიზაციული სტრუქტურა (left = 1300px) -->
+          <div id="node-layer1-7" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1300px; top: 360px;">
+            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
+            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ორგანიზაციული სტრუქტურა</h5>
+            <div id="ind-node-layer1-7" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
+          </div>
+
+          <div id="node-l2-18" data-parent="node-layer1-7" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1285px; top: 470px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">WAPP მსოფლიო ასოციაცია</h6>
+            <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
+          </div>
+
+          <div id="node-l2-19" data-parent="node-layer1-7" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1315px; top: 580px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">IAPP საერთაშორისო აკადემია</h6>
+            <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
+          </div>
+
+          <div id="node-l2-20" data-parent="node-layer1-7" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1295px; top: 690px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">WISAP ფსიქოთერაპიის აკადემია</h6>
             <div class="leaf-close-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 flex items-center justify-center text-[10px] transition-all font-bold select-none z-30" title="ფანჯრის გათიშვა">−</div>
           </div>
 
@@ -613,17 +674,18 @@
       const closeLegendBtn = document.getElementById('close-legend-btn');
       const showLegendBtn = document.getElementById('show-legend-btn');
 
-      // 6 Columns ordered layout database for dynamic auto-push/shift accordion logic ("ჩაჩოჩება")
+      // 7 Columns ordered layout database for dynamic auto-push/shift accordion logic ("ჩაჩოჩება")
       const columnsLayout = {
         1: ['node-layer1-1', 'node-l2-1', 'node-l2-2', 'node-l2-13', 'node-l2-14'],
         2: ['node-layer1-2', 'node-l2-3', 'node-l2-4', 'node-l2-15'],
-        3: ['node-layer1-3', 'node-l2-5', 'node-l3-3', 'node-l2-6', 'node-l3-7', 'node-l2-7'],
-        4: ['node-layer1-4', 'node-l2-8', 'node-l3-4', 'node-l2-9', 'node-l3-5', 'node-l2-10'],
-        5: ['node-layer1-5', 'node-l2-11', 'node-l2-12'],
-        6: ['node-layer1-6', 'node-l2-16', 'node-l2-17']
+        3: ['node-layer1-3', 'node-l2-5', 'node-l3-3', 'node-l2-23', 'node-l2-6', 'node-l3-7', 'node-l2-7'],
+        4: ['node-layer1-4', 'node-l2-8', 'node-l2-24', 'node-l2-9', 'node-l3-5', 'node-l2-25', 'node-l3-4', 'node-l2-10'],
+        5: ['node-layer1-5', 'node-l2-11', 'node-l2-21', 'node-l2-12', 'node-l2-22'],
+        6: ['node-layer1-6', 'node-l2-16', 'node-l2-17'],
+        7: ['node-layer1-7', 'node-l2-18', 'node-l2-19', 'node-l2-20']
       };
 
-      // Comprehensive Database of 28 Node Descriptions (Georgian Localized)
+      // Comprehensive Database of 36 Node Descriptions (Georgian Localized)
       const nodeDescriptions = {
         'node-lali': {
           title: 'ლალი ბადრიძე',
@@ -638,7 +700,7 @@
         },
         'node-layer1-1': {
           title: 'ფილოსოფიური საფუძვლები',
-          category: 'პირველი დონე • მოდული 1',
+          category: 'კვანძი • მოდული 1',
           desc: 'პოზიტიური ფსიქოთერაპიის ფილოსოფიური საყრდენი ეყრდნობა ჰუმანისტურ ხედვას და კულტურათაშორის (ტრანსკულტურალურ) პერსპექტივას. ადამიანის ბუნება გაგებულია, როგორც „ძვირფასი ქვებით მდიდარი საბადო“, რომელსაც სჭირდება სწორი აღმოჩენა და განვითარება.'
         },
         'node-l2-1': {
@@ -663,7 +725,7 @@
         },
         'node-layer1-2': {
           title: 'ძირითადი პრინციპები',
-          category: 'პირველი დონე • მოდული 2',
+          category: 'კვანძი • მოდული 2',
           desc: 'პოზიტიური ფსიქოთერაპიის მეთოდოლოგია დგას სამ მთავარ პრინციპზე: იმედის პრინციპი (Positum), ბალანსის პრინციპი (ურთიერთობები და კონსულტაცია) და თვითდახმარების პრინციპი, რომელიც ადამიანს საკუთარი თერაპევტი გახდომისკენ მიმართავს.'
         },
         'node-l2-3': {
@@ -683,7 +745,7 @@
         },
         'node-layer1-3': {
           title: 'დიაგნოსტიკური მოდელები',
-          category: 'პირველი დონე • მოდული 3',
+          category: 'კვანძი • მოდული 3',
           desc: 'დიაგნოსტიკა PPT-ში სცილდება სტანდარტულ კლინიკურ კლასიფიკაციებს. იგი ორიენტირებულია პიროვნების მთლიანი ცხოვრებისეული ბალანსის სურათის აღდგენაზე, კონფლიქტის რეალური შინაარსის გააზრებასა და შესაძლებლობების დიფერენციაციაზე.'
         },
         'node-l2-5': {
@@ -695,6 +757,11 @@
           title: 'სხეული, საქმიანობა, კონტაქტი, მომავალი',
           category: 'დიაგნოსტიკური მოდელები > ქვე-კვანძი',
           desc: 'ენერგიის ბალანსის ოთხი ფუნდამენტური სფერო, სადაც ხდება ადამიანის ძალისხმევისა და ყურადღების განაწილება. თითოეულ სფეროში დისბალანსი იწვევს კონკრეტულ ფსიქოსომატურ ან ემოციურ სიმპტომებს.'
+        },
+        'node-l2-23': {
+          title: 'WIPPF კითხვარი',
+          category: 'დიაგნოსტიკური მოდელები > კვანძი',
+          desc: 'ვისბადენის მრავალფაქტორიანი ფსიქოდიაგნოსტიკური კითხვარი (WIPPF) არის მთავარი სადიაგნოსტიკო ინსტრუმენტი პოზიტიურ ფსიქოთერაპიაში, რომელიც აფასებს პირველად და მეორად შესაძლებლობებს.'
         },
         'node-l2-6': {
           title: 'შესაძლებლობების დიფერენციაცია',
@@ -713,7 +780,7 @@
         },
         'node-layer1-4': {
           title: 'კონფლიქტის დინამიკა',
-          category: 'პირველი დონე • მოდული 4',
+          category: 'კვანძი • მოდული 4',
           desc: 'კონფლიქტის წარმოშობის, განვითარებისა და მასზე რეაგირების დინამიური სტრუქტურის კვლევა. PPT განიხილავს კონფლიქტს არა როგორც პათოლოგიას, არამედ როგორც ახალი უნარების ჩამოყალიბების შესაძლებლობას.'
         },
         'node-l2-8': {
@@ -721,10 +788,10 @@
           category: 'კონფლიქტის დინამიკა > კვანძი',
           desc: 'კონფლიქტების კლასიფიკაცია და ფსიქოდინამიკური ანალიზი. იკვლევს კავშირებს მიმდინარე კრიზისებსა და ბავშვობის პერიოდში ჩამოყალიბებულ საბაზისო ქცევით მოდელებს შორის.'
         },
-        'node-l3-4': {
-          title: 'აქტუალური, საბაზისო და შინაგანი კონფლიქტები',
-          category: 'კონფლიქტის დინამიკა > ქვე-კვანძი',
-          desc: 'კონფლიქტების სამი დონე: აქტუალური (მიმდინარე მოვლენით გამოწვეული), საბაზისო (ბავშვობის გამოცდილება) და შინაგანი (პიროვნული ღირებულებების დაპირისპირება).'
+        'node-l2-24': {
+          title: 'მიკროტრავმები',
+          category: 'კონფლიქტის დინამიკა > კვანძი',
+          desc: 'ყოველდღიური მცირე, მაგრამ განმეორებადი სტრესული მოვლენები და იმედგაცრუებები, რომლებიც დროთა განმავლობაში გროვდება და ფსიქოლოგიური კრიზისის ან კონფლიქტის საფუძველი ხდება.'
         },
         'node-l2-9': {
           title: 'რეაგირების ოთხი სტილი',
@@ -736,6 +803,16 @@
           category: 'კონფლიქტის დინამიკა > ქვე-კვანძი',
           desc: 'კონფლიქტიდან გაქცევის ოთხი მიმართულება: სხეულში (დაავადება, სომატიზაცია), საქმიანობაში (ვორკოჰოლიზმი), კონტაქტებში (იზოლაცია ან ზეაქტიურობა) და ფანტაზიაში (ოცნებები, რელიგია).'
         },
+        'node-l2-25': {
+          title: 'კონფლიქტის ტიპები',
+          category: 'კონფლიქტის დინამიკა > კვანძი',
+          desc: 'პოზიტიურ ფსიქოთერაპიაში განასხვავებენ კონფლიქტების სხვადასხვა ტიპებსა და განზომილებებს, რომლებიც გავლენას ახდენენ ადამიანის ემოციურ მდგომარეობასა და ქცევით მოდელებზე.'
+        },
+        'node-l3-4': {
+          title: 'აქტუალური, საბაზისო და შინაგანი',
+          category: 'კონფლიქტის დინამიკა > ქვე-კვანძი',
+          desc: 'კონფლიქტების სამი დონე: აქტუალური (მიმდინარე მოვლენით გამოწვეული), საბაზისო (ბავშვობის გამოცდილება) და შინაგანი (პიროვნული ღირებულებების დაპირისპირება).'
+        },
         'node-l2-10': {
           title: 'ფსიქოდინამიკური ფაქტორები',
           category: 'კონფლიქტის დინამიკა > კვანძი',
@@ -743,7 +820,7 @@
         },
         'node-layer1-5': {
           title: 'თერაპიული პროცესი',
-          category: 'პირველი დონე • მოდული 5',
+          category: 'კვანძი • მოდული 5',
           desc: 'თერაპიული პროცესი PPT-ში არის მკაფიოდ სტრუქტურირებული და შედგება ხუთი საფეხურისგან: დისტანცირება, ინვენტარიზაცია, სიტუაციური გამხნევება, ვერბალიზაცია და მიზნების გაფართოება.'
         },
         'node-l2-11': {
@@ -751,14 +828,24 @@
           category: 'თერაპიული პროცესი > კვანძი',
           desc: 'PPT მეთოდების წარმატებული გამოყენება კლინიკურ პრაქტიკაში სხვადასხვა ფსიქოსომატური, ნევროზული და დეპრესიული აშლილობების სამკურნალოდ. ფოკუსირებულია სიმპტომის პოზიტიურ საზრისზე.'
         },
+        'node-l2-21': {
+          title: 'ტრანსკულტურული მიდგომა',
+          category: 'თერაპიული პროცესი > კვანძი',
+          desc: 'PPT-ს ფუნდამენტური ასპექტი, რომელიც ითვალისწინებს კულტურულ თავისებურებებს, ფასეულობებსა და ტრადიციებს თერაპიულ პროცესში, რაც ხელს უწყობს ურთიერთგაგებას სხვადასხვა კულტურის წარმომადგენლებს შორის.'
+        },
         'node-l2-12': {
           title: 'ოჯახური და წყვილთა თერაპია',
           category: 'თერაპიული პროცესი > კვანძი',
           desc: 'ოჯახური სისტემების ანალიზი. ეხმარება ოჯახის წევრებს გააცნობიერონ ერთმანეთის დიფერენცირებული შესაძლებლობები და მოთხოვნილებები, რითაც ხდება კონფლიქტების დარეგულირება და ჯანსაღი კომუნიკაციის აღდგენა.'
         },
+        'node-l2-22': {
+          title: 'სტრუქტურირებული ინტერვიუ',
+          category: 'თერაპიული პროცესი > კვანძი',
+          desc: 'პირველადი ინტერვიუს ფორმატი პოზიტიურ ფსიქოთერაპიაში, რომელიც საშუალებას იძლევა სისტემურად შეგროვდეს ინფორმაცია კლიენტის სიმპტომების, რეაგირების სტილისა და რესურსების შესახებ.'
+        },
         'node-layer1-6': {
           title: 'გამოყენების სფეროები',
-          category: 'პირველი დონე • მოდული 6',
+          category: 'კვანძი • მოდული 6',
           desc: 'პოზიტიური ფსიქოთერაპიის გამოყენების არეალი ძალზედ ფართოა. მისი მოქნილი და რესურსებზე ორიენტირებული მეთოდოლოგია წარმატებით გამოიყენება პედაგოგიკაში, ბიზნეს ქოუჩინგი, მენეჯმენტსა და პიროვნულ თვითგანვითარებაში.'
         },
         'node-l2-16': {
@@ -770,6 +857,26 @@
           title: 'პედაგოგიკა და თვითდახმარება',
           category: 'გამოყენების სფეროები > კვანძი',
           desc: 'პოზიტიური აღზრდისა და თვითდახმარების პრაქტიკა. ეხმარება მშობლებსა და მასწავლებლებს ბავშვის ძლიერი მხარეების შემჩნევასა და თვითრეგულაციის ჯანსაღი უნარების ჩამოყალიბებაში.'
+        },
+        'node-layer1-7': {
+          title: 'ორგანიზაციული სტრუქტურა',
+          category: 'კვანძი • მოდული 7',
+          desc: 'პოზიტიური ფსიქოთერაპიის გლობალური ინსტიტუციური მოწყობა და პროფესიული გაერთიანებები, რომლებიც უზრუნველყოფენ მეთოდის სტანდარტიზაციას, განათლებას და სამეცნიერო კვლევებს მსოფლიო მასშტაბით.'
+        },
+        'node-l2-18': {
+          title: 'WAPP მსოფლიო ასოციაცია',
+          category: 'ორგანიზაციული სტრუქტურა > კვანძი',
+          desc: 'პოზიტიური ფსიქოთერაპიის მსოფლიო ასოციაცია (WAPP) არის ცენტრალური გლობალური ორგანიზაცია, რომელიც აერთიანებს პროფესიონალებს, აკრედიტებულ ცენტრებსა და ეროვნულ ასოციაციებს 40-ზე მეტ ქვეყანაში.'
+        },
+        'node-l2-19': {
+          title: 'IAPP საერთაშორისო აკადემია',
+          category: 'ორგანიზაციული სტრუქტურა > კვანძი',
+          desc: 'საერთაშორისო აკადემია (IAPP) კოორდინაციას უწევს საგანმანათლებლო პროგრამებს, უზრუნველყოფს სწავლების მაღალ ხარისხს და საერთაშორისო სტანდარტების შესაბამის სერტიფიცირებას.'
+        },
+        'node-l2-20': {
+          title: 'WISAP ფსიქოთერაპიის აკადემია',
+          category: 'ორგანიზაციული სტრუქტურა > კვანძი',
+          desc: 'WISAP არის სპეციალიზებული აკადემია, რომელიც ორიენტირებულია პოზიტიური ფსიქოთერაპიის სამეცნიერო-კვლევით საქმიანობასა და მეთოდოლოგიურ განვითარებაზე.'
         }
       };
 
@@ -957,9 +1064,9 @@
         const cardX = node.offsetLeft + (node.offsetWidth / 2);
         const cardY = node.offsetTop + (node.offsetHeight / 2);
 
-        // Center point in a 1400x950 canvas is (700, 475)
+        // Center point in a 1600x950 canvas is (800, 475)
         // Shift required to bring the card to center of screen:
-        panX = 700 - cardX;
+        panX = 800 - cardX;
         panY = 475 - cardY;
 
         // Adjust scale zoom level based on node depth/importance
@@ -996,12 +1103,7 @@
           if (orb) {
             orb.classList.remove('orb-pulse', 'h-1.5', 'w-1.5');
             orb.classList.add('h-1', 'w-1');
-            // If it's the white-bullet items, restore their white bg. Otherwise keep yellow.
-            if (orb.closest('#dir-node-layer1-3') || orb.closest('#dir-node-layer1-4')) {
-              orb.className = 'dir-orb w-1 h-1 rounded-full bg-white transition-all';
-            } else {
-              orb.className = 'dir-orb w-1 h-1 rounded-full bg-[#f1bf62] transition-all';
-            }
+            orb.className = 'dir-orb w-1 h-1 rounded-full bg-white transition-all';
           }
         });
 
@@ -1478,6 +1580,7 @@
           if (orb) {
             orb.classList.remove('orb-pulse', 'h-1.5', 'w-1.5');
             orb.classList.add('h-1', 'w-1');
+            orb.className = 'dir-orb w-1 h-1 rounded-full bg-white transition-all';
           }
         });
 

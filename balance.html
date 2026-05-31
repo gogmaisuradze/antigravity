@@ -11,6 +11,31 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/input.css"/>
+  <style>
+    @keyframes progress-loading-shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .progress-shimmer {
+      background: linear-gradient(90deg, #f1bf62 25%, #ffdf9e 50%, #f1bf62 75%);
+      background-size: 200% 100%;
+      animation: progress-loading-shimmer 2.5s infinite linear;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(241, 191, 98, 0.2);
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(241, 191, 98, 0.4);
+    }
+  </style>
 </head>
 <body class="selection:bg-secondary/30 selection:text-secondary bg-[#121416] text-[#c6c6ce] overflow-x-hidden">
   <!-- Ambient Video Background -->
@@ -134,55 +159,127 @@
         <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
           <span class="material-symbols-outlined text-[#f1bf62] text-6xl block animate-pulse">balance</span>
           <h1 class="text-3xl md:text-4xl font-headline italic font-bold text-white tracking-wide">
-            ბალანსის მოდელი <span class="text-[#f1bf62]">(ცხოვრების 4 განზომილება)</span>
+            ცხოვრების განზომილება
           </h1>
-          <p class="text-sm md:text-base text-[#c6c6ce]/80 leading-relaxed uppercase tracking-wider font-semibold">
+          <div class="flex flex-col items-center justify-center pt-1">
+            <span class="text-2xl font-headline font-black text-[#f1bf62] border-b-2 border-[#f1bf62] px-6 pb-1 uppercase tracking-wider">ცხოვრების IV მოდელი</span>
+          </div>
+          <p class="text-sm md:text-base text-[#c6c6ce]/80 leading-relaxed uppercase tracking-wider font-semibold pt-2">
             პოზიტიური ფსიქოთერაპიის (Nossrat Peseschkian) ინტერაქტიული მოდული
           </p>
         </div>
 
         <!-- Informative text panel (introductory explanation) -->
-        <div id="balance-intro-panel" class="bg-white/5 border border-white/5 p-6 rounded-2xl mb-8 space-y-4 text-[#c6c6ce] leading-relaxed">
-          <p class="text-sm md:text-base font-medium">
-            წარმოიდგინეთ, რომ თქვენი სასიცოცხლო ენერგია არის <strong class="text-[#f1bf62] font-extrabold text-base">100%</strong> (შინაგანი რესურსი და არა უბრალოდ ფიზიკური დრო).
-          </p>
-          <p class="text-sm md:text-base font-medium">
-            ნოსრატ პეზეშკიანის პოზიტიური ფსიქოთერაპიის მოდელის მიხედვით, იდეალურ შემთხვევაში ენერგია ოთხ სფეროზე თანაბრად, <strong class="text-[#f1bf62] font-extrabold">25-25%-ით</strong> უნდა ნაწილდებოდეს (ალმასის ფორმა).
-          </p>
-          <p class="text-xs md:text-sm font-bold uppercase tracking-widest text-[#f1bf62]/90 border-t border-white/5 pt-3">
-            შეავსეთ 20-კითხვიანი სკრინინგი, რათა დაადგინოთ თქვენი ენერგიის რეალური გადანაწილება და მიიღოთ სიღრმისეული ფსიქოლოგიური ანალიზი:
-          </p>
+        <div id="balance-intro-panel" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-[#c6c6ce] leading-relaxed">
+          <!-- Left box: energy -->
+          <div class="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col justify-center items-center text-center backdrop-blur-md hover:bg-white/10 hover:border-[#f1bf62]/30 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+            <span class="material-symbols-outlined text-[#f1bf62] text-4xl mb-3">battery_charging_full</span>
+            <p class="text-sm md:text-base font-medium">
+              წარმოიდგინეთ, რომ თქვენი სასიცოცხლო ენერგია არის <strong class="text-[#f1bf62] font-extrabold text-base">100%</strong> (შინაგანი რესურსი და არა უბრალოდ ფიზიკური დრო).
+            </p>
+          </div>
+          <!-- Right box: positive psychotherapy -->
+          <div class="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col justify-center items-center text-center backdrop-blur-md hover:bg-white/10 hover:border-[#f1bf62]/30 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+            <span class="material-symbols-outlined text-[#f1bf62] text-4xl mb-3">psychology</span>
+            <p class="text-sm md:text-base font-medium">
+              ნოსრატ პეზეშკიანის პოზიტიური ფსიქოთერაპიის მოდელის მიხედვით, იდეალურ შემთხვევაში ენერგია ოთხ სფეროზე თანაბრად, <strong class="text-[#f1bf62] font-extrabold">25-25%-ით</strong> უნდა ნაწილდებოდეს (ალმასის ფორმა).
+            </p>
+          </div>
+        </div>
+
+        <!-- Start CTA Panel -->
+        <div id="balance-start-panel" class="flex flex-col items-center justify-center py-6 text-center animate-fade-in">
+          <button id="btn-start-screening" class="bg-gradient-to-r from-[#f1bf62] to-[#dfab4c] text-[#121416] font-black uppercase tracking-widest py-4.5 px-12 rounded-2xl shadow-[0_0_25px_rgba(241,191,98,0.35)] transition-all duration-300 hover:scale-[1.03] active:scale-95 hover:shadow-[0_0_35px_rgba(241,191,98,0.55)] cursor-pointer flex items-center gap-3 text-xs md:text-sm font-sans">
+            <span>ტესტირების დაწყება</span>
+            <span class="material-symbols-outlined text-lg font-black">play_arrow</span>
+          </button>
+        </div>
+
+        <!-- Startup Profile Form Card (Hidden initially) -->
+        <div id="balance-profile-panel" class="hidden w-full max-w-xl mx-auto bg-[#1e2022]/60 border border-white/5 backdrop-blur-md p-8 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden animate-fade-in mb-8">
+          <div class="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62]"></div>
+          
+          <div class="text-center space-y-2 mb-8">
+            <h2 class="text-xl font-bold tracking-widest text-[#f1bf62] uppercase font-headline">პროფილის დაფიქსირება</h2>
+            <p class="text-xs text-[#c6c6ce]/70 font-semibold uppercase">შეიყვანეთ თქვენი მონაცემები ტესტირების დასაწყებად</p>
+          </div>
+
+          <!-- Error Alert Banner -->
+          <div id="profile-error-alert" class="hidden mb-6 p-4 bg-red-950/20 border border-red-500/20 text-red-300 text-xs rounded-xl tracking-wide flex items-start space-x-2.5 font-semibold font-sans">
+            <span class="material-symbols-outlined text-red-400 text-lg shrink-0">shield_alert</span>
+            <span id="profile-error-text"></span>
+          </div>
+
+          <form id="profile-form-balance" class="space-y-6">
+            <div class="grid grid-cols-2 gap-5 w-full">
+              <!-- Name -->
+              <div>
+                <input
+                  type="text"
+                  id="profile-name"
+                  placeholder="სახელი"
+                  class="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
+                  required
+                />
+              </div>
+              <!-- Surname -->
+              <div>
+                <input
+                  type="text"
+                  id="profile-surname"
+                  placeholder="გვარი"
+                  class="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Phone field (Lighter "ტელ:" label) -->
+            <div class="w-full">
+              <input
+                type="text"
+                id="profile-phone"
+                placeholder="ტელ: (მაგ: 5XXXXXXXX)"
+                class="w-full bg-transparent border-b border-white/30 py-3 text-base text-white placeholder-white/60 focus:outline-none focus:border-[#f1bf62] transition-colors font-bold"
+                required
+              />
+            </div>
+
+            <!-- Submit Start Button -->
+            <div class="pt-4 flex justify-center">
+              <button
+                type="submit"
+                id="btn-profile-submit"
+                class="w-full h-14 rounded-xl bg-[#f1bf62] border border-[#f1bf62] text-[#121416] hover:bg-[#f1bf62]/90 hover:shadow-[0_0_25px_rgba(241,191,98,0.4)] hover:scale-[1.02] active:scale-95 transition-all duration-300 font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_15px_rgba(241,191,98,0.25)]"
+              >
+                <span>ტესტის დაწყება</span>
+                <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+              </button>
+            </div>
+          </form>
         </div>
 
         <!-- Interactive 20-Question Screening Wizard -->
-        <div id="balance-quiz-wizard" class="space-y-8 animate-fade-in">
-          <!-- Progress Header -->
-          <div class="space-y-4">
-            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest pl-1">
-              <span id="quiz-step-title" class="text-white">ბლოკი 1 / 4: სხეული და ჯანმრთელობა (Body & Health)</span>
-              <span id="quiz-step-progress-percent" class="text-[#f1bf62] font-mono">25% დასრულებული</span>
-            </div>
-            <!-- Gorgeous Custom Progress Bar -->
-            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden border border-white/5 relative">
-              <div id="quiz-progress-fill" class="h-full bg-gradient-to-r from-[#f1bf62]/70 to-[#f1bf62] transition-all duration-500 rounded-full" style="width: 25%;"></div>
-            </div>
-          </div>
-
-          <!-- Instruction box for rating scale -->
-          <div class="bg-black/20 border border-white/5 px-6 py-4 rounded-xl flex flex-wrap gap-4 items-center justify-between text-xs md:text-sm text-[#c6c6ce]/80">
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-[#f1bf62] text-lg">info</span>
-              <span>შეაფასეთ თითოეული დებულება თქვენი რეალური ყოველდღიურობიდან გამომდინარე:</span>
-            </div>
-            <div class="flex gap-4 font-semibold text-[#f1bf62]/90">
-              <span>1 = საერთოდ არ ვეთანხმები</span>
-              <span>5 = სრულად ვეთანხმები</span>
-            </div>
+        <div id="balance-quiz-wizard" class="hidden space-y-8 animate-fade-in">
+          
+          <!-- Replaced Screening banner at the top of the wizard container -->
+          <div class="bg-black/20 border border-white/5 p-4 rounded-xl text-center">
+            <p class="text-xs md:text-sm font-bold uppercase tracking-widest text-[#f1bf62]/90">
+              შეავსეთ 20-კითხვიანი სკრინინგი, რათა დაადგინოთ თქვენი ენერგიის რეალური გადანაწილება და მიიღოთ სიღრმისეული ფსიქოლოგიური ანალიზი
+            </p>
           </div>
 
           <!-- Questions Container -->
           <div id="quiz-questions-list" class="space-y-6">
             <!-- Active Step Questions will be dynamically rendered here by JS -->
+          </div>
+
+          <!-- Answered Questions Section -->
+          <div id="quiz-answered-section" class="hidden space-y-4 pt-6 border-t border-white/10">
+            <h3 class="text-xs font-black uppercase tracking-wider text-[#f1bf62] pl-1 font-sans">შევსებული კითხვები</h3>
+            <div id="quiz-answered-list" class="space-y-3 max-h-72 overflow-y-auto pr-2 custom-scrollbar">
+              <!-- Dynamically populated via JS -->
+            </div>
           </div>
 
           <!-- Navigation Action buttons -->
@@ -202,6 +299,14 @@
         <!-- Dynamic Results Screen (Hidden initially) -->
         <div id="balance-results-container" class="hidden space-y-12 animate-fade-in">
           
+          <!-- Shared Result Info Banner (Hidden by default, shown only when parsing shared query parameters on load) -->
+          <div id="shared-result-banner" class="hidden bg-gradient-to-r from-[#f1bf62]/10 to-[#dfab4c]/10 border border-[#f1bf62]/20 p-4 rounded-xl text-center">
+            <p class="text-xs md:text-sm font-bold uppercase tracking-widest text-[#f1bf62] font-sans flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-base animate-pulse">sparkles</span>
+              <span>ეს არის გაზიარებული ცხოვრების ბალანსის მოდელი. შეავსეთ თქვენი ტესტი ქვემოთ!</span>
+            </p>
+          </div>
+
           <!-- Dynamic Results Header / Summary -->
           <div class="bg-gradient-to-r from-emerald-500/10 via-blue-500/10 to-purple-500/10 border border-white/10 p-6 md:p-8 rounded-3xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="space-y-2 text-center md:text-left">
@@ -323,9 +428,9 @@
             </div>
 
             <!-- Visual Diagram Preview Side (7 cols on lg) -->
-            <div class="lg:col-span-7 flex flex-col items-center justify-center bg-black/15 p-8 rounded-2xl border border-white/5 min-h-[380px] relative shadow-inner">
+            <div class="lg:col-span-7 flex flex-col items-center justify-center bg-black/15 p-8 lg:p-12 rounded-2xl border border-white/5 min-h-[460px] relative shadow-inner">
               <!-- Custom CSS Circular Wheel Visualization representing the balance -->
-              <div class="relative w-72 h-72 rounded-full border border-white/10 shadow-2xl flex items-center justify-center bg-[#1e2022]/60 overflow-hidden" id="diagram-circle">
+              <div class="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[420px] md:h-[420px] rounded-full border border-white/10 shadow-2xl flex items-center justify-center bg-[#1e2022]/60 overflow-hidden" id="diagram-circle">
                 <!-- Grid lines dividing the dimensions -->
                 <div class="absolute inset-0 border-t border-white/5 pointer-events-none top-1/2"></div>
                 <div class="absolute inset-0 border-l border-white/5 pointer-events-none left-1/2"></div>
@@ -381,6 +486,54 @@
               <!-- Dynamic Markdown Content Container -->
               <div id="ai-response-container" class="prose prose-invert max-w-none text-sm md:text-base leading-relaxed text-[#c6c6ce] space-y-4 font-medium hidden">
                 <!-- Populated dynamically via JS -->
+              </div>
+
+              <!-- Sleek Social Share Panel (Hidden by default, shown once results are computed/loaded) -->
+              <div id="share-results-panel" class="hidden mt-10 pt-8 border-t border-white/10 space-y-6">
+                <div class="text-center space-y-2">
+                  <h4 class="text-xs font-black uppercase tracking-widest text-[#f1bf62] font-sans">გაუზიარე შედეგები მეგობრებს</h4>
+                  <p class="text-xs text-[#c6c6ce]/60 font-medium">გააზიარეთ თქვენი ცხოვრების ბალანსის მოდელი სოციალური ქსელებით</p>
+                </div>
+                
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                  <!-- WhatsApp -->
+                  <a id="share-wa" href="#" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-xl border border-white/5 bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 hover:border-[#25D366]/30 transition-all font-sans font-bold text-xs hover:scale-105">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.249 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.458L0 24zm6.59-4.846c1.6.95 3.197 1.45 4.817 1.451 5.4 0 9.794-4.394 9.798-9.794.002-2.617-1.018-5.077-2.873-6.932-1.854-1.854-4.312-2.873-6.924-2.874-5.405 0-9.799 4.393-9.802 9.794-.001 1.705.454 3.371 1.316 4.856l-.993 3.63 3.731-.979zm11.238-6.84c-.266-.134-1.582-.78-1.83-.87-.247-.089-.427-.134-.607.135-.18.267-.697.87-.852 1.047-.157.178-.314.2-.58.067-.266-.134-1.127-.415-2.147-1.325-.793-.706-1.33-1.579-1.485-1.846-.157-.267-.017-.411.117-.544.12-.12.267-.312.4-.467.133-.156.177-.267.266-.445.09-.178.044-.334-.022-.467-.067-.134-.607-1.464-.83-2.005-.218-.524-.458-.453-.628-.461-.163-.008-.349-.01-.536-.01-.186 0-.49.07-.747.347-.257.278-.98.957-.98 2.335s1.002 2.703 1.142 2.89c.14.188 1.972 3.012 4.778 4.221.668.288 1.19.46 1.597.59.67.213 1.28.183 1.761.111.537-.08 1.582-.647 1.805-1.272.223-.624.223-1.157.157-1.272-.067-.116-.247-.183-.514-.316z"/>
+                    </svg>
+                    <span>WhatsApp</span>
+                  </a>
+                  
+                  <!-- Telegram -->
+                  <a id="share-tg" href="#" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-xl border border-white/5 bg-[#229ED9]/10 text-[#229ED9] hover:bg-[#229ED9]/20 hover:border-[#229ED9]/30 transition-all font-sans font-bold text-xs hover:scale-105">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.89 1.2-5.33 3.52-.5.35-.96.52-1.37.51-.45-.01-1.32-.26-1.97-.47-.8-.26-1.43-.4-1.38-.85.03-.24.36-.49.99-.75 3.86-1.68 6.43-2.78 7.72-3.3 3.67-1.49 4.43-1.75 4.93-1.76.11 0 .36.03.52.16.13.11.17.26.19.37z"/>
+                    </svg>
+                    <span>Telegram</span>
+                  </a>
+                  
+                  <!-- Facebook -->
+                  <a id="share-fb" href="#" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-xl border border-white/5 bg-[#1877F2]/10 text-[#1877F2] hover:bg-[#1877F2]/20 hover:border-[#1877F2]/30 transition-all font-sans font-bold text-xs hover:scale-105">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    <span>Facebook</span>
+                  </a>
+                  
+                  <!-- Messenger -->
+                  <a id="share-messenger" href="#" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-xl border border-white/5 bg-[#00B2FF]/10 text-[#00B2FF] hover:bg-[#00B2FF]/20 hover:border-[#00B2FF]/30 transition-all font-sans font-bold text-xs hover:scale-105">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2C6.5 2 2 6.14 2 11.24c0 2.91 1.45 5.51 3.7 7.21.19.14.3.38.3.62l-.08 1.89c-.01.37.38.65.71.49l2.12-1.02c.16-.08.35-.08.51-.03 1.05.32 2.17.49 3.32.49 5.5 0 10-4.14 10-9.24C22 6.14 17.5 2 12 2zm1.09 12.19l-2.48-2.65-4.84 2.65c-.44.24-.94-.25-.69-.69l2.67-4.82 2.48 2.65 4.84-2.65c.44-.24.94.25.69.69l-2.67 4.82z"/>
+                    </svg>
+                    <span>Messenger</span>
+                  </a>
+                  
+                  <!-- Copy Link / Share -->
+                  <button id="share-native" class="flex items-center gap-2 px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all font-sans font-bold text-xs hover:scale-105 cursor-pointer">
+                    <span class="material-symbols-outlined text-base">share</span>
+                    <span id="share-native-text">ლინკის კოპირება</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -503,15 +656,64 @@
       ];
 
       // 2. Wizard State
-      let currentStep = 0;
+      let currentQuestionIdx = 0;
       const answers = {};
+
+      // Audio satisfaction click sound
+      let sharedAudioCtx = null;
+      function getSharedAudioContext() {
+        if (typeof window === "undefined") return null;
+        if (!sharedAudioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            sharedAudioCtx = new AudioContextClass();
+          }
+        }
+        if (sharedAudioCtx && sharedAudioCtx.state === "suspended") {
+          sharedAudioCtx.resume().catch(() => {});
+        }
+        return sharedAudioCtx;
+      }
+
+      function playTickSound() {
+        try {
+          const ctx = getSharedAudioContext();
+          if (!ctx) return;
+          
+          const osc = ctx.createOscillator();
+          const gainNode = ctx.createGain();
+          
+          osc.type = "sine";
+          // Sharper mechanical tick sound (from 900Hz down to 150Hz in 20ms)
+          osc.frequency.setValueAtTime(900, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.02);
+          
+          gainNode.gain.setValueAtTime(0.08, ctx.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.022);
+          
+          osc.connect(gainNode);
+          gainNode.connect(ctx.destination);
+          
+          osc.start();
+          osc.stop(ctx.currentTime + 0.03);
+        } catch (e) {
+          // Fail silently
+        }
+      }
+
+      if (typeof window !== "undefined") {
+        const resumeAudio = () => {
+          if (sharedAudioCtx && sharedAudioCtx.state === "suspended") {
+            sharedAudioCtx.resume().catch(() => {});
+          }
+        };
+        window.addEventListener("click", resumeAudio, { once: true });
+        window.addEventListener("touchstart", resumeAudio, { once: true });
+      }
 
       // 3. DOM Elements
       const quizWizard = document.getElementById('balance-quiz-wizard');
       const resultsContainer = document.getElementById('balance-results-container');
-      const quizStepTitle = document.getElementById('quiz-step-title');
-      const quizStepProgressPercent = document.getElementById('quiz-step-progress-percent');
-      const quizProgressFill = document.getElementById('quiz-progress-fill');
       const quizQuestionsList = document.getElementById('quiz-questions-list');
       const btnQuizBack = document.getElementById('btn-quiz-back');
       const btnQuizNext = document.getElementById('btn-quiz-next');
@@ -563,8 +765,7 @@
 
       // 5. Validation Check
       function validateStep() {
-        const stepQuestions = questions.filter(q => q.block === currentStep);
-        return stepQuestions.every(q => answers[q.id] !== undefined);
+        return answers[questions[currentQuestionIdx].id] !== undefined;
       }
 
       // 6. UI Update
@@ -572,47 +773,130 @@
         // Scroll slightly up to question card top when shifting step
         quizQuestionsList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-        // Update step titles & progress bars
-        quizStepTitle.textContent = `ბლოკი ${currentStep + 1} / 4: ${blockNames[currentStep]}`;
-        const completionRate = Math.round(((currentStep + 1) / 4) * 100);
-        quizStepProgressPercent.textContent = `${completionRate}% დასრულებული`;
-        quizProgressFill.style.width = `${completionRate}%`;
+        const currentBlock = Math.floor(currentQuestionIdx / 5);
+        const questionNumInBlock = (currentQuestionIdx % 5) + 1;
+        const completionRate = Math.round(((currentQuestionIdx + 1) / 20) * 100);
 
-        // Render questions
-        const stepQuestions = questions.filter(q => q.block === currentStep);
-        quizQuestionsList.innerHTML = stepQuestions.map((q, idx) => {
-          const selectedVal = answers[q.id];
-          return `
-            <div class="flex flex-col space-y-4 p-5 rounded-2xl bg-white/5 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 shadow-lg">
-              <div class="text-sm md:text-base font-medium text-white/90 leading-relaxed pl-1">
-                <span class="text-[#f1bf62] font-mono font-bold mr-1.5">${currentStep * 5 + idx + 1}.</span>
-                ${q.text}
+        // Render single active question
+        const q = questions[currentQuestionIdx];
+        const selectedVal = answers[q.id];
+        quizQuestionsList.innerHTML = `
+          <div class="flex flex-col space-y-6 p-8 md:p-10 rounded-3xl bg-white/5 border border-white/10 transition-all hover:bg-white/10 hover:border-[#f1bf62]/20 shadow-[0_12px_40px_rgba(0,0,0,0.3)] animate-fade-in relative backdrop-blur-md">
+            <!-- Instruction text relocated directly inside the question panel -->
+            <div class="flex items-center gap-2 text-xs md:text-sm text-[#c6c6ce]/60 uppercase tracking-widest font-black pb-3 border-b border-white/5 font-sans">
+              <span class="material-symbols-outlined text-[#f1bf62] text-lg">info</span>
+              <span>შეაფასეთ თითოეული დებულება თქვენი რეალური ყოველდღიურობიდან გამომდინარე:</span>
+            </div>
+
+            <!-- Question -->
+            <div class="text-base sm:text-lg md:text-xl font-bold text-white tracking-wide pl-2 leading-relaxed">
+              <span class="text-[#f1bf62] font-mono font-black text-xl sm:text-2xl mr-2">${currentQuestionIdx + 1}.</span>
+              ${q.text}
+            </div>
+
+            <!-- Dials and Explanations logical row -->
+            <div class="flex flex-col items-center justify-center gap-4 pt-4 border-t border-white/5 font-sans">
+              <!-- dials container -->
+              <div class="flex items-center justify-center gap-3 sm:gap-4">
+                ${[1, 2, 3, 4, 5].map(num => {
+                  const isActive = selectedVal === num;
+                  const activeClass = isActive 
+                    ? 'bg-gradient-to-r from-[#f1bf62] to-[#dfab4c] text-[#121416] font-black border-[#f1bf62] shadow-[0_0_20px_rgba(241,191,98,0.5)] scale-110' 
+                    : 'bg-white/5 hover:bg-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] border-white/10';
+                  return `
+                    <button type="button" 
+                      data-question-id="${q.id}" 
+                      data-value="${num}" 
+                      class="rating-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center text-base sm:text-xl font-black transition-all duration-300 transform active:scale-90 cursor-pointer ${activeClass}">
+                      ${num}
+                    </button>
+                  `;
+                }).join('')}
               </div>
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
-                <span class="text-[10px] text-[#c6c6ce]/40 font-black uppercase tracking-widest pl-1 font-sans">არ ვეთანხმები</span>
-                
-                <div class="flex items-center gap-3">
+
+              <!-- Logical Explanations directly underneath the dials -->
+              <div class="flex justify-between w-full max-w-lg text-[10px] sm:text-xs md:text-sm font-extrabold uppercase tracking-widest px-2 mt-2">
+                <span class="text-[#c6c6ce]/80 flex flex-col items-start w-1/2 text-left">
+                  <span class="text-[#f1bf62] font-black font-mono text-xs sm:text-sm">1</span>
+                  <span class="mt-1 leading-normal font-sans text-left">საერთოდ არ ვეთანხმები</span>
+                </span>
+                <span class="text-[#f1bf62]/90 flex flex-col items-end w-1/2 text-right">
+                  <span class="font-black font-mono text-xs sm:text-sm">5</span>
+                  <span class="mt-1 leading-normal font-sans text-right text-white">სრულად ვეთანხმები</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Relocated Progress Header & Bar inside the active card at the bottom -->
+            <div class="space-y-3 pt-4 border-t border-white/5 relative">
+              <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-1 font-sans">
+                <span class="text-[#c6c6ce]/70">
+                  <span class="text-[#f1bf62] font-black">ბლოკი ${currentBlock + 1} / 4:</span> 
+                  <span class="text-white">${blockNames[currentBlock]}</span>
+                </span>
+                <span class="text-white">
+                  კითხვა ${currentQuestionIdx + 1} / 20 
+                  <span class="text-[#f1bf62] font-mono ml-1.5">${completionRate}% დასრულებული</span>
+                </span>
+              </div>
+              <!-- Gorgeous Custom Progress Bar with animated loading shimmer effect -->
+              <div class="w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/10 relative shadow-inner">
+                <div class="h-full progress-shimmer bg-gradient-to-r from-[#f1bf62] via-[#ffdf9e] to-[#f1bf62] transition-all duration-500 rounded-full" style="width: ${completionRate}%;"></div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Render completed questions below the active question card
+        const answeredSection = document.getElementById('quiz-answered-section');
+        const answeredList = document.getElementById('quiz-answered-list');
+
+        if (currentQuestionIdx > 0 && answeredList && answeredSection) {
+          answeredSection.classList.remove('hidden');
+          const answeredQuestions = questions.slice(0, currentQuestionIdx);
+          
+          answeredList.innerHTML = answeredQuestions.map((q, idx) => {
+            const val = answers[q.id];
+            return `
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-white/5 border border-white/5 opacity-70 hover:opacity-100 transition-opacity animate-fade-in font-sans">
+                <div class="text-xs sm:text-sm font-medium text-white/70">
+                  <span class="text-[#f1bf62] font-mono mr-1.5 font-bold">${idx + 1}.</span>
+                  ${q.text}
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
                   ${[1, 2, 3, 4, 5].map(num => {
-                    const isActive = selectedVal === num;
-                    const activeClass = isActive 
-                      ? 'bg-gradient-to-r from-[#f1bf62] to-[#dfab4c] text-[#121416] font-bold border-[#f1bf62] shadow-[0_0_12px_rgba(241,191,98,0.4)] scale-105' 
-                      : 'bg-white/5 hover:bg-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce]/80 border-white/5';
+                    const isSelected = val === num;
+                    const dotClass = isSelected 
+                      ? 'bg-[#f1bf62] text-[#121416] font-black border-[#f1bf62] scale-105 shadow-[0_0_8px_rgba(241,191,98,0.3)]' 
+                      : 'bg-white/5 text-[#c6c6ce]/40 border-white/5';
                     return `
                       <button type="button" 
-                        data-question-id="${q.id}" 
-                        data-value="${num}" 
-                        class="rating-btn w-10 h-10 rounded-full border flex items-center justify-center text-sm font-semibold transition-all duration-300 transform active:scale-95 cursor-pointer ${activeClass}">
+                        data-change-question-id="${q.id}"
+                        data-change-value="${num}"
+                        class="answered-change-btn w-8 h-8 rounded-full border flex items-center justify-center text-xs font-bold transition-all hover:border-[#f1bf62]/40 cursor-pointer ${dotClass}">
                         ${num}
                       </button>
                     `;
                   }).join('')}
                 </div>
-
-                <span class="text-[10px] text-[#f1bf62]/80 font-black uppercase tracking-widest pr-1 font-sans">სრულად ვეთანხმები</span>
               </div>
-            </div>
-          `;
-        }).join('');
+            `;
+          }).join('');
+
+          // Bind click listeners for direct edit on completed list
+          const changeBtns = answeredList.querySelectorAll('.answered-change-btn');
+          changeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const qId = parseInt(btn.getAttribute('data-change-question-id'));
+              const newVal = parseInt(btn.getAttribute('data-change-value'));
+              answers[qId] = newVal;
+              playTickSound();
+              renderStep();
+            });
+          });
+        } else if (answeredSection) {
+          answeredSection.classList.add('hidden');
+        }
 
         // Add action listeners to dynamically generated rating buttons
         const ratingBtns = quizQuestionsList.querySelectorAll('.rating-btn');
@@ -621,12 +905,27 @@
             const questionId = parseInt(btn.getAttribute('data-question-id'));
             const value = parseInt(btn.getAttribute('data-value'));
             answers[questionId] = value;
+            
+            // Play physical satisfaction sound
+            playTickSound();
+            
+            // Update UI state immediately
             renderStep();
+            
+            // 250ms organic autoplay transition
+            setTimeout(() => {
+              if (currentQuestionIdx < 19) {
+                currentQuestionIdx++;
+                renderStep();
+              } else {
+                calculateAndShowResults();
+              }
+            }, 250);
           });
         });
 
         // Toggle back button visibility
-        if (currentStep === 0) {
+        if (currentQuestionIdx === 0) {
           btnQuizBack.classList.add('hidden');
         } else {
           btnQuizBack.classList.remove('hidden');
@@ -645,7 +944,7 @@
         }
 
         // Adjust Next button content for final step
-        if (currentStep === 3) {
+        if (currentQuestionIdx === 19) {
           btnQuizNext.innerHTML = `
             <span>შედეგების გენერირება</span>
             <span class="material-symbols-outlined text-sm font-bold animate-pulse">insights</span>
@@ -698,11 +997,16 @@
 
         // Transition screens
         document.getElementById('balance-intro-panel').classList.add('hidden');
+        if (balanceStartPanel) balanceStartPanel.classList.add('hidden');
+        if (balanceProfilePanel) balanceProfilePanel.classList.add('hidden');
         quizWizard.classList.add('hidden');
         resultsContainer.classList.remove('hidden');
 
         // Scroll to results container cleanly
         resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Configure social sharing buttons
+        setupSharingButtons(percentages);
 
         // Trigger automatic AI analysis fetch
         triggerAIAnalysis(percentages);
@@ -755,35 +1059,39 @@
       // 9. Reset and retake quiz wizard
       function resetQuiz() {
         // Reset state
-        currentStep = 0;
+        currentQuestionIdx = 0;
         for (const key in answers) {
           delete answers[key];
         }
 
-        // Show intro & wizard, hide results
+        // Show intro & start buttons, hide results/form
         document.getElementById('balance-intro-panel').classList.remove('hidden');
-        quizWizard.classList.remove('hidden');
+        if (balanceStartPanel) balanceStartPanel.classList.remove('hidden');
+        if (balanceProfilePanel) balanceProfilePanel.classList.add('hidden');
+        quizWizard.classList.add('hidden');
         resultsContainer.classList.add('hidden');
-
-        // Draw initial step
-        renderStep();
         
+        // Hide shared banner if present
+        document.getElementById('shared-result-banner').classList.add('hidden');
+
         // Scroll to top of app root cleanly
         document.getElementById('balance-app-root').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
       // 10. Bind Navigation Button Clicks
       btnQuizBack.addEventListener('click', () => {
-        if (currentStep > 0) {
-          currentStep--;
+        if (currentQuestionIdx > 0) {
+          playTickSound();
+          currentQuestionIdx--;
           renderStep();
         }
       });
 
       btnQuizNext.addEventListener('click', () => {
         if (validateStep()) {
-          if (currentStep < 3) {
-            currentStep++;
+          playTickSound();
+          if (currentQuestionIdx < 19) {
+            currentQuestionIdx++;
             renderStep();
           } else {
             calculateAndShowResults();
@@ -791,10 +1099,290 @@
         }
       });
 
-      btnQuizRestart.addEventListener('click', resetQuiz);
+      btnQuizRestart.addEventListener('click', () => {
+        playTickSound();
+        resetQuiz();
+      });
 
-      // 11. Start first step
-      renderStep();
+      // 11. Profile Form & Query String Shared Results Logic
+      const balanceStartPanel = document.getElementById('balance-start-panel');
+      const balanceProfilePanel = document.getElementById('balance-profile-panel');
+      const btnStartScreening = document.getElementById('btn-start-screening');
+      const profileFormBalance = document.getElementById('profile-form-balance');
+      const profileNameInput = document.getElementById('profile-name');
+      const profileSurnameInput = document.getElementById('profile-surname');
+      const profilePhoneInput = document.getElementById('profile-phone');
+      const profileErrorAlert = document.getElementById('profile-error-alert');
+      const profileErrorText = document.getElementById('profile-error-text');
+
+      function playErrorSound() {
+        try {
+          const ctx = getSharedAudioContext();
+          if (!ctx) return;
+          const osc = ctx.createOscillator();
+          const gainNode = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(150, ctx.currentTime);
+          osc.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.15);
+          gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+          osc.connect(gainNode);
+          gainNode.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.2);
+        } catch (e) {}
+      }
+
+      // Pre-fill and auto-fill Profile if phone number is saved locally
+      async function autofillProfile() {
+        const savedPhone = localStorage.getItem("user_phone");
+        if (savedPhone) {
+          profilePhoneInput.value = savedPhone;
+          try {
+            const res = await fetch(`/api/profile/${encodeURIComponent(savedPhone)}`);
+            const data = await res.json();
+            if (data.success && data.exists) {
+              profileNameInput.value = data.name || "";
+              profileSurnameInput.value = data.surname || "";
+            }
+          } catch (e) {}
+        }
+      }
+
+      // Check for share parameters in URL query string on load
+      function checkSharedResultQueryParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pBody = parseInt(urlParams.get('body'));
+        const pAchievement = parseInt(urlParams.get('achievement'));
+        const pContact = parseInt(urlParams.get('contact'));
+        const pFuture = parseInt(urlParams.get('future'));
+
+        if (!isNaN(pBody) && !isNaN(pAchievement) && !isNaN(pContact) && !isNaN(pFuture)) {
+          const total = pBody + pAchievement + pContact + pFuture;
+          if (total === 100) {
+            document.getElementById('balance-intro-panel').classList.add('hidden');
+            if (balanceStartPanel) balanceStartPanel.classList.add('hidden');
+            if (balanceProfilePanel) balanceProfilePanel.classList.add('hidden');
+            quizWizard.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+
+            document.getElementById('stat-val-body').textContent = `${pBody}%`;
+            document.getElementById('raw-val-body').textContent = `(გაზიარებული)`;
+            document.getElementById('bar-val-body').style.width = `${pBody}%`;
+
+            document.getElementById('stat-val-achievement').textContent = `${pAchievement}%`;
+            document.getElementById('raw-val-achievement').textContent = `(გაზიარებული)`;
+            document.getElementById('bar-val-achievement').style.width = `${pAchievement}%`;
+
+            document.getElementById('stat-val-contact').textContent = `${pContact}%`;
+            document.getElementById('raw-val-contact').textContent = `(გაზიარებული)`;
+            document.getElementById('bar-val-contact').style.width = `${pContact}%`;
+
+            document.getElementById('stat-val-future').textContent = `${pFuture}%`;
+            document.getElementById('raw-val-future').textContent = `(გაზიარებული)`;
+            document.getElementById('bar-val-future').style.width = `${pFuture}%`;
+
+            const scale = 0.45;
+            const ptBody = { x: 50, y: 50 - (pBody * scale) };
+            const ptFuture = { x: 50 + (pFuture * scale), y: 50 };
+            const ptContact = { x: 50, y: 50 + (pContact * scale) };
+            const ptAchievement = { x: 50 - (pAchievement * scale), y: 50 };
+            svgPolygon.setAttribute('points', `${ptBody.x},${ptBody.y} ${ptFuture.x},${ptFuture.y} ${ptContact.x},${ptContact.y} ${ptAchievement.x},${ptAchievement.y}`);
+
+            document.getElementById('shared-result-banner').classList.remove('hidden');
+
+            aiLoading.classList.add('hidden');
+            aiContainer.classList.remove('hidden');
+            aiContainer.innerHTML = `
+              <div class="p-6 bg-gradient-to-r from-[#f1bf62]/10 to-[#dfab4c]/10 border border-[#f1bf62]/25 rounded-2xl text-center space-y-4 shadow-xl">
+                <span class="material-symbols-outlined text-[#f1bf62] text-5xl animate-bounce">psychology</span>
+                <h4 class="text-base font-black uppercase text-[#f1bf62] font-headline">ცხოვრების ბალანსის გათვლა</h4>
+                <p class="text-sm text-[#c6c6ce]/80 leading-relaxed font-medium max-w-lg mx-auto">
+                  ეს არის თქვენი მეგობრის ცხოვრების ბალანსის გაზიარებული დიაგრამა! 
+                  გსურთ გაიგოთ თქვენი საკუთარი ენერგიის რეალური გადანაწილება და მიიღოთ სიღრმისეული AI ფსიქოლოგიური ანალიზი?
+                </p>
+                <button onclick="window.location.href=window.location.pathname" class="mt-2 bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold uppercase tracking-widest py-3.5 px-7 rounded-xl transition-all cursor-pointer text-xs shadow-md">
+                  ტესტის ჩემთვის შევსება ⚖️
+                </button>
+              </div>
+            `;
+            return true;
+          }
+        }
+        return false;
+      }
+
+      // Configure social sharing channels dynamically
+      function setupSharingButtons(percentages) {
+        const shareLink = `${window.location.origin}/balance.html?body=${percentages.body}&achievement=${percentages.achievement}&contact=${percentages.contact}&future=${percentages.future}`;
+        const message = `⚖️ ჩემი ცხოვრების ბალანსის მოდელი (ცხოვრების 4 განზომილება) 📊\n\n` +
+          `🟢 სხეული და ჯანმრთელობა: ${percentages.body}%\n` +
+          `🔵 მიღწევები და სამუშაო: ${percentages.achievement}%\n` +
+          `🔴 კონტაქტები და ურთიერთობები: ${percentages.contact}%\n` +
+          `🟣 მომავალი და ფანტაზია: ${percentages.future}%\n\n` +
+          `ნახე ჩემი ბალანსის დიაგრამა და შეავსე შენი ტესტი აქ: 👉`;
+
+        // WhatsApp Link
+        const waBtn = document.getElementById('share-wa');
+        if (waBtn) waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(message + ' ' + shareLink)}`;
+
+        // Telegram Link
+        const tgBtn = document.getElementById('share-tg');
+        if (tgBtn) tgBtn.href = `https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(message)}`;
+
+        // Facebook Link
+        const fbBtn = document.getElementById('share-fb');
+        if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`;
+
+        // Messenger Link
+        const messengerBtn = document.getElementById('share-messenger');
+        if (messengerBtn) {
+          const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+          messengerBtn.href = isMobile 
+            ? `fb-messenger://share/?link=${encodeURIComponent(shareLink)}`
+            : `https://www.facebook.com/dialog/send?link=${encodeURIComponent(shareLink)}&app_id=966242223397117&redirect_uri=${encodeURIComponent(window.location.origin + '/balance.html')}`;
+        }
+
+        // Native Share or Copy Link Button
+        const nativeBtn = document.getElementById('share-native');
+        const nativeText = document.getElementById('share-native-text');
+        if (nativeBtn && nativeText) {
+          const newBtn = nativeBtn.cloneNode(true);
+          nativeBtn.parentNode.replaceChild(newBtn, nativeBtn);
+
+          newBtn.addEventListener('click', () => {
+            playTickSound();
+            if (navigator.share) {
+              navigator.share({
+                title: "ცხოვრების ბალანსის მოდელი",
+                text: message,
+                url: shareLink
+              }).catch(() => {});
+            } else {
+              navigator.clipboard.writeText(shareLink).then(() => {
+                const originalText = nativeText.textContent;
+                nativeText.textContent = "ლინკი კოპირებულია! ✓";
+                newBtn.classList.add('border-emerald-500/40', 'bg-emerald-500/10', 'text-emerald-400');
+                setTimeout(() => {
+                  nativeText.textContent = originalText;
+                  newBtn.classList.remove('border-emerald-500/40', 'bg-emerald-500/10', 'text-emerald-400');
+                }, 3000);
+              });
+            }
+          });
+        }
+
+        // Reveal the social sharing panel
+        document.getElementById('share-results-panel').classList.remove('hidden');
+      }
+
+      if (btnStartScreening && balanceStartPanel && balanceProfilePanel) {
+        btnStartScreening.addEventListener('click', () => {
+          playTickSound();
+          document.getElementById('balance-intro-panel').classList.add('hidden');
+          balanceStartPanel.classList.add('hidden');
+          balanceProfilePanel.classList.remove('hidden');
+          balanceProfilePanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+      }
+
+      if (profileFormBalance) {
+        profileFormBalance.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          profileErrorAlert.classList.add('hidden');
+          
+          const name = profileNameInput.value.trim();
+          const surname = profileSurnameInput.value.trim();
+          const phoneInput = profilePhoneInput.value.trim();
+
+          // Validation
+          if (name.length < 2) {
+            playErrorSound();
+            profileErrorText.textContent = "სახელი უნდა შედგებოდეს მინიმუმ 2 ასოსგან და არ უნდა შეიცავდეს ციფრებს";
+            profileErrorAlert.classList.remove('hidden');
+            return;
+          }
+          if (surname.length < 2) {
+            playErrorSound();
+            profileErrorText.textContent = "გვარი უნდა შედგებოდეს მინიმუმ 2 ასოსგან და არ უნდა შეიცავდეს ციფრებს";
+            profileErrorAlert.classList.remove('hidden');
+            return;
+          }
+          if (/\d/.test(name) || /\d/.test(surname)) {
+            playErrorSound();
+            profileErrorText.textContent = "სახელი და გვარი არ უნდა შეიცავდეს ციფრებს";
+            profileErrorAlert.classList.remove('hidden');
+            return;
+          }
+
+          const cleanPhone = phoneInput.replace(/\s+/g, "");
+          let normalizedPhone = cleanPhone;
+          if (normalizedPhone.startsWith("+995")) {
+            normalizedPhone = normalizedPhone.slice(4);
+          } else if (normalizedPhone.startsWith("995")) {
+            normalizedPhone = normalizedPhone.slice(3);
+          }
+
+          if (!/^5\d{8}$/.test(normalizedPhone)) {
+            playErrorSound();
+            profileErrorText.textContent = "ტელეფონის ნომერი აუცილებლად უნდა იწყებოდეს 5-ით და შედგებოდეს 9 ციფრისგან (მაგ: 5XXXXXXXX)";
+            profileErrorAlert.classList.remove('hidden');
+            return;
+          }
+
+          // Register Profile API Sync
+          const submitBtn = document.getElementById('btn-profile-submit');
+          const originalBtnText = submitBtn.innerHTML;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = `
+            <div class="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+            <span class="ml-2">მიმდინარეობს...</span>
+          `;
+
+          try {
+            const response = await fetch("/api/profile", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name,
+                surname,
+                birthPlace: "თბილისი",
+                day: 1,
+                month: 1,
+                year: 1990,
+                phone: normalizedPhone
+              }),
+            });
+
+            const data = await response.json();
+            if (data.success) {
+              playTickSound();
+              localStorage.setItem("user_phone", normalizedPhone);
+              balanceProfilePanel.classList.add('hidden');
+              quizWizard.classList.remove('hidden');
+              renderStep();
+            } else {
+              playErrorSound();
+              profileErrorText.textContent = data.error || "შეცდომა პროფილის დაფიქსირებისას";
+              profileErrorAlert.classList.remove('hidden');
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnText;
+            }
+          } catch (err) {
+            playErrorSound();
+            profileErrorText.textContent = "ვერ დაუკავშირდა სერვერს. სცადეთ მოგვიანებით.";
+            profileErrorAlert.classList.remove('hidden');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+          }
+        });
+      }
+
+      // Check Shared Result on startup
+      const isSharedResult = checkSharedResultQueryParams();
+      if (!isSharedResult) {
+        autofillProfile();
+      }
     });
   </script>
 

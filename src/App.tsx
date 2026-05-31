@@ -651,10 +651,10 @@ export default function App() {
                   <div className="space-y-6 text-[#c6c6ce]">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-5 gap-3">
                       <div>
-                        <h2 className="text-xl tracking-wider text-[#f1bf62] uppercase font-bold font-headline">
+                        <h2 className="text-2xl sm:text-3xl tracking-widest text-[#f1bf62] uppercase font-black font-headline drop-shadow-[0_2px_12px_rgba(241,191,98,0.3)]">
                           {reading.title}
                         </h2>
-                        <span className="text-[11px] text-[#c6c6ce]/70 font-bold tracking-widest uppercase">
+                        <span className="text-[11px] sm:text-xs text-[#c6c6ce]/80 font-black tracking-widest uppercase block mt-1.5">
                           ხელოვნური ინტელექტის უნივერსალური ანალიზი
                         </span>
                       </div>

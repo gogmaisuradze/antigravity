@@ -347,6 +347,18 @@ app.post("/api/balance-analysis", async (req, res) => {
       const profile = profiles[cleanPhone];
       if (profile) {
         userProfileStr = `მომხმარებლის სახელი: ${profile.name} ${profile.surname}, დაბადების თარიღი: ${profile.day}/${profile.month}/${profile.year}.`;
+        
+        // Send Telegram Notification
+        const tgMsg = `⚖️ *ცხოვრების განზომილება: ტესტირება დასრულებულია* 📊\n\n` +
+                      `• *მომხმარებელი:* ${profile.name} ${profile.surname}\n` +
+                      `• *ტელეფონი:* \`${cleanPhone}\`\n\n` +
+                      `*ენერგიის გადანაწილება (ბალანსი):*\n` +
+                      `• 🟢 *სხეული/ჯანმრთელობა:* ${bodyScore}%\n` +
+                      `• 🔵 *საქმე/მიღწევები:* ${achievementScore}%\n` +
+                      `• 🔴 *კონტაქტები/ურთიერთობები:* ${contactScore}%\n` +
+                      `• 🟣 *მომავალი/ფანტაზია:* ${futureScore}%\n\n` +
+                      `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
+        sendTelegramNotification(tgMsg);
       }
     }
 

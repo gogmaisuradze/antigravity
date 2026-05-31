@@ -292,8 +292,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     };
   }, []);
 
-  const cardSpacing = windowWidth < 480 ? 20 : windowWidth < 640 ? 28 : windowWidth < 768 ? 36 : windowWidth < 1024 ? 45 : 54;
-  const cardScale = windowWidth < 480 ? 0.75 : windowWidth < 640 ? 0.85 : 1.0;
+  const cardSpacing = windowWidth < 480 ? 28 : windowWidth < 640 ? 35 : windowWidth < 768 ? 44 : windowWidth < 1024 ? 52 : 65;
+  const cardScale = windowWidth < 480 ? 0.72 : windowWidth < 640 ? 0.82 : 0.95;
 
   // Auto-fill from saved profile
   useEffect(() => {
@@ -628,10 +628,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
               const distanceFromCenter = index - 3.5;
               const dx = distanceFromCenter * cardSpacing;
-              const dy = Math.abs(distanceFromCenter) * Math.abs(distanceFromCenter) * (windowWidth < 640 ? 0.7 : 1.3);
+              const dy = 0;
               
-              // All cards share a uniform sideways Y-rotation in one direction to look like a real stacked deck, now rotated more towards the screen (from -78deg to -55deg)
-              const rotY = -55;
+              // Lay cards completely flat in a straight horizontal row facing the screen
+              const rotY = 0;
               const rotZ = 0;
 
               let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
