@@ -133,6 +133,25 @@
       padding: 0.95rem !important;
     }
 
+    @keyframes golden-pulse {
+      0% {
+        box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.95), 0 0 10px rgba(241, 191, 98, 0.08) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+      }
+      50% {
+        box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.95), 0 0 25px rgba(241, 191, 98, 0.4) !important;
+        border-color: rgba(241, 191, 98, 0.55) !important;
+      }
+      100% {
+        box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.95), 0 0 10px rgba(241, 191, 98, 0.08) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+      }
+    }
+    
+    .ambient-gold-pulse {
+      animation: golden-pulse 4s infinite ease-in-out;
+    }
+
     /* Glowing light-up hover effect */
     .glow-hover {
       cursor: grab;
@@ -323,7 +342,7 @@
           </svg>
 
           <!-- CENTRAL CORE NODE (PPT) - Shifted top:220px for perfect initial centering -->
-          <div id="node-center" class="visible absolute left-[670px] top-[220px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#f1bf62] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover">
+          <div id="node-center" class="visible absolute left-[670px] top-[220px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#f1bf62] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover ambient-gold-pulse">
             <div class="text-[10px] uppercase tracking-widest text-[#f1bf62] font-bold mb-1">მთავარი სისტემა</div>
             <h4 class="text-lg font-headline font-bold text-white tracking-tight leading-tight italic select-none">პოზიტიური ფსიქოთერაპია (PPT)</h4>
             <div class="w-full bg-[#f1bf62]/10 h-[2px] mt-3 rounded-full overflow-hidden">
