@@ -349,7 +349,7 @@ app.post("/api/balance-analysis", async (req, res) => {
         userProfileStr = `მომხმარებლის სახელი: ${profile.name} ${profile.surname}, დაბადების თარიღი: ${profile.day}/${profile.month}/${profile.year}.`;
         
         // Send Telegram Notification
-        const tgMsg = `⚖️ *ცხოვრების განზომილება: ტესტირება დასრულებულია* 📊\n\n` +
+        const tgMsg = `⚖️ *ბალანსის მოდელი: ტესტირება დასრულებულია* 📊\n\n` +
                       `• *მომხმარებელი:* ${profile.name} ${profile.surname}\n` +
                       `• *ტელეფონი:* \`${cleanPhone}\`\n\n` +
                       `*ენერგიის გადანაწილება (ბალანსი):*\n` +
