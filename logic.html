@@ -341,8 +341,8 @@
             </defs>
           </svg>
 
-          <!-- CENTRAL CORE NODE (PPT) - Shifted top:220px for perfect initial centering -->
-          <div id="node-center" class="visible absolute left-[670px] top-[220px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#f1bf62] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover ambient-gold-pulse">
+          <!-- CENTRAL CORE NODE (PPT) - Placed directly below the logo -->
+          <div id="node-center" class="visible absolute left-[670px] top-[100px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#f1bf62] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover ambient-gold-pulse">
             <div class="text-[10px] uppercase tracking-widest text-[#f1bf62] font-bold mb-1">მთავარი სისტემა</div>
             <h4 class="text-lg font-headline font-bold text-white tracking-tight leading-tight italic select-none">პოზიტიური ფსიქოთერაპია (PPT)</h4>
             <div class="w-full bg-[#f1bf62]/10 h-[2px] mt-3 rounded-full overflow-hidden">
@@ -903,7 +903,7 @@
       // Zooming/Panning variables (Initially centered exactly in the middle on node-center!)
       let scale = 1.75;
       let panX = 0;
-      let panY = 140;
+      let panY = 100;
 
       // Panning variables
       let isDraggingCanvas = false;
@@ -1095,7 +1095,7 @@
           scale = isLayer1Expanded ? 0.72 : 1.75;
           if (!isLayer1Expanded) {
             panX = 0;
-            panY = 140;
+            panY = 100;
           } else {
             panX = 0;
             panY = 30; // Glide up slightly when expanded to make space for columns!
@@ -1343,7 +1343,7 @@
           // Collapse EVERYTHING and zoom in centered close
           scale = 1.75;
           panX = 0;
-          panY = 140;
+          panY = 100;
           isLayer1Expanded = false;
           if (indicator) indicator.textContent = '+';
           
@@ -1572,7 +1572,7 @@
       function collapseAndResetAll() {
         scale = 1.75;
         panX = 0;
-        panY = 140;
+        panY = 100;
         isLayer1Expanded = false;
         
         // Reset indicators
