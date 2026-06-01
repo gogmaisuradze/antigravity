@@ -66,6 +66,10 @@ function initBookingModal() {
           <div>
             <h2 class="text-2xl sm:text-3xl font-headline italic text-on-surface">სესიის დაჯავშნა</h2>
             <p class="text-xs sm:text-sm text-outline-variant mt-2">შეავსეთ ფორმა და ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ</p>
+            <button type="button" onclick="if(window.openAIChat) { document.getElementById('close-modal-btn').click(); window.openAIChat(); }" class="mt-4 flex items-center justify-center gap-2 bg-[#f1bf62]/10 border border-[#f1bf62]/30 hover:bg-[#f1bf62]/20 hover:border-[#f1bf62]/50 text-[#f1bf62] px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider transition-all uppercase w-full">
+              <span class="material-symbols-outlined text-sm">psychology</span>
+              <span>ჰკითხეთ მეტი ინტელექტუალურ ასისტენტს</span>
+            </button>
           </div>
           <div class="bg-secondary/10 border border-secondary/20 p-3.5 rounded-2xl hidden sm:flex items-center justify-center text-secondary shadow-lg">
             <span class="material-symbols-outlined text-3xl" style='font-variation-settings: "FILL" 1;'>edit_calendar</span>
@@ -783,6 +787,10 @@ function initBlogQuickRead() {
           </div>
           
           <h2 class="text-4xl md:text-5xl font-headline italic text-white leading-tight" id="drawer-title">სტატიის სათაური</h2>
+          <button type="button" onclick="if(window.openAIChat) { document.getElementById('close-drawer-btn').click(); window.openAIChat(); }" class="mt-3 flex items-center justify-center gap-2 bg-[#f1bf62]/10 border border-[#f1bf62]/30 hover:bg-[#f1bf62]/20 hover:border-[#f1bf62]/50 text-[#f1bf62] px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider transition-all uppercase w-full">
+            <span class="material-symbols-outlined text-sm">psychology</span>
+            <span>ჰკითხეთ მეტი ინტელექტუალურ ასისტენტს</span>
+          </button>
           
           <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-xl" id="drawer-img-container">
             <img class="w-full h-full object-cover" id="drawer-image" src="" alt="article image"/>
@@ -1169,6 +1177,8 @@ function initN8nChat() {
   };
 
   closeBtn.addEventListener('click', closeChat);
+  window.openAIChat = openChat;
+  window.closeAIChat = closeChat;
 
   // Automatically open the chat window after a premium 20s delay, unless user has already closed/opened it in the past
   if (!localStorage.getItem('n8n_chat_closed_by_user')) {
