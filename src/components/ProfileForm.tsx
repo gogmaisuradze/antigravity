@@ -585,122 +585,222 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
         {/* Mystical Tarot Card Deck Theme Selector */}
         <div className="py-2">
-          
-          <div 
-            style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
-            className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] flex items-center justify-center overflow-visible mt-2 mb-4 select-none px-4"
-          >
-            {THEMES.map((theme, index) => {
-              const isSelected = selectedTheme === theme.value;
-              const isHovered = hoveredTheme === theme.value;
-              
-              const handleCardClick = () => {
-                if (selectedTheme === theme.value) {
-                  // Clicking a second time deselects the card and returns it back to the deck pose!
-                  setSelectedTheme(null);
-                  playExitCapSound();
-                } else {
-                  setSelectedTheme(theme.value);
-                  playExitCapSound();
-                  
-                  // If form is already filled out, automatically submit the form to calculate the matrix
-                  const cleanName = firstName.trim();
-                  const cleanSurname = lastName.trim();
-                  const cleanPhone = phone.trim().replace(/\s+/g, "");
-                  let normalizedPhone = cleanPhone;
-                  if (normalizedPhone.startsWith("+995")) normalizedPhone = normalizedPhone.slice(4);
-                  else if (normalizedPhone.startsWith("995")) normalizedPhone = normalizedPhone.slice(3);
+          {windowWidth < 640 ? (
+            /* MOBILE VERSION: Separate 2-Column Button Menu + Single Active Card Preview */
+            <div className="space-y-6">
+              {/* Separate Mobile Menu */}
+              <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto px-2">
+                {THEMES.map((theme) => {
+                  const isSelected = selectedTheme === theme.value;
+                  return (
+                    <button
+                      key={theme.value}
+                      type="button"
+                      onClick={() => {
+                        if (selectedTheme === theme.value) {
+                          setSelectedTheme(null);
+                          playExitCapSound();
+                        } else {
+                          setSelectedTheme(theme.value);
+                          playExitCapSound();
+                        }
+                      }}
+                      className={`flex items-center justify-between px-3.5 py-3 rounded-xl border text-[11px] font-black uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer ${
+                        isSelected
+                          ? "bg-[#f1bf62] text-[#121416] border-[#f1bf62] shadow-[0_0_15px_rgba(241,191,98,0.3)] scale-[1.02]"
+                          : "bg-white/5 text-[#c6c6ce] border-white/10 hover:bg-white/10"
+                      }`}
+                    >
+                      <span className="truncate mr-1">{theme.label.split(" (")[0]}</span>
+                      <span className={`text-[10px] font-extrabold font-headline shrink-0 ${isSelected ? "text-[#121416]/75" : "text-[#f1bf62]"}`}>
+                        {theme.numeral}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
 
-                  const isNameValid = cleanName.length >= 2 && !/\d/.test(cleanName);
-                  const isSurnameValid = cleanSurname.length >= 2 && !/\d/.test(cleanSurname);
-                  const isPhoneValid = /^5\d{8}$/.test(normalizedPhone);
+              {/* Single Active Card Preview or Ornate Card Back */}
+              <div 
+                style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
+                className="flex items-center justify-center h-[240px] relative mt-4 select-none overflow-visible"
+              >
+                {selectedTheme ? (
+                  /* FRONT OF SELECTED CARD */
+                  (() => {
+                    const theme = THEMES.find(t => t.value === selectedTheme)!;
+                    return (
+                      <div
+                        style={{
+                          transform: "rotateY(0deg) translate3d(0, 0, 30px) scale(1.1)",
+                          transformStyle: "preserve-3d",
+                        }}
+                        className="w-[130px] aspect-[2/3.1] rounded-2xl p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border border-[#f1bf62] shadow-[0_15px_35px_rgba(241,191,98,0.25)] flex flex-col items-center justify-between animate-pulse"
+                      >
+                        <div className="absolute inset-1 rounded-[12px] border border-[#f1bf62]/35 pointer-events-none">
+                          <div className="absolute top-1 left-1 text-[7px] text-[#f1bf62]/40">✦</div>
+                          <div className="absolute top-1 right-1 text-[7px] text-[#f1bf62]/40">✦</div>
+                          <div className="absolute bottom-1 left-1 text-[7px] text-[#f1bf62]/40">✦</div>
+                          <div className="absolute bottom-1 right-1 text-[7px] text-[#f1bf62]/40">✦</div>
+                        </div>
 
-                  if (isNameValid && isSurnameValid && isPhoneValid) {
-                    setTimeout(() => {
-                      const formEl = document.getElementById("profile-form") as HTMLFormElement;
-                      if (formEl) {
-                        formEl.requestSubmit();
-                      }
-                    }, 50);
+                        <span className="text-[10px] font-serif font-extrabold tracking-widest text-[#f1bf62] mt-1 z-10 uppercase">
+                          {theme.numeral}
+                        </span>
+
+                        <div className="flex-grow flex items-center justify-center py-2 z-10 w-full scale-105">
+                          {getTarotIllustration(theme.value)}
+                        </div>
+
+                        <span className="text-[10px] font-extrabold text-center tracking-wider leading-tight text-[#f1bf62] z-10 pb-1.5 uppercase">
+                          {theme.label.split(" (")[0]}
+                        </span>
+                      </div>
+                    );
+                  })()
+                ) : (
+                  /* ORNATE MYSTICAL CARD BACK */
+                  <div
+                    style={{
+                      transform: "rotateY(0deg) translate3d(0, 0, 0px)",
+                      transformStyle: "preserve-3d",
+                    }}
+                    className="w-[130px] aspect-[2/3.1] rounded-2xl p-3 bg-gradient-to-b from-[#161719] to-[#0c0d0e] border border-white/10 shadow-xl flex flex-col items-center justify-between opacity-80"
+                  >
+                    <div className="absolute inset-1 rounded-[12px] border border-white/5 pointer-events-none">
+                      <div className="absolute top-1 left-1 text-[7px] text-white/10">✦</div>
+                      <div className="absolute top-1 right-1 text-[7px] text-white/10">✦</div>
+                      <div className="absolute bottom-1 left-1 text-[7px] text-white/10">✦</div>
+                      <div className="absolute bottom-1 right-1 text-[7px] text-white/10">✦</div>
+                    </div>
+
+                    <span className="text-[8px] font-black tracking-[0.25em] text-white/20 uppercase mt-1 z-10">
+                      🔮
+                    </span>
+
+                    {/* Ornate mystical mandala pattern */}
+                    <div className="flex-grow flex items-center justify-center py-2 z-10 w-full text-white/10">
+                      <svg className="w-10 h-10 animate-[spin_30s_linear_infinite]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+                        <circle cx="50" cy="50" r="40" strokeDasharray="3 3" />
+                        <circle cx="50" cy="50" r="28" />
+                        <circle cx="50" cy="50" r="16" strokeDasharray="1 2" />
+                        <path d="M50 10 L50 90 M10 50 L90 50 M22 22 L78 78 M22 78 L78 22" />
+                      </svg>
+                    </div>
+
+                    <span className="text-[8px] font-black text-center tracking-[0.15em] leading-tight text-white/30 z-10 pb-1.5 uppercase font-headline">
+                      კოდი
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            /* DESKTOP/TABLET VERSION: Original 3D Tarot card deck */
+            <div 
+              style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
+              className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] flex items-center justify-center overflow-visible mt-2 mb-4 select-none px-4"
+            >
+              {THEMES.map((theme, index) => {
+                const isSelected = selectedTheme === theme.value;
+                const isHovered = hoveredTheme === theme.value;
+                
+                const handleCardClick = () => {
+                  if (selectedTheme === theme.value) {
+                    setSelectedTheme(null);
+                    playExitCapSound();
+                  } else {
+                    setSelectedTheme(theme.value);
+                    playExitCapSound();
+                    
+                    const cleanName = firstName.trim();
+                    const cleanSurname = lastName.trim();
+                    const cleanPhone = phone.trim().replace(/\s+/g, "");
+                    let normalizedPhone = cleanPhone;
+                    if (normalizedPhone.startsWith("+995")) normalizedPhone = normalizedPhone.slice(4);
+                    else if (normalizedPhone.startsWith("995")) normalizedPhone = normalizedPhone.slice(3);
+
+                    const isNameValid = cleanName.length >= 2 && !/\d/.test(cleanName);
+                    const isSurnameValid = cleanSurname.length >= 2 && !/\d/.test(cleanSurname);
+                    const isPhoneValid = /^5\d{8}$/.test(normalizedPhone);
+
+                    if (isNameValid && isSurnameValid && isPhoneValid) {
+                      setTimeout(() => {
+                        const formEl = document.getElementById("profile-form") as HTMLFormElement;
+                        if (formEl) {
+                          formEl.requestSubmit();
+                        }
+                      }, 50);
+                    }
                   }
+                };
+
+                const distanceFromCenter = index - 3.5;
+                const dx = distanceFromCenter * cardSpacing;
+                const dy = 0;
+                const rotY = 0;
+                const rotZ = 0;
+
+                let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
+                let zIndexVal = 20 + index;
+
+                if (isHovered) {
+                  transformStr = `translate3d(calc(-50% + ${dx}px), -55px, 120px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.35})`;
+                  zIndexVal = 100;
+                } else if (isSelected) {
+                  transformStr = `translate3d(calc(-50% + ${dx}px), -25px, 60px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.2})`;
+                  zIndexVal = 80;
                 }
-              };
 
-              const distanceFromCenter = index - 3.5;
-              const dx = distanceFromCenter * cardSpacing;
-              const dy = 0;
-              
-              // Lay cards completely flat in a straight horizontal row facing the screen
-              const rotY = 0;
-              const rotZ = 0;
+                return (
+                  <div
+                    key={theme.value}
+                    onClick={handleCardClick}
+                    onMouseEnter={() => setHoveredTheme(theme.value)}
+                    onMouseLeave={() => setHoveredTheme(null)}
+                    style={{
+                      transform: transformStr,
+                      zIndex: zIndexVal,
+                      transformOrigin: "bottom center",
+                      transformStyle: "preserve-3d",
+                    }}
+                    className={`absolute left-1/2 bottom-10 w-[105px] sm:w-[125px] md:w-[140px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
+                      isHovered 
+                        ? "border-[#f1bf62] shadow-[0_20px_45px_rgba(241,191,98,0.35)]"
+                        : isSelected
+                        ? "border-[#f1bf62] shadow-[0_0_30px_rgba(241,191,98,0.25)] bg-[#f1bf62]/5"
+                        : "border-white/10 hover:border-white/20 opacity-75 hover:opacity-100"
+                    }`}
+                  >
+                    <div className={`absolute inset-1 sm:inset-1.5 rounded-[10px] sm:rounded-[12px] border pointer-events-none transition-colors duration-500 ${
+                      isSelected || isHovered ? "border-[#f1bf62]/35" : "border-white/5"
+                    }`}>
+                      <div className="absolute top-1 left-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
+                      <div className="absolute top-1 right-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
+                      <div className="absolute bottom-1 left-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
+                      <div className="absolute bottom-1 right-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
+                    </div>
 
-              let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
-              // Left-to-right stacking to perfectly handle the overlap of Y(-55deg) rotation
-              let zIndexVal = 20 + index;
+                    <span className={`text-[8.5px] sm:text-[9.5px] font-serif font-extrabold tracking-widest text-center mt-1 z-10 transition-colors uppercase ${
+                      isSelected || isHovered ? "text-[#f1bf62]" : "text-[#c6c6ce]/40"
+                    }`}>
+                      {theme.numeral}
+                    </span>
 
-              if (isHovered) {
-                // Pop face forward and float way up towards the screen
-                transformStr = `translate3d(calc(-50% + ${dx}px), -55px, 120px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.35})`;
-                zIndexVal = 100;
-              } else if (isSelected) {
-                // Selected card stays popped up and face forward
-                transformStr = `translate3d(calc(-50% + ${dx}px), -25px, 60px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.2})`;
-                zIndexVal = 80;
-              }
+                    <div className="flex-grow flex items-center justify-center py-2 z-10 w-full">
+                      {getTarotIllustration(theme.value)}
+                    </div>
 
-              return (
-                <div
-                  key={theme.value}
-                  onClick={handleCardClick}
-                  onMouseEnter={() => setHoveredTheme(theme.value)}
-                  onMouseLeave={() => setHoveredTheme(null)}
-                  style={{
-                    transform: transformStr,
-                    zIndex: zIndexVal,
-                    transformOrigin: "bottom center",
-                    transformStyle: "preserve-3d",
-                  }}
-                  className={`absolute left-1/2 bottom-10 w-[105px] sm:w-[125px] md:w-[140px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
-                    isHovered 
-                      ? "border-[#f1bf62] shadow-[0_20px_45px_rgba(241,191,98,0.35)]"
-                      : isSelected
-                      ? "border-[#f1bf62] shadow-[0_0_30px_rgba(241,191,98,0.25)] bg-[#f1bf62]/5"
-                      : "border-white/10 hover:border-white/20 opacity-75 hover:opacity-100"
-                  }`}
-                >
-                  {/* Ornate Inner Border like authentic Tarot Cards */}
-                  <div className={`absolute inset-1 sm:inset-1.5 rounded-[10px] sm:rounded-[12px] border pointer-events-none transition-colors duration-500 ${
-                    isSelected || isHovered ? "border-[#f1bf62]/35" : "border-white/5"
-                  }`}>
-                    {/* Stars in the corners of the card */}
-                    <div className="absolute top-1 left-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
-                    <div className="absolute top-1 right-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
-                    <div className="absolute bottom-1 left-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
-                    <div className="absolute bottom-1 right-1 text-[7px] text-[#f1bf62]/40 font-serif">✦</div>
+                    <span className={`text-[8px] sm:text-[9.5px] font-extrabold text-center tracking-wider leading-tight z-10 pb-1.5 transition-colors uppercase ${
+                      isSelected || isHovered ? "text-[#f1bf62]" : "text-[#c6c6ce]/75 group-hover:text-white"
+                    }`}>
+                      {theme.label.split(" (")[0]}
+                    </span>
                   </div>
-
-                  {/* Top: Roman Numeral representing card's order */}
-                  <span className={`text-[8.5px] sm:text-[9.5px] font-serif font-extrabold tracking-widest text-center mt-1 z-10 transition-colors uppercase ${
-                    isSelected || isHovered ? "text-[#f1bf62]" : "text-[#c6c6ce]/40"
-                  }`}>
-                    {theme.numeral}
-                  </span>
-
-                  {/* Center: Thematic Mystical Illustration Drawing */}
-                  <div className="flex-grow flex items-center justify-center py-2 z-10 w-full">
-                    {getTarotIllustration(theme.value)}
-                  </div>
-
-                  {/* Bottom: Card Label Cover Title */}
-                  <span className={`text-[8px] sm:text-[9.5px] font-extrabold text-center tracking-wider leading-tight z-10 pb-1 sm:pb-1.5 transition-colors uppercase ${
-                    isSelected || isHovered ? "text-[#f1bf62]" : "text-[#c6c6ce]/75 group-hover:text-white"
-                  }`}>
-                    {theme.label.split(" (")[0]}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Action Button Container */}
