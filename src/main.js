@@ -96,8 +96,8 @@ function initBookingModal() {
                 <option>წყვილთა ფსიქოთერაპია</option>
                 <option>ჯგუფური ფსიქოთერაპია</option>
                 <option>კონსულტაცია</option>
-                <option>პრაქტიკული ფსიქოლოგია</option>
-                <option>არტთერაპია</option>
+                <option>ქოუჩინგი</option>
+                <option>ჯგუფური ქოუჩინგი</option>
               </select>
             </div>
           </div>
