@@ -154,7 +154,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
       <div className="space-y-6">
         <div>
           <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
-            პარტნიორის ან მეგობრის ტელეფონი (სისტემური იდენტიფიკატორი)
+            ტელ:
           </label>
           <div className="flex space-x-3">
             <input
