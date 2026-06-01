@@ -102,6 +102,7 @@
                   padding 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
                   margin 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  left 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   border-color 0.3s ease,
                   box-shadow 0.3s ease;
       opacity: 0;
@@ -178,6 +179,50 @@
     .details-panel {
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
+    /* Dynamic Font Size and Style Overrides for Maximum Legibility ("ტექსტები წვრილად და პატარად არ ჩანდეს") */
+    .l1-card div {
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      opacity: 0.9 !important;
+    }
+    .l1-title {
+      font-size: 17px !important;
+      font-weight: 800 !important;
+      line-height: 1.3 !important;
+    }
+    
+    .l2-card div {
+      font-size: 10px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.08em !important;
+      opacity: 0.85 !important;
+    }
+    .l2-card h6 {
+      font-size: 14.5px !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      line-height: 1.35 !important;
+    }
+    
+    .l3-card div {
+      font-size: 9px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.06em !important;
+      opacity: 0.8 !important;
+    }
+    .l3-card h6 {
+      font-size: 13px !important;
+      font-weight: 650 !important;
+      color: #e2e8f0 !important;
+      line-height: 1.35 !important;
+    }
+
+    /* Make all cards slightly wider to fit larger text elegantly */
+    .node-card {
+      width: 235px !important;
+    }
   </style>
 </head>
 <body class="h-screen w-screen flex flex-col antialiased selection:bg-[#f1bf62]/20 selection:text-[#f1bf62] bg-[#040506] relative">
@@ -193,12 +238,12 @@
   <header class="h-20 border-b border-white/5 bg-[#040506]/40 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-30 select-none relative">
     <!-- Left Title (Gold Brand) -->
     <div class="flex items-center gap-2 z-10">
-      <a href="logic.html" class="text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62] hover:opacity-80 transition-opacity no-underline whitespace-nowrap">IDC პოზიტიური ფსიქოთერაპია</a>
+      <a href="logic.html" id="brand-link" class="text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62] hover:opacity-80 transition-opacity no-underline whitespace-nowrap">IDC პოზიტიური ფსიქოთერაპია</a>
     </div>
 
     <!-- Center Logo (Maximized Emblem) -->
     <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto h-full z-10">
-      <a href="logic.html" class="hover:opacity-90 transition-opacity duration-300 flex items-center">
+      <a href="logic.html" id="logo-link" class="hover:opacity-90 transition-opacity duration-300 flex items-center">
         <img alt="IDC Logo" class="object-contain max-w-none h-[180px] w-[180px] sm:h-[320px] sm:w-[320px] md:h-[550px] md:w-[550px] mt-[-55px] sm:mt-[-125px] md:mt-[-235px] mb-[-55px] sm:mb-[-125px] md:mb-[-235px] transition-all duration-300" src="/src/logo.png" style="mix-blend-mode: screen;"/>
       </a>
     </div>
@@ -280,25 +325,25 @@
           <span class="text-[12px] font-bold text-white uppercase tracking-wider block border-b border-white/5 pb-1">ნეირო-რუკის სტრუქტურა</span>
           <div class="space-y-2 text-[11px] overflow-y-auto max-h-[200px] scrollbar-thin">
             <div class="space-y-1.5 font-medium">
-              <div id="dir-node-layer1-1" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-1')">
+              <div id="dir-node-layer1-5" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-5')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
-                <span>ძირითადი პრინციპები</span>
+                <span>ორგანიზაციული სტრუქტურა</span>
               </div>
               <div id="dir-node-layer1-2" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-2')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
                 <span>კონფლიქტის მოდელი</span>
               </div>
-              <div id="dir-node-layer1-3" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-3')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
-                <span>აქტუალური უნარები</span>
-              </div>
               <div id="dir-node-layer1-4" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-4')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
                 <span>თერაპიული ინსტრუმენტები</span>
               </div>
-              <div id="dir-node-layer1-5" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-5')">
+              <div id="dir-node-layer1-3" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-3')">
                 <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
-                <span>ორგანიზაციული სტრუქტურა</span>
+                <span>აქტუალური უნარები</span>
+              </div>
+              <div id="dir-node-layer1-1" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-1')">
+                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
+                <span>ძირითადი პრინციპები</span>
               </div>
             </div>
           </div>
@@ -337,7 +382,7 @@
           <!-- CENTRAL CORE NODE (PPT) - Placed directly below the logo -->
           <div id="node-center" class="visible absolute left-[670px] top-[100px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#f1bf62] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover ambient-gold-pulse">
             <div class="text-[10px] uppercase tracking-widest text-[#f1bf62] font-bold mb-1">მთავარი სისტემა</div>
-            <h4 class="text-lg font-headline font-bold text-white tracking-tight leading-tight italic select-none">პოზიტიური ფსიქოთერაპია (პესეშკიანი)</h4>
+            <h4 class="text-lg font-headline font-bold text-white tracking-tight leading-tight italic select-none">პოზიტიური ფსიქოთერაპია (პეზეშკიანი)</h4>
             <div class="w-full bg-[#f1bf62]/10 h-[2px] mt-3 rounded-full overflow-hidden">
               <div class="bg-[#f1bf62] h-full w-[100%]"></div>
             </div>
@@ -345,65 +390,25 @@
             <div id="ind-node-center" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
           </div>
 
-          <!-- COLUMN 1: ძირითადი პრინციპები (left = 100px) -->
-          <div id="node-layer1-1" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 100px; top: 360px;">
+          <!-- COLUMN 1: ორგანიზაციული სტრუქტურა (left = 100px) -->
+          <div id="node-layer1-5" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 100px; top: 360px;">
             <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
-            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ძირითადი პრინციპები</h5>
+            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ორგანიზაციული სტრუქტურა</h5>
           </div>
 
-          <div id="node-l2-1-1" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 90px; top: 470px;">
+          <div id="node-l2-5-1" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 85px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">იმედის პრინციპი</h6>
+            <h6 class="text-sm font-semibold text-slate-200">WAPP (მსოფლიო ასოციაცია)</h6>
           </div>
 
-          <div id="node-l3-1-1-1" data-parent="node-l2-1-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 75px; top: 580px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">სიმპტომების პოზიტიური ინტერპრეტაცია</h6>
-          </div>
-
-          <div id="node-l3-1-1-2" data-parent="node-l2-1-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 110px; top: 690px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">დაავადების სიმბოლური ფუნქცია</h6>
-          </div>
-
-          <div id="node-l2-1-2" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 115px; top: 800px;">
+          <div id="node-l2-5-2" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 115px; top: 580px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">ბალანსის პრინციპი</h6>
+            <h6 class="text-sm font-semibold text-slate-200">IAPP (საერთაშორისო აკადემია)</h6>
           </div>
 
-          <div id="node-l3-1-2-1" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 80px; top: 910px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">სხეული / ჯანმრთელობა</h6>
-          </div>
-
-          <div id="node-l3-1-2-2" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 110px; top: 1020px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">მიღწევა / სამუშაო</h6>
-          </div>
-
-          <div id="node-l3-1-2-3" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 70px; top: 1130px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">კონტაქტი / ურთიერთობები</h6>
-          </div>
-
-          <div id="node-l3-1-2-4" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 120px; top: 1240px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">მომავალი / ფანტაზია / საზრისი</h6>
-          </div>
-
-          <div id="node-l2-1-3" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 85px; top: 1350px;">
+          <div id="node-l2-5-3" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 95px; top: 690px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">კონსულტაციის პრინციპი</h6>
-          </div>
-
-          <div id="node-l3-1-3-1" data-parent="node-l2-1-3" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 70px; top: 1460px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">თვითდახმარების ხუთი ეტაპი</h6>
-          </div>
-
-          <div id="node-l3-1-3-2" data-parent="node-l2-1-3" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 115px; top: 1570px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">ოჯახის ჩართულობა</h6>
+            <h6 class="text-sm font-semibold text-slate-200">ვისბადენის აკადემია (WIAP)</h6>
           </div>
 
 
@@ -449,99 +454,139 @@
           </div>
 
 
-          <!-- COLUMN 3: აქტუალური უნარები (left = 700px) -->
-          <div id="node-layer1-3" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 700px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
-            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">აქტუალური უნარები</h5>
-          </div>
-
-          <div id="node-l2-3-1" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 685px; top: 470px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">პირველადი უნარები (სიყვარული)</h6>
-          </div>
-
-          <div id="node-l3-3-1-1" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 670px; top: 580px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">ნდობა და იმედი</h6>
-          </div>
-
-          <div id="node-l3-3-1-2" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 710px; top: 690px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">მოთმინება და დრო</h6>
-          </div>
-
-          <div id="node-l3-3-1-3" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 675px; top: 800px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">კონტაქტი და სექსუალობა</h6>
-          </div>
-
-          <div id="node-l2-3-2" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 715px; top: 910px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">მეორადი უნარები (შემეცნება)</h6>
-          </div>
-
-          <div id="node-l3-3-2-1" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 680px; top: 1020px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">პუნქტუალობა და სისუფთავე</h6>
-          </div>
-
-          <div id="node-l3-3-2-2" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 710px; top: 1130px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">ორგანიზებულობა და მორჩილება</h6>
-          </div>
-
-          <div id="node-l3-3-2-3" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 675px; top: 1240px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">სამართლიანობა და გულწრფელობა</h6>
-          </div>
-
-
-          <!-- COLUMN 4: თერაპიული ინსტრუმენტები (left = 1000px) -->
-          <div id="node-layer1-4" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1000px; top: 360px;">
+          <!-- COLUMN 3: თერაპიული ინსტრუმენტები (left = 700px) -->
+          <div id="node-layer1-4" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 700px; top: 360px;">
             <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
             <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">თერაპიული ინსტრუმენტები</h5>
           </div>
 
-          <div id="node-l2-4-1" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 985px; top: 470px;">
+          <div id="node-l2-4-1" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 685px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">აღმოსავლური ისტორიები და იგავები</h6>
           </div>
 
-          <div id="node-l2-4-2" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1015px; top: 580px;">
+          <div id="node-l2-4-2" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 715px; top: 580px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">ტრანსკულტურალური მიდგომა</h6>
           </div>
 
-          <div id="node-l2-4-3" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 990px; top: 690px;">
+          <div id="node-l2-4-3" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 690px; top: 690px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">ნახევრად სტრუქტურირებული ინტერვიუ</h6>
           </div>
 
-          <div id="node-l2-4-4" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1020px; top: 800px;">
+          <div id="node-l2-4-4" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 720px; top: 800px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
             <h6 class="text-sm font-semibold text-slate-200">WIPPF კითხვარი</h6>
           </div>
 
 
-          <!-- COLUMN 5: ორგანიზაციული სტრუქტურა (left = 1300px) -->
-          <div id="node-layer1-5" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1300px; top: 360px;">
+          <!-- COLUMN 4: აქტუალური უნარები (left = 1000px) -->
+          <div id="node-layer1-3" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1000px; top: 360px;">
             <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
-            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ორგანიზაციული სტრუქტურა</h5>
+            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">აქტუალური უნარები</h5>
           </div>
 
-          <div id="node-l2-5-1" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1285px; top: 470px;">
+          <div id="node-l2-3-1" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 985px; top: 470px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">WAPP (მსოფლიო ასოციაცია)</h6>
+            <h6 class="text-sm font-semibold text-slate-200">პირველადი უნარები (სიყვარული)</h6>
           </div>
 
-          <div id="node-l2-5-2" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1315px; top: 580px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">IAPP (საერთაშორისო აკადემია)</h6>
+          <div id="node-l3-3-1-1" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 970px; top: 580px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">ნდობა და იმედი</h6>
           </div>
 
-          <div id="node-l2-5-3" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1295px; top: 690px;">
+          <div id="node-l3-3-1-2" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1010px; top: 690px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">მოთმინება და დრო</h6>
+          </div>
+
+          <div id="node-l3-3-1-3" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 975px; top: 800px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">კონტაქტი და სექსუალობა</h6>
+          </div>
+
+          <div id="node-l2-3-2" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1015px; top: 910px;">
             <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">ვისბადენის აკადემია (WIAP)</h6>
+            <h6 class="text-sm font-semibold text-slate-200">მეორადი უნარები (შემეცნება)</h6>
+          </div>
+
+          <div id="node-l3-3-2-1" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 980px; top: 1020px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">პუნქტუალობა და სისუფთავე</h6>
+          </div>
+
+          <div id="node-l3-3-2-2" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1010px; top: 1130px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">ორგანიზებულობა და მორჩილება</h6>
+          </div>
+
+          <div id="node-l3-3-2-3" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 975px; top: 1240px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">სამართლიანობა და გულწრფელობა</h6>
+          </div>
+
+
+          <!-- COLUMN 5: ძირითადი პრინციპები (left = 1300px) -->
+          <div id="node-layer1-1" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1300px; top: 360px;">
+            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
+            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ძირითადი პრინციპები</h5>
+          </div>
+
+          <div id="node-l2-1-1" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1290px; top: 470px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">იმედის პრინციპი</h6>
+          </div>
+
+          <div id="node-l3-1-1-1" data-parent="node-l2-1-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1275px; top: 580px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">სიმპტომების პოზიტიური ინტერპრეტაცია</h6>
+          </div>
+
+          <div id="node-l3-1-1-2" data-parent="node-l2-1-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1310px; top: 690px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">დაავადების სიმბოლური ფუნქცია</h6>
+          </div>
+
+          <div id="node-l2-1-2" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1315px; top: 800px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">ბალანსის პრინციპი</h6>
+          </div>
+
+          <div id="node-l3-1-2-1" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1280px; top: 910px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">სხეული / ჯანმრთელობა</h6>
+          </div>
+
+          <div id="node-l3-1-2-2" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1310px; top: 1020px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">მიღწევა / სამუშაო</h6>
+          </div>
+
+          <div id="node-l3-1-2-3" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1270px; top: 1130px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">კონტაქტი / ურთიერთობები</h6>
+          </div>
+
+          <div id="node-l3-1-2-4" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1320px; top: 1240px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">მომავალი / ფანტაზია / საზრისი</h6>
+          </div>
+
+          <div id="node-l2-1-3" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1285px; top: 1350px;">
+            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
+            <h6 class="text-sm font-semibold text-slate-200">კონსულტაციის პრინციპი</h6>
+          </div>
+
+          <div id="node-l3-1-3-1" data-parent="node-l2-1-3" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1270px; top: 1460px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">თვითდახმარების ხუთი ეტაპი</h6>
+          </div>
+
+          <div id="node-l3-1-3-2" data-parent="node-l2-1-3" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1315px; top: 1570px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-slate-300">ოჯახის ჩართულობა</h6>
           </div>
 
         </div>
@@ -645,11 +690,11 @@
 
       // 5 Columns ordered layout database for dynamic auto-push/shift accordion logic ("ჩაჩოჩება")
       const columnsLayout = {
-        1: ['node-layer1-1', 'node-l2-1-1', 'node-l3-1-1-1', 'node-l3-1-1-2', 'node-l2-1-2', 'node-l3-1-2-1', 'node-l3-1-2-2', 'node-l3-1-2-3', 'node-l3-1-2-4', 'node-l2-1-3', 'node-l3-1-3-1', 'node-l3-1-3-2'],
+        1: ['node-layer1-5', 'node-l2-5-1', 'node-l2-5-2', 'node-l2-5-3'],
         2: ['node-layer1-2', 'node-l2-2-1', 'node-l3-2-1-1', 'node-l3-2-1-2', 'node-l2-2-2', 'node-l3-2-2-1', 'node-l3-2-2-2', 'node-l3-2-2-3'],
-        3: ['node-layer1-3', 'node-l2-3-1', 'node-l3-3-1-1', 'node-l3-3-1-2', 'node-l3-3-1-3', 'node-l2-3-2', 'node-l3-3-2-1', 'node-l3-3-2-2', 'node-l3-3-2-3'],
-        4: ['node-layer1-4', 'node-l2-4-1', 'node-l2-4-2', 'node-l2-4-3', 'node-l2-4-4'],
-        5: ['node-layer1-5', 'node-l2-5-1', 'node-l2-5-2', 'node-l2-5-3']
+        3: ['node-layer1-4', 'node-l2-4-1', 'node-l2-4-2', 'node-l2-4-3', 'node-l2-4-4'],
+        4: ['node-layer1-3', 'node-l2-3-1', 'node-l3-3-1-1', 'node-l3-3-1-2', 'node-l3-3-1-3', 'node-l2-3-2', 'node-l3-3-2-1', 'node-l3-3-2-2', 'node-l3-3-2-3'],
+        5: ['node-layer1-1', 'node-l2-1-1', 'node-l3-1-1-1', 'node-l3-1-1-2', 'node-l2-1-2', 'node-l3-1-2-1', 'node-l3-1-2-2', 'node-l3-1-2-3', 'node-l3-1-2-4', 'node-l2-1-3', 'node-l3-1-3-1', 'node-l3-1-3-2']
       };
 
       // Comprehensive Database of 31 Node Descriptions (Georgian Localized)
@@ -661,9 +706,9 @@
           isStaff: true
         },
         'node-center': {
-          title: 'პოზიტიური ფსიქოთერაპია (პესეშკიანი)',
+          title: 'პოზიტიური ფსიქოთერაპია (პეზეშკიანი)',
           category: 'მთავარი სისტემა',
-          desc: 'პოზიტიური ფსიქოთერაპია (PPT) არის ჰუმანისტური ფსიქოთერაპიის საერთაშორისოდ აღიარებული მეთოდი, რომელიც 1967 წელს დააარსა პროფესორმა ნოსრატ პეზეშკიანმა. მეთოდი ეფუძნება ადამიანის შინაგანი პოტენციალისა და თვითგანკურნების თანდაყოლილი ძალების რწმენას, სადაც სიმპტომები და კონფლიქტები განიხილება როგორც განვითარებისა და ადაპტაციის შესაძლებლობები.'
+          desc: 'პოზიტიური ფსიქოთერაპია (PPT) არის ჰუმანისტური ფსიქოთერაპიის საერთაშორისოდ აღიარებული მეთოდი, რომელიც 1967 წელს დააარსა პროფესორმა <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%9E%E1%83%98%E1%83%90" target="_blank" class="text-[#f1bf62] hover:underline font-semibold">ნოსრატ პეზეშკიანმა</a>. მეთოდი ეფუძნება ადამიანის შინაგანი პოტენციალისა და თვითგანკურნების თანდაყოლილი ძალების რწმენას, სადაც სიმპტომები და კონფლიქტები განიხილება როგორც განვითარებისა და ადაპტაციის შესაძლებლობები.'
         },
         'node-layer1-1': {
           title: 'ძირითადი პრინციპები',
@@ -853,7 +898,7 @@
         'node-l2-5-3': {
           title: 'ვისბადენის აკადემია (WIAP)',
           category: 'ორგანიზაციული სტრუქტურა > WIAP',
-          desc: 'ვისბადენის ფსიქოთერაპიის აკადემია (WIAP) გერმანიაში — პოზიტიური ფსიქოთერაპიის სამშობლო და უძველესი საგანმანათლებლო ცენტრი, რომელიც დააარსა პროფესორმა ნოსრატ პეზეშკიანმა.'
+          desc: 'ვისბადენის ფსიქოთერაპიის აკადემია (WIAP) გერმანიაში — პოზიტიური ფსიქოთერაპიის სამშობლო და უძველესი საგანმანათლებლო ცენტრი, რომელიც დააარსა პროფესორმა <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%9E%E1%83%98%E1%83%90" target="_blank" class="text-[#f1bf62] hover:underline font-semibold">ნოსრატ პეზეშკიანმა</a>.'
         }
       };
 
@@ -908,31 +953,24 @@
         `;
         svg.appendChild(defs);
 
-        const nodes = document.querySelectorAll('[data-parent]');
-        
-        nodes.forEach(node => {
-          // Only draw connection if child node is visible!
-          if (!node.classList.contains('visible')) return;
-
-          const parentId = node.getAttribute('data-parent');
+        // Helper to draw single connection line
+        function drawSinglePath(parentId, childId) {
           const parentNode = document.getElementById(parentId);
-          if (!parentNode) return;
+          const childNode = document.getElementById(childId);
+          if (!parentNode || !childNode) return;
 
-          // Only draw if parent is also visible!
-          if (!parentNode.classList.contains('visible')) return;
+          // Only draw if both are visible
+          if (!parentNode.classList.contains('visible') || !childNode.classList.contains('visible')) return;
 
-          // MAGNETIC Snapped local canvas coordinates (Completely immune to scale/pan shifts!)
           const parentX = parentNode.offsetLeft + (parentNode.offsetWidth / 2);
           const parentY = parentNode.offsetTop + parentNode.offsetHeight;
 
-          const childX = node.offsetLeft + (node.offsetWidth / 2);
-          // Snap perfectly to the top border of the child box
-          const childY = node.offsetTop;
+          const childX = childNode.offsetLeft + (childNode.offsetWidth / 2);
+          const childY = childNode.offsetTop;
 
-          // Render curved Bezier paths (elegant S-curves vertically)
           const pathData = getPathData(parentX, parentY, childX, childY);
 
-          // SINGLE elegant connection path (Solid gold flow line with arrowhead)
+          // Solid line
           const connectionLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
           connectionLine.setAttribute('d', pathData);
           connectionLine.setAttribute('fill', 'none');
@@ -942,7 +980,7 @@
           connectionLine.setAttribute('marker-end', 'url(#arrow)');
           svg.appendChild(connectionLine);
 
-          // Beautiful, slow, elegant flowing dash pulse wave (completely non-flickering)
+          // Glimmer pulse dash
           const pulseLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
           pulseLine.setAttribute('d', pathData);
           pulseLine.setAttribute('fill', 'none');
@@ -951,12 +989,106 @@
           pulseLine.setAttribute('stroke-dasharray', '30 180');
           pulseLine.setAttribute('class', 'animate-pulse-dash');
           
-          const isL3 = node.id.includes('l3');
+          const isL3 = childId.includes('l3');
           pulseLine.style.animationDuration = isL3 ? '6s' : '4.5s';
           pulseLine.style.opacity = isL3 ? '0.45' : '0.8';
           pulseLine.setAttribute('filter', 'drop-shadow(0 0 3px rgba(241,191,98,0.5))');
           svg.appendChild(pulseLine);
+        }
+
+        // 1. Draw connections from central core to visible L1 nodes
+        const l1NodeIds = ['node-layer1-1', 'node-layer1-2', 'node-layer1-3', 'node-layer1-4', 'node-layer1-5'];
+        l1NodeIds.forEach(id => {
+          drawSinglePath('node-center', id);
         });
+
+        // 2. Define the branches for split columns
+        const columnBranches = {
+          1: {
+            left: ['node-l2-5-1'],
+            middle: ['node-l2-5-2'],
+            right: ['node-l2-5-3']
+          },
+          2: {
+            left: ['node-l2-2-1', 'node-l3-2-1-1', 'node-l3-2-1-2'],
+            right: ['node-l2-2-2', 'node-l3-2-2-1', 'node-l3-2-2-2', 'node-l3-2-2-3']
+          },
+          3: {
+            left: ['node-l2-4-2', 'node-l2-4-4'],
+            right: ['node-l2-4-1', 'node-l2-4-3']
+          },
+          4: {
+            left: ['node-l2-3-1', 'node-l3-3-1-1', 'node-l3-3-1-2', 'node-l3-3-1-3'],
+            right: ['node-l2-3-2', 'node-l3-3-2-1', 'node-l3-3-2-2', 'node-l3-3-2-3']
+          },
+          5: {
+            left: ['node-l2-1-1', 'node-l3-1-1-1', 'node-l3-1-1-2'],
+            middle: ['node-l2-1-2', 'node-l3-1-2-1', 'node-l3-1-2-2', 'node-l3-1-2-3', 'node-l3-1-2-4'],
+            right: ['node-l2-1-3', 'node-l3-1-3-1', 'node-l3-1-3-2']
+          }
+        };
+
+        // 3. Draw sequential connections for each column
+        for (let colId = 1; colId <= 5; colId++) {
+          const l1Id = columnsLayout[colId][0]; // L1 is always first in the layout array
+          const l1Node = document.getElementById(l1Id);
+          if (!l1Node || !l1Node.classList.contains('visible')) continue;
+
+          if (columnBranches[colId]) {
+            const branches = columnBranches[colId];
+
+            // Left Branch
+            const visibleLeft = branches.left.filter(id => {
+              const node = document.getElementById(id);
+              return node && node.classList.contains('visible');
+            });
+            if (visibleLeft.length > 0) {
+              drawSinglePath(l1Id, visibleLeft[0]);
+              for (let i = 1; i < visibleLeft.length; i++) {
+                drawSinglePath(visibleLeft[i-1], visibleLeft[i]);
+              }
+            }
+
+            // Middle Branch (if exists)
+            if (branches.middle) {
+              const visibleMiddle = branches.middle.filter(id => {
+                const node = document.getElementById(id);
+                return node && node.classList.contains('visible');
+              });
+              if (visibleMiddle.length > 0) {
+                drawSinglePath(l1Id, visibleMiddle[0]);
+                for (let i = 1; i < visibleMiddle.length; i++) {
+                  drawSinglePath(visibleMiddle[i-1], visibleMiddle[i]);
+                }
+              }
+            }
+
+            // Right Branch
+            const visibleRight = branches.right.filter(id => {
+              const node = document.getElementById(id);
+              return node && node.classList.contains('visible');
+            });
+            if (visibleRight.length > 0) {
+              drawSinglePath(l1Id, visibleRight[0]);
+              for (let i = 1; i < visibleRight.length; i++) {
+                drawSinglePath(visibleRight[i-1], visibleRight[i]);
+              }
+            }
+          } else {
+            // Single column fallback
+            const allNodes = columnsLayout[colId].slice(1); // Exclude L1
+            const visibleNodes = allNodes.filter(id => {
+              const node = document.getElementById(id);
+              return node && node.classList.contains('visible');
+            });
+            if (visibleNodes.length > 0) {
+              drawSinglePath(l1Id, visibleNodes[0]);
+              for (let i = 1; i < visibleNodes.length; i++) {
+                drawSinglePath(visibleNodes[i-1], visibleNodes[i]);
+              }
+            }
+          }
+        }
       }
 
       function getPathData(parentX, parentY, childX, childY) {
@@ -972,29 +1104,182 @@
       }
 
       // Dynamic vertical auto-shifting columns accordion layout engine ("ჩაჩოჩება")
-      // Spacing slightly widened (shift = 110px)
       function updateColumnsLayout() {
         const startTop = 360;
-        const verticalSpacing = 110; 
+        const verticalSpacing = 150; // Spacious vertical spacing between nodes
+        const branchOffset = 155; // Horizontal offset for 2-branch split columns
+        const branchOffsetThree = 260; // Horizontal offset for 3-branch split columns (1 and 5)
         
-        for (let colId in columnsLayout) {
-          let currentTop = startTop;
+        // Define branches for split columns
+        const columnBranches = {
+          1: {
+            left: ['node-l2-5-1'],
+            middle: ['node-l2-5-2'],
+            right: ['node-l2-5-3']
+          },
+          2: {
+            left: ['node-l2-2-1', 'node-l3-2-1-1', 'node-l3-2-1-2'],
+            right: ['node-l2-2-2', 'node-l3-2-2-1', 'node-l3-2-2-2', 'node-l3-2-2-3']
+          },
+          3: {
+            left: ['node-l2-4-2', 'node-l2-4-4'],
+            right: ['node-l2-4-1', 'node-l2-4-3']
+          },
+          4: {
+            left: ['node-l2-3-1', 'node-l3-3-1-1', 'node-l3-3-1-2', 'node-l3-3-1-3'],
+            right: ['node-l2-3-2', 'node-l3-3-2-1', 'node-l3-3-2-2', 'node-l3-3-2-3']
+          },
+          5: {
+            left: ['node-l2-1-1', 'node-l3-1-1-1', 'node-l3-1-1-2'],
+            middle: ['node-l2-1-2', 'node-l3-1-2-1', 'node-l3-1-2-2', 'node-l3-1-2-3', 'node-l3-1-2-4'],
+            right: ['node-l2-1-3', 'node-l3-1-3-1', 'node-l3-1-3-2']
+          }
+        };
+
+        // Calculate dynamic column widths based on visibility and hierarchy depth
+        function getColumnWidth(colId) {
           const nodeIds = columnsLayout[colId];
-          
+          let visibleCount = 0;
           nodeIds.forEach(nodeId => {
             const node = document.getElementById(nodeId);
-            if (!node) return;
-            
-            // Only update/glide nodes that are currently visible
-            if (node.classList.contains('visible')) {
-              // Glide top coordinate smoothly with CSS transitions!
-              node.style.top = `${currentTop}px`;
-              currentTop += verticalSpacing;
+            if (node && node.classList.contains('visible')) {
+              visibleCount++;
             }
           });
+          if (visibleCount === 0) return 0;
+          
+          // If the column has 3 split branches:
+          if (colId === 1 || colId === 5) {
+            const branches = columnBranches[colId];
+            const leftVisible = branches.left.some(id => document.getElementById(id)?.classList.contains('visible'));
+            const middleVisible = branches.middle.some(id => document.getElementById(id)?.classList.contains('visible'));
+            const rightVisible = branches.right.some(id => document.getElementById(id)?.classList.contains('visible'));
+            
+            let branchesVisible = 0;
+            if (leftVisible) branchesVisible++;
+            if (middleVisible) branchesVisible++;
+            if (rightVisible) branchesVisible++;
+            
+            if (branchesVisible === 3) {
+              return 760; // wide width when all 3 columns are shown
+            } else if (branchesVisible === 2) {
+              return 520;
+            }
+          }
+          // If the column has 2 split branches:
+          else if (colId === 2 || colId === 3 || colId === 4) {
+            const branches = columnBranches[colId];
+            const leftVisible = branches.left.some(id => document.getElementById(id)?.classList.contains('visible'));
+            const rightVisible = branches.right.some(id => document.getElementById(id)?.classList.contains('visible'));
+            
+            if (leftVisible && rightVisible) {
+              return 520 + visibleCount * 5; // both branches are visible, return wide column width
+            }
+          }
+          
+          let width = 235; // base card width
+          width += visibleCount * 12; // breathing space
+          return width;
+        }
+
+        // Compute left X coordinate for columns dynamically to prevent overlap and auto-shift ("ჩაჩოჩება")
+        const colX = {};
+        let currentX = 100;
+        for (let c = 1; c <= 5; c++) {
+          const colWidth = getColumnWidth(c);
+          if (c === 1) {
+            colX[c] = currentX;
+          } else {
+            const prevWidth = getColumnWidth(c - 1);
+            let gap = 80;
+            if (prevWidth > 0 && colWidth > 0) {
+              gap = (prevWidth + colWidth) / 2 + 95; // increased dynamic shift spacing
+            } else if (prevWidth > 0 || colWidth > 0) {
+              gap = 230;
+            }
+            currentX += gap;
+            colX[c] = currentX;
+          }
+        }
+
+        // Layout all nodes vertically and horizontally with dynamic spacing (NO ZIGZAG!)
+        for (let colId in columnsLayout) {
+          const nodeIds = columnsLayout[colId];
+          const baseX = colX[colId];
+          
+          // Position L1 Category Card (centered)
+          const l1Node = document.getElementById(nodeIds[0]);
+          if (l1Node) {
+            l1Node.style.top = `${startTop}px`;
+            l1Node.style.left = `${baseX}px`;
+          }
+
+          if (columnBranches[colId]) {
+            const branches = columnBranches[colId];
+
+            if (branches.middle) {
+              // 3-Branch Layout (Columns 1 and 5)
+              const visibleLeft = branches.left.filter(id => document.getElementById(id)?.classList.contains('visible'));
+              visibleLeft.forEach((nodeId, index) => {
+                const node = document.getElementById(nodeId);
+                if (node) {
+                  node.style.top = `${startTop + (index + 1) * verticalSpacing}px`;
+                  node.style.left = `${baseX - branchOffsetThree}px`;
+                }
+              });
+
+              const visibleMiddle = branches.middle.filter(id => document.getElementById(id)?.classList.contains('visible'));
+              visibleMiddle.forEach((nodeId, index) => {
+                const node = document.getElementById(nodeId);
+                if (node) {
+                  node.style.top = `${startTop + (index + 1) * verticalSpacing}px`;
+                  node.style.left = `${baseX}px`;
+                }
+              });
+
+              const visibleRight = branches.right.filter(id => document.getElementById(id)?.classList.contains('visible'));
+              visibleRight.forEach((nodeId, index) => {
+                const node = document.getElementById(nodeId);
+                if (node) {
+                  node.style.top = `${startTop + (index + 1) * verticalSpacing}px`;
+                  node.style.left = `${baseX + branchOffsetThree}px`;
+                }
+              });
+            } else {
+              // 2-Branch Layout (Columns 2, 3, 4)
+              const visibleLeft = branches.left.filter(id => document.getElementById(id)?.classList.contains('visible'));
+              visibleLeft.forEach((nodeId, index) => {
+                const node = document.getElementById(nodeId);
+                if (node) {
+                  node.style.top = `${startTop + (index + 1) * verticalSpacing}px`;
+                  node.style.left = `${baseX - branchOffset}px`;
+                }
+              });
+
+              const visibleRight = branches.right.filter(id => document.getElementById(id)?.classList.contains('visible'));
+              visibleRight.forEach((nodeId, index) => {
+                const node = document.getElementById(nodeId);
+                if (node) {
+                  node.style.top = `${startTop + (index + 1) * verticalSpacing}px`;
+                  node.style.left = `${baseX + branchOffset}px`;
+                }
+              });
+            }
+          } else {
+            // Single column fallback
+            let visibleIndex = 0;
+            nodeIds.slice(1).forEach(nodeId => {
+              const node = document.getElementById(nodeId);
+              if (node && node.classList.contains('visible')) {
+                node.style.top = `${startTop + (visibleIndex + 1) * verticalSpacing}px`;
+                node.style.left = `${baseX}px`;
+                visibleIndex++;
+              }
+            });
+          }
         }
         
-        // Continuous line tracking during gliding/transition
+        // Continuous connection lines redrawing during transition
         startRedrawLoop(500);
       }
 
@@ -1022,7 +1307,7 @@
         // Populate content
         detailTitle.textContent = details.title;
         detailCategory.textContent = details.category;
-        detailDesc.textContent = details.desc;
+        detailDesc.innerHTML = details.desc;
 
         // Show contents & hide empty placeholder
         detailsEmpty.classList.add('hidden');
@@ -1241,6 +1526,23 @@
         legendPanel.style.transform = 'scale(1)';
       });
 
+      // Logo and Brand Name Clicks - Smooth return to initial state
+      const logoLink = document.getElementById('logo-link');
+      const brandLink = document.getElementById('brand-link');
+      
+      if (logoLink) {
+        logoLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          collapseAndResetAll();
+        });
+      }
+      if (brandLink) {
+        brandLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          collapseAndResetAll();
+        });
+      }
+
       // 1. Root Node Click (PPT node)
       document.getElementById('node-center').addEventListener('click', (e) => {
         if (e.defaultPrevented) return;
@@ -1370,10 +1672,25 @@
           node.classList.add('focused-card');
 
           const directChildren = document.querySelectorAll(`[data-parent="${nodeId}"]`);
-          if (directChildren.length === 0) return; // Leaf node
-
+          
+          // Toggle logic & exclusive L1 accordion check ("უკან აიკოცოს რაც გახსნილია")
           const indicator = document.getElementById(`ind-${nodeId}`);
-          const isCurrentlyExpanded = directChildren[0].classList.contains('visible');
+          const isCurrentlyExpanded = directChildren.length > 0 && directChildren[0].classList.contains('visible');
+
+          if (nodeId.startsWith('node-layer1-') && !isCurrentlyExpanded) {
+            const allL1Nodes = document.querySelectorAll('[id^="node-layer1-"]');
+            allL1Nodes.forEach(otherL1 => {
+              if (otherL1.id !== nodeId) {
+                // Collapse all descendants of this other L1 node
+                collapseDescendants(otherL1.id);
+                // Reset the plus/minus button text of this other L1 node
+                const otherInd = document.getElementById(`ind-${otherL1.id}`);
+                if (otherInd) otherInd.textContent = '+';
+              }
+            });
+          }
+
+          if (directChildren.length === 0) return; // Leaf node
 
           if (isCurrentlyExpanded) {
             // Collapse them
@@ -1389,7 +1706,36 @@
               }, index * 40);
             });
           }
+
+          // Smoothly center the column horizontally when an L1 node is clicked ("ცენტრში ჩამოვიდეს")
+          if (nodeId.startsWith('node-layer1-')) {
+            const containerCenterX = graphContainer.clientWidth / 2;
+            const nodeCenterX = node.offsetLeft + node.offsetWidth / 2;
+            panX = containerCenterX / scale - nodeCenterX;
+            panY = 20; 
+            updateViewport();
+          }
+
           updateColumnsLayout();
+        });
+
+        // Double-click to zoom and center perfectly on the node ("ორჯერ რომ დააწკაპუნებ, მიუახლოვდეს")
+        node.addEventListener('dblclick', (e) => {
+          e.stopPropagation();
+          const nodeId = node.id;
+          
+          scale = 1.35;
+          
+          const nodeCenterX = node.offsetLeft + node.offsetWidth / 2;
+          const nodeCenterY = node.offsetTop + node.offsetHeight / 2;
+          const containerCenterX = graphContainer.clientWidth / 2;
+          const containerCenterY = graphContainer.clientHeight / 2;
+          
+          panX = containerCenterX / scale - nodeCenterX;
+          panY = containerCenterY / scale - nodeCenterY;
+          
+          updateViewport();
+          startRedrawLoop(500);
         });
 
         // 3. Hover Details Panel updates & Glimmer glow trigger
@@ -1528,12 +1874,7 @@
         startRedrawLoop(500);
       }
 
-      // Click empty graph canvas to close details sidebar and collapse all branches!
-      graphContainer.addEventListener('click', (e) => {
-        if (e.target === graphContainer || e.target === svg || e.target === viewport || e.target.classList.contains('concave-bg-layer')) {
-          collapseAndResetAll();
-        }
-      });
+
 
       // Zoom Controls
       document.getElementById('zoom-in-btn').addEventListener('click', () => {
@@ -1567,6 +1908,9 @@
       
       // Initialize viewport with standard zoomed in position centered on root
       setTimeout(() => {
+        scale = 1.1;
+        panX = (window.innerWidth / 2) - 880;
+        panY = 20;
         updateViewport();
       }, 300);
     });
