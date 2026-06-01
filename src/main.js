@@ -87,7 +87,7 @@ function initBookingModal() {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
-              <input type="tel" id="booking-phone" name="phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="5XXXXXXXX"/>
+              <input type="tel" id="booking-phone" name="phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="ტელ:"/>
             </div>
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
