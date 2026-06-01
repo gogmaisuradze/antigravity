@@ -816,7 +816,7 @@ function initBlogQuickRead() {
       category: "ტრანსფორმაცია",
       date: "20 მარტი, 2024",
       title: "ცვლილებების შიში და მათი მიღება",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBbnyk4QIQ_2sIlv-u8Wy_pO8J_hqKmzpk7aMoM1JiI0-_IAOhNPZui9Bhn7xT1I8b8QP_CVaiDJC86i0pLy7HI7SsFxAKZ6l3GlAIviCFowzisqRrYAnE8GwNymxeyolOwLGsj0FovselHnG6dh-HEprMBPSKvslSuyBm7jrRpHPVjcPUesZSwY86fwhKKHn1DSH9XttSn1cBvoE3xJwpC9T8uB8iIu9uxvwAu7F6rBswgZnrpQmNlqKDGQW0_M-k13qHRI7y5w7qi",
+      image: "/blog_transformation.png",
       paragraphs: [
         "ცვლილებების შიში ფსიქოლოგიაში ერთ-ერთი ყველაზე გავრცელებული და ბუნებრივი მოვლენაა. ადამიანი ევოლუციურად მიდრეკილია სტაბილურობისკენ — ნაცნობი გარემო ჩვენთვის უსაფრთხოებასთან ასოცირდება, მაშინაც კი, როდესაც ეს გარემო ტოქსიკური ან არაკომფორტულია.",
         "კარმალოგიკის ჭრილში, ნებისმიერი ცვლილება არის მიზეზ-შედეგობრივი ჯაჭვის ახალი რგოლი. როდესაც ჩვენ ვეწინააღმდეგებით ცვლილებებს, ჩვენ ფაქტობრივად ვბლოკავთ ენერგიის ბუნებრივ დინებას, რაც იწვევს შინაგან კრიზისს, შფოთვას და მენტალურ სტაგნაციას.",
@@ -827,7 +827,7 @@ function initBlogQuickRead() {
       category: "ჰარმონია",
       date: "18 მარტი, 2024",
       title: "ბალანსი სხეულსა და გონებას შორის",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBbO1MqDB-1WjOZSxbE-vrpPPTzaYuUjODIqeUK7KUT3ZP4vZ6aID33RWcEqxcicUupMmHexd0VPQvsN3Vw4WfjtPy-nJEx1VemNT33aPOzgdp-iyVKaNtJg7zbbSFCa66j9CJRpr07H3zYeotG7-ohQoI71IK2Jnie--K4_pLwSKIqyvISCo7I4eau1y40TR_PqNC3DlXBBvAvVT9PStBqyHcgKkgWC1C8R1DQf53AlMvyjDHqRwAPXeKkAvj6GW7bvn6GP7OwN22T",
+      image: "/blog_balance.png",
       paragraphs: [
         "ჩვენ ხშირად განვიხილავთ გონებასა და სხეულს როგორც ორ დამოუკიდებელ სუბსტანციას. თუმცა, თანამედროვე ფსიქოსომატიკა და ნეირობიოლოგია საპირისპიროს გვიმტკიცებს: ყოველი შინაგანი ემოცია, განსაკუთრებით კი ჩახშობილი ტკივილი, მყისიერად აისახება სხეულებრივ დონეზე კუნთოვანი დაძაბულობის ან ქრონიკული გადაღლილობის სახით.",
         "მენტალური ჰიგიენა და სხეულის მოვლა განუყოფელი ნაწილებია. მარტივი მედიტაციური პრაქტიკები, როგორიცაა გაცნობიერებული სუნთქვა (Mindful Breathing) ან სხეულის სკანირება, საშუალებას გვაძლევს აღვადგინოთ ეს დარღვეული კავშირი.",
@@ -838,7 +838,7 @@ function initBlogQuickRead() {
       category: "თვითგანვითარება",
       date: "12 მარტი, 2024",
       title: "ხედვის წერტილი: საკუთარი თავის აღმოჩენა",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBg_K5y6o_iz1i_tzPjiSPaA6TSxoWdPuFzoQvY9r2N46jfTST-fpLRHiRIfJP9tkq9VdiiqcL6rCTsihXCwuaJH8jo62kKnO9JPYfGS8dP1jzqa-jxHA4qmHTMUhOpMn8rXP8Pg78QSUANItFFNYh3-wDbDk1kqxpn3h3z6-3vZuZnsQPGUGhmlO_Gx1lyfh0KqZ6vWmHM56JnGXHIMynJzKSFcS5GP3YTwRRFKGpEzES5UXhb_QdeT46QDGzXfiNqey4g4VVeKVy1",
+      image: "/blog_discovery.png",
       paragraphs: [
         "ვინ ვართ ჩვენ რეალურად, როდესაც ვთავისუფლდებით სოციალური როლებისგან, პროფესიული სტატუსებისა და სხვების მოლოდინებისგან? ეს კითხვა არის ეგზისტენციალური თერაპიის ქვაკუთხედი.",
         "საკუთარი თავის შეცნობა არ ნიშნავს რაღაც ახალის გამოგონებას, ეს უფრო მეტად ჰგავს ძველი, ნამდვილი არსის არქეოლოგიურ გათხრებს. ჩვენს ქვეცნობიერში დაგროვილია უამრავი რესურსი და პასუხი, რომლებსაც ყოველდღიური ქაოსის გამო ვერ ვამჩნევთ.",
