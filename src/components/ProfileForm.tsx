@@ -292,8 +292,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     };
   }, []);
 
-  const cardSpacing = windowWidth < 480 ? 28 : windowWidth < 640 ? 35 : windowWidth < 768 ? 44 : windowWidth < 1024 ? 52 : 65;
-  const cardScale = windowWidth < 480 ? 0.72 : windowWidth < 640 ? 0.82 : 0.95;
+  const cardSpacing = windowWidth < 480 ? 34 : windowWidth < 640 ? 42 : windowWidth < 768 ? 52 : windowWidth < 1024 ? 62 : 78;
+  const cardScale = windowWidth < 480 ? 0.8 : windowWidth < 640 ? 0.9 : 1.0;
 
   // Auto-fill from saved profile
   useEffect(() => {
@@ -401,10 +401,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   };
 
   return (
-    <div id="profile-form-container" className="w-full bg-[#1e2022]/60 border border-white/5 backdrop-blur-md p-8 rounded-2xl shadow-2xl overflow-hidden relative">
+    <div id="profile-form-container" className="w-full bg-[#1e2022]/60 border border-white/5 backdrop-blur-md pt-8 px-8 pb-14 rounded-2xl shadow-2xl overflow-hidden relative">
       <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62]"></div>
 
-      {/* Centered top header "იდენტობის მატრიცა გააშუალედე ზევით ყველაფერი" */}
+      {/* Centered top header "პიროვნების კოდი გააშუალედე ზევით ყველაფერი" */}
       <div className="flex flex-col items-center justify-center text-center space-y-3 mb-8">
         <button 
           type="button"
@@ -423,7 +423,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </button>
         <div>
           <h2 className="text-xl font-bold tracking-[0.2em] text-[#f1bf62] uppercase font-headline">
-            იდენტობის მატრიცა
+            პიროვნების კოდი
           </h2>
           <p className="text-[12px] sm:text-[13px] tracking-wider text-[#c6c6ce]/70 font-semibold uppercase mt-1">
             შეიყვანეთ თქვენი მონაცემები სინქრონიზაციისთვის
@@ -513,7 +513,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               {/* The side-by-side rollers */}
               <div className="relative flex flex-row items-center justify-between gap-4 z-10 w-full">
                 {/* Month */}
-                <div className="flex-1 min-w-[130px]">
+                <div className="flex-[2] min-w-[145px] sm:min-w-[160px]">
                   <RollerPicker
                     variant="ios-dark"
                     items={monthsItems}
@@ -523,7 +523,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                 </div>
 
                 {/* Day */}
-                <div className="flex-1 min-w-[65px]">
+                <div className="flex-[0.8] min-w-[50px] sm:min-w-[60px]">
                   <RollerPicker
                     variant="ios-dark"
                     items={daysItems}
@@ -533,7 +533,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                 </div>
 
                 {/* Year */}
-                <div className="flex-1 min-w-[95px]">
+                <div className="flex-[1.2] min-w-[80px] sm:min-w-[90px]">
                   <RollerPicker
                     variant="ios-dark"
                     items={yearsItems}
@@ -588,7 +588,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           
           <div 
             style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
-            className="relative w-full h-[230px] sm:h-[260px] md:h-[300px] flex items-center justify-center overflow-visible mt-2 mb-4 select-none px-4"
+            className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] flex items-center justify-center overflow-visible mt-2 mb-4 select-none px-4"
           >
             {THEMES.map((theme, index) => {
               const isSelected = selectedTheme === theme.value;
@@ -660,7 +660,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                     transformOrigin: "bottom center",
                     transformStyle: "preserve-3d",
                   }}
-                  className={`absolute left-1/2 bottom-10 w-[86px] sm:w-[105px] md:w-[115px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
+                  className={`absolute left-1/2 bottom-10 w-[105px] sm:w-[125px] md:w-[140px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-gradient-to-b from-[#1a1c1e] to-[#121416] border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group ${
                     isHovered 
                       ? "border-[#f1bf62] shadow-[0_20px_45px_rgba(241,191,98,0.35)]"
                       : isSelected
@@ -704,7 +704,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </div>
 
         {/* Action Button Container */}
-        <div className="flex justify-center w-full mt-8">
+        <div class="flex justify-center w-full mt-14 mb-4">
           <button
             type="submit"
             disabled={loading}

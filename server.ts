@@ -154,7 +154,7 @@ app.post("/api/profile", async (req, res) => {
     // Send Telegram Notification on profile save/update
     const geoMonths = ["იანვარი", "თებერვალი", "მარტი", "აპრილი", "მაისი", "ივნისი", "ივლისი", "აგვისტო", "სექტემბერი", "ოქტომბერი", "ნოემბერი", "დეკემბერი"];
     const monthLabel = geoMonths[Number(month) - 1] || month;
-    const tgMsg = `👤 *იდენტობის მატრიცა: ახალი პროფილი / განახლება* 🌌\n\n` +
+    const tgMsg = `👤 *პიროვნების კოდი: ახალი პროფილი / განახლება* 🌌\n\n` +
                   `• *სახელი:* ${name.trim()}\n` +
                   `• *გვარი:* ${surname.trim()}\n` +
                   `• *ტელეფონი:* \`${cleanPhone}\`\n` +
@@ -197,7 +197,7 @@ app.post("/api/generate-reading", async (req, res) => {
       archetype: "არქეტიპული ანალიზი"
     };
     const typeLabel = calcLabels[type] || type;
-    const tgMsg = `🔮 *იდენტობის მატრიცა: ანალიზის გათვლა!* 🌌\n\n` +
+    const tgMsg = `🔮 *პიროვნების კოდი: ანალიზის გათვლა!* 🌌\n\n` +
                   `• *მომხმარებელი:* ${profile.name} ${profile.surname}\n` +
                   `• *ტელეფონი:* \`${cleanPhone}\`\n` +
                   `• *არჩეული თემა:* *${typeLabel}*\n` +
