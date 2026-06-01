@@ -92,9 +92,9 @@ function initBookingModal() {
             <div class="space-y-2">
               <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
               <select name="service" class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none">
-                <option>ინდივიდუალური თერაპია</option>
-                <option>წყვილთა თერაპია</option>
-                <option>ჯგუფური თერაპია</option>
+                <option>ინდივიდუალური ფსიქოთერაპია</option>
+                <option>წყვილთა ფსიქოთერაპია</option>
+                <option>ჯგუფური ფსიქოთერაპია</option>
                 <option>კონსულტაცია</option>
                 <option>ქოუჩინგი</option>
                 <option>ჯგუფური ქოუჩინგი</option>
@@ -454,7 +454,7 @@ function initFormValidation() {
         phone: phoneInput ? phoneInput.value.trim() : 'N/A',
         email: emailInput ? emailInput.value.trim() : 'N/A',
         date: dateInput ? dateInput.value : 'N/A',
-        service: serviceSelect ? serviceSelect.value : 'ინდივიდუალური თერაპია',
+        service: serviceSelect ? serviceSelect.value : 'ინდივიდუალური ფსიქოთერაპია',
         message: messageTextarea ? messageTextarea.value.trim() : '',
         timestamp: new Date().toISOString(),
         sourceUrl: window.location.href
@@ -674,7 +674,7 @@ function initMethodologyInteractions() {
       title: "მდგრადობა",
       subtitle: "Mental Resilience",
       icon: "diamond",
-      text: "მყარი მენტალური საყრდენის შექმნა. ჩვენი თერაპიის უმთავრესი მიზანია კლიენტის მენტალური ჰიგიენის დამოუკიდებელი მართვა, რათა მომავალში მან მარტივად შეძლოს ცხოვრებისეული წნეხისადმი მედეგობისა და ფსიქოლოგიური სიმტკიცის შენარჩუნება.",
+      text: "მყარი მენტალური საყრდენის შექმნა. ჩვენი ფსიქოთერაპიის უმთავრესი მიზანია კლიენტის მენტალური ჰიგიენის დამოუკიდებელი მართვა, რათა მომავალში მან მარტივად შეძლოს ცხოვრებისეული წნეხისადმი მედეგობისა და ფსიქოლოგიური სიმტკიცის შენარჩუნება.",
       quote: "„მდგრადობა არ ნიშნავს იმას, რომ არასოდეს დაეცემი. ეს ნიშნავს იმას, რომ ყოველთვის შეძლებ წამოდგომას.“"
     }
   };
