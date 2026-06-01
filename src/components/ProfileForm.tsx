@@ -557,24 +557,24 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         {(() => {
           const activeDisplayTheme = THEMES.find(t => t.value === (hoveredTheme || selectedTheme));
           return (
-            <div className="p-5 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-xl shadow-xl max-w-xl mx-auto text-center space-y-2 transform transition-all duration-500 hover-glow my-4">
+            <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-[#1e2022]/90 to-[#121416]/95 border-2 border-[#f1bf62]/35 backdrop-blur-2xl shadow-[0_20px_50px_rgba(241,191,98,0.15)] max-w-2xl mx-auto text-center space-y-3 transform transition-all duration-500 hover:scale-[1.02] hover:border-[#f1bf62]/55 my-6 hover:shadow-[0_25px_60px_rgba(241,191,98,0.25)]">
               {activeDisplayTheme ? (
                 <>
-                  <h4 className="text-[14px] font-extrabold text-[#f1bf62] uppercase tracking-widest flex items-center justify-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#f1bf62] animate-pulse" />
+                  <h4 className="text-lg md:text-xl font-extrabold text-[#f1bf62] uppercase tracking-[0.15em] flex items-center justify-center gap-2.5 font-headline">
+                    <Sparkles className="w-5 h-5 text-[#f1bf62] animate-pulse" />
                     {activeDisplayTheme.label}
                   </h4>
-                  <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/85 font-semibold leading-relaxed min-h-[40px]">
+                  <p className="text-sm md:text-base text-[#e2e2e9] font-medium leading-relaxed min-h-[50px] font-sans">
                     {activeDisplayTheme.description}
                   </p>
                 </>
               ) : (
                 <>
-                  <h4 className="text-[14px] font-extrabold text-[#f1bf62]/60 uppercase tracking-widest flex items-center justify-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#f1bf62]/40" />
+                  <h4 className="text-lg md:text-xl font-extrabold text-[#f1bf62] uppercase tracking-[0.15em] flex items-center justify-center gap-2.5 font-headline animate-pulse">
+                    <Sparkles className="w-5 h-5 text-[#f1bf62] animate-spin" style={{ animationDuration: '4s' }} />
                     აირჩიეთ ანალიზის თემა
                   </h4>
-                  <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/50 font-semibold leading-relaxed min-h-[40px]">
+                  <p className="text-sm md:text-base text-[#bcc5e9]/90 font-medium leading-relaxed min-h-[50px] font-sans">
                     მიიტანეთ მაუსი ან დააწკაპუნეთ სასურველ ბარათზე დეტალური აღწერის სანახავად და სინქრონიზაციისთვის
                   </p>
                 </>
