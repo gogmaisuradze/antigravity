@@ -171,18 +171,18 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
   };
 
   return (
-    <div id="compatibility-panel-container" className="w-full bg-[#1e2022]/60 border border-white/5 backdrop-blur-md p-8 rounded-2xl shadow-2xl overflow-hidden relative">
+    <div id="compatibility-panel-container" className="w-full max-w-2xl mx-auto bg-[#1e2022]/60 border border-white/5 backdrop-blur-md p-8 rounded-2xl shadow-2xl overflow-hidden relative">
       <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62]"></div>
 
-      <div className="flex items-center space-x-3 mb-8">
+      <div className="flex flex-col items-center justify-center text-center space-y-3 mb-8">
         <div className="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-[#f1bf62]">
           <Heart className="w-5 h-5 fill-red-500/10 text-red-400" />
         </div>
-        <div>
+        <div className="flex flex-col items-center">
           <h2 className="text-lg font-bold tracking-[0.15em] text-[#f1bf62] uppercase font-headline">
             ნახე სხვასთან თავსებადობა
           </h2>
-          <p className="text-[12px] tracking-wider text-[#c6c6ce]/70 font-semibold uppercase mt-1">
+          <p className="text-[12px] tracking-wider text-[#c6c6ce]/70 font-semibold uppercase mt-1 max-w-md mx-auto">
             გამოთვალეთ თქვენი და სასურველი ადამიანის ასტრო-ფსიქოლოგიური კავშირის რეზონანსი
           </p>
         </div>
@@ -205,7 +205,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
       )}
 
       {/* Inputs Section */}
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-[480px] mx-auto w-full">
         <div>
           <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
             ტელეფონი:
