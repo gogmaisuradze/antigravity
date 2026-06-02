@@ -94,7 +94,7 @@ function initBookingModal() {
               <input type="tel" id="booking-phone" name="phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="ტელ:"/>
             </div>
             <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სერვისი</label>
+              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">აირჩიე სერვისი</label>
               <select name="service" class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none">
                 <option>კონსულტაცია</option>
                 <option>ინდივიდუალური ფსიქოთერაპია</option>
