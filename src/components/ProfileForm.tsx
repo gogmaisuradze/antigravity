@@ -428,7 +428,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           <h2 className="text-xl font-bold tracking-[0.2em] text-[#f1bf62] uppercase font-headline">
             ID-სი
           </h2>
-          <p className="text-[12px] sm:text-[13px] tracking-wider text-[#c6c6ce]/70 font-semibold uppercase mt-1">
+          <p className="text-xs text-[#c6c6ce] tracking-widest uppercase font-semibold mt-1">
+            იდენტობის მატრიცა
+          </p>
+          <p className="text-[11px] sm:text-[12px] tracking-wider text-[#c6c6ce]/60 font-semibold uppercase mt-2">
             შეიყვანეთ თქვენი მონაცემები სინქრონიზაციისთვის
           </p>
         </div>
