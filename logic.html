@@ -238,12 +238,20 @@
   <header class="h-20 border-b border-white/5 bg-[#040506]/40 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-30 select-none relative">
     <!-- Left Title (Gold Brand) -->
     <div class="flex items-center gap-2 z-10">
-      <a href="logic.html" id="brand-link" class="text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62] hover:opacity-80 transition-opacity no-underline whitespace-nowrap">IDC პოზიტიური ფსიქოთერაპია</a>
+      <!-- Desktop Brand Name (Goes to logic.html) -->
+      <a href="logic.html" id="brand-link-desktop" class="hidden md:inline text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62] hover:opacity-80 transition-opacity no-underline whitespace-nowrap">IDC პოზიტიური ფსიქოთერაპია</a>
+      <!-- Mobile Brand Name (Goes to index.html) -->
+      <a href="index.html" id="brand-link-mobile" class="md:hidden inline text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62] hover:opacity-80 transition-opacity no-underline whitespace-nowrap">IDC პოზიტიური ფსიქოთერაპია</a>
     </div>
 
     <!-- Center Logo (Maximized Emblem) -->
     <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto h-full z-10">
-      <a href="logic.html" id="logo-link" class="hover:opacity-90 transition-opacity duration-300 flex items-center">
+      <!-- Desktop Logo (Goes to logic.html) -->
+      <a href="logic.html" id="logo-link-desktop" class="hidden md:flex hover:opacity-90 transition-opacity duration-300 items-center">
+        <img alt="IDC Logo" class="object-contain max-w-none h-[180px] w-[180px] sm:h-[320px] sm:w-[320px] md:h-[550px] md:w-[550px] mt-[-55px] sm:mt-[-125px] md:mt-[-235px] mb-[-55px] sm:mb-[-125px] md:mb-[-235px] transition-all duration-300" src="/src/logo.png" style="mix-blend-mode: screen;"/>
+      </a>
+      <!-- Mobile Logo (Goes to index.html) -->
+      <a href="index.html" id="logo-link-mobile" class="md:hidden flex hover:opacity-90 transition-opacity duration-300 items-center">
         <img alt="IDC Logo" class="object-contain max-w-none h-[180px] w-[180px] sm:h-[320px] sm:w-[320px] md:h-[550px] md:w-[550px] mt-[-55px] sm:mt-[-125px] md:mt-[-235px] mb-[-55px] sm:mb-[-125px] md:mb-[-235px] transition-all duration-300" src="/src/logo.png" style="mix-blend-mode: screen;"/>
       </a>
     </div>

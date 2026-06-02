@@ -37,11 +37,22 @@
   <header class="fixed top-0 left-0 right-0 z-50 px-2.5 md:px-12 pt-3 md:pt-6 pointer-events-none">
     <nav id="main-nav" class="pointer-events-auto flex items-center px-4 md:px-12 py-1.5 md:py-1.5 w-full max-w-7xl mx-auto bg-[#1e2022]/40 border border-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl shadow-[0px_20px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
       <div class="flex items-center gap-2 md:gap-4 pointer-events-auto pl-1 md:pl-4">
-        <a href="logic.html" class="hover:opacity-80 transition-opacity duration-300">
-          <img alt="IDC Logo" class="h-12 w-12 md:h-[72px] md:w-[72px] object-contain transition-transform duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: screen; margin: 0; max-width: none;"/>
+        <!-- Desktop Logo (Goes to logic.html) -->
+        <a href="logic.html" class="hidden md:inline hover:opacity-80 transition-opacity duration-300">
+          <img alt="IDC Logo" class="h-[72px] w-[72px] object-contain transition-transform duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: screen; margin: 0; max-width: none;"/>
         </a>
-        <a href="about.html" class="hover:opacity-80 transition-opacity duration-300 no-underline">
-          <span class="text-2xl md:text-4xl font-headline font-bold text-[#f1bf62] tracking-normal italic drop-shadow-[0_2px_6px_rgba(241,191,98,0.2)]">აიდისი</span>
+        <!-- Mobile Logo (Goes to index.html) -->
+        <a href="index.html" class="md:hidden inline hover:opacity-80 transition-opacity duration-300">
+          <img alt="IDC Logo" class="h-12 w-12 object-contain transition-transform duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: screen; margin: 0; max-width: none;"/>
+        </a>
+        
+        <!-- Desktop Brand Name (Goes to about.html) -->
+        <a href="about.html" class="hidden md:inline hover:opacity-80 transition-opacity duration-300 no-underline">
+          <span class="text-4xl font-headline font-bold text-[#f1bf62] tracking-normal italic drop-shadow-[0_2px_6px_rgba(241,191,98,0.2)]">აიდისი</span>
+        </a>
+        <!-- Mobile Brand Name (Goes to index.html) -->
+        <a href="index.html" class="md:hidden inline hover:opacity-80 transition-opacity duration-300 no-underline">
+          <span class="text-2xl font-headline font-bold text-[#f1bf62] tracking-normal italic drop-shadow-[0_2px_6px_rgba(241,191,98,0.2)]">აიდისი</span>
         </a>
       </div>
       <div class="hidden md:flex items-center gap-4 lg:gap-10 font-headline italic text-base lg:text-lg tracking-wide ml-auto mr-4 lg:mr-10">
@@ -207,11 +218,11 @@
             </div>
             <h3 class="text-3xl font-headline text-white mb-6">ინდივიდუალური ფსიქოთერაპია</h3>
             <p class="text-white max-w-md leading-relaxed font-light">სიღრმისეული მუშაობა საკუთარ თავთან, ტრავმების გააზრება და ახალი პერსპექტივების აღმოჩენა.</p>
-            <div class="mt-12 overflow-hidden h-48 rounded-xl relative border border-white/5">
+            <div class="mt-12 overflow-hidden aspect-video md:aspect-auto md:h-48 rounded-xl relative border border-white/5">
               <video 
                 id="sessions-bell-video"
                 src="/ზანზალაკი.mp4" 
-                class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 scale-100 group-hover:scale-110 transition-all duration-1000 pointer-events-none"
+                class="w-full h-full object-cover object-center grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 scale-100 group-hover:scale-110 transition-all duration-1000 pointer-events-none"
                 muted 
                 loop 
                 playsinline>
@@ -228,38 +239,39 @@
               გაიგე მეტი <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
           </div>
-          <div class="bg-surface-container-high p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent">
+
+          <!-- Education Card -->
+          <div class="md:col-span-2 bg-surface-container p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group cursor-pointer"
+               onclick="window.location.href='education.html'">
             <div>
-              <span class="material-symbols-outlined text-secondary text-4xl mb-8">self_improvement</span>
-              <h3 class="text-2xl font-headline text-white mb-4">ონლაინ კურსები</h3>
-              <p class="text-on-surface-variant text-sm leading-relaxed font-light">თვითგანვითარების პროგრამები, რომლებიც შეგიძლიათ გაიაროთ თქვენთვის კომფორტულ დროს.</p>
+              <div class="flex justify-between items-start mb-8">
+                <span class="material-symbols-outlined text-secondary text-4xl">school</span>
+                <span class="text-xs font-label tracking-widest opacity-40 uppercase">EDUCATIONAL PROGRAMS</span>
+              </div>
+              <h3 class="text-2xl font-headline text-white mb-4">განათლება</h3>
+              <p class="text-on-surface-variant text-sm leading-relaxed font-light">სიღრმისეული სასწავლო პროგრამები, ინტერაქტიული ვორქშოფები, პრაქტიკული სემინარები და მენტალური ჯანმრთელობის კურსები.</p>
             </div>
-            <div class="mt-8 h-20 bg-surface-container rounded-lg flex items-center px-4 gap-4 border border-white/5">
-              <div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
-              <span class="text-xs font-label">ახალი კურსი: "ემოციური ინტელექტი"</span>
+            <div class="mt-8">
+              <a class="bg-secondary-container text-on-secondary-container px-6 py-2.5 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all shadow-xl flex items-center gap-2 font-label text-xs w-fit" href="education.html">
+                კურსების დათვალიერება <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1.5">arrow_forward</span>
+              </a>
             </div>
           </div>
-          <div class="bg-surface-container-high p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent">
+
+          <!-- Corporate Trainings Card -->
+          <div class="bg-primary-container p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group cursor-pointer"
+               onclick="window.location.href='services.html'">
             <div>
-              <span class="material-symbols-outlined text-secondary text-4xl mb-8">business_center</span>
+              <div class="flex justify-between items-start mb-8">
+                <span class="material-symbols-outlined text-[#bcc5e9] text-4xl">business_center</span>
+                <span class="text-xs font-label tracking-widest opacity-40 uppercase">CORPORATE</span>
+              </div>
               <h3 class="text-2xl font-headline text-white mb-4">კორპორატიული ტრენინგები</h3>
-              <p class="text-on-surface-variant text-sm leading-relaxed font-light">ფსიქოლოგიური კორპორატიული პროგრამები გუნდური ეფექტურობისა და მენტალური ჯანმრთელობისთვის.</p>
+              <p class="text-[#99a3c5] text-sm leading-relaxed font-light">ფსიქოლოგიური კორპორატიული პროგრამები გუნდური ეფექტურობისა და მენტალური ჯანმრთელობისთვის.</p>
             </div>
-            <div class="mt-8 h-20 bg-surface-container rounded-lg flex items-center px-4 gap-4 border border-white/5">
-              <div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
-              <span class="text-xs font-label">ახალი: "Stress Management"</span>
-            </div>
-          </div>
-          <div class="bg-surface-container-high p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent">
-            <div>
-              <span class="material-symbols-outlined text-secondary text-4xl mb-8">library_books</span>
-              <h3 class="text-2xl font-headline text-white mb-4">ბიბლიოთეკა & რესურსები</h3>
-              <p class="text-on-surface-variant text-sm leading-relaxed font-light">სამეცნიერო პუბლიკაციები, ფსიქოლოგიური წიგნები და თვითშეფასების ტესტები.</p>
-            </div>
-            <div class="mt-8 h-20 bg-surface-container rounded-lg flex items-center px-4 gap-4 border border-white/5">
-              <div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
-              <span class="text-xs font-label">წვდომა: 50+ უფასო რესურსი</span>
-            </div>
+            <a class="mt-8 text-secondary flex items-center gap-2 font-label text-sm" href="services.html">
+              გაიგე მეტი <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
           </div>
         </div>
       </div>

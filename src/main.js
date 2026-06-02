@@ -1,6 +1,6 @@
 // IDC Psychotherapy Web Application - Client-Side Interactive Logic & Premium Upgrades
 
-document.addEventListener('DOMContentLoaded', () => {
+const initAll = () => {
   initMobileMenu();
   initBookingModal();
   initBlogFilters();
@@ -15,7 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initBlogQuickRead();
   initVideoScrollScrub();
   initN8nChat();
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAll);
+} else {
+  initAll();
+}
 
 /* ==========================================================================
    1. Mobile Menu Functionality
