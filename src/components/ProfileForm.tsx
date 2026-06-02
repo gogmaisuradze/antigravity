@@ -243,6 +243,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
+    if (window.innerWidth < 768) {
+      setUseStandardCalendar(true);
+    }
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -412,7 +415,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
             setUseStandardCalendar(!useStandardCalendar);
             playExitCapSound();
           }}
-          className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all cursor-pointer ${
+          className={`hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all cursor-pointer ${
             useStandardCalendar 
               ? 'bg-[#f1bf62] text-[#121416] border-[#f1bf62] shadow-[0_0_15px_rgba(241,191,98,0.3)] scale-105' 
               : 'bg-white/5 text-[#f1bf62] border-white/20 hover:bg-white/10 hover:scale-105'
