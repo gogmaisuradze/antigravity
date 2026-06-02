@@ -170,6 +170,18 @@ export default function App() {
     return () => clearInterval(interval);
   }, [loadingReading]);
 
+  // Auto-scroll to reading display when loading or showing results
+  useEffect(() => {
+    if (loadingReading || reading || error) {
+      setTimeout(() => {
+        const el = document.getElementById("reading-display");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  }, [loadingReading, reading, error]);
+
   // Load profile from localStorage and fetch update from server on mount
   useEffect(() => {
     const savedPhone = localStorage.getItem("user_phone");
@@ -201,11 +213,11 @@ export default function App() {
     setUserProfile(profile);
     localStorage.setItem("user_phone", profile.phone);
     if (initialTheme) {
-      handleSelectReading(profile.phone, initialTheme);
+      handleSelectReading(profile.phone, initialTheme, true);
     }
   };
 
-  const handleSelectReading = async (phone: string, type: CalculationType) => {
+  const handleSelectReading = async (phone: string, type: CalculationType, shouldFreeze = false) => {
     setSelectedType(type);
     setLoadingReading(true);
     setError(null);
@@ -226,7 +238,9 @@ export default function App() {
     } catch (err) {
       setError("კავშირის შეცდომა. სცადეთ მოგვიანებით.");
     } finally {
-      setLoadingReading(false);
+      if (!shouldFreeze) {
+        setLoadingReading(false);
+      }
     }
   };
 
@@ -259,7 +273,7 @@ export default function App() {
   const getWhatsAppShareURL = () => {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
-    const message = `გამარჯობა, გაზიარებთ ჩემი პიროვნების კოდის ანალიზს 🔮🌟\n\n` +
+    const message = `გამარჯობა, გაზიარებთ ჩემი კოსმო ID-ს ანალიზს 🔮🌟\n\n` +
       `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
       `დაბადების თარიღი: ${userProfile.day}/${userProfile.month}/${userProfile.year}\n` +
       `დაბადების ადგილი: ${userProfile.birthPlace || "საქართველო"}\n\n` +
@@ -273,7 +287,7 @@ export default function App() {
   const getTelegramShareURL = () => {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
-    const message = `გამარჯობა, გაზიარებთ ჩემი პიროვნების კოდის ანალიზს 🔮🌟\n\n` +
+    const message = `გამარჯობა, გაზიარებთ ჩემი კოსმო ID-ს ანალიზს 🔮🌟\n\n` +
       `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
       `ანალიზის სათაური: ${reading.title}\n\n` +
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:`;
@@ -305,12 +319,12 @@ export default function App() {
     const shareLink = `${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
     if (navigator.share) {
       navigator.share({
-        title: reading?.title || "პიროვნების კოდი",
-        text: `გამარჯობა, გაზიარებთ ჩემი პიროვნების კოდის ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
+        title: reading?.title || "კოსმო ID",
+        text: `გამარჯობა, გაზიარებთ ჩემი კოსმო ID-ს ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
         url: shareLink,
       }).catch(() => {});
     } else {
-      const smsBody = `გამარჯობა, გაზიარებთ ჩემი პიროვნების კოდის ანალიზს 🔮🌟\n\n${shareLink}`;
+      const smsBody = `გამარჯობა, გაზიარებთ ჩემი კოსმო ID-ს ანალიზს 🔮🌟\n\n${shareLink}`;
       window.open(`sms:?body=${encodeURIComponent(smsBody)}`);
     }
   };
@@ -334,12 +348,12 @@ export default function App() {
     const shareLink = `${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
     if (navigator.share) {
       navigator.share({
-        title: reading?.title || "პიროვნების კოდი",
-        text: `გამარჯობა, გაზიარებთ ჩემი პიროვნების კოდის ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
+        title: reading?.title || "კოსმო ID",
+        text: `გამარჯობა, გაზიარებთ ჩემი კოსმო ID-ს ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
         url: shareLink,
       }).catch(() => {});
     } else {
-      const smsBody = `გამარჯობა, გაზიარებთ ჩემი პიროვნების კოდის ანალიზს 🔮🌟\n\n${shareLink}`;
+      const smsBody = `გამარჯობა, გაზიარებთ ჩემი კოსმო ID-ს ანალიზს 🔮🌟\n\n${shareLink}`;
       window.open(`sms:?body=${encodeURIComponent(smsBody)}`);
     }
   };
@@ -357,7 +371,7 @@ export default function App() {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
     const cleanPhone = phone.trim().replace(/\s+/g, "");
-    const message = `გამარჯობა, გაზიარებთ ჩემი პიროვნების კოდის ანალიზს 🔮🌟\n\n` +
+    const message = `გამარჯობა, გაზიარებთ ჩემი კოსმო ID-ს ანალიზს 🔮🌟\n\n` +
       `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
       `დაბადების თარიღი: ${userProfile.day}/${userProfile.month}/${userProfile.year}\n` +
       `ტელეფონი: ${cleanPhone}\n\n` +
@@ -372,7 +386,7 @@ export default function App() {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
     const cleanPhone = phone.trim().replace(/\s+/g, "");
-    const message = `გამარჯობა, გაზიარებთ ჩემი პიროვნების კოდის ანალიზს 🔮🌟\n\n` +
+    const message = `გამარჯობა, გაზიარებთ ჩემი კოსმო ID-ს ანალიზს 🔮🌟\n\n` +
       `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
       `ანალიზის სათაური: ${reading.title}\n\n` +
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:`;
@@ -568,7 +582,7 @@ export default function App() {
           <div className="space-y-12">
             {/* 1. Reading Display panel */}
             {(loadingReading || reading || error) && (
-              <div className="w-full bg-[#1e2022]/60 p-8 rounded-2xl border border-white/5 shadow-2xl transition-all relative backdrop-blur-md">
+              <div id="reading-display" className="w-full bg-[#1e2022]/60 p-8 rounded-2xl border border-white/5 shadow-2xl transition-all relative backdrop-blur-md">
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62] rounded-t-2xl"></div>
                 
                 {/* Back Button */}
@@ -661,8 +675,22 @@ export default function App() {
                     </div>
                     
                     {/* Render Markdown Response elegantly */}
-                    <div className="text-[#c6c6ce] text-sm md:text-base leading-relaxed prose prose-invert max-w-none space-y-4 prose-p:my-2 prose-headings:text-[#f1bf62] prose-headings:font-headline prose-headings:tracking-normal prose-headings:uppercase prose-hr:border-white/10 overflow-hidden font-medium">
-                      <ReactMarkdown>{reading.content}</ReactMarkdown>
+                    <div className="text-[#c6c6ce] text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-medium">
+                      <ReactMarkdown
+                        components={{
+                          h1: ({node, ...props}) => <h1 className="text-xl sm:text-2xl font-black text-[#f1bf62] font-headline tracking-widest mt-6 mb-2 border-b border-white/5 pb-2 uppercase" {...props} />,
+                          h2: ({node, ...props}) => <h2 className="text-lg sm:text-xl font-black text-[#f1bf62] font-headline tracking-wider mt-5 mb-2 uppercase" {...props} />,
+                          h3: ({node, ...props}) => <h3 className="text-base sm:text-lg font-bold text-[#f1bf62] font-headline mt-4 mb-1.5 uppercase" {...props} />,
+                          p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#c6c6ce]/90 leading-relaxed my-2.5 font-medium" {...props} />,
+                          ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
+                          ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
+                          li: ({node, ...props}) => <li className="marker:text-[#f1bf62]" {...props} />,
+                          strong: ({node, ...props}) => <strong className="text-white font-black" {...props} />,
+                          hr: ({node, ...props}) => <hr className="border-white/10 my-6" {...props} />,
+                        }}
+                      >
+                        {reading.content}
+                      </ReactMarkdown>
                     </div>
 
                     {/* Optional request for phone number to send to WhatsApp */}
@@ -863,7 +891,7 @@ export default function App() {
               <SpinWheel
                 onSelect={(type) => handleSelectReading(userProfile.phone, type)}
                 selectedType={selectedType}
-                disabled={loadingReading}
+                disabled={false}
               />
             </div>
           </div>

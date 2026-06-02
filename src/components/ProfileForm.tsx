@@ -423,7 +423,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </button>
         <div>
           <h2 className="text-xl font-bold tracking-[0.2em] text-[#f1bf62] uppercase font-headline">
-            პიროვნების კოდი
+            კოსმო ID
           </h2>
           <p className="text-[12px] sm:text-[13px] tracking-wider text-[#c6c6ce]/70 font-semibold uppercase mt-1">
             შეიყვანეთ თქვენი მონაცემები სინქრონიზაციისთვის

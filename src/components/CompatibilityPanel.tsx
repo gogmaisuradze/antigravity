@@ -13,6 +13,9 @@ interface CompatibilityPanelProps {
 
 export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProfile, invitedPhone }) => {
   const [partnerPhone, setPartnerPhone] = useState("");
+  const [partnerName, setPartnerName] = useState("");
+  const [partnerSurname, setPartnerSurname] = useState("");
+  const [partnerBirthDate, setPartnerBirthDate] = useState(""); // "YYYY-MM-DD"
   const [checking, setChecking] = useState(false);
   const [partnerProfile, setPartnerProfile] = useState<any | null>(null);
   const [partnerStatus, setPartnerStatus] = useState<"unchecked" | "not_found" | "found">("unchecked");
@@ -46,6 +49,15 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
         if (data.exists) {
           setPartnerStatus("found");
           setPartnerProfile(data.profile);
+          // Auto-fill form values!
+          setPartnerName(data.profile.name || "");
+          setPartnerSurname(data.profile.surname || "");
+          if (data.profile.year && data.profile.month && data.profile.day) {
+            const y = data.profile.year;
+            const m = String(data.profile.month).padStart(2, '0');
+            const d = String(data.profile.day).padStart(2, '0');
+            setPartnerBirthDate(`${y}-${m}-${d}`);
+          }
         } else {
           setPartnerStatus("not_found");
         }
@@ -60,17 +72,59 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
   };
 
   const handleCalculate = async () => {
-    if (partnerStatus !== "found") return;
+    const cleanPhone = partnerPhone.trim().replace(/\s+/g, "");
+    if (!cleanPhone) {
+      setError("ტელეფონის ნომერი სავალდებულოა!");
+      return;
+    }
+    if (!partnerName.trim()) {
+      setError("პარტნიორის სახელი სავალდებულოა!");
+      return;
+    }
+    if (!partnerSurname.trim()) {
+      setError("პარტნიორის გვარი სავალდებულოა!");
+      return;
+    }
+    if (!partnerBirthDate) {
+      setError("დაბადების თარიღი სავალდებულოა!");
+      return;
+    }
+
     setCalculating(true);
     setError(null);
 
     try {
+      const [year, month, day] = partnerBirthDate.split('-').map(Number);
+      
+      // Register or update partner profile first
+      const regResponse = await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone: cleanPhone,
+          name: partnerName.trim(),
+          surname: partnerSurname.trim(),
+          birthPlace: "თბილისი",
+          day,
+          month,
+          year,
+        }),
+      });
+
+      const regData = await regResponse.json();
+      if (!regData.success) {
+        setError(regData.error || "პარტნიორის მონაცემების შენახვა ვერ მოხერხდა");
+        setCalculating(false);
+        return;
+      }
+
+      // Compute compatibility
       const response = await fetch("/api/compatibility", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           phoneA: userProfile.phone,
-          phoneB: partnerPhone.trim().replace(/\s+/g, ""),
+          phoneB: cleanPhone,
         }),
       });
 
@@ -91,7 +145,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
   const getWhatsAppInviteLink = () => {
     const appUrl = window.location.origin;
     const messageText = `გამარჯობა! მინდა გავიგო ჩვენი კოსმოსური და ფსიქოლოგიური თავსებადობა (ჰოროსკოპის, ენიაგრამის, ნუმეროლოგიის და ბა-ძის მიხედვით) ❤️ 
-
+ 
 გთხოვ, სულ რამდენიმე წამში შეავსო შენი მონაცემები ამ სპეციალური ლინკით, რის შემდეგაც ავტომატურად გამოვითვლით თავსებადობას:
 👉 ${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
 
@@ -103,13 +157,13 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
     if (!result) return "";
     const appUrl = window.location.origin;
     const messageText = `ჩვენი კოსმოსური თავსებადობა გაანგარიშებულია ხელოვნური ინტელექტის მიხედვით! 🧬❤️
-
+ 
 საერთო თავსებადობის ქულაა: %${result.compatibilityScore}
 ✨ ასტროლოგიური: %${result.dimensions.astrological}
 🧠 ფსიქოლოგიური: %${result.dimensions.psychological}
 🔮 ნუმეროლოგიური: %${result.dimensions.vibrational}
 🌀 კარმული: %${result.dimensions.karmic}
-
+ 
 გახსენი აპლიკაცია, რომ წაიკითხო ხელოვნური ინტელექტის ვრცელი ერთობლივი ანალიზი:
 👉 ${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
 
@@ -126,7 +180,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
         </div>
         <div>
           <h2 className="text-lg font-bold tracking-[0.15em] text-[#f1bf62] uppercase font-headline">
-            თავსებადობის მოდული
+            ნახე სხვასთან თავსებადობა
           </h2>
           <p className="text-[12px] tracking-wider text-[#c6c6ce]/70 font-semibold uppercase mt-1">
             გამოთვალეთ თქვენი და სასურველი ადამიანის ასტრო-ფსიქოლოგიური კავშირის რეზონანსი
@@ -135,10 +189,10 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
       </div>
 
       {invitedPhone && partnerStatus === "found" && (
-        <div className="mb-6 p-4 bg-emerald-950/20 border border-emerald-500/20 text-emerald-300 text-xs rounded-xl flex items-start space-x-3 font-semibold">
+        <div className="mb-6 p-4 bg-emerald-950/20 border border-emerald-500/20 text-emerald-350 text-xs rounded-xl flex items-start space-x-3 font-semibold">
           <Sparkles className="w-4.5 h-4.5 shrink-0 text-emerald-400 animate-pulse" />
           <span className="leading-relaxed">
-            თქვენ მოწვეული ხართ თავსებადობის შესამოწმებლად მომხმარებელთან: <strong className="text-white font-bold">{partnerProfile?.name} {partnerProfile?.surname}</strong>. შეგიძლიათ პირდაპირ დაიწყოთ სინქრონიზაციის პროცესი!
+            თქვენ მოწვეული ხართ თავსებადობის შესამოწმებლად მომხმარებელთან: <strong className="text-white font-bold">{partnerName} {partnerSurname}</strong>. მონაცემები შევსებულია, შეგიძლიათ დაიწყოთ სინქრონიზაცია!
           </span>
         </div>
       )}
@@ -154,7 +208,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
       <div className="space-y-6">
         <div>
           <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
-            ტელ:
+            ტელეფონი:
           </label>
           <div className="flex space-x-3">
             <input
@@ -182,60 +236,110 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
           </div>
         </div>
 
-        {/* Dynamic Status UI */}
-        {partnerStatus === "not_found" && (
-          <div className="p-6 bg-[#1e2022]/40 border border-white/5 rounded-2xl space-y-4 shadow-sm">
-            <div className="flex items-start space-x-3 text-[#c6c6ce] text-xs font-semibold">
-              <AlertTriangle className="w-4.5 h-4.5 shrink-0 text-[#f1bf62]" />
-              <div className="space-y-1">
-                <p className="font-extrabold tracking-wider uppercase text-[11px] text-[#f1bf62] font-headline">მომხმარებელი ვერ მოიძებნა</p>
-                <p className="text-[#c6c6ce]/80 leading-relaxed">
-                  თავსებადობის გამოსათვლელად საჭიროა მეორე ადამიანმაც შეიყვანოს თავისი საწყისი პარამეტრები. გაუგზავნეთ მას მოწვევის სიგნალი:
-                </p>
-              </div>
-            </div>
-            
-            <a
-              href={getWhatsAppInviteLink()}
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className="w-full bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold text-[11px] tracking-widest uppercase py-3.5 px-4 rounded-xl shadow-[0_0_15px_rgba(241,191,98,0.3)] flex items-center justify-center space-x-2 transition-all active:scale-98"
-            >
-              <MessageSquare className="w-4 h-4 text-[#121416] p-0.5" />
-              <span>თავსებადობის მოწვევა WhatsApp-ზე</span>
-            </a>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
+              სახელი:
+            </label>
+            <input
+              type="text"
+              value={partnerName}
+              onChange={(e) => {
+                setPartnerName(e.target.value);
+                setResult(null);
+              }}
+              placeholder="მაგ: მარიამი"
+              className="w-full bg-transparent border-b border-white/10 py-3 text-base text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#f1bf62] font-medium transition-colors"
+            />
           </div>
-        )}
 
-        {partnerStatus === "found" && partnerProfile && (
-          <div className="p-6 bg-emerald-950/20 border border-emerald-500/20 rounded-xl space-y-4 shadow-xs">
+          <div>
+            <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
+              გვარი:
+            </label>
+            <input
+              type="text"
+              value={partnerSurname}
+              onChange={(e) => {
+                setPartnerSurname(e.target.value);
+                setResult(null);
+              }}
+              placeholder="მაგ: კობახიძე"
+              className="w-full bg-transparent border-b border-white/10 py-3 text-base text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#f1bf62] font-medium transition-colors"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
+            დაბადების თარიღი:
+          </label>
+          <div className="relative bg-[#1e2022]/40 rounded-2xl py-4 px-6 shadow-2xl border border-white/10 max-w-[280px] overflow-hidden">
+            <input
+              type="date"
+              value={partnerBirthDate}
+              onChange={(e) => {
+                setPartnerBirthDate(e.target.value);
+                setResult(null);
+              }}
+              className="w-full bg-transparent border-0 py-1 text-base text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
+              style={{ colorScheme: 'dark' }}
+            />
+          </div>
+        </div>
+
+        {/* Dynamic Status UI */}
+        {partnerStatus === "found" && (
+          <div className="p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-xl space-y-2 shadow-xs">
             <div className="flex items-center space-x-2 text-emerald-350 text-xs font-semibold">
               <CheckCircle2 className="w-4.5 h-4.5 shrink-0 text-emerald-400" />
               <span className="tracking-wide text-[12px]">
-                სისტემამ მოძებნა: <strong className="text-white font-bold">{partnerProfile.name} {partnerProfile.surname}</strong> (მზადყოფნა აქტიურია)
+                სისტემამ მოძებნა დარეგისტრირებული მომხმარებელი: <strong className="text-white font-bold">{partnerName} {partnerSurname}</strong> (მზადყოფნა აქტიურია)
               </span>
             </div>
-
-            {!result && (
-              <button
-                onClick={handleCalculate}
-                disabled={calculating}
-                className="w-full bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold text-[11px] tracking-widest uppercase py-4 px-6 rounded-xl shadow-[0_0_15px_rgba(241,191,98,0.3)] transition-all active:scale-98 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
-              >
-                {calculating ? (
-                  <>
-                    <RefreshCw className="w-4.5 h-4.5 animate-spin text-[#121416]" />
-                    <span>მიმდინარეობს კოსმიური სინქრონიზაცია AI-ით...</span>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-4.5 h-4.5 text-[#121416] animate-pulse" />
-                    <span>თავსებადობის ანალიზის გააქტიურება</span>
-                  </>
-                )}
-              </button>
-            )}
           </div>
+        )}
+
+        {partnerStatus === "not_found" && (
+          <div className="p-4 bg-[#1e2022]/45 border border-white/5 rounded-xl space-y-3 shadow-xs">
+            <div className="flex items-start space-x-2 text-[#c6c6ce] text-xs font-semibold">
+              <Sparkles className="w-4.5 h-4.5 shrink-0 text-[#f1bf62]" />
+              <span className="tracking-wide text-[12px] leading-relaxed">
+                ნომერი არ არის ბაზაში, მაგრამ შეგიძლიათ ხელით შეიყვანოთ მონაცემები და სისტემა მაინც გამოთვლის თავსებადობას!
+              </span>
+            </div>
+            <div>
+              <a
+                href={getWhatsAppInviteLink()}
+                target="_blank"
+                referrerPolicy="no-referrer"
+                className="inline-flex bg-white/5 hover:bg-white/10 text-white font-bold text-[10px] tracking-widest uppercase py-2 px-3 rounded-lg border border-white/10 items-center space-x-1.5 transition-all"
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-white" />
+                <span>გაუგზავნე მოწვევა WhatsApp-ზე</span>
+              </a>
+            </div>
+          </div>
+        )}
+
+        {!result && (
+          <button
+            onClick={handleCalculate}
+            disabled={calculating}
+            className="w-full bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold text-[11px] tracking-widest uppercase py-4 px-6 rounded-xl shadow-[0_0_15px_rgba(241,191,98,0.3)] transition-all active:scale-98 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
+          >
+            {calculating ? (
+              <>
+                <RefreshCw className="w-4.5 h-4.5 animate-spin text-[#121416]" />
+                <span>მიმდინარეობს კოსმიური სინქრონიზაცია AI-ით...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4.5 h-4.5 text-[#121416] animate-pulse" />
+                <span>თავსებადობის ანალიზის გააქტიურება</span>
+              </>
+            )}
+          </button>
         )}
 
         {/* Results Visual Blocks */}
@@ -316,8 +420,22 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                 ამომწურავი კოსმიური და ფსიქოლოგიური ანალიზი:
               </h4>
               
-              <div className="text-sm md:text-base text-[#c6c6ce] leading-relaxed space-y-4 prose prose-invert max-w-none overflow-hidden prose-p:my-2 font-medium">
-                <ReactMarkdown>{result.narrative}</ReactMarkdown>
+              <div className="text-sm md:text-base text-[#c6c6ce] leading-relaxed max-w-none overflow-hidden font-medium">
+                <ReactMarkdown
+                  components={{
+                    h1: ({node, ...props}) => <h1 className="text-xl sm:text-2xl font-black text-[#f1bf62] font-headline tracking-widest mt-6 mb-2 border-b border-white/5 pb-2 uppercase" {...props} />,
+                    h2: ({node, ...props}) => <h2 className="text-lg sm:text-xl font-black text-[#f1bf62] font-headline tracking-wider mt-5 mb-2 uppercase" {...props} />,
+                    h3: ({node, ...props}) => <h3 className="text-base sm:text-lg font-bold text-[#f1bf62] font-headline mt-4 mb-1.5 uppercase" {...props} />,
+                    p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#c6c6ce]/90 leading-relaxed my-2.5 font-medium" {...props} />,
+                    ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
+                    ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
+                    li: ({node, ...props}) => <li className="marker:text-[#f1bf62]" {...props} />,
+                    strong: ({node, ...props}) => <strong className="text-white font-black" {...props} />,
+                    hr: ({node, ...props}) => <hr className="border-white/10 my-6" {...props} />,
+                  }}
+                >
+                  {result.narrative}
+                </ReactMarkdown>
               </div>
 
               {/* Share Results Button */}

@@ -239,11 +239,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
     
     const clickedId = WHEEL_ITEMS[index].id;
     
-    // If the slice is already selected/active and has finished its rotation (not transitioning), trigger analysis!
-    if (clickedId === localSelectedId && !isTransitioning) {
-      onSelect(clickedId);
-      return;
-    }
+    playTickSound(); // Play satisfaction tick sound on click!
     
     // Stop any active spin/timeout immediately when selecting manually
     if (spinTimeoutRef.current) {
@@ -259,9 +255,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
     const targetDeg = (360 - index * sliceAngle) - (sliceAngle / 2);
     setRotation((prev) => Math.floor(prev / 360) * 360 + targetDeg);
     
-    // Mark transitioning as finished after the 800ms transition completes, but DO NOT run analysis automatically!
+    // Mark transitioning as finished after the 800ms transition completes and transition automatically!
     spinTimeoutRef.current = setTimeout(() => {
       setIsTransitioning(false);
+      onSelect(clickedId); // Auto-advance/navigate to that reading theme!
       spinTimeoutRef.current = null;
     }, 800);
   };
@@ -398,7 +395,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                     e.stopPropagation();
                     handleSliceClick(index);
                   }}
-                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseEnter={() => {
+                    setHoveredIndex(index);
+                    playTickSound(); // Play satisfy tick sound on hover!
+                  }}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
                   {/* Base Metallic Slice */}
@@ -481,7 +481,10 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({ onSelect, selectedType, di
                     e.stopPropagation();
                     handleSliceClick(index);
                   }}
-                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseEnter={() => {
+                    setHoveredIndex(index);
+                    playTickSound(); // Play tick sound when hover coordinates trigger the circle
+                  }}
                   onMouseLeave={() => setHoveredIndex(null)}
                   style={{
                     transformOrigin: `${xIcon}px ${yIcon}px`,
