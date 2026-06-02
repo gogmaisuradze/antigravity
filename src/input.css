@@ -230,44 +230,44 @@ header img[alt="IDC Logo"] {
   transition: all 0.3s ease !important;
 }
 
-/* Smooth hover transition for all non-header text elements to become maximally white on hover */
-p:not(header *):not(input):not(textarea),
-h1:not(header *),
-h2:not(header *),
-h3:not(header *),
-h4:not(header *),
-h5:not(header *),
-h6:not(header *),
-li:not(header *),
-span:not(header *):not(.material-symbols-outlined):not([class*="booking-btn"]):not([class*="btn"]):not(button *),
-a:not(header *):not([class*="hover:text-"]):not([class*="booking-btn"]):not([class*="btn"]),
-label:not(header *),
-strong:not(header *),
-em:not(header *):not(.material-symbols-outlined),
-b:not(header *),
-i:not(header *),
-td:not(header *),
-th:not(header *) {
+/* Smooth hover transition for all text elements to become white on hover */
+p:not(input):not(textarea),
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+span:not(.material-symbols-outlined),
+a,
+label,
+strong,
+em:not(.material-symbols-outlined),
+b,
+i,
+td,
+th {
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-p:not(header *):not(input):not(textarea):hover,
-h1:not(header *):hover,
-h2:not(header *):hover,
-h3:not(header *):hover,
-h4:not(header *):hover,
-h5:not(header *):hover,
-h6:not(header *):hover,
-li:not(header *):hover,
-span:not(header *):not(.material-symbols-outlined):not([class*="booking-btn"]):not([class*="btn"]):not(button *):hover,
-a:not(header *):not([class*="hover:text-"]):not([class*="booking-btn"]):not([class*="btn"]):hover,
-label:not(header *):hover,
-strong:not(header *):hover,
-em:not(header *):not(.material-symbols-outlined):hover,
-b:not(header *):hover,
-i:not(header *):hover,
-td:not(header *):hover,
-th:not(header *):hover {
+p:not(input):not(textarea):hover,
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover,
+h5:hover,
+h6:hover,
+li:hover,
+span:not(.material-symbols-outlined):hover,
+a:hover,
+label:hover,
+strong:hover,
+em:not(.material-symbols-outlined):hover,
+b:hover,
+i:hover,
+td:hover,
+th:hover {
   color: #ffffff !important;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
 }
