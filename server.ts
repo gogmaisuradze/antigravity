@@ -93,25 +93,35 @@ async function saveProfiles(profiles: Record<string, any>) {
 }
 
 // In-memory cache for views to avoid concurrent read-write issues
-let viewsCache: { total: number; pages: Record<string, number> } | null = null;
+interface ViewsData {
+  total: number;
+  pages: Record<string, number>;
+  ips: string[];
+  pageIps: Record<string, string[]>;
+}
 
-async function loadViews(): Promise<{ total: number; pages: Record<string, number> }> {
+let viewsCache: ViewsData | null = null;
+
+async function loadViews(): Promise<ViewsData> {
   if (viewsCache) return viewsCache;
   await initDb();
   try {
     const data = await fs.readFile(VIEWS_FILE, "utf-8");
-    viewsCache = JSON.parse(data);
-    if (!viewsCache || typeof viewsCache.total !== 'number') {
-      viewsCache = { total: 0, pages: {} };
-    }
+    const parsed = JSON.parse(data);
+    viewsCache = {
+      total: parsed.total || 0,
+      pages: parsed.pages || {},
+      ips: parsed.ips || [],
+      pageIps: parsed.pageIps || {}
+    };
     return viewsCache;
   } catch {
-    viewsCache = { total: 0, pages: {} };
+    viewsCache = { total: 0, pages: {}, ips: [], pageIps: {} };
     return viewsCache;
   }
 }
 
-async function saveViews(views: { total: number; pages: Record<string, number> }) {
+async function saveViews(views: ViewsData) {
   viewsCache = views;
   await initDb();
   await fs.writeFile(VIEWS_FILE, JSON.stringify(views, null, 2), "utf-8");
@@ -125,16 +135,43 @@ app.post("/api/views", async (req, res) => {
     const { page } = req.body;
     const views = await loadViews();
     
-    views.total = (views.total || 0) + 1;
-    views.pages = views.pages || {};
+    // Get client IP address (supporting proxy forwarding)
+    const xForwardedFor = req.headers["x-forwarded-for"];
+    let ip = "";
+    if (typeof xForwardedFor === "string") {
+      ip = xForwardedFor.split(",")[0].trim();
+    } else if (Array.isArray(xForwardedFor)) {
+      ip = xForwardedFor[0].trim();
+    } else {
+      ip = req.socket.remoteAddress || "";
+    }
     
+    if (!ip) {
+      ip = "unknown";
+    }
+    
+    // Track unique IP globally
+    if (!views.ips.includes(ip)) {
+      views.ips.push(ip);
+      views.total = views.ips.length;
+    }
+    
+    // Track unique IP per page
     if (page) {
       const pageKey = String(page);
-      views.pages[pageKey] = (views.pages[pageKey] || 0) + 1;
+      views.pageIps[pageKey] = views.pageIps[pageKey] || [];
+      if (!views.pageIps[pageKey].includes(ip)) {
+        views.pageIps[pageKey].push(ip);
+        views.pages[pageKey] = views.pageIps[pageKey].length;
+      }
     }
     
     await saveViews(views);
-    res.json({ success: true, total: views.total, pageViews: page ? views.pages[String(page)] : 0 });
+    res.json({ 
+      success: true, 
+      total: views.total, 
+      pageViews: page ? (views.pages[String(page)] || 0) : 0 
+    });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
   }
