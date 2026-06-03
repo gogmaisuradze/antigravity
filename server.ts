@@ -15,6 +15,7 @@ app.use(express.json());
 // Path to store profiles
 const DATA_DIR = path.join(process.cwd(), "data");
 const PROFILES_FILE = path.join(DATA_DIR, "profiles.json");
+const VIEWS_FILE = path.join(DATA_DIR, "views.json");
 
 // Ensure data folder and file exists
 async function initDb() {
@@ -24,6 +25,11 @@ async function initDb() {
       await fs.access(PROFILES_FILE);
     } catch {
       await fs.writeFile(PROFILES_FILE, JSON.stringify({}, null, 2));
+    }
+    try {
+      await fs.access(VIEWS_FILE);
+    } catch {
+      await fs.writeFile(VIEWS_FILE, JSON.stringify({ total: 0, pages: {} }, null, 2));
     }
   } catch (err) {
     console.error("Error initializing mock DB file:", err);
@@ -86,7 +92,53 @@ async function saveProfiles(profiles: Record<string, any>) {
   await fs.writeFile(PROFILES_FILE, JSON.stringify(profiles, null, 2), "utf-8");
 }
 
+// In-memory cache for views to avoid concurrent read-write issues
+let viewsCache: { total: number; pages: Record<string, number> } | null = null;
+
+async function loadViews(): Promise<{ total: number; pages: Record<string, number> }> {
+  if (viewsCache) return viewsCache;
+  await initDb();
+  try {
+    const data = await fs.readFile(VIEWS_FILE, "utf-8");
+    viewsCache = JSON.parse(data);
+    if (!viewsCache || typeof viewsCache.total !== 'number') {
+      viewsCache = { total: 0, pages: {} };
+    }
+    return viewsCache;
+  } catch {
+    viewsCache = { total: 0, pages: {} };
+    return viewsCache;
+  }
+}
+
+async function saveViews(views: { total: number; pages: Record<string, number> }) {
+  viewsCache = views;
+  await initDb();
+  await fs.writeFile(VIEWS_FILE, JSON.stringify(views, null, 2), "utf-8");
+}
+
 // REST API endpoints
+
+// 0. Record and get page/site views
+app.post("/api/views", async (req, res) => {
+  try {
+    const { page } = req.body;
+    const views = await loadViews();
+    
+    views.total = (views.total || 0) + 1;
+    views.pages = views.pages || {};
+    
+    if (page) {
+      const pageKey = String(page);
+      views.pages[pageKey] = (views.pages[pageKey] || 0) + 1;
+    }
+    
+    await saveViews(views);
+    res.json({ success: true, total: views.total, pageViews: page ? views.pages[String(page)] : 0 });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 // 1. Get profile by phone number (returns simple info if exists)
 app.get("/api/profile/:phone", async (req, res) => {

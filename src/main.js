@@ -15,6 +15,7 @@ const initAll = () => {
   initBlogQuickRead();
   initVideoScrollScrub();
   initN8nChat();
+  initVisitorCounter();
 };
 
 if (document.readyState === 'loading') {
@@ -1309,6 +1310,34 @@ function initN8nChat() {
     
     return html;
   }
+}
+
+/* ==========================================================================
+   12. Visitor Counter Functionality
+   ========================================================================== */
+function initVisitorCounter() {
+  const visitorCountEl = document.getElementById('visitor-count');
+  const pageName = window.location.pathname.split('/').pop() || 'index.html';
+
+  fetch('/api/views', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ page: pageName })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success && visitorCountEl) {
+      visitorCountEl.textContent = data.total;
+    }
+  })
+  .catch(err => {
+    console.error('Error fetching visitor count:', err);
+    if (visitorCountEl) {
+      visitorCountEl.textContent = '—';
+    }
+  });
 }
 
 
