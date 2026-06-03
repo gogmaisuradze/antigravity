@@ -203,8 +203,17 @@ app.delete("/api/profile/:phone", async (req, res) => {
     const profiles = await loadProfiles();
     
     if (profiles[cleanPhone]) {
+      const deletedProfile = profiles[cleanPhone];
       delete profiles[cleanPhone];
       await saveProfiles(profiles);
+      
+      // Send Telegram Notification
+      const tgMsg = `🗑️ *ID-სი: პროფილი წაიშალა* 👤\n\n` +
+                    `• *სახელი:* ${deletedProfile.name} ${deletedProfile.surname}\n` +
+                    `• *ტელეფონი:* \`${cleanPhone}\`\n` +
+                    `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
+      sendTelegramNotification(tgMsg);
+      
       res.json({ success: true, message: "პროფილი წარმატებით წაიშალა" });
     } else {
       res.json({ success: true, message: "პროფილი უკვე წაშლილია" });
@@ -508,6 +517,13 @@ app.post("/api/compatibility", async (req, res) => {
     if (!profileB) {
       return res.status(404).json({ success: false, error: `მეორე მომხმარებელი (${phoneB}) ვერ მოიძებნა. გაუზიარეთ აპლიკაცია და სთხოვეთ შეავსოს.` });
     }
+
+    // Send Telegram Notification for compatibility check
+    const tgMsg = `👩‍❤️‍👨 *ID-სი: თავსებადობის გათვლა!* 💕\n\n` +
+                  `• *მომხმარებელი A:* ${profileA.name} ${profileA.surname} (\`${cleanA}\`)\n` +
+                  `• *მომხმარებელი B:* ${profileB.name} ${profileB.surname} (\`${cleanB}\`)\n` +
+                  `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
+    sendTelegramNotification(tgMsg);
 
     const ai = getAI();
     const systemInstruction = "შენ ხარ პროფესიონალი ურთიერთობების ფსიქოლოგი და სინასტრიული ასტროლოგიის უმაღლესი კლასის ექსპერტი. პასუხი გაეცი ქართულ ენაზე, მარკდაუნის (Markdown) ლამაზი ფორმატირებით. პასუხი უნდა იყოს ძალიან ინფორმაციული, მხარდამჭერი, საინტერესო, პრაქტიკული და გულახდილი.";
