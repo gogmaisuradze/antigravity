@@ -810,7 +810,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </div>
 
         {/* Action Button Container */}
-        <div class="flex justify-center w-full mt-14 mb-4">
+        <div className="flex justify-center w-full mt-14 mb-4">
           <button
             type="submit"
             disabled={loading}
