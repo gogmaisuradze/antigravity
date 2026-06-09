@@ -1112,7 +1112,7 @@ function initN8nChat() {
         <div id="n8n-chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col">
           <div class="flex flex-col gap-1 max-w-[85%] self-start">
             <div class="bg-white/5 border border-white/5 backdrop-blur-md text-[#c6c6ce] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed">
-              გამარჯობა! 👋<br/><br/>მე ვარ IDC-ის (პოზიტიური ფსიქოთერაპიის საერთაშორისო ცენტრის) ვირტუალური ასისტენტი ვარ. როგორ შემიძლია დაგეხმაროთ? 🧠💬
+              გამარჯობა! 👋<br/><br/>მე ვარ IDC-ის (პოზიტიური ფსიქოთერაპიის საერთაშორისო ცენტრის) ვირტუალური ასისტენტი. როგორ შემიძლია დაგეხმაროთ? 🧠💬
             </div>
             <span class="text-[9px] text-[#c6c6ce]/40 font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
           </div>
