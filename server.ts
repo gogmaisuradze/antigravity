@@ -269,6 +269,17 @@ app.post("/api/profile", async (req, res) => {
 
 // 3. Generate specific Zodiac or spiritual reading
 app.post("/api/generate-reading", async (req, res) => {
+  const calcLabels: { [key: string]: string } = {
+    horoscope: "დასავლური ჰოროსკოპი",
+    enneagram: "ენიაგრამა",
+    psychomatrix: "ფსიქო მატრიცა",
+    numerology: "ნუმეროლოგია",
+    human_design: "ადამიანის დიზაინი",
+    vedic: "ვედური ასტროლოგია",
+    bazi: "ბა-ძი (BaZi)",
+    archetype: "არქეტიპული ანალიზი"
+  };
+
   try {
     const { phone, type } = req.body;
     if (!phone || !type) {
@@ -284,16 +295,6 @@ app.post("/api/generate-reading", async (req, res) => {
     }
 
     // Send Telegram Notification for calculation request
-    const calcLabels: { [key: string]: string } = {
-      horoscope: "დასავლური ჰოროსკოპი",
-      enneagram: "ენიაგრამა",
-      psychomatrix: "ფსიქო მატრიცა",
-      numerology: "ნუმეროლოგია",
-      human_design: "ადამიანის დიზაინი",
-      vedic: "ვედური ასტროლოგია",
-      bazi: "ბა-ძი (BaZi)",
-      archetype: "არქეტიპული ანალიზი"
-    };
     const typeLabel = calcLabels[type] || type;
     const tgMsg = `🔮 *ID-სი: ანალიზის გათვლა!* 🌌\n\n` +
                   `• *მომხმარებელი:* ${profile.name} ${profile.surname}\n` +
@@ -418,6 +419,14 @@ app.post("/api/generate-reading", async (req, res) => {
     });
 
   } catch (error: any) {
+    const cleanPhone = req.body?.phone ? req.body.phone.trim().replace(/\s+/g, "") : "უცნობი";
+    const typeLabel = req.body?.type ? (calcLabels[req.body.type] || req.body.type) : "უცნობი";
+    const tgMsg = `🚨 *ID-სი: შეცდომა ანალიზის გენერირებისას!* ⚠️\n\n` +
+                  `• *ტელეფონი:* \`${cleanPhone}\`\n` +
+                  `• *ანალიზის ტიპი:* *${typeLabel}*\n` +
+                  `• *შეცდომა:* \`${error.message || error}\`\n` +
+                  `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
+    sendTelegramNotification(tgMsg);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -492,6 +501,12 @@ ${userProfileStr ? `მონაცემები: ${userProfileStr}\n` : ""}
     });
 
   } catch (error: any) {
+    const cleanPhone = req.body?.phone ? req.body.phone.trim().replace(/\s+/g, "") : "უცნობი";
+    const tgMsg = `🚨 *ბალანსის მოდელი: შეცდომა ანალიზისას!* ⚠️\n\n` +
+                  `• *ტელეფონი:* \`${cleanPhone}\`\n` +
+                  `• *შეცდომა:* \`${error.message || error}\`\n` +
+                  `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
+    sendTelegramNotification(tgMsg);
     res.status(500).json({ success: false, error: error.message });
   }
 });
