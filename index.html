@@ -22,6 +22,13 @@
       box-shadow: 0 35px 80px rgba(0, 0, 0, 0.6), 0 0 25px rgba(241, 191, 98, 0.1) !important;
       transform: translateY(-5px);
     }
+    @keyframes sway {
+      0%, 100% { transform: rotate(-8deg); }
+      50% { transform: rotate(8deg); }
+    }
+    .animate-sway {
+      animation: sway 4s ease-in-out infinite;
+    }
   </style>
   <script type="module" src="/src/main.js"></script>
 </head>
@@ -301,7 +308,7 @@
               </div>
               <div>
                 <h3 class="text-2xl md:text-3xl font-headline text-white mb-2">ბალანსის მოდელი</h3>
-                <span class="text-[11px] font-label tracking-widest text-[#f1bf62]/60 uppercase block mb-1">ცხოვრების 4 განზომილება</span>
+                <span class="text-xs md:text-sm font-semibold tracking-wider text-[#f1bf62] uppercase block mb-1">ცხოვრების 4 განზომილება</span>
               </div>
               <p class="text-[#c6c6ce]/80 text-sm md:text-base leading-relaxed font-light mb-4">
                 აღმოაჩინეთ თქვენი ენერგიისა და დროის განაწილება ოთხ საკვანძო სფეროში: სხეული, მიღწევა, კონტაქტი და მომავალი. ჩაიტარეთ ტესტირება და მიიღეთ სიღრმისეული ფსიქოლოგიური ანალიზი.
@@ -324,11 +331,24 @@
               </div>
             </div>
 
-            <div class="pt-8 border-t border-white/5 mt-6">
+            <div class="pt-8 border-t border-white/5 mt-6 flex justify-between items-center">
               <span class="inline-flex items-center gap-2 text-[#f1bf62] group-hover:text-white font-label font-bold text-xs tracking-widest uppercase transition-colors">
                 ტესტის შევსება
                 <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
               </span>
+              <!-- Minimalist Swaying Balance Animation -->
+              <div class="pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-300 pr-2">
+                <svg class="w-8 h-8 text-[#f1bf62]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 22h14M12 22V8" opacity="0.5"/>
+                  <g class="animate-sway" style="transform-origin: 12px 8px;">
+                    <path d="M4 8h16"/>
+                    <path d="M4 8l-2 6h4l-2-6M4 14v3h-1" opacity="0.7"/>
+                    <circle cx="4" cy="18" r="0.5" fill="currentColor"/>
+                    <path d="M20 8l-2 6h4l-2-6M20 14v3h1" opacity="0.7"/>
+                    <circle cx="20" cy="18" r="0.5" fill="currentColor"/>
+                  </g>
+                </svg>
+              </div>
             </div>
           </div>
 
@@ -344,7 +364,7 @@
               </div>
               <div>
                 <h3 class="text-2xl md:text-3xl font-headline text-white mb-2">ID-სი</h3>
-                <span class="text-[11px] font-label tracking-widest text-[#f1bf62]/60 uppercase block mb-1">იდენტობის მატრიცა</span>
+                <span class="text-xs md:text-sm font-semibold tracking-wider text-[#f1bf62] uppercase block mb-1">იდენტობის მატრიცა</span>
               </div>
               <p class="text-[#c6c6ce]/80 text-sm md:text-base leading-relaxed font-light mb-4">
                 გააერთიანეთ თქვენი ასტროლოგიური და ფსიქოლოგიური პორტრეტი ერთიან პროფილში. სისტემა აერთიანებს დასავლურ ჰოროსკოპს, ენიაგრამას, პითაგორას მატრიცასა და ბა-ძის.
@@ -360,11 +380,23 @@
               </div>
             </div>
 
-            <div class="pt-8 border-t border-white/5 mt-6">
+            <div class="pt-8 border-t border-white/5 mt-6 flex justify-between items-center">
               <span class="inline-flex items-center gap-2 text-[#f1bf62] group-hover:text-white font-label font-bold text-xs tracking-widest uppercase transition-colors">
                 პროფილის შექმნა
                 <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
               </span>
+              <!-- Minimalist Orbit Constellation Animation -->
+              <div class="pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-300 pr-2">
+                <svg class="w-8 h-8 text-[#f1bf62] animate-[spin_16s_linear_infinite]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12,2 22,12 12,22 2,12" stroke-dasharray="2 2" opacity="0.4" />
+                  <polygon points="12,5 19,12 12,19 5,12" opacity="0.6" />
+                  <circle cx="12" cy="12" r="2.5" fill="currentColor" class="animate-pulse" />
+                  <circle cx="12" cy="2" r="1.2" fill="currentColor" />
+                  <circle cx="22" cy="12" r="1.2" fill="currentColor" />
+                  <circle cx="12" cy="22" r="1.2" fill="currentColor" />
+                  <circle cx="2" cy="12" r="1.2" fill="currentColor" />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
