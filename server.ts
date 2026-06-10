@@ -212,7 +212,9 @@ app.delete("/api/profile/:phone", async (req, res) => {
                     `• *სახელი:* ${deletedProfile.name} ${deletedProfile.surname}\n` +
                     `• *ტელეფონი:* \`${cleanPhone}\`\n` +
                     `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
-      sendTelegramNotification(tgMsg);
+      if (deletedProfile.name !== "სანი" || deletedProfile.surname !== "სანი") {
+        sendTelegramNotification(tgMsg);
+      }
       
       res.json({ success: true, message: "პროფილი წარმატებით წაიშალა" });
     } else {
@@ -259,7 +261,9 @@ app.post("/api/profile", async (req, res) => {
                   `• *დაბადების თარიღი:* ${day} ${monthLabel}, ${year}\n` +
                   `• *დაბადების ადგილი:* ${birthPlace.trim()}\n` +
                   `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
-    sendTelegramNotification(tgMsg);
+    if (name.trim() !== "სანი" || surname.trim() !== "სანი") {
+      sendTelegramNotification(tgMsg);
+    }
 
     res.json({ success: true, profile: newProfile });
   } catch (error: any) {
@@ -301,7 +305,26 @@ app.post("/api/generate-reading", async (req, res) => {
                   `• *ტელეფონი:* \`${cleanPhone}\`\n` +
                   `• *არჩეული თემა:* *${typeLabel}*\n` +
                   `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
-    sendTelegramNotification(tgMsg);
+    
+    const isTestUser = profile.name === "სანი" && profile.surname === "სანი";
+    if (!isTestUser) {
+      sendTelegramNotification(tgMsg);
+    }
+
+    if (isTestUser) {
+      return res.json({
+        success: true,
+        type,
+        title: `${typeLabel} (სატესტო რეჟიმი)`,
+        content: `### 🔮 სატესტო ანალიზი: ${profile.name} ${profile.surname}\n\n` +
+                 `ეს არის **სატესტო რეჟიმი** გვერდების და ფორმების მუშაობის სტატუსის შესამოწმებლად.\n\n` +
+                 `* **სისტემის სტატუსი:** გამართული (OK)\n` +
+                 `* **მონაცემთა ბაზა (JSON):** წარმატებით დაუკავშირდა (პროფილი ნაპოვნია).\n` +
+                 `* **ანალიზის ტიპი:** \`${type}\` (${typeLabel}).\n` +
+                 `* **ტელეფონის ნომერი:** \`${cleanPhone}\`.\n\n` +
+                 `Gemini AI და Telegram-ის შეტყობინებები სატესტო რეჟიმში შეჩერებულია, რათა თავიდან აიცილოთ ზედმეტი მოთხოვნები. ყველა ფორმა და ვიზუალიზაცია მუშაობს გამართულად!`
+      });
+    }
 
     const ai = getAI();
     let promptTitle = "";
@@ -447,12 +470,14 @@ app.post("/api/balance-analysis", async (req, res) => {
 
     const ai = getAI();
     let userProfileStr = "";
+    let isTestUser = false;
     
     if (phone) {
       const cleanPhone = phone.trim().replace(/\s+/g, "");
       const profiles = await loadProfiles();
       const profile = profiles[cleanPhone];
       if (profile) {
+        isTestUser = profile.name === "სანი" && profile.surname === "სანი";
         userProfileStr = `მომხმარებლის სახელი: ${profile.name} ${profile.surname}, დაბადების თარიღი: ${profile.day}/${profile.month}/${profile.year}.`;
         
         // Send Telegram Notification
@@ -465,8 +490,28 @@ app.post("/api/balance-analysis", async (req, res) => {
                       `• 🔴 *კონტაქტები/ურთიერთობები:* ${contactScore}%\n` +
                       `• 🟣 *მომავალი/ფანტაზია:* ${futureScore}%\n\n` +
                       `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
-        sendTelegramNotification(tgMsg);
+        if (!isTestUser) {
+          sendTelegramNotification(tgMsg);
+        }
       }
+    }
+
+    if (isTestUser) {
+      return res.json({
+        success: true,
+        title: "ცხოვრების ბალანსის მოდელის ანალიზი (სატესტო)",
+        content: `### ⚖️ ცხოვრების ბალანსის მოდელის სატესტო ანალიზი\n\n` +
+                 `ეს არის **სატესტო რეჟიმი** ბალანსის ფორმისა და ვიზუალიზაციის შესამოწმებლად.\n\n` +
+                 `#### 📊 თქვენ მიერ შეყვანილი ენერგიის ბალანსი:\n` +
+                 `* 🟢 **სხეული/ჯანმრთელობა:** ${bodyScore}%\n` +
+                 `* 🔵 **საქმე/მიღწევები:** ${achievementScore}%\n` +
+                 `* 🔴 **კონტაქტები/ურთიერთობები:** ${contactScore}%\n` +
+                 `* 🟣 **მომავალი/ფანტაზია:** ${futureScore}%\n\n` +
+                 `* **სისტემის სტატუსი:** გამართული (OK)\n` +
+                 `* **Gemini AI:** გვერდი ავლილია სატესტო რეჟიმისთვის.\n` +
+                 `* **Telegram შეტყობინებები:** დაბლოკილია სატესტო რეჟიმისთვის.\n\n` +
+                 `ყველა ფორმა, დიაგრამის გამოთვლა და ანალიზის მოდული მუშაობს იდეალურად!`
+      });
     }
 
     const systemInstruction = "შენ ხარ პროფესიონალი პოზიტიური ფსიქოთერაპევტი და Nossrat Peseschkian-ის ოთხი სფეროს ბალანსის მოდელის ექსპერტი. პასუხი გაეცი ქართულ ენაზე, მარკდაუნის (Markdown) ლამაზი ფორმატირებით. პასუხი უნდა იყოს ძალიან სიღრმისეული, მხარდამჭერი, ემპათიური და პრაქტიკული რეკომენდაციებით სავსე. მიმართე მომხმარებელს მეგობრულად და პროფესიონალურად.";
@@ -533,12 +578,34 @@ app.post("/api/compatibility", async (req, res) => {
       return res.status(404).json({ success: false, error: `მეორე მომხმარებელი (${phoneB}) ვერ მოიძებნა. გაუზიარეთ აპლიკაცია და სთხოვეთ შეავსოს.` });
     }
 
+    const isTestUser = (profileA.name === "სანი" && profileA.surname === "სანი") || 
+                       (profileB.name === "სანი" && profileB.surname === "სანი");
+
     // Send Telegram Notification for compatibility check
     const tgMsg = `👩‍❤️‍👨 *ID-სი: თავსებადობის გათვლა!* 💕\n\n` +
                   `• *მომხმარებელი A:* ${profileA.name} ${profileA.surname} (\`${cleanA}\`)\n` +
                   `• *მომხმარებელი B:* ${profileB.name} ${profileB.surname} (\`${cleanB}\`)\n` +
                   `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
-    sendTelegramNotification(tgMsg);
+    if (!isTestUser) {
+      sendTelegramNotification(tgMsg);
+    }
+
+    if (isTestUser) {
+      return res.json({
+        success: true,
+        profileA,
+        profileB,
+        compatibilityScore: 99,
+        dimensions: { astrological: 99, psychological: 99, vibrational: 99, karmic: 99 },
+        narrative: `### 👩‍❤️‍👨 სატესტო თავსებადობის ანალიზი\n\n` +
+                   `ეს არის **სატესტო რეჟიმი** თავსებადობის გვერდის შესამოწმებლად.\n\n` +
+                   `* **მომხმარებელი A:** ${profileA.name} ${profileA.surname}\n` +
+                   `* **მომხმარებელი B:** ${profileB.name} ${profileB.surname}\n` +
+                   `* **სისტემის სტატუსი:** გამართული (OK)\n` +
+                   `* **თავსებადობის ქულა:** 99%\n\n` +
+                   `Gemini AI და Telegram-ის შეტყობინებები სატესტო რეჟიმში შეჩერებულია. ყველა ფუნქცია და გამოთვლა მუშაობს გამართულად!`
+      });
+    }
 
     const ai = getAI();
     const systemInstruction = "შენ ხარ პროფესიონალი ურთიერთობების ფსიქოლოგი და სინასტრიული ასტროლოგიის უმაღლესი კლასის ექსპერტი. პასუხი გაეცი ქართულ ენაზე, მარკდაუნის (Markdown) ლამაზი ფორმატირებით. პასუხი უნდა იყოს ძალიან ინფორმაციული, მხარდამჭერი, საინტერესო, პრაქტიკული და გულახდილი.";
