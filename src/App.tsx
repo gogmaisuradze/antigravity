@@ -281,7 +281,7 @@ export default function App() {
       `ანალიზი:\n${reading.content.substring(0, 800)}...\n\n` +
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
 
-    return `https://api.whatsapp.com/send?phone=995598324020&text=${encodeURIComponent(message)}`;
+    return `https://api.whatsapp.com/send?phone=995551408640&text=${encodeURIComponent(message)}`;
   };
 
   const getTelegramShareURL = () => {
@@ -379,7 +379,7 @@ export default function App() {
       `ანალიზი:\n${reading.content.substring(0, 800)}...\n\n` +
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
 
-    return `https://api.whatsapp.com/send?phone=995598324020&text=${encodeURIComponent(message)}`;
+    return `https://api.whatsapp.com/send?phone=995551408640&text=${encodeURIComponent(message)}`;
   };
 
   const getCustomTelegramShareURL = (phone: string) => {
