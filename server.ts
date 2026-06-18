@@ -75,6 +75,50 @@ function getAI(): GoogleGenAI {
   return aiInstance;
 }
 
+// Helper: sleep
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Helper: Call Gemini API with retries for transient 503/429/Unavailable errors
+async function generateContentWithRetry(params: {
+  model: string;
+  contents: string | any[];
+  config?: any;
+}, maxRetries = 3, delayMs = 1500): Promise<any> {
+  const ai = getAI();
+  let lastError: any = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await ai.models.generateContent(params);
+      return response;
+    } catch (error: any) {
+      lastError = error;
+      const status = error.status || error.code || (error.message && error.message.includes('503') ? 503 : null);
+      const isTransient = 
+        status === 503 || 
+        status === 429 || 
+        status === 'UNAVAILABLE' ||
+        (error.message && (
+          error.message.includes('503') || 
+          error.message.includes('429') || 
+          error.message.includes('high demand') || 
+          error.message.includes('temporary') || 
+          error.message.includes('UNAVAILABLE')
+        ));
+
+      if (isTransient && attempt < maxRetries) {
+        console.warn(`Gemini API call failed with transient error (attempt ${attempt}/${maxRetries}): ${error.message || error}. Retrying in ${delayMs}ms...`);
+        await sleep(delayMs);
+        // Exponential backoff
+        delayMs *= 2;
+        continue;
+      }
+      throw error;
+    }
+  }
+  throw lastError;
+}
+
 // Helper: load profiles
 async function loadProfiles(): Promise<Record<string, any>> {
   await initDb();
@@ -326,7 +370,6 @@ app.post("/api/generate-reading", async (req, res) => {
       });
     }
 
-    const ai = getAI();
     let promptTitle = "";
     let systemInstruction = "შენ ხარ პროფესიონალი ასტროლოგი, ფსიქოლოგი და ეზოთერიკული სწავლოებების ექსპერტი. პასუხი გაეცი ქართულ ენაზე, მარკდაუნის (Markdown) ლამაზი ფორმატირებით, გამოიყენე სათაურები, სიები და სტრუქტურირებული პარაგრაფები. პასუხი უნდა იყოს ძალიან საინტერესო, პოზიტიური, ღრმა და რჩევებით სავსე.";
     let prompt = "";
@@ -425,7 +468,7 @@ app.post("/api/generate-reading", async (req, res) => {
         return res.status(400).json({ success: false, error: "არასწორი ტიპი" });
     }
 
-    const response = await ai.models.generateContent({
+    const response = await generateContentWithRetry({
       model: "gemini-2.5-flash",
       contents: prompt,
       config: {
@@ -468,7 +511,6 @@ app.post("/api/balance-analysis", async (req, res) => {
       return res.status(400).json({ success: false, error: "პროცენტების ჯამი აუცილებლად უნდა იყოს 100%!" });
     }
 
-    const ai = getAI();
     let userProfileStr = "";
     let isTestUser = false;
     
@@ -530,7 +572,7 @@ ${userProfileStr ? `მონაცემები: ${userProfileStr}\n` : ""}
 3. **პოტენციური ფსიქოსომატური რისკები**: თუ სხეულის ან სხვა სფერო უგულებელყოფილია, რა სახის ფსიქოსომატური რეაქციები შეიძლება გამოვლინდეს.
 4. **ნაბიჯ-ნაბიჯ სტრატეგია წონასწორობის აღდგენისთვის**: მინიმუმ 3-4 ძალიან კონკრეტული, ყოველდღიურად განხორციელებადი პრაქტიკული რეკომენდაცია თითოეული პრობლემური სფეროს ჰარმონიზაციისთვის.`;
 
-    const response = await ai.models.generateContent({
+    const response = await generateContentWithRetry({
       model: "gemini-2.5-flash",
       contents: prompt,
       config: {
@@ -607,7 +649,6 @@ app.post("/api/compatibility", async (req, res) => {
       });
     }
 
-    const ai = getAI();
     const systemInstruction = "შენ ხარ პროფესიონალი ურთიერთობების ფსიქოლოგი და სინასტრიული ასტროლოგიის უმაღლესი კლასის ექსპერტი. პასუხი გაეცი ქართულ ენაზე, მარკდაუნის (Markdown) ლამაზი ფორმატირებით. პასუხი უნდა იყოს ძალიან ინფორმაციული, მხარდამჭერი, საინტერესო, პრაქტიკული და გულახდილი.";
     
     // JSON schema for output compatibility scores
@@ -640,7 +681,7 @@ app.post("/api/compatibility", async (req, res) => {
 }
 `;
 
-    const response = await ai.models.generateContent({
+    const response = await generateContentWithRetry({
       model: "gemini-2.5-flash",
       contents: jsonPrompt,
       config: {
