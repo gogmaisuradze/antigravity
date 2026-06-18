@@ -252,7 +252,7 @@ app.delete("/api/profile/:phone", async (req, res) => {
       await saveProfiles(profiles);
       
       // Send Telegram Notification
-      const tgMsg = `🗑️ *ID-სი: პროფილი წაიშალა* 👤\n\n` +
+      const tgMsg = `🗑️ *აიდი მოდელები: პროფილი წაიშალა* 👤\n\n` +
                     `• *სახელი:* ${deletedProfile.name} ${deletedProfile.surname}\n` +
                     `• *ტელეფონი:* \`${cleanPhone}\`\n` +
                     `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
@@ -298,7 +298,7 @@ app.post("/api/profile", async (req, res) => {
     // Send Telegram Notification on profile save/update
     const geoMonths = ["იანვარი", "თებერვალი", "მარტი", "აპრილი", "მაისი", "ივნისი", "ივლისი", "აგვისტო", "სექტემბერი", "ოქტომბერი", "ნოემბერი", "დეკემბერი"];
     const monthLabel = geoMonths[Number(month) - 1] || month;
-    const tgMsg = `👤 *ID-სი: ახალი პროფილი / განახლება* 🌌\n\n` +
+    const tgMsg = `👤 *აიდი მოდელები: ახალი პროფილი / განახლება* 🌌\n\n` +
                   `• *სახელი:* ${name.trim()}\n` +
                   `• *გვარი:* ${surname.trim()}\n` +
                   `• *ტელეფონი:* \`${cleanPhone}\`\n` +
@@ -344,7 +344,7 @@ app.post("/api/generate-reading", async (req, res) => {
 
     // Send Telegram Notification for calculation request
     const typeLabel = calcLabels[type] || type;
-    const tgMsg = `🔮 *ID-სი: ანალიზის გათვლა!* 🌌\n\n` +
+    const tgMsg = `🔮 *აიდი მოდელები: ანალიზის გათვლა!* 🌌\n\n` +
                   `• *მომხმარებელი:* ${profile.name} ${profile.surname}\n` +
                   `• *ტელეფონი:* \`${cleanPhone}\`\n` +
                   `• *არჩეული თემა:* *${typeLabel}*\n` +
@@ -487,7 +487,7 @@ app.post("/api/generate-reading", async (req, res) => {
   } catch (error: any) {
     const cleanPhone = req.body?.phone ? req.body.phone.trim().replace(/\s+/g, "") : "უცნობი";
     const typeLabel = req.body?.type ? (calcLabels[req.body.type] || req.body.type) : "უცნობი";
-    const tgMsg = `🚨 *ID-სი: შეცდომა ანალიზის გენერირებისას!* ⚠️\n\n` +
+    const tgMsg = `🚨 *აიდი მოდელები: შეცდომა ანალიზის გენერირებისას!* ⚠️\n\n` +
                   `• *ტელეფონი:* \`${cleanPhone}\`\n` +
                   `• *ანალიზის ტიპი:* *${typeLabel}*\n` +
                   `• *შეცდომა:* \`${error.message || error}\`\n` +
@@ -624,7 +624,7 @@ app.post("/api/compatibility", async (req, res) => {
                        (profileB.name === "სანი" && profileB.surname === "სანი");
 
     // Send Telegram Notification for compatibility check
-    const tgMsg = `👩‍❤️‍👨 *ID-სი: თავსებადობის გათვლა!* 💕\n\n` +
+    const tgMsg = `👩‍❤️‍👨 *აიდი მოდელები: თავსებადობის გათვლა!* 💕\n\n` +
                   `• *მომხმარებელი A:* ${profileA.name} ${profileA.surname} (\`${cleanA}\`)\n` +
                   `• *მომხმარებელი B:* ${profileB.name} ${profileB.surname} (\`${cleanB}\`)\n` +
                   `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;

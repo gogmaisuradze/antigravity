@@ -273,7 +273,7 @@ export default function App() {
   const getWhatsAppShareURL = () => {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
-    const message = `გამარჯობა, გაზიარებთ ჩემი ID-სი-ს ანალიზს 🔮🌟\n\n` +
+    const message = `გამარჯობა, გაზიარებთ ჩემი აიდი მოდელების ანალიზს 🔮🌟\n\n` +
       `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
       `დაბადების თარიღი: ${userProfile.day}/${userProfile.month}/${userProfile.year}\n` +
       `დაბადების ადგილი: ${userProfile.birthPlace || "საქართველო"}\n\n` +
@@ -287,7 +287,7 @@ export default function App() {
   const getTelegramShareURL = () => {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
-    const message = `გამარჯობა, გაზიარებთ ჩემი ID-სი-ს ანალიზს 🔮🌟\n\n` +
+    const message = `გამარჯობა, გაზიარებთ ჩემი აიდი მოდელების ანალიზს 🔮🌟\n\n` +
       `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
       `ანალიზის სათაური: ${reading.title}\n\n` +
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:`;
@@ -319,12 +319,12 @@ export default function App() {
     const shareLink = `${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
     if (navigator.share) {
       navigator.share({
-        title: reading?.title || "ID-სი",
-        text: `გამარჯობა, გაზიარებთ ჩემი ID-სი-ს ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
+        title: reading?.title || "აიდი მოდელები",
+        text: `გამარჯობა, გაზიარებთ ჩემი აიდი მოდელების ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
         url: shareLink,
       }).catch(() => {});
     } else {
-      const smsBody = `გამარჯობა, გაზიარებთ ჩემი ID-სი-ს ანალიზს 🔮🌟\n\n${shareLink}`;
+      const smsBody = `გამარჯობა, გაზიარებთ ჩემი აიდი მოდელების ანალიზს 🔮🌟\n\n${shareLink}`;
       window.open(`sms:?body=${encodeURIComponent(smsBody)}`);
     }
   };
@@ -348,12 +348,12 @@ export default function App() {
     const shareLink = `${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
     if (navigator.share) {
       navigator.share({
-        title: reading?.title || "ID-სი",
-        text: `გამარჯობა, გაზიარებთ ჩემი ID-სი-ს ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
+        title: reading?.title || "აიდი მოდელები",
+        text: `გამარჯობა, გაზიარებთ ჩემი აიდი მოდელების ანალიზს 🔮🌟\n\nსახელი: ${userProfile.name} ${userProfile.surname}\nანალიზის სათაური: ${reading?.title}\n\n`,
         url: shareLink,
       }).catch(() => {});
     } else {
-      const smsBody = `გამარჯობა, გაზიარებთ ჩემი ID-სი-ს ანალიზს 🔮🌟\n\n${shareLink}`;
+      const smsBody = `გამარჯობა, გაზიარებთ ჩემი აიდი მოდელების ანალიზს 🔮🌟\n\n${shareLink}`;
       window.open(`sms:?body=${encodeURIComponent(smsBody)}`);
     }
   };
@@ -371,7 +371,7 @@ export default function App() {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
     const cleanPhone = phone.trim().replace(/\s+/g, "");
-    const message = `გამარჯობა, გაზიარებთ ჩემი ID-სი-ს ანალიზს 🔮🌟\n\n` +
+    const message = `გამარჯობა, გაზიარებთ ჩემი აიდი მოდელების ანალიზს 🔮🌟\n\n` +
       `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
       `დაბადების თარიღი: ${userProfile.day}/${userProfile.month}/${userProfile.year}\n` +
       `ტელეფონი: ${cleanPhone}\n\n` +
@@ -386,7 +386,7 @@ export default function App() {
     if (!reading || !userProfile) return "";
     const appUrl = window.location.origin;
     const cleanPhone = phone.trim().replace(/\s+/g, "");
-    const message = `გამარჯობა, გაზიარებთ ჩემი ID-სი-ს ანალიზს 🔮🌟\n\n` +
+    const message = `გამარჯობა, გაზიარებთ ჩემი აიდი მოდელების ანალიზს 🔮🌟\n\n` +
       `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
       `ანალიზის სათაური: ${reading.title}\n\n` +
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:`;

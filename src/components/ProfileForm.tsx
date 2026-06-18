@@ -426,7 +426,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </button>
         <div>
           <h2 className="text-xl font-bold tracking-[0.2em] text-[#f1bf62] uppercase font-headline">
-            ID-სი
+            აიდი მოდელები
           </h2>
           <p className="text-sm sm:text-base text-[#c6c6ce]/90 tracking-widest uppercase font-bold mt-1">
             იდენტობის მატრიცა
