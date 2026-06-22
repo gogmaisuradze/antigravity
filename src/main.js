@@ -1300,7 +1300,7 @@ function initN8nChat() {
     let html = escapeHtml(text);
     
     // Bold: **text** to <strong>text</strong>
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-white">$1</strong>');
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-[#f1bf62]">$1</strong>');
     
     // Links: [Text](URL) to styled <a>
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="inline-flex items-center gap-0.5 text-[#f1bf62] hover:text-white underline decoration-[#f1bf62]/40 hover:decoration-white transition-all font-semibold">$1<span class="material-symbols-outlined text-[10px] inline-block align-middle ml-0.5">arrow_outward</span></a>');

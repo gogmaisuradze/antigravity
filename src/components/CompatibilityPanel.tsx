@@ -430,7 +430,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                     ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
                     ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
                     li: ({node, ...props}) => <li className="marker:text-[#f1bf62]" {...props} />,
-                    strong: ({node, ...props}) => <strong className="text-white font-black" {...props} />,
+                    strong: ({node, ...props}) => <strong className="text-[#f1bf62] font-black" {...props} />,
                     hr: ({node, ...props}) => <hr className="border-white/10 my-6" {...props} />,
                   }}
                 >
