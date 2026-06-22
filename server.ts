@@ -83,7 +83,7 @@ async function generateContentWithRetry(params: {
   model: string;
   contents: string | any[];
   config?: any;
-}, maxRetries = 3, delayMs = 1500): Promise<any> {
+}, maxRetries = 4, delayMs = 2000): Promise<any> {
   const ai = getAI();
   let lastError: any = null;
 
@@ -93,24 +93,31 @@ async function generateContentWithRetry(params: {
       return response;
     } catch (error: any) {
       lastError = error;
-      const status = error.status || error.code || (error.message && error.message.includes('503') ? 503 : null);
+      
+      // Convert error to a string representation for robust matching
+      let errorStr = "";
+      try {
+        errorStr = typeof error === 'string' ? error : (error.message || JSON.stringify(error) || String(error));
+      } catch {
+        errorStr = String(error);
+      }
+
+      const status = error.status || error.code || (errorStr.includes('503') ? 503 : null);
       const isTransient = 
         status === 503 || 
         status === 429 || 
         status === 'UNAVAILABLE' ||
-        (error.message && (
-          error.message.includes('503') || 
-          error.message.includes('429') || 
-          error.message.includes('high demand') || 
-          error.message.includes('temporary') || 
-          error.message.includes('UNAVAILABLE')
-        ));
+        errorStr.includes('503') || 
+        errorStr.includes('429') || 
+        errorStr.includes('high demand') || 
+        errorStr.includes('temporary') || 
+        errorStr.includes('UNAVAILABLE');
 
       if (isTransient && attempt < maxRetries) {
-        console.warn(`Gemini API call failed with transient error (attempt ${attempt}/${maxRetries}): ${error.message || error}. Retrying in ${delayMs}ms...`);
+        console.warn(`Gemini API call failed with transient error (attempt ${attempt}/${maxRetries}): ${errorStr}. Retrying in ${delayMs}ms...`);
         await sleep(delayMs);
-        // Exponential backoff
-        delayMs *= 2;
+        // Exponential backoff with a bit of randomness (jitter) to prevent thundering herd
+        delayMs = Math.round(delayMs * 1.8 + Math.random() * 500);
         continue;
       }
       throw error;
