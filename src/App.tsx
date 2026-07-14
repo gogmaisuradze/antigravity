@@ -405,8 +405,20 @@ export default function App() {
   const handleLinkPhoneAndShare = async () => {
     if (!userProfile) return;
     const cleanPhone = phoneNumberInput.trim().replace(/\s+/g, "");
-    if (!cleanPhone) {
-      setLinkError("გთხოვთ შეიყვანოთ ტელეფონის ნომერი");
+    let normalizedPhone = cleanPhone;
+    if (normalizedPhone.startsWith("+995")) {
+      normalizedPhone = normalizedPhone.slice(4);
+    } else if (normalizedPhone.startsWith("995")) {
+      normalizedPhone = normalizedPhone.slice(3);
+    }
+
+    if (!/^5\d{8}$/.test(normalizedPhone)) {
+      setLinkError("ტელეფონის ნომერი უნდა იყოს 9 ციფრიანი და იწყებოდეს 5-ით");
+      return;
+    }
+
+    if (/^(.)\1+$/.test(normalizedPhone) || /(.)\1{5,}/.test(normalizedPhone)) {
+      setLinkError("გთხოვთ შეიყვანოთ სწორი ტელეფონის ნომერი");
       return;
     }
 
@@ -425,7 +437,7 @@ export default function App() {
           day: userProfile.day,
           month: userProfile.month,
           year: userProfile.year,
-          phone: cleanPhone
+          phone: normalizedPhone
         }),
       });
 

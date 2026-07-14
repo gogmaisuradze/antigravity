@@ -436,6 +436,11 @@ function initFormValidation() {
           phoneInput.focus();
           return;
         }
+        if (/^(.)\1+$/.test(phoneClean) || /(.)\1{5,}/.test(phoneClean)) {
+          alert('გთხოვთ შეიყვანოთ სწორი ტელეფონის ნომერი (არ უნდა შედგებოდეს მხოლოდ ერთნაირი ან განმეორებადი ციფრებისგან)');
+          phoneInput.focus();
+          return;
+        }
       } else {
         alert('ტელეფონის ნომერი სავალდებულოა');
         return;

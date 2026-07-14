@@ -228,11 +228,21 @@ app.post("/api/views", async (req, res) => {
   }
 });
 
+function normalizePhone(phone: string): string {
+  let clean = phone.trim().replace(/\s+/g, "");
+  if (clean.startsWith("+995")) {
+    clean = clean.slice(4);
+  } else if (clean.startsWith("995")) {
+    clean = clean.slice(3);
+  }
+  return clean;
+}
+
 // 1. Get profile by phone number (returns simple info if exists)
 app.get("/api/profile/:phone", async (req, res) => {
   try {
     const { phone } = req.params;
-    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    const cleanPhone = normalizePhone(phone);
     const profiles = await loadProfiles();
     const profile = profiles[cleanPhone];
     
@@ -250,7 +260,7 @@ app.get("/api/profile/:phone", async (req, res) => {
 app.delete("/api/profile/:phone", async (req, res) => {
   try {
     const { phone } = req.params;
-    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    const cleanPhone = normalizePhone(phone);
     const profiles = await loadProfiles();
     
     if (profiles[cleanPhone]) {
@@ -285,11 +295,25 @@ app.post("/api/profile", async (req, res) => {
       return res.status(400).json({ success: false, error: "ყველა ველი სავალდებულოა!" });
     }
 
-    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    let normalizedPhone = phone.trim().replace(/\s+/g, "");
+    if (normalizedPhone.startsWith("+995")) {
+      normalizedPhone = normalizedPhone.slice(4);
+    } else if (normalizedPhone.startsWith("995")) {
+      normalizedPhone = normalizedPhone.slice(3);
+    }
+
+    if (!/^5\d{8}$/.test(normalizedPhone)) {
+      return res.status(400).json({ success: false, error: "ტელეფონის ნომერი უნდა იწყებოდეს 5-ით და შედგებოდეს 9 ციფრისგან!" });
+    }
+
+    if (/^(.)\1+$/.test(normalizedPhone) || /(.)\1{5,}/.test(normalizedPhone)) {
+      return res.status(400).json({ success: false, error: "გთხოვთ მიუთითოთ რეალური ტელეფონის ნომერი!" });
+    }
+
     const profiles = await loadProfiles();
     
     const newProfile = {
-      phone: cleanPhone,
+      phone: normalizedPhone,
       name: name.trim(),
       surname: surname.trim(),
       birthPlace: birthPlace.trim(),
@@ -299,7 +323,7 @@ app.post("/api/profile", async (req, res) => {
       createdAt: new Date().toISOString()
     };
 
-    profiles[cleanPhone] = newProfile;
+    profiles[normalizedPhone] = newProfile;
     await saveProfiles(profiles);
 
     // Send Telegram Notification on profile save/update
@@ -308,7 +332,7 @@ app.post("/api/profile", async (req, res) => {
     const tgMsg = `👤 *აიდი მოდელები: ახალი პროფილი / განახლება* 🌌\n\n` +
                   `• *სახელი:* ${name.trim()}\n` +
                   `• *გვარი:* ${surname.trim()}\n` +
-                  `• *ტელეფონი:* \`${cleanPhone}\`\n` +
+                  `• *ტელეფონი:* \`${normalizedPhone}\`\n` +
                   `• *დაბადების თარიღი:* ${day} ${monthLabel}, ${year}\n` +
                   `• *დაბადების ადგილი:* ${birthPlace.trim()}\n` +
                   `• *დრო:* ${new Date().toLocaleString('ka-GE')}`;
@@ -341,7 +365,7 @@ app.post("/api/generate-reading", async (req, res) => {
       return res.status(400).json({ success: false, error: "ტელეფონის ნომერი და ტიპი სავალდებულოა" });
     }
 
-    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    const cleanPhone = normalizePhone(phone);
     const profiles = await loadProfiles();
     const profile = profiles[cleanPhone];
 
@@ -522,7 +546,7 @@ app.post("/api/balance-analysis", async (req, res) => {
     let isTestUser = false;
     
     if (phone) {
-      const cleanPhone = phone.trim().replace(/\s+/g, "");
+      const cleanPhone = normalizePhone(phone);
       const profiles = await loadProfiles();
       const profile = profiles[cleanPhone];
       if (profile) {
@@ -613,8 +637,8 @@ app.post("/api/compatibility", async (req, res) => {
       return res.status(400).json({ success: false, error: "ორივე ტელეფონის ნომერი სავალდებულოა" });
     }
 
-    const cleanA = phoneA.trim().replace(/\s+/g, "");
-    const cleanB = phoneB.trim().replace(/\s+/g, "");
+    const cleanA = normalizePhone(phoneA);
+    const cleanB = normalizePhone(phoneB);
 
     const profiles = await loadProfiles();
     const profileA = profiles[cleanA];

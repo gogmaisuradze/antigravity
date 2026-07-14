@@ -1339,6 +1339,13 @@
             return;
           }
 
+          if (/^(.)\1+$/.test(normalizedPhone) || /(.)\1{5,}/.test(normalizedPhone)) {
+            playErrorSound();
+            profileErrorText.textContent = "გთხოვთ შეიყვანოთ სწორი ტელეფონის ნომერი (არ უნდა შედგებოდეს მხოლოდ ერთნაირი ან განმეორებადი ციფრებისგან)";
+            profileErrorAlert.classList.remove('hidden');
+            return;
+          }
+
           // Register Profile API Sync
           const submitBtn = document.getElementById('btn-profile-submit');
           const originalBtnText = submitBtn.innerHTML;

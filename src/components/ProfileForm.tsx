@@ -368,6 +368,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       return setError("ტელეფონის ნომერი აუცილებლად უნდა იწყებოდეს 5-ით და შედგებოდეს 9 ციფრისგან (მაგ: 5XXXXXXXX)");
     }
 
+    if (/^(.)\1+$/.test(normalizedPhone) || /(.)\1{5,}/.test(normalizedPhone)) {
+      playErrorSound();
+      return setError("გთხოვთ შეიყვანოთ სწორი ტელეფონის ნომერი (არ უნდა შედგებოდეს მხოლოდ ერთნაირი ან განმეორებადი ციფრებისგან)");
+    }
+
     if (!selectedTheme) {
       playErrorSound();
       return setError("გთხოვთ აირჩიოთ ანალიზის თემა");
@@ -728,7 +733,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
                     const isNameValid = cleanName.length >= 2 && !/\d/.test(cleanName);
                     const isSurnameValid = cleanSurname.length >= 2 && !/\d/.test(cleanSurname);
-                    const isPhoneValid = /^5\d{8}$/.test(normalizedPhone);
+                    const isPhoneValid = /^5\d{8}$/.test(normalizedPhone) && !/^(.)\1+$/.test(normalizedPhone) && !/(.)\1{5,}/.test(normalizedPhone);
 
                     if (isNameValid && isSurnameValid && isPhoneValid) {
                       setTimeout(() => {
