@@ -161,26 +161,26 @@
 
   <main class="relative z-10">
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center px-12 hero-gradient overflow-hidden">
+    <section class="relative min-h-[90vh] md:min-h-screen flex items-center px-5 sm:px-8 md:px-12 hero-gradient overflow-hidden pt-28 md:pt-0">
       <div class="max-w-7xl w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
         <div class="md:col-span-8 z-10">
-          <span class="text-secondary font-label tracking-[0.3em] text-xs uppercase mb-6 block">ფილოსოფიური მოგზაურობა</span>
-          <h1 class="text-white font-headline text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] leading-none tracking-tighter transition-all duration-700">
+          <span class="text-secondary font-label tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-3 md:mb-6 block">ფილოსოფიური მოგზაურობა</span>
+          <h1 class="text-white font-headline text-4xl sm:text-7xl md:text-8xl lg:text-[10rem] leading-none tracking-tighter transition-all duration-700">
             გააცნობიერე
           </h1>
-          <p class="text-secondary font-headline text-xl sm:text-2xl md:text-4xl mt-4 md:mt-6 italic tracking-wide">
+          <p class="text-secondary font-headline text-lg sm:text-2xl md:text-4xl mt-3 md:mt-6 italic tracking-wide">
             პოზიტიური ფსიქოთერაპიის ცენტრი
           </p>
-          <p class="mt-6 text-primary max-w-lg text-lg font-light leading-relaxed">
+          <p class="mt-4 md:mt-6 text-primary max-w-lg text-sm sm:text-lg font-light leading-relaxed">
             „ადამიანი ფასდაუდებელი, ძვირფასი ქვებით სავსე საბადოა.“
           </p>
           <div class="mt-2 text-right max-w-lg">
-            <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" rel="noopener noreferrer" class="text-base font-label italic text-secondary hover:text-[#f1bf62] transition-colors underline decoration-[#c6c6ce]/30 hover:decoration-[#f1bf62] font-semibold">
+            <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-base font-label italic text-secondary hover:text-[#f1bf62] transition-colors underline decoration-[#c6c6ce]/30 hover:decoration-[#f1bf62] font-semibold">
               ნოსრატ პეზეშკიანი
             </a>
           </div>
-          <div class="mt-16 flex flex-wrap items-center gap-6">
-            <a href="logic.html" class="rka-btn bg-secondary-container text-on-secondary-container px-10 py-4 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all shadow-xl no-underline inline-block text-center">
+          <div class="mt-8 md:mt-16 flex flex-wrap items-center gap-6">
+            <a href="logic.html" class="rka-btn bg-secondary-container text-on-secondary-container px-6 py-3 md:px-10 md:py-4 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all shadow-xl no-underline inline-block text-center text-sm md:text-base">
               გონებრივი რუკა
             </a>
           </div>
@@ -203,30 +203,30 @@
         </div>
       </div>
       <!-- Scroll Indicator -->
-      <div class="absolute bottom-12 left-12 flex items-center gap-4 text-xs font-label tracking-widest text-outline">
+      <div class="absolute bottom-12 left-5 sm:left-8 md:left-12 hidden sm:flex items-center gap-4 text-xs font-label tracking-widest text-outline">
         <span class="rotate-90 block w-12 h-px bg-outline"></span>
         <span>ჩასქროლე</span>
       </div>
     </section>
 
     <!-- Services Section: Bento Grid -->
-    <section class="py-32 px-12 reveal-hidden">
+    <section class="py-16 md:py-32 px-5 sm:px-8 md:px-12 reveal-hidden">
       <div class="max-w-7xl mx-auto">
-        <div class="mb-20">
-          <h2 class="text-4xl font-headline text-white italic">შინაგანი ტრანსფორმაციის სივრცე</h2>
+        <div class="mb-10 md:mb-20">
+          <h2 class="text-2xl sm:text-4xl font-headline text-white italic">შინაგანი ტრანსფორმაციის სივრცე</h2>
           <div class="h-1 w-20 bg-secondary mt-4"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="md:col-span-2 bg-surface-container p-12 rounded-xl hover-glow border border-transparent group cursor-pointer"
+          <div class="md:col-span-2 bg-surface-container p-6 sm:p-8 md:p-12 rounded-xl hover-glow border border-transparent group cursor-pointer"
                onmouseenter="const v = document.getElementById('sessions-bell-video'); if(v) v.play();"
                onmouseleave="const v = document.getElementById('sessions-bell-video'); if(v) v.pause();">
-            <div class="flex justify-between items-start mb-12">
-              <span class="material-symbols-outlined text-secondary text-4xl">psychology</span>
-              <span class="text-xs font-label tracking-widest opacity-40">INDIVIDUAL</span>
+            <div class="flex justify-between items-start mb-6 md:mb-12">
+              <span class="material-symbols-outlined text-secondary text-2xl sm:text-4xl">psychology</span>
+              <span class="text-[10px] sm:text-xs font-label tracking-widest opacity-40">INDIVIDUAL</span>
             </div>
-            <h3 class="text-3xl font-headline text-white mb-6">ინდივიდუალური ფსიქოთერაპია</h3>
-            <p class="text-white max-w-md leading-relaxed font-light">სიღრმისეული მუშაობა საკუთარ თავთან, ტრავმების გააზრება და ახალი პერსპექტივების აღმოჩენა.</p>
-            <div class="mt-12 overflow-hidden aspect-video md:aspect-auto md:h-48 rounded-xl relative border border-white/5">
+            <h3 class="text-xl sm:text-3xl font-headline text-white mb-4 md:mb-6">ინდივიდუალური ფსიქოთერაპია</h3>
+            <p class="text-white max-w-md text-sm sm:text-base leading-relaxed font-light">სიღრმისეული მუშაობა საკუთარ თავთან, ტრავმების გააზრება და ახალი პერსპექტივების აღმოჩენა.</p>
+            <div class="mt-6 md:mt-12 overflow-hidden aspect-video md:aspect-auto md:h-48 rounded-xl relative border border-white/5 hidden md:block">
               <video 
                 id="sessions-bell-video"
                 src="/ზანზალაკი.mp4" 
@@ -237,13 +237,13 @@
               </video>
             </div>
           </div>
-          <div class="bg-primary-container p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group">
+          <div class="bg-primary-container p-6 sm:p-8 md:p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group">
             <div>
-              <span class="material-symbols-outlined text-[#bcc5e9] text-4xl mb-8">groups</span>
-              <h3 class="text-2xl font-headline text-white mb-4">ჯგუფური ფსიქოთერაპია</h3>
-              <p class="text-[#99a3c5] text-sm leading-relaxed font-light">გამოცდილების გაზიარება და სოციალური მხარდაჭერა უსაფრთხო გარემოში.</p>
+              <span class="material-symbols-outlined text-[#bcc5e9] text-2xl sm:text-4xl mb-4 sm:mb-8">groups</span>
+              <h3 class="text-lg sm:text-2xl font-headline text-white mb-3 md:mb-4">ჯგუფური ფსიქოთერაპია</h3>
+              <p class="text-[#99a3c5] text-xs sm:text-sm leading-relaxed font-light">გამოცდილების გაზიარება და სოციალური მხარდაჭერა უსაფრთხო გარემოში.</p>
             </div>
-            <a class="mt-8 text-secondary flex items-center gap-2 font-label text-sm" href="/services.html">
+            <a class="mt-6 sm:mt-8 text-secondary flex items-center gap-2 font-label text-xs sm:text-sm" href="/services.html">
               გაიგე მეტი <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
           </div>
@@ -251,35 +251,35 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <!-- Education Card -->
-          <div class="bg-surface-container p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group cursor-pointer"
+          <div class="bg-surface-container p-6 sm:p-8 md:p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group cursor-pointer"
                onclick="window.location.href='education.html'">
             <div>
-              <div class="flex justify-between items-start mb-8">
-                <span class="material-symbols-outlined text-secondary text-4xl">school</span>
-                <span class="text-xs font-label tracking-widest opacity-40 uppercase">EDUCATIONAL PROGRAMS</span>
+              <div class="flex justify-between items-start mb-4 sm:mb-8">
+                <span class="material-symbols-outlined text-secondary text-2xl sm:text-4xl">school</span>
+                <span class="text-[10px] sm:text-xs font-label tracking-widest opacity-40 uppercase">EDUCATIONAL PROGRAMS</span>
               </div>
-              <h3 class="text-2xl font-headline text-white mb-4">განათლება</h3>
-              <p class="text-on-surface-variant text-sm leading-relaxed font-light">სიღრმისეული სასწავლო პროგრამები, ინტერაქტიული ვორქშოფები, პრაქტიკული სემინარები და მენტალური ჯანმრთელობის კურსები.</p>
+              <h3 class="text-lg sm:text-2xl font-headline text-white mb-3 md:mb-4">განათლება</h3>
+              <p class="text-on-surface-variant text-xs sm:text-sm leading-relaxed font-light">სიღრმისეული სასწავლო პროგრამები, ინტერაქტიული ვორქშოფები, პრაქტიკული სემინარები და მენტალური ჯანმრთელობის კურსები.</p>
             </div>
-            <div class="mt-8">
-              <a class="bg-secondary-container text-on-secondary-container px-6 py-2.5 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all shadow-xl flex items-center gap-2 font-label text-xs w-fit" href="education.html">
+            <div class="mt-6 sm:mt-8">
+              <a class="bg-secondary-container text-on-secondary-container px-4 py-2 sm:px-6 sm:py-2.5 rounded-xl font-medium tracking-wide hover:opacity-90 transition-all shadow-xl flex items-center gap-2 font-label text-[10px] sm:text-xs w-fit" href="education.html">
                 კურსების დათვალიერება <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1.5">arrow_forward</span>
               </a>
             </div>
           </div>
 
           <!-- Corporate Trainings Card -->
-          <div class="bg-primary-container p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group cursor-pointer"
+          <div class="bg-primary-container p-6 sm:p-8 md:p-12 rounded-xl flex flex-col justify-between hover-glow border border-transparent group cursor-pointer"
                onclick="window.location.href='services.html'">
             <div>
-              <div class="flex justify-between items-start mb-8">
-                <span class="material-symbols-outlined text-[#bcc5e9] text-4xl">business_center</span>
-                <span class="text-xs font-label tracking-widest opacity-40 uppercase">CORPORATE</span>
+              <div class="flex justify-between items-start mb-4 sm:mb-8">
+                <span class="material-symbols-outlined text-[#bcc5e9] text-2xl sm:text-4xl">business_center</span>
+                <span class="text-[10px] sm:text-xs font-label tracking-widest opacity-40 uppercase">CORPORATE</span>
               </div>
-              <h3 class="text-2xl font-headline text-white mb-4">კორპორატიული ტრენინგები</h3>
-              <p class="text-[#99a3c5] text-sm leading-relaxed font-light">ფსიქოლოგიური კორპორატიული პროგრამები გუნდური ეფექტურობისა და მენტალური ჯანმრთელობისთვის.</p>
+              <h3 class="text-lg sm:text-2xl font-headline text-white mb-3 md:mb-4">კორპორატიული ტრენინგები</h3>
+              <p class="text-[#99a3c5] text-xs sm:text-sm leading-relaxed font-light">ფსიქოლოგიური კორპორატიული პროგრამები გუნდური ეფექტურობისა და მენტალური ჯანმრთელობისთვის.</p>
             </div>
-            <a class="mt-8 text-secondary flex items-center gap-2 font-label text-sm" href="services.html">
+            <a class="mt-6 sm:mt-8 text-secondary flex items-center gap-2 font-label text-xs sm:text-sm" href="services.html">
               გაიგე მეტი <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
           </div>
@@ -288,42 +288,42 @@
     </section>
 
     <!-- Interactive Discovery Portals (Second Section, Compact) -->
-    <section class="py-16 px-6 md:px-12 bg-[#121416]/20 relative z-10 reveal-hidden border-b border-white/5">
+    <section class="py-10 md:py-16 px-4 sm:px-8 md:px-12 bg-[#121416]/20 relative z-10 reveal-hidden border-b border-white/5">
       <div class="max-w-6xl mx-auto">
-        <div class="mb-12 text-center">
-          <span class="text-[#f1bf62] font-label tracking-[0.3em] text-[11px] uppercase mb-2.5 block">ინტერაქტიული ინსტრუმენტები</span>
-          <h2 class="text-3xl md:text-4xl font-headline text-white italic">თვითშემეცნების სივრცე</h2>
+        <div class="mb-8 md:mb-12 text-center">
+          <span class="text-[#f1bf62] font-label tracking-[0.3em] text-[10px] sm:text-[11px] uppercase mb-2 block">ინტერაქტიული ინსტრუმენტები</span>
+          <h2 class="text-2xl sm:text-4xl font-headline text-white italic">თვითშემეცნების სივრცე</h2>
           <div class="h-0.5 w-12 bg-[#f1bf62] mx-auto mt-3"></div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 max-w-6xl mx-auto">
           <!-- Card 1: Balance Model -->
-          <div class="bg-[#1e2022]/40 border border-white/5 rounded-2xl p-8 md:p-10 shadow-xl backdrop-blur-xl hover:border-[#f1bf62]/20 hover:bg-[#1e2022]/50 transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+          <div class="bg-[#1e2022]/40 border border-white/5 rounded-2xl p-5 sm:p-8 md:p-10 shadow-xl backdrop-blur-xl hover:border-[#f1bf62]/20 hover:bg-[#1e2022]/50 transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
                onclick="window.location.href='balance.html'">
             <!-- Subtle Radial Gradient Glow on Hover -->
             <div class="absolute -right-20 -bottom-20 w-40 h-40 rounded-full bg-[#f1bf62]/2 blur-3xl group-hover:bg-[#f1bf62]/5 transition-colors duration-700"></div>
             
-            <div class="space-y-6">
-              <div class="w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-[#f1bf62] transition-transform duration-500 group-hover:scale-105">
-                <span class="material-symbols-outlined text-2xl">scale</span>
+            <div class="space-y-4 md:space-y-6">
+              <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-[#f1bf62] transition-transform duration-500 group-hover:scale-105">
+                <span class="material-symbols-outlined text-xl md:text-2xl">scale</span>
               </div>
               <div>
-                <h3 class="text-2xl md:text-3xl font-headline text-white mb-2">ბალანსის მოდელი</h3>
-                <span class="text-xs md:text-sm font-semibold tracking-wider text-[#f1bf62] uppercase block mb-1">ცხოვრების 4 განზომილება</span>
+                <h3 class="text-xl sm:text-3xl font-headline text-white mb-1">ბალანსის მოდელი</h3>
+                <span class="text-[10px] sm:text-sm font-semibold tracking-wider text-[#f1bf62] uppercase block mb-1">ცხოვრების 4 განზომილება</span>
               </div>
-              <p class="text-[#c6c6ce]/80 text-sm md:text-base leading-relaxed font-light mb-4">
+              <p class="text-[#c6c6ce]/80 text-xs sm:text-base leading-relaxed font-light mb-2">
                 აღმოაჩინეთ თქვენი ენერგიისა და დროის განაწილება ოთხ საკვანძო სფეროში: სხეული, მიღწევა, კონტაქტი და მომავალი. ჩაიტარეთ ტესტირება და მიიღეთ სიღრმისეული ფსიქოლოგიური ანალიზი.
               </p>
 
               <!-- Simple elegant balanced bar representation -->
-              <div class="space-y-2.5 pt-4 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+              <div class="space-y-2 pt-2 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
                 <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden flex gap-1">
                   <div class="h-full bg-[#ff7b72] rounded-full transition-all duration-1000 w-[35%]"></div>
                   <div class="h-full bg-[#7abcff] rounded-full transition-all duration-1000 w-[45%]"></div>
                   <div class="h-full bg-[#79c0ff] rounded-full transition-all duration-1000 w-[15%]"></div>
                   <div class="h-full bg-[#ffd57b] rounded-full transition-all duration-1000 w-[5%]"></div>
                 </div>
-                <div class="flex justify-between text-[11px] text-white/40 tracking-wider font-label">
+                <div class="flex justify-between text-[9px] sm:text-[11px] text-white/40 tracking-wider font-label">
                   <span>სხეული</span>
                   <span>მიღწევა</span>
                   <span>კონტაქტი</span>
@@ -332,14 +332,14 @@
               </div>
             </div>
 
-            <div class="pt-8 border-t border-white/5 mt-6 flex justify-between items-center">
-              <span class="inline-flex items-center gap-2 text-[#f1bf62] group-hover:text-white font-label font-bold text-xs tracking-widest uppercase transition-colors">
+            <div class="pt-5 border-t border-white/5 mt-4 md:mt-6 flex justify-between items-center">
+              <span class="inline-flex items-center gap-2 text-[#f1bf62] group-hover:text-white font-label font-bold text-[10px] sm:text-xs tracking-widest uppercase transition-colors">
                 ტესტის შევსება
                 <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
               </span>
               <!-- Minimalist Swaying Balance Animation -->
-              <div class="pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-300 pr-2">
-                <svg class="w-11 h-11 text-[#f1bf62]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <div class="pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-300 pr-1 md:pr-2">
+                <svg class="w-9 h-9 sm:w-11 sm:h-11 text-[#f1bf62]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 22h14M12 22V8" opacity="0.5"/>
                   <g class="animate-sway" style="transform-origin: 12px 8px;">
                     <path d="M4 8h16"/>
@@ -354,41 +354,41 @@
           </div>
 
           <!-- Card 2: Cosmo ID -->
-          <div class="bg-[#1e2022]/40 border border-white/5 rounded-2xl p-8 md:p-10 shadow-xl backdrop-blur-xl hover:border-[#f1bf62]/20 hover:bg-[#1e2022]/50 transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+          <div class="bg-[#1e2022]/40 border border-white/5 rounded-2xl p-5 sm:p-8 md:p-10 shadow-xl backdrop-blur-xl hover:border-[#f1bf62]/20 hover:bg-[#1e2022]/50 transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
                onclick="window.location.href='cosmic.html'">
             <!-- Subtle Radial Gradient Glow on Hover -->
             <div class="absolute -right-20 -bottom-20 w-40 h-40 rounded-full bg-[#f1bf62]/2 blur-3xl group-hover:bg-[#f1bf62]/5 transition-colors duration-700"></div>
 
-            <div class="space-y-6">
-              <div class="w-12 h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-[#f1bf62] transition-transform duration-500 group-hover:scale-105">
-                <span class="material-symbols-outlined text-2xl">auto_awesome</span>
+            <div class="space-y-4 md:space-y-6">
+              <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-[#f1bf62] transition-transform duration-500 group-hover:scale-105">
+                <span class="material-symbols-outlined text-xl md:text-2xl">auto_awesome</span>
               </div>
               <div>
-                <h3 class="text-2xl md:text-3xl font-headline text-white mb-2">აიდი მოდელები</h3>
-                <span class="text-xs md:text-sm font-semibold tracking-wider text-[#f1bf62] uppercase block mb-1">იდენტობის მატრიცა</span>
+                <h3 class="text-xl sm:text-3xl font-headline text-white mb-1">აიდი მოდელები</h3>
+                <span class="text-[10px] sm:text-sm font-semibold tracking-wider text-[#f1bf62] uppercase block mb-1">იდენტობის მატრიცა</span>
               </div>
-              <p class="text-[#c6c6ce]/80 text-sm md:text-base leading-relaxed font-light mb-4">
+              <p class="text-[#c6c6ce]/80 text-xs sm:text-base leading-relaxed font-light mb-2">
                 გააერთიანეთ თქვენი ასტროლოგიური და ფსიქოლოგიური პორტრეტი ერთიან პროფილში. სისტემა აერთიანებს დასავლურ ჰოროსკოპს, ენიაგრამას, პითაგორას მატრიცასა და ბა-ძის.
               </p>
 
               <!-- Starry sky orbits preview -->
-              <div class="flex items-center justify-between pt-4 pb-0.5 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
-                <div class="flex gap-3 items-center">
+              <div class="flex items-center justify-between pt-2 pb-0.5 opacity-75 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="flex gap-2 items-center">
                   <div class="w-1.5 h-1.5 rounded-full bg-[#f1bf62] animate-ping"></div>
-                  <span class="text-[11px] text-white/40 tracking-wider font-label">AQUARIUS • TYPE 5 • 1111 22 3 99</span>
+                  <span class="text-[9px] sm:text-[11px] text-white/40 tracking-wider font-label truncate max-w-[150px] sm:max-w-none">AQUARIUS • TYPE 5 • 1111 22 3 99</span>
                 </div>
-                <span class="text-[9px] text-[#27c93f] bg-[#27c93f]/10 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider font-label">Verified</span>
+                <span class="text-[8px] sm:text-[9px] text-[#27c93f] bg-[#27c93f]/10 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full font-bold uppercase tracking-wider font-label">Verified</span>
               </div>
             </div>
 
-            <div class="pt-8 border-t border-white/5 mt-6 flex justify-between items-center">
-              <span class="inline-flex items-center gap-2 text-[#f1bf62] group-hover:text-white font-label font-bold text-xs tracking-widest uppercase transition-colors">
+            <div class="pt-5 border-t border-white/5 mt-4 md:mt-6 flex justify-between items-center">
+              <span class="inline-flex items-center gap-2 text-[#f1bf62] group-hover:text-white font-label font-bold text-[10px] sm:text-xs tracking-widest uppercase transition-colors">
                 პროფილის შექმნა
                 <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
               </span>
               <!-- Minimalist Orbit Constellation Animation -->
-              <div class="pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-300 pr-2">
-                <svg class="w-11 h-11 text-[#f1bf62] animate-[spin_16s_linear_infinite]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <div class="pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-300 pr-1 md:pr-2">
+                <svg class="w-9 h-9 sm:w-11 sm:h-11 text-[#f1bf62] animate-[spin_16s_linear_infinite]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                   <polygon points="12,2 22,12 12,22 2,12" stroke-dasharray="2 2" opacity="0.4" />
                   <polygon points="12,5 19,12 12,19 5,12" opacity="0.6" />
                   <circle cx="12" cy="12" r="2.5" fill="currentColor" class="animate-pulse" />
@@ -407,46 +407,46 @@
 
 
     <!-- Reflection Mirror Specialty Component -->
-    <section class="py-16 md:py-1.50 px-12 reveal-hidden">
-      <div class="max-w-5xl mx-auto bg-primary-container/20 rounded-[2rem] p-10 md:p-16 text-center relative overflow-hidden backdrop-blur-sm border border-outline-variant/10">
-        <span class="material-symbols-outlined text-secondary text-4xl mb-6 block mx-auto" style='font-variation-settings: "FILL" 1;'>format_quote</span>
-        <blockquote class="text-2xl md:text-3xl lg:text-4xl font-headline text-white md:text-primary hover:text-white italic leading-snug max-w-3xl mx-auto transition-colors duration-500 cursor-default">
+    <section class="py-10 md:py-24 px-4 sm:px-8 md:px-12 reveal-hidden">
+      <div class="max-w-5xl mx-auto bg-primary-container/20 rounded-[2rem] p-6 sm:p-10 md:p-16 text-center relative overflow-hidden backdrop-blur-sm border border-outline-variant/10">
+        <span class="material-symbols-outlined text-secondary text-2xl sm:text-4xl mb-3 md:mb-6 block mx-auto" style='font-variation-settings: "FILL" 1;'>format_quote</span>
+        <blockquote class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-headline text-white md:text-primary hover:text-white italic leading-snug max-w-3xl mx-auto transition-colors duration-500 cursor-default">
           "შენი ცხოვრება არის ის, რასაც შენი ფიქრები ქმნიან. გააცნობიერე შენი ძალა და ჰარმონია თავისით მოვა."
         </blockquote>
       </div>
     </section>
 
     <!-- Asymmetric Content Block: Reflection -->
-    <section class="py-32 px-12 reveal-hidden">
+    <section class="py-16 md:py-32 px-4 sm:px-8 md:px-12 reveal-hidden">
       <div class="max-w-5xl mx-auto">
-        <div class="flex flex-col md:flex-row gap-20 items-start">
+        <div class="flex flex-col md:flex-row gap-8 md:gap-20 items-start">
           <div class="md:w-1/2 sticky top-32">
-            <h2 class="text-4xl sm:text-5xl font-headline text-on-surface leading-tight">პოზიტიური მიდგომა და <br/><span class="text-secondary italic">გადააზრება (Positum)</span></h2>
-            <div class="introspection-card p-6 rounded-2xl mt-8">
-              <p class="text-on-surface-variant text-lg leading-relaxed font-light">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl font-headline text-on-surface leading-tight">პოზიტიური მიდგომა და <br/><span class="text-secondary italic">გადააზრება (Positum)</span></h2>
+            <div class="introspection-card p-5 sm:p-6 rounded-2xl mt-4 sm:mt-8">
+              <p class="text-on-surface-variant text-sm sm:text-lg leading-relaxed font-light">
                 პირველი მთავარი თემა თავად მეთოდის სახელწოდებასა და ფილოსოფიას უკავშირდება. ტერმინი „პოზიტიური“ მომდინარეობს ლათინური სიტყვიდან „positum“ (ან positivus), რაც ნიშნავს ნამდვილს, რეალურს, ფაქტობრივსა და მოცემულს.
               </p>
             </div>
           </div>
-          <div class="md:w-1/2 space-y-5 pt-4">
-            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
-              <span class="text-secondary font-headline text-3xl block mb-2">01</span>
-              <h3 class="text-xl font-headline text-white mb-2">ფოკუსი რესურსებზე</h3>
-              <p class="text-on-surface-variant text-sm font-light leading-relaxed">
+          <div class="md:w-1/2 space-y-4 md:space-y-5 pt-0 md:pt-4">
+            <div class="group cursor-default introspection-card p-4 sm:p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-2xl sm:text-3xl block mb-1">01</span>
+              <h3 class="text-lg font-headline text-white mb-1.5">ფოკუსი რესურსებზე</h3>
+              <p class="text-on-surface-variant text-xs sm:text-sm font-light leading-relaxed">
                 ტრადიციული მეთოდებისგან განსხვავებით, რომლებიც მხოლოდ დაავადების აღმოფხვრაზე არიან ორიენტირებულნი, პოზიტიური ფსიქოთერაპია ფოკუსირდება ადამიანის არსებულ შესაძლებლობებზე, მის პოტენციალსა და თვითდახმარების უნარების მობილიზებაზე. ადამიანის ბუნება განიხილება ჰუმანისტური კუთხით, როგორც სიკეთისა და პოტენციალის მატარებელი.
               </p>
             </div>
-            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
-              <span class="text-secondary font-headline text-3xl block mb-2">02</span>
-              <h3 class="text-xl font-headline text-white mb-2">სიმპტომების პოზიტიური ინტერპრეტაცია</h3>
-              <p class="text-on-surface-variant text-sm font-light leading-relaxed">
+            <div class="group cursor-default introspection-card p-4 sm:p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-2xl sm:text-3xl block mb-1">02</span>
+              <h3 class="text-lg font-headline text-white mb-1.5">სიმპტომების პოზიტიური ინტერპრეტაცია</h3>
+              <p class="text-on-surface-variant text-xs sm:text-sm font-light leading-relaxed">
                 ეს მიდგომა აშლილობებსა და პრობლემებს უყურებს არა როგორც მხოლოდ პათოლოგიას, არამედ როგორც კონფლიქტზე საპასუხო რეაქციას. ფსიქოთერაპიის პროცესში ხდება მათი „პოზიტიურად“ გადააზრება. მაგალითად, დეპრესია განიხილება, როგორც „კონფლიქტებზე ღრმა ემოციურობით რეაგირების უნარი“; მარტოობის შიში — როგორც „სხვა ადამიანებთან ყოფნის სურვილი“; ხოლო ფსიქოზი — როგორც „ერთდროულად ორ სამყაროში ცხოვრების უნარი“.
               </p>
             </div>
-            <div class="group cursor-default introspection-card p-5 rounded-xl max-w-md ml-auto">
-              <span class="text-secondary font-headline text-3xl block mb-2">03</span>
-              <h3 class="text-xl font-headline text-white mb-2">შედეგი</h3>
-              <p class="text-on-surface-variant text-sm font-light leading-relaxed">
+            <div class="group cursor-default introspection-card p-4 sm:p-5 rounded-xl max-w-md ml-auto">
+              <span class="text-secondary font-headline text-2xl sm:text-3xl block mb-1">03</span>
+              <h3 class="text-lg font-headline text-white mb-1.5">შედეგი</h3>
+              <p class="text-on-surface-variant text-xs sm:text-sm font-light leading-relaxed">
                 ამგვარი თვალთახედვა პაციენტს უხსნის სტიგმას, ეხმარება მას დაინახოს თავისი დაავადების ფარული ფუნქცია და ფოკუსირება მოახდინოს საკუთარ ძლიერ მხარეებზე.
               </p>
             </div>
