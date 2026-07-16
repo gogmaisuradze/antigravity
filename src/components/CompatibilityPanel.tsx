@@ -5,6 +5,7 @@ import { Heart, Send, CheckCircle2, AlertTriangle, MessageSquare, Sparkles, Refr
 // Wait! The framework guidelines say: "Prefer using react-markdown to render Markdown. The className prop has been removed from react-markdown." 
 // Let's import ReactMarkdown from "react-markdown" cleanly!
 import ReactMarkdown from "react-markdown";
+import { API_URLS } from "../config";
 
 interface CompatibilityPanelProps {
   userProfile: BirthProfile;
@@ -42,7 +43,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
     setPartnerProfile(null);
 
     try {
-      const response = await fetch(`/api/profile/${encodeURIComponent(cleanPhone)}`);
+      const response = await fetch(API_URLS.getProfile(cleanPhone));
       const data = await response.json();
       
       if (data.success) {
@@ -97,7 +98,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
       const [year, month, day] = partnerBirthDate.split('-').map(Number);
       
       // Register or update partner profile first
-      const regResponse = await fetch("/api/profile", {
+      const regResponse = await fetch(API_URLS.saveProfile, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -119,7 +120,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
       }
 
       // Compute compatibility
-      const response = await fetch("/api/compatibility", {
+      const response = await fetch(API_URLS.compatibility, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

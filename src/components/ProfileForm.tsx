@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BirthProfile, CalculationType } from "../types";
 import { MapPin, Calendar, ShieldAlert, Sparkles, RefreshCw } from "lucide-react";
 import { RollerPicker, playTickSound, getSharedAudioContext } from "./RollerPicker";
+import { API_URLS } from "../config";
 
 const THEMES = [
   { value: CalculationType.HOROSCOPE, label: "დასავლური ჰოროსკოპი", description: "ზოდიაქოს ნიშანი, ხასიათი, სტიქიები და კოსმოსური ტრენდები.", numeral: "I" },
@@ -381,7 +382,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     const finalBirthPlace = birthPlace.trim() || "საქართველო";
 
     try {
-      const response = await fetch("/api/profile", {
+      const response = await fetch(API_URLS.saveProfile, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

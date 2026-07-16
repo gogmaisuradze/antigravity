@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URLS } from "./config";
 import { BirthProfile, CalculationType, ReadingResponse } from "./types";
 import { ProfileForm } from "./components/ProfileForm";
 import { SpinWheel } from "./components/SpinWheel";
@@ -199,7 +200,7 @@ export default function App() {
 
   const fetchUserProfile = async (phone: string) => {
     try {
-      const response = await fetch(`/api/profile/${encodeURIComponent(phone.trim().replace(/\s+/g, ""))}`);
+      const response = await fetch(API_URLS.getProfile(phone.trim().replace(/\s+/g, "")));
       const data = await response.json();
       if (data.success && data.exists) {
         setUserProfile(data.profile);
@@ -224,7 +225,7 @@ export default function App() {
     setReading(null);
 
     try {
-      const response = await fetch("/api/generate-reading", {
+      const response = await fetch(API_URLS.generateReading, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, type }),
@@ -256,7 +257,7 @@ export default function App() {
   const handleDeleteProfile = async () => {
     if (!userProfile) return;
     try {
-      await fetch(`/api/profile/${encodeURIComponent(userProfile.phone)}`, {
+      await fetch(API_URLS.deleteProfile(userProfile.phone), {
         method: "DELETE",
       });
     } catch (err) {
@@ -427,7 +428,7 @@ export default function App() {
 
     try {
       // 1. Save profile with new real phone
-      const saveResponse = await fetch("/api/profile", {
+      const saveResponse = await fetch(API_URLS.saveProfile, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -446,7 +447,7 @@ export default function App() {
         // 2. Clear old temp profile from server
         if (userProfile.phone.startsWith("temp_")) {
           try {
-            await fetch(`/api/profile/${encodeURIComponent(userProfile.phone)}`, {
+            await fetch(API_URLS.deleteProfile(userProfile.phone), {
               method: "DELETE",
             });
           } catch (deleteErr) {
