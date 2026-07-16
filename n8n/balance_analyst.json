@@ -1,0 +1,108 @@
+{
+  "name": "IDC Balance Model Analyst",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "balance-analysis",
+        "responseMode": "responseNode",
+        "options": {
+          "cors": true
+        }
+      },
+      "id": "7fa720e5-7b56-42d7-a5eb-0b5c1797c271",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 240]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={{ $node[\"Webhook\"].parameter[\"key\"] || \"YOUR_GEMINI_API_KEY\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"{{ 'სახელი: ' + ($json.body.name || 'სტუმარი') + ', სხეული/ჯანმრთელობა: ' + $json.body.bodyScore + '%, საქმე/მიღწევები: ' + $json.body.achievementScore + '%, კონტაქტები/ურთიერთობები: ' + $json.body.contactScore + '%, მომავალი/ფანტაზია: ' + $json.body.futureScore + '%.' }}\"\n        }\n      ]\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"შენ ხარ პროფესიონალი პოზიტიური ფსიქოთერაპევტი და Nossrat Peseschkian-ის ოთხი სფეროს ბალანსის მოდელის ექსპერტი. პასუხი გაეცი ქართულ ენაზე, მარკდაუნის (Markdown) ლამაზი ფორმატირებით. პასუხი უნდა იყოს ძალიან სიღრმისეული, მხარდამჭერი, ემპათიური და პრაქტიკული რეკომენდაციებით სავსე. მიმართე მომხმარებელს მეგობრულად და პროფესიონალურად.\"\n      }\n    ]\n  }\n}"
+      },
+      "id": "f5e93345-4299-4c8d-8fa0-6f0bb50d876d",
+      "name": "Gemini API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [320, 240]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "chatId": "443575738",
+        "text": "=⚖️ *ბალანსის მოდელი: გათვლა დასრულდა* 📊\n\n• *ტელეფონი:* `{{ $node[\"Webhook\"].json.body.phone }}`\n🟢 *სხეული/ჯანმრთელობა:* {{ $node[\"Webhook\"].json.body.bodyScore }}%\n🔵 *საქმე/მიღწევები:* {{ $node[\"Webhook\"].json.body.achievementScore }}%\n🔴 *კონტაქტები/ურთიერთობები:* {{ $node[\"Webhook\"].json.body.contactScore }}%\n🟣 *მომავალი/ფანტაზია:* {{ $node[\"Webhook\"].json.body.futureScore }}%",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "bfd343c6-f7ab-4cd4-a82f-2d7c67290eb1",
+      "name": "Telegram Notification",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [540, 140],
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_BOT_CREDENTIAL_ID"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"content\": \"{{ $json.candidates[0].content.parts[0].text.replace(/\\\\n/g, '\\\\n') }}\"\n}"
+      },
+      "id": "312c4bf2-3e28-444a-928e-0f0c05b8a6d7",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [560, 320]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Gemini API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini API": {
+      "main": [
+        [
+          {
+            "node": "Telegram Notification",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

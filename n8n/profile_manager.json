@@ -1,0 +1,267 @@
+{
+  "name": "IDC Profile Manager",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "profile",
+        "responseMode": "responseNode",
+        "options": {
+          "cors": true
+        }
+      },
+      "id": "e3a894cd-6dfb-47eb-9481-8c889312ab42",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 260]
+    },
+    {
+      "parameters": {
+        "jsCode": "const method = $node[\"Webhook\"].json.headers[\"x-http-method-override\"] || $node[\"Webhook\"].json.method || $node[\"Webhook\"].json.query?.method || \"GET\";\nreturn { json: { method } };"
+      },
+      "id": "a1d3f94c-829d-472e-839d-c7829dbcb33a",
+      "name": "Check Method",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [280, 260]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.method }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "GET"
+            },
+            {
+              "value2": "POST"
+            },
+            {
+              "value2": "DELETE"
+            }
+          ]
+        }
+      },
+      "id": "cda83bfb-b8ef-4c91-b3fb-2a5492dcb2a3",
+      "name": "Route Method",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [460, 260]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "sheetId": "YOUR_GOOGLE_SHEETS_FILE_ID",
+        "range": "A:H",
+        "filters": {
+          "phone": "={{ $node[\"Webhook\"].json.query.phone }}"
+        }
+      },
+      "id": "4da4bcfb-4a5f-47dc-9fb1-2a54823cbd1e",
+      "name": "Search Sheet (GET)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [680, 100],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CREDENTIAL_ID"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"exists\": {{ $json ? true : false }},\n  \"name\": \"{{ $json.name || '' }}\",\n  \"surname\": \"{{ $json.surname || '' }}\",\n  \"profile\": {\n    \"phone\": \"{{ $json.phone || '' }}\",\n    \"name\": \"{{ $json.name || '' }}\",\n    \"surname\": \"{{ $json.surname || '' }}\",\n    \"birthPlace\": \"{{ $json.birthPlace || '' }}\",\n    \"day\": {{ $json.day || 1 }},\n    \"month\": {{ $json.month || 1 }},\n    \"year\": {{ $json.year || 1990 }}\n  }\n}"
+      },
+      "id": "1fa3bfb4-d7ef-49eb-811c-c7829d2bfda1",
+      "name": "Respond GET",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [880, 100]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "sheetId": "YOUR_GOOGLE_SHEETS_FILE_ID",
+        "range": "A:H",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "phone": "={{ $node[\"Webhook\"].json.body.phone }}",
+            "name": "={{ $node[\"Webhook\"].json.body.name }}",
+            "surname": "={{ $node[\"Webhook\"].json.body.surname }}",
+            "birthPlace": "={{ $node[\"Webhook\"].json.body.birthPlace }}",
+            "day": "={{ $node[\"Webhook\"].json.body.day }}",
+            "month": "={{ $node[\"Webhook\"].json.body.month }}",
+            "year": "={{ $node[\"Webhook\"].json.body.year }}",
+            "createdAt": "={{ new Date().toISOString() }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "da14bcfb-4a5f-47dc-9fb1-2a54823cbd1d",
+      "name": "Save Sheet (POST)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [680, 260],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CREDENTIAL_ID"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "443575738",
+        "text": "=👤 *ახალი მომხმარებელი დარეგისტრირდა* 🎉\n\n• *სახელი გვარი:* {{ $node[\"Webhook\"].json.body.name }} {{ $node[\"Webhook\"].json.body.surname }}\n• *ტელეფონი:* `{{ $node[\"Webhook\"].json.body.phone }}`\n• *დაბადების თარიღი:* {{ $node[\"Webhook\"].json.body.day }}/{{ $node[\"Webhook\"].json.body.month }}/{{ $node[\"Webhook\"].json.body.year }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "bfd343c6-f7ab-4cd4-a82f-2d7c67290eb2",
+      "name": "Telegram Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [880, 200],
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_BOT_CREDENTIAL_ID"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"profile\": {\n    \"phone\": \"{{ $node[\"Webhook\"].json.body.phone }}\",\n    \"name\": \"{{ $node[\"Webhook\"].json.body.name }}\",\n    \"surname\": \"{{ $node[\"Webhook\"].json.body.surname }}\",\n    \"birthPlace\": \"{{ $node[\"Webhook\"].json.body.birthPlace }}\",\n    \"day\": {{ $node[\"Webhook\"].json.body.day }},\n    \"month\": {{ $node[\"Webhook\"].json.body.month }},\n    \"year\": {{ $node[\"Webhook\"].json.body.year }}\n  }\n}"
+      },
+      "id": "1fa3bfb4-d7ef-49eb-811c-c7829d2bfda2",
+      "name": "Respond POST",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1060, 280]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "sheetId": "YOUR_GOOGLE_SHEETS_FILE_ID",
+        "range": "A:H",
+        "filters": {
+          "phone": "={{ $node[\"Webhook\"].json.query.phone }}"
+        }
+      },
+      "id": "da14bcfb-4a5f-47dc-9fb1-2a54823cbd1c",
+      "name": "Delete Sheet (DELETE)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [680, 420],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CREDENTIAL_ID"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true\n}"
+      },
+      "id": "1fa3bfb4-d7ef-49eb-811c-c7829d2bfda3",
+      "name": "Respond DELETE",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [880, 420]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Check Method",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Method": {
+      "main": [
+        [
+          {
+            "node": "Route Method",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Method": {
+      "main": [
+        [
+          {
+            "node": "Search Sheet (GET)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Save Sheet (POST)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete Sheet (DELETE)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Sheet (GET)": {
+      "main": [
+        [
+          {
+            "node": "Respond GET",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Sheet (POST)": {
+      "main": [
+        [
+          {
+            "node": "Telegram Alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond POST",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Sheet (DELETE)": {
+      "main": [
+        [
+          {
+            "node": "Respond DELETE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

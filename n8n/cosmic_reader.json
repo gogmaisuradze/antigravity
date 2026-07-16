@@ -1,0 +1,133 @@
+{
+  "name": "IDC Cosmic ID Reader",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "generate-reading",
+        "responseMode": "responseNode",
+        "options": {
+          "cors": true
+        }
+      },
+      "id": "1aa38012-e547-49ac-821f-0b3c69027df1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 240]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "sheetId": "YOUR_GOOGLE_SHEETS_FILE_ID",
+        "range": "A:H",
+        "filters": {
+          "phone": "={{ $json.body.phone }}"
+        }
+      },
+      "id": "2da14bf1-a4ef-479c-b45a-c56149028cb1",
+      "name": "Get Profile from Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [300, 240],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CREDENTIAL_ID"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const type = $node[\"Webhook\"].json.body.type;\nconst profile = $json; // Row found\nconst userProfileStr = `სახელი: ${profile.name} ${profile.surname}, დაბადების ადგილი: ${profile.birthPlace || 'საქართველო'}, დაბადების თარიღი: ${profile.day}/${profile.month}/${profile.year}.`;\n\nlet prompt = \"\";\nlet title = \"\";\n\nswitch (type) {\n  case \"horoscope\":\n    title = \"დასავლური ჰოროსკოპი (ზოდიაქო)\";\n    prompt = `დაითვალე და დაადგინე ზოდიაქოს ნიშანი დაბადების თარიღის მიხედვით: ${userProfileStr}.\\nშემდეგ შეადგინე დასავლური ჰოროსკოპის სრული ანალიზი:\\n1. ზოდიაქოს ნიშანი და ელემენტი (ცეცხლი, მიწა, ჰაერი, წყალი)\\n2. ძირითადი ხასიათის თვისებები (დადებითი და უარყოფითი მხარეები)\\n3. მიმდინარე კოსმოსური ტრენდები და განვითარების გზები შენი დაბადების რუკის მიხედვით.\\n4. პრაქტიკული რჩევები ყოველდღიური ცხოვრებისთვის.`;\n    break;\n  case \"enneagram\":\n    title = \"ენიაგრამა (Enneagram)\";\n    prompt = `გამოთვალე და შეადგინე ენიაგრამის შესაძლო ტიპის ანალიზი ამ პიროვნებისთვის: ${userProfileStr}.\\nვინაიდან არ გვაქვს ტესტი, დაბადების თარიღის ენერგეტიკული ვიბრაციითა და ასტროლოგიური მახასიათებლებით განსაზღვრე მისი სავარაუდო დომინანტური ტიპი. დეტალურად აღწერე:\\n1. ენიაგრამის ტიპი (დასახელება, ნომერი)\\n2. ძირითადი შიში და ძირითადი სურვილი კორონარულ ფსიქოტიპში\\n3. სტრესისა და განვითარების (ინტეგრაცია/დეზინტეგრაცია) მიმართულებები\\n4. რეკომენდაციები პიროვნული ზრდისთვის.`;\n    break;\n  case \"psychomatrix\":\n    title = \"ფსიქომატრიცა (პითაგორას კვადრატი)\";\n    prompt = `ამ მონაცემების მიხედვით: ${userProfileStr}\\nწარმოადგინე მათემატიკური და ფსიქოლოგიური ანალიზი პითაგორას ფსიქომატრიცის მიხედვით. დაიანგარიშე პითაგორას სპეციალური რიცხვები (ჯამები და გამოკლებები) და ააგო სრული კვადრატის განმარტება:\\n1. ხასიათი (1-იანები)\\n2. ენერგია (2-იანები)\\n3. ინტერესი (3-იანები)\\n4. ჯანმრთელობა (4-იანები)\\n5. ინტუიცია (5-იანები)\\n6. შრომისმოყვარეობა (6-იანები)\\n7. იღბალი (7-იანები)\\n8. ვალდებულება/პასუხისმგებლობა (8-იანები)\\n9. მეხსიერება/ინტელექტი (9-იანები).\\nმიეცი თითოეული სექტორის ხარისხის შეფასება და ზოგადი ნუმეროლოგიური ფსიქოტიპის პორტრეტი.`;\n    break;\n  case \"numerology\":\n    title = \"ნუმეროლოგია\";\n    prompt = `დაითვალე დაბადების თარიღის მიხედვით ბედისწერის რიცხვი (Life Path Number), მაგალითად ყველა ციფრის შეჯამებით ერთ ციფრამდე (ან 11, 22, 33 მასტერ რიცხვებამდე) შემდეგი მონაცემების საფუძველზე: ${userProfileStr}.\\nაღწერე:\\n1. ბედისწერის რიცხვი და მისი ზოგადი მნიშვნელობა.\\n2. ცხოვრებისეული მისია და გამოწვევები.\\n3. ყველაზე შესაფერისი კარიერული მიმართულებები.\\n4. სასიყვარულო და პარტნიორული ვიბრაციები.`;\n    break;\n  case \"human_design\":\n    title = \"ადამიანის დიზაინი (Human Design)\";\n    prompt = `დაბადების თარიღის და ადგილის მიხედვით გააკეთე ადამიანის დიზაინის (Human Design) შეფასება: ${userProfileStr}.\\nაღწერე მისი სავარაუდო სტრუქტურა კოსმოსური ტრანზიტებით:\\n1. ენერგეტიკული ტიპი (მაგ: გენერატორი, პროექტორი, მანიფესტორი, რეფლექტორი, მანიფესტირებადი გენერატორი)\\n2. პროფილი (მაგ: 1/3, 2/4, 3/5...) და მისი მნიშვნელობა\\n3. სტრატეგია და შინაგანი ავტორიტეტი გადაწყვეტილების მისაღებად\\n4. ცხოვრებისეული თემა (გზა) და \"არასაკუთარი თავის\" (Not-Self) თემა.`;\n    break;\n  case \"vedic\":\n    title = \"ვედური ასტროლოგია (Jyotish)\";\n    prompt = `ამ მონაცემების მიხედვით: ${userProfileStr}\\nგააკეთე ვედური ასტროლოგიის (ჯიოტიში) მოკლე განხილვა:\\n1. მთვარის ნიშანი (რაში) და მისი გავლენა ქვეცნობიერზე\\n2. სავარაუდო ნაკშატრა (ვარსკვლავური სახლი) და მისი მმართველი პლანეტა\\n3. კარმული ამოცანები (რაჰუ და კეტუს მდგომარეობა) და სულიერი გაკვეთილები.\\n4. მიმართულება სულიერი ბედნიერებისთვის (პურუშართა).`;\n    break;\n  case \"bazi\":\n    title = \"ბა-ძი (BaZi)\";\n    prompt = `მონაცემების საფუძველზე: ${userProfileStr}\\nგააკეთე ჩინური ასტროლოგიის BaZi ანალიზი:\\n1. წლობრივი ცხოველი (დედამიწის ტოტი) და მისი გავლენა გარე სამყაროსთან კონტაქტზე\\n2. ელემენტების ბალანსი (ხე, ცეცხლი, მიწა, ლითონი, წყალი) და რომელი ელემენტია დომინანტი ან დეფიციტური.\\n3. დღის მბრძანებელი (Day Master) - პიროვნების ბირთვი.\\n4. იღბლიანი პერიოდები და რჩევები ენერგეტიკული ბალანსის მხარდასაჭერად.`;\n    break;\n  case \"archetype\":\n    title = \"არქეტიპული ანალიზი (იუნგის მიხედვით)\";\n    prompt = `დაბადების თარიღის და ასტრო-ნუმეროლოგიური ვიბრაციების გათვალისწინებით: ${userProfileStr}\\nგანსაზღვრე მისი წამყვანი ფსიქოლოგიური არქეტიპები კარლ იუნგის თორმეტი არქეტიპიდან (მაგ. გმირი, მზრუნველი, შემოქმედი, მეამბოხე, ბრძენი და ა.შ.):\\n1. წამყვანი არქეტიპი და მისი გამოვლინება ხასიათში.\\n2. ჩრდილოვანი მხარე (Shadow self) და მასთან მუშაობის გზები.\\n3. შინაგანი მოტივატორი და ღირებულებები.\\n4. ცხოვრებისეული როლი და განვითარების პოტენციალი.`;\n    break;\n}\n\nreturn { json: { prompt, title, type } };"
+      },
+      "id": "e0e241bf-3dfa-41ab-85b9-7a389140bc8d",
+      "name": "Prepare Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 240]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={{ $node[\"Webhook\"].parameter[\"key\"] || \"YOUR_GEMINI_API_KEY\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"{{ $json.prompt }}\"\n        }\n      ]\n    }\n  ],\n  \"systemInstruction\": {\n    \"parts\": [\n      {\n        \"text\": \"შენ ხარ პროფესიონალი ასტროლოგი, ფსიქოლოგი და ეზოთერიკული სწავლოებების ექსპერტი. პასუხი გაეცი ქართულ ენაზე, მარკდაუნის (Markdown) ლამაზი ფორმატირებით, გამოიყენე სათაურები, სიები და სტრუქტურირებული პარაგრაფები. პასუხი უნდა იყოს ძალიან საინტერესო, პოზიტიური, ღრმა და რჩევებით სავსე.\"\n      }\n    ]\n  }\n}"
+      },
+      "id": "4da42bfb-37ca-4b0d-b8fb-5c798031dcf1",
+      "name": "Gemini API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [700, 240]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"type\": \"{{ $node[\"Prepare Prompt\"].json.type }}\",\n  \"title\": \"{{ $node[\"Prepare Prompt\"].json.title }}\",\n  \"content\": \"{{ $json.candidates[0].content.parts[0].text.replace(/\\\\n/g, '\\\\n') }}\"\n}"
+      },
+      "id": "9fa46cf3-e52b-45ca-9a3d-c1234b8c9d2f",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 240]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get Profile from Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Profile from Sheet": {
+      "main": [
+        [
+          {
+            "node": "Prepare Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Prompt": {
+      "main": [
+        [
+          {
+            "node": "Gemini API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini API": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
