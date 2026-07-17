@@ -9,3 +9,18 @@ export const API_URLS = {
   compatibility: `${N8N_BASE_URL}/compatibility`,
   views: `${N8N_BASE_URL}/views`,
 };
+
+// Maps frontend CalculationType values to the keys configured in your n8n workflow
+export const mapCalculationTypeToN8n = (type: string): string => {
+  const mapping: Record<string, string> = {
+    horoscope: "western",
+    enneagram: "enneagram",
+    psychomatrix: "matrix",
+    numerology: "numerology",
+    human_design: "human_design",
+    vedic: "vedic",
+    bazi: "chinese", // Maps "bazi" in code to "chinese" in your n8n
+    archetype: "archetype"
+  };
+  return mapping[type] || type;
+};

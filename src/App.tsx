@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { API_URLS } from "./config";
+import { API_URLS, mapCalculationTypeToN8n } from "./config";
 import { BirthProfile, CalculationType, ReadingResponse } from "./types";
 import { ProfileForm } from "./components/ProfileForm";
 import { SpinWheel } from "./components/SpinWheel";
@@ -228,7 +228,7 @@ export default function App() {
       const response = await fetch(API_URLS.generateReading, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone, type }),
+        body: JSON.stringify({ phone, type: mapCalculationTypeToN8n(type) }),
       });
       const data = await response.json();
       if (data.success) {
@@ -282,7 +282,7 @@ export default function App() {
       `ანალიზი:\n${reading.content.substring(0, 800)}...\n\n` +
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
 
-    return `https://api.whatsapp.com/send?phone=995579269278&text=${encodeURIComponent(message)}`;
+    return `https://api.whatsapp.com/send?phone=995598324020&text=${encodeURIComponent(message)}`;
   };
 
   const getTelegramShareURL = () => {
@@ -380,7 +380,7 @@ export default function App() {
       `ანალიზი:\n${reading.content.substring(0, 800)}...\n\n` +
       `შეავსე შენი სახელი და დაბადების თარიღი ამ ლინკით და გავიგოთ ჩვენი თავსებადობა:\n👉 ${appUrl}?compareWith=${encodeURIComponent(cleanPhone)}`;
 
-    return `https://api.whatsapp.com/send?phone=995579269278&text=${encodeURIComponent(message)}`;
+    return `https://api.whatsapp.com/send?phone=995598324020&text=${encodeURIComponent(message)}`;
   };
 
   const getCustomTelegramShareURL = (phone: string) => {
