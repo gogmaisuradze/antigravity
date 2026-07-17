@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { API_URLS, mapCalculationTypeToN8n } from "./config";
+import { getProfile, generateReading, deleteProfile, saveProfile } from "./lib/api";
 import { BirthProfile, CalculationType, ReadingResponse } from "./types";
 import { ProfileForm } from "./components/ProfileForm";
 import { SpinWheel } from "./components/SpinWheel";
@@ -200,8 +200,7 @@ export default function App() {
 
   const fetchUserProfile = async (phone: string) => {
     try {
-      const response = await fetch(API_URLS.getProfile(phone.trim().replace(/\s+/g, "")));
-      const data = await response.json();
+      const data = await getProfile(phone.trim().replace(/\s+/g, ""));
       if (data.success && data.exists) {
         setUserProfile(data.profile);
       }
@@ -225,16 +224,11 @@ export default function App() {
     setReading(null);
 
     try {
-      const response = await fetch(API_URLS.generateReading, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone, type: mapCalculationTypeToN8n(type) }),
-      });
-      const data = await response.json();
+      const data = await generateReading(phone, type);
       if (data.success) {
         setReading(data);
       } else {
-        setError(data.error || "ვერ მოხერხდა ანალიზის გენერირება.");
+        setError("ვერ მოხერხდა ანალიზის გენერირება.");
       }
     } catch (err) {
       setError("კავშირის შეცდომა. სცადეთ მოგვიანებით.");
@@ -257,9 +251,7 @@ export default function App() {
   const handleDeleteProfile = async () => {
     if (!userProfile) return;
     try {
-      await fetch(API_URLS.deleteProfile(userProfile.phone), {
-        method: "DELETE",
-      });
+      await deleteProfile(userProfile.phone);
     } catch (err) {
       console.error("Error deleting profile:", err);
     }
@@ -428,28 +420,21 @@ export default function App() {
 
     try {
       // 1. Save profile with new real phone
-      const saveResponse = await fetch(API_URLS.saveProfile, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: userProfile.name,
-          surname: userProfile.surname,
-          birthPlace: userProfile.birthPlace || "საქართველო",
-          day: userProfile.day,
-          month: userProfile.month,
-          year: userProfile.year,
-          phone: normalizedPhone
-        }),
+      const saveData = await saveProfile({
+        name: userProfile.name,
+        surname: userProfile.surname,
+        birthPlace: userProfile.birthPlace || "საქართველო",
+        day: userProfile.day,
+        month: userProfile.month,
+        year: userProfile.year,
+        phone: normalizedPhone
       });
 
-      const saveData = await saveResponse.json();
       if (saveData.success) {
         // 2. Clear old temp profile from server
         if (userProfile.phone.startsWith("temp_")) {
           try {
-            await fetch(API_URLS.deleteProfile(userProfile.phone), {
-              method: "DELETE",
-            });
+            await deleteProfile(userProfile.phone);
           } catch (deleteErr) {
             console.error("Error clearing temp profile:", deleteErr);
           }
