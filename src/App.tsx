@@ -808,10 +808,13 @@ export default function App() {
 
             {/* 2. Relationship Compatibility Panel */}
             <div className="space-y-6">
-              <CompatibilityPanel
-                userProfile={userProfile}
-                invitedPhone={invitedPhone}
-              />
+              {/* Temporarily Disabled - missing n8n workflow */}
+              {false && (
+                <CompatibilityPanel
+                  userProfile={userProfile}
+                  invitedPhone={invitedPhone}
+                />
+              )}
               
               {/* Premium Multi-Channel Social Sharing Row */}
               {reading && !loadingReading && (

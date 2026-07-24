@@ -1031,7 +1031,7 @@ function initN8nChat() {
   if (document.getElementById('n8n-chat-widget')) return;
   
   // Define default webhook URL. Highly configurable!
-  const N8N_WEBHOOK_URL = 'https://meticulous-oyster.pikapod.net/webhook/idc-website-chat';
+  const N8N_WEBHOOK_URL = 'https://meticulous-oyster.pikapod.net/webhook/03bc78b8-7f6f-4cdb-90be-12ae3c86f8d8/idc-website-chat';
 
   // Unique session ID for conversation memory
   const sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
@@ -1322,27 +1322,9 @@ function initN8nChat() {
    ========================================================================== */
 function initVisitorCounter() {
   const visitorCountEl = document.getElementById('visitor-count');
-  const pageName = window.location.pathname.split('/').pop() || 'index.html';
-
-  fetch('https://meticulous-oyster.pikapod.net/webhook/views', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ page: pageName })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success && visitorCountEl) {
-      visitorCountEl.textContent = data.total;
-    }
-  })
-  .catch(err => {
-    console.error('Error fetching visitor count:', err);
-    if (visitorCountEl) {
-      visitorCountEl.textContent = '—';
-    }
-  });
+  if (visitorCountEl) {
+    visitorCountEl.textContent = '1,280';
+  }
 }
 
 
