@@ -159,6 +159,7 @@ export default function App() {
     "ხელოვნური ინტელექტი აჯამებს მონაცემებს...",
   ];
   const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
+  const [countdownSeconds, setCountdownSeconds] = useState(25);
 
   // Rotate loading messages
   useEffect(() => {
@@ -169,6 +170,26 @@ export default function App() {
       }, 2500);
     }
     return () => clearInterval(interval);
+  }, [loadingReading]);
+
+  // Countdown timer for cosmic reading loading
+  useEffect(() => {
+    let timer: any;
+    if (loadingReading) {
+      setCountdownSeconds(25);
+      timer = setInterval(() => {
+        setCountdownSeconds((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
   }, [loadingReading]);
 
   // Auto-scroll to reading display when loading or showing results
@@ -642,7 +663,13 @@ export default function App() {
                       {loadingMessages[loadingMsgIdx]}
                     </p>
                     <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/75 max-w-sm text-center leading-relaxed uppercase font-black tracking-wider">
-                      ვარსკვლავები სკანირებენ თქვენს მონაცემებს... გთხოვთ გადმოგვცეთ რამდენიმე წამი
+                      {countdownSeconds > 0 ? (
+                        <>
+                          სავარაუდო ლოდინის დრო: <span className="text-[#f1bf62] text-sm font-bold font-sans">{countdownSeconds}</span> წამი
+                        </>
+                      ) : (
+                        "ანალიზი თითქმის მზად არის, გთხოვთ მოითმინოთ..."
+                      )}
                     </p>
                   </div>
                 )}

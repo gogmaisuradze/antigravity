@@ -497,6 +497,9 @@
               <div id="ai-loading" class="flex flex-col items-center justify-center py-12 space-y-4">
                 <div class="w-10 h-10 border-4 border-[#f1bf62] border-t-transparent rounded-full animate-spin"></div>
                 <p class="text-xs uppercase tracking-widest text-[#f1bf62] font-semibold animate-pulse font-headline">მიმდინარეობს მონაცემების დამუშავება პოზიტიურ ფსიქოთერაპიაში...</p>
+                <p id="ai-countdown" class="text-xs font-bold text-[#c6c6ce]/70 font-sans tracking-wide">
+                  სავარაუდო ლოდინის დრო: <span id="countdown-seconds" class="text-[#f1bf62] font-bold">20</span> წამი
+                </p>
               </div>
 
               <!-- Dynamic Markdown Content Container -->
@@ -1026,6 +1029,26 @@
         aiLoading.classList.remove('hidden');
         aiContainer.classList.add('hidden');
 
+        // Initialize countdown
+        const countdownEl = document.getElementById('countdown-seconds');
+        const countdownText = document.getElementById('ai-countdown');
+        let timeLeft = 20;
+        if (countdownEl && countdownText) {
+          countdownEl.textContent = timeLeft;
+          countdownText.innerHTML = `სავარაუდო ლოდინის დრო: <span id="countdown-seconds" class="text-[#f1bf62] font-bold">${timeLeft}</span> წამი`;
+        }
+
+        const countdownInterval = setInterval(() => {
+          timeLeft--;
+          if (timeLeft > 0) {
+            if (countdownEl) countdownEl.textContent = timeLeft;
+            if (countdownText) countdownText.innerHTML = `სავარაუდო ლოდინის დრო: <span id="countdown-seconds" class="text-[#f1bf62] font-bold">${timeLeft}</span> წამი`;
+          } else {
+            clearInterval(countdownInterval);
+            if (countdownText) countdownText.textContent = 'ანალიზი თითქმის მზად არის, გთხოვთ მოითმინოთ...';
+          }
+        }, 1000);
+
         const phone = localStorage.getItem("user_phone") || "";
 
         try {
@@ -1042,6 +1065,7 @@
           });
 
           const data = await res.json();
+          clearInterval(countdownInterval);
           if (data.success) {
             aiLoading.classList.add('hidden');
             aiContainer.classList.remove('hidden');
@@ -1059,6 +1083,7 @@
             throw new Error(data.error);
           }
         } catch (err) {
+          clearInterval(countdownInterval);
           aiLoading.classList.add('hidden');
           aiContainer.classList.remove('hidden');
           aiContainer.innerHTML = `<div class="p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-xs font-semibold font-sans">შეცდომა ანალიზისას: ${err.message || "კავშირი ვერ დამყარდა"}</div>`;
