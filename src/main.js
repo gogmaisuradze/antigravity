@@ -1031,7 +1031,7 @@ function initN8nChat() {
   if (document.getElementById('n8n-chat-widget')) return;
   
   // Define default webhook URL. Highly configurable!
-  const N8N_WEBHOOK_URL = 'https://meticulous-oyster.pikapod.net/webhook/03bc78b8-7f6f-4cdb-90be-12ae3c86f8d8/idc-website-chat';
+  const N8N_WEBHOOK_URL = 'https://meticulous-oyster.pikapod.net/webhook/idc-website-chat';
 
   // Unique session ID for conversation memory
   const sessionId = 'session_' + Math.random().toString(36).substring(2, 15);
