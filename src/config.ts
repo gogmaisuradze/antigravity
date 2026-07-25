@@ -7,7 +7,7 @@ export const API_URLS = {
   generateReading: `${N8N_BASE_URL}/generate-reading`,
   balanceAnalysis: `${N8N_BASE_URL}/balance-analysis`,
   chat: `${N8N_BASE_URL}/idc-website-chat`,
-  compatibility: '', // Temporarily disabled (missing n8n workflow)
+  compatibility: `${N8N_BASE_URL}/compatibility`,
   views: '', // Disabled (backend doesn't exist)
 };
 

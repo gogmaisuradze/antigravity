@@ -192,6 +192,7 @@ export default function App() {
   const [deliveryPhone, setDeliveryPhone] = useState("");
   const [deliveryEmail, setDeliveryEmail] = useState("");
   const [deliveryStatus, setDeliveryStatus] = useState<string | null>(null);
+  const [deliveryWaLink, setDeliveryWaLink] = useState<string | null>(null);
 
   const [phoneNumberInput, setPhoneNumberInput] = useState("");
   const [linkingPhone, setLinkingPhone] = useState(false);
@@ -349,6 +350,7 @@ export default function App() {
   const handleSendWhatsApp = async () => {
     if (!reading || !userProfile) return;
     setDeliveryStatus(null);
+    setDeliveryWaLink(null);
 
     const cleanPhone = deliveryPhone.trim().replace(/\s+/g, "");
     let normalizedPhone = cleanPhone;
@@ -365,6 +367,16 @@ export default function App() {
 
     setDeliveryStatus("იგზავნება WhatsApp-ზე...");
 
+    const appUrl = window.location.origin;
+    const shareText = `გამარჯობა, გაზიარებთ ჩემი კოსმიური ანალიზის შედეგებს 🔮🌟\n\n` +
+      `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
+      `ანალიზის სათაური: "${reading.title}"\n\n` +
+      `ნახე ჩემი ანალიზი და გაიგე შენიც აქ: 👉 ${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
+    
+    const waUrl = `https://api.whatsapp.com/send?phone=995${normalizedPhone}&text=${encodeURIComponent(shareText)}`;
+    setDeliveryWaLink(waUrl);
+    window.open(waUrl, "_blank");
+
     try {
       const response = await fetch(API_URLS.saveProfile, {
         method: "POST",
@@ -379,18 +391,19 @@ export default function App() {
 
       const data = await response.json();
       if (data.success) {
-        setDeliveryStatus("ანალიზი წარმატებით გაიგზავნა WhatsApp-ზე აიდისიდან! 🎉");
+        setDeliveryStatus("ანალიზი წარმატებით გაიგზავნა! 🎉");
       } else {
-        setDeliveryStatus(`შეცდომა გაგზავნისას: ${data.error || "უცნობი შეცდომა"}`);
+        setDeliveryStatus("სერვერული გაგზავნა ვერ მოხერხდა, მაგრამ გაიხსნა თქვენი WhatsApp.");
       }
     } catch (err) {
-      setDeliveryStatus("შეცდომა: სერვერთან კავშირი ვერ დამყარდა.");
+      setDeliveryStatus("სერვერული გაგზავნა ვერ მოხერხდა, მაგრამ გაიხსნა თქვენი WhatsApp.");
     }
   };
 
   const handleSendEmail = async () => {
     if (!reading || !userProfile) return;
     setDeliveryStatus(null);
+    setDeliveryWaLink(null);
 
     const email = deliveryEmail.trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -399,6 +412,16 @@ export default function App() {
     }
 
     setDeliveryStatus("იგზავნება ელ. ფოსტაზე...");
+
+    const appUrl = window.location.origin;
+    const shareText = `გამარჯობა, გაზიარებთ ჩემი კოსმიური ანალიზის შედეგებს 🔮🌟\n\n` +
+      `სახელი: ${userProfile.name} ${userProfile.surname}\n` +
+      `ანალიზის სათაური: "${reading.title}"\n\n` +
+      `ნახე ჩემი ანალიზი და გაიგე შენიც აქ: 👉 ${appUrl}?compareWith=${encodeURIComponent(userProfile.phone)}`;
+
+    const waGeneralUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+    setDeliveryWaLink(waGeneralUrl);
+    window.open(waGeneralUrl, "_blank");
 
     try {
       const response = await fetch(API_URLS.saveProfile, {
@@ -415,12 +438,12 @@ export default function App() {
 
       const data = await response.json();
       if (data.success) {
-        setDeliveryStatus("ანალიზი წარმატებით გაიგზავნა ელ. ფოსტაზე! 🎉");
+        setDeliveryStatus("ანალიზი წარმატებით გაიგზავნა ელ. ფოსტაზე და გაიხსნა WhatsApp! 🎉");
       } else {
-        setDeliveryStatus(`შეცდომა გაგზავნისას: ${data.error || "უცნობი შეცდომა"}`);
+        setDeliveryStatus("ელ.ფოსტაზე გაგზავნა ვერ მოხერხდა, მაგრამ გაიხსნა თქვენი WhatsApp.");
       }
     } catch (err) {
-      setDeliveryStatus("შეცდომა: სერვერთან კავშირი ვერ დამყარდა.");
+      setDeliveryStatus("ელ.ფოსტაზე გაგზავნა ვერ მოხერხდა, მაგრამ გაიხსნა თქვენი WhatsApp.");
     }
   };
 
@@ -961,9 +984,21 @@ export default function App() {
                               </div>
                             </div>
 
-                            {deliveryStatus && (
-                              <div className="mt-4 p-3 bg-emerald-950/20 border border-emerald-500/20 rounded-xl text-emerald-400 text-xs font-bold font-headline text-center uppercase tracking-wider">
-                                {deliveryStatus}
+                             {deliveryStatus && (
+                              <div className="mt-4 p-4 bg-[#1e2022]/80 border border-emerald-500/30 rounded-2xl flex flex-col items-center justify-center space-y-3">
+                                <div className="text-emerald-400 text-xs font-bold font-headline text-center uppercase tracking-wider">
+                                  {deliveryStatus}
+                                </div>
+                                {deliveryWaLink && (
+                                  <a
+                                    href={deliveryWaLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-[#121416] hover:text-white px-5 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md font-sans font-black"
+                                  >
+                                    <span>საკუთარი WhatsApp-ით გადაგზავნა 📲</span>
+                                  </a>
+                                )}
                               </div>
                             )}
                           </div>
