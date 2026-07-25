@@ -11,7 +11,7 @@ export async function getProfile(phone: string): Promise<{ success: boolean; exi
   return r.json();
 }
 
-export async function saveProfile(profile: Omit<BirthProfile, 'createdAt'>): Promise<{ success: boolean; profile: BirthProfile }> {
+export async function saveProfile(profile: Omit<BirthProfile, 'createdAt'>): Promise<{ success: boolean; profile?: BirthProfile; error?: string }> {
   const r = await fetch(API_URLS.saveProfile, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -26,6 +26,7 @@ export interface ReadingRequest {
 }
 
 export interface ReadingResponse {
+  success?: boolean;
   type: CalculationType;
   title: string;
   content: string;

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getProfile, generateReading, deleteProfile, saveProfile } from "./lib/api";
 import { BirthProfile, CalculationType, ReadingResponse } from "./types";
 import { ProfileForm } from "./components/ProfileForm";
+import { API_URLS } from "./config";
 import { SpinWheel } from "./components/SpinWheel";
 import { CompatibilityPanel } from "./components/CompatibilityPanel";
 import { Sparkles, RefreshCw, MessageSquare, Edit3, UserCheck, Star, ShieldAlert, ArrowLeft, Send, Facebook, Link, Share2, Smartphone, MessageCircle } from "lucide-react";
@@ -188,6 +189,9 @@ export default function App() {
   const [invitedPhone, setInvitedPhone] = useState<string>("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [deliveryPhone, setDeliveryPhone] = useState("");
+  const [deliveryEmail, setDeliveryEmail] = useState("");
+  const [deliveryStatus, setDeliveryStatus] = useState<string | null>(null);
 
   const [phoneNumberInput, setPhoneNumberInput] = useState("");
   const [linkingPhone, setLinkingPhone] = useState(false);
@@ -206,6 +210,7 @@ export default function App() {
   ];
   // Dynamic Real-Time Adaptive Progress Bar (0% to 100%)
   const [progress, setProgress] = useState(0);
+  const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
 
   // Rotate loading messages
   useEffect(() => {
@@ -279,11 +284,11 @@ export default function App() {
     setUserProfile(profile);
     localStorage.setItem("user_phone", profile.phone);
     if (initialTheme) {
-      handleSelectReading(profile.phone, initialTheme, true);
+      handleSelectReading(profile.phone, initialTheme);
     }
   };
 
-  const handleSelectReading = async (phone: string, type: CalculationType, shouldFreeze = false) => {
+  const handleSelectReading = async (phone: string, type: CalculationType) => {
     setSelectedType(type);
     setReadingStage('LOADING_SHORT');
     setLoadingReading(true);
@@ -305,9 +310,7 @@ export default function App() {
     } catch (err) {
       setError("კავშირის შეცდომა. სცადეთ მოგვიანებით.");
     } finally {
-      if (!shouldFreeze) {
-        setLoadingReading(false);
-      }
+      setLoadingReading(false);
     }
   };
 
@@ -333,6 +336,91 @@ export default function App() {
     setReading(null);
     setError(null);
     showDeleteConfirm && setShowDeleteConfirm(false);
+  };
+
+  const sliceMarkdown = (content: string, wordCount: number = 180): string => {
+    if (!content) return "";
+    const tokens = content.split(/\s+/);
+    if (tokens.length <= wordCount) return content;
+    return tokens.slice(0, wordCount).join(" ") + "...";
+  };
+
+  const handleSendWhatsApp = async () => {
+    if (!reading || !userProfile) return;
+    setDeliveryStatus(null);
+
+    const cleanPhone = deliveryPhone.trim().replace(/\s+/g, "");
+    let normalizedPhone = cleanPhone;
+    if (normalizedPhone.startsWith("+995")) {
+      normalizedPhone = normalizedPhone.slice(4);
+    } else if (normalizedPhone.startsWith("995")) {
+      normalizedPhone = normalizedPhone.slice(3);
+    }
+
+    if (!/^5\d{8}$/.test(normalizedPhone)) {
+      setDeliveryStatus("შეცდომა: ტელეფონის ნომერი არასწორია (უნდა იყოს 9 ციფრი, იწყებოდეს 5-ით).");
+      return;
+    }
+
+    setDeliveryStatus("იგზავნება WhatsApp-ზე...");
+
+    try {
+      const response = await fetch(API_URLS.saveProfile, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "send_whatsapp",
+          phone: normalizedPhone,
+          readingTitle: reading.title,
+          readingContent: reading.content
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setDeliveryStatus("ანალიზი წარმატებით გაიგზავნა WhatsApp-ზე აიდისიდან! 🎉");
+      } else {
+        setDeliveryStatus(`შეცდომა გაგზავნისას: ${data.error || "უცნობი შეცდომა"}`);
+      }
+    } catch (err) {
+      setDeliveryStatus("შეცდომა: სერვერთან კავშირი ვერ დამყარდა.");
+    }
+  };
+
+  const handleSendEmail = async () => {
+    if (!reading || !userProfile) return;
+    setDeliveryStatus(null);
+
+    const email = deliveryEmail.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setDeliveryStatus("შეცდომა: ელ.ფოსტის მისამართი არასწორია.");
+      return;
+    }
+
+    setDeliveryStatus("იგზავნება ელ. ფოსტაზე...");
+
+    try {
+      const response = await fetch(API_URLS.saveProfile, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "send_email",
+          email,
+          phone: userProfile.phone,
+          readingTitle: reading.title,
+          readingContent: reading.content
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setDeliveryStatus("ანალიზი წარმატებით გაიგზავნა ელ. ფოსტაზე! 🎉");
+      } else {
+        setDeliveryStatus(`შეცდომა გაგზავნისას: ${data.error || "უცნობი შეცდომა"}`);
+      }
+    } catch (err) {
+      setDeliveryStatus("შეცდომა: სერვერთან კავშირი ვერ დამყარდა.");
+    }
   };
 
   const getWhatsAppShareURL = () => {
@@ -670,7 +758,7 @@ export default function App() {
                 </button>
 
                 {/* STEP 1: Fast Loading Screen immediately after selection */}
-                {readingStage === 'LOADING_SHORT' && (
+                {(readingStage === 'LOADING_SHORT' || (readingStage === 'SHORT_READY' && !reading)) && (
                   <div className="flex flex-col items-center justify-center py-12 space-y-6">
                     {selectedType && (
                       <div className="relative flex items-center justify-center mb-2">
@@ -703,40 +791,38 @@ export default function App() {
                   </div>
                 )}
 
-                {/* STEP 2 & 3: Short Express Preview Card (Appears after fast load) */}
-                {(readingStage === 'SHORT_READY' || readingStage === 'FULL_READY') && selectedType && EXPRESS_PREVIEWS[selectedType] && (
-                  <div className="bg-[#1e2022]/80 border border-[#f1bf62]/30 p-6 rounded-2xl mb-6 shadow-2xl backdrop-blur-md relative overflow-hidden animate-fade-in">
+                {/* STEP 2: Short Express Preview Card (Appears after fast load) */}
+                {readingStage === 'SHORT_READY' && reading && (
+                  <div className="bg-[#1e2022]/80 border border-[#f1bf62]/30 p-6 rounded-2xl mb-6 shadow-2xl backdrop-blur-md relative overflow-hidden animate-fade-in text-[#c6c6ce]">
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-[#f1bf62]"></div>
-                    <div className="flex items-center space-x-3 mb-3">
+                    <div className="flex items-center space-x-3 mb-4">
                       <span className="material-symbols-outlined text-[#f1bf62] text-2xl animate-pulse">auto_awesome</span>
                       <h3 className="text-lg font-black tracking-widest text-[#f1bf62] uppercase font-headline">
-                        {EXPRESS_PREVIEWS[selectedType].title}
+                        {reading.title}
                       </h3>
                     </div>
-                    <p className="text-sm font-bold text-white/95 leading-relaxed mb-2 font-sans">
-                      {EXPRESS_PREVIEWS[selectedType].highlight}
-                    </p>
-                    <p className="text-xs text-[#c6c6ce]/80 leading-relaxed font-medium">
-                      {EXPRESS_PREVIEWS[selectedType].details}
-                    </p>
-
-                    {readingStage === 'SHORT_READY' && (
-                      <button
-                        onClick={() => setReadingStage('FULL_READY')}
-                        className="w-full mt-6 py-4 px-6 bg-gradient-to-r from-[#f1bf62]/20 via-[#b8860b]/30 to-[#f1bf62]/20 hover:from-[#f1bf62]/35 hover:to-[#f1bf62]/35 border border-[#f1bf62]/50 hover:border-[#f1bf62] text-[#f1bf62] hover:text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest transition-all cursor-pointer shadow-[0_10px_25px_rgba(241,191,98,0.2)] flex flex-col items-center justify-center gap-2 hover:scale-[1.01] active:scale-98 font-headline relative overflow-hidden group"
+                    
+                    {/* Render Sliced Response (180 words) */}
+                    <div className="text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-medium mb-6 font-sans">
+                      <ReactMarkdown
+                        components={{
+                          h1: ({node, ...props}) => <h1 className="text-lg sm:text-xl font-black text-[#f1bf62] font-headline tracking-widest mt-4 mb-2 uppercase" {...props} />,
+                          h2: ({node, ...props}) => <h2 className="text-base sm:text-lg font-black text-[#f1bf62] font-headline tracking-wider mt-4 mb-2 uppercase" {...props} />,
+                          p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#c6c6ce]/90 leading-relaxed my-2" {...props} />,
+                          strong: ({node, ...props}) => <strong className="text-[#f1bf62] font-bold" {...props} />,
+                        }}
                       >
-                        <div className="flex items-center gap-3">
-                          <span>{reading ? "✅ სრული ანალიზი მზადაა — დააჭირეთ სანახავად (გაიგე მეტი)" : "✨ სრული სიღრმისეული ანალიზის ნახვა (გაიგე მეტი)"}</span>
-                          <span className="material-symbols-outlined text-xl animate-bounce">expand_more</span>
-                        </div>
-                        <div className="w-full h-1 bg-white/10 rounded-full mt-1 overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-[#f1bf62] to-[#ffda8b] transition-all duration-300 rounded-full"
-                            style={{ width: `${progress}%` }}
-                          ></div>
-                        </div>
-                      </button>
-                    )}
+                        {sliceMarkdown(reading.content)}
+                      </ReactMarkdown>
+                    </div>
+
+                    <button
+                      onClick={() => setReadingStage('FULL_READY')}
+                      className="w-full py-4 px-6 bg-gradient-to-r from-[#f1bf62]/20 via-[#b8860b]/30 to-[#f1bf62]/20 hover:from-[#f1bf62]/35 hover:to-[#f1bf62]/35 border border-[#f1bf62]/50 hover:border-[#f1bf62] text-[#f1bf62] hover:text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest transition-all cursor-pointer shadow-[0_10px_25px_rgba(241,191,98,0.2)] flex items-center justify-center gap-3 hover:scale-[1.01] active:scale-98 font-headline"
+                    >
+                      <span>✨ იხილეთ სრული სიღრმისეული ანალიზი (გაიგე მეტი)</span>
+                      <span className="material-symbols-outlined text-xl animate-bounce">expand_more</span>
+                    </button>
                   </div>
                 )}
 
@@ -754,11 +840,11 @@ export default function App() {
                           <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
                             <div
                               className="h-full bg-gradient-to-r from-[#f1bf62] via-[#ffda8b] to-[#f1bf62] transition-all duration-300 rounded-full"
-                              style={{ width: `${progress}%` }}
+                              style={{ width: progress + '%' }}
                             ></div>
                           </div>
                           <p className="text-[11px] text-[#c6c6ce]/80 text-center font-black tracking-wider uppercase font-sans">
-                            {progress < 100 ? `ანალიზი მზადდება: ${progress}%` : "ანალიზი მზადაა! ✨"}
+                            {progress < 100 ? 'ანალიზი მზადდება: ' + progress + '%' : 'ანალიზი მზადაა! ✨'}
                           </p>
                         </div>
                       </div>
@@ -777,163 +863,123 @@ export default function App() {
 
                     {/* Successful Reading Response */}
                     {reading && !loadingReading && (
-                      <div className="space-y-6 text-[#c6c6ce] pt-4 border-t border-white/10 animate-fade-in">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-5 gap-3">
-                      <div>
-                        <h2 className="text-2xl sm:text-3xl tracking-widest text-[#f1bf62] uppercase font-black font-headline drop-shadow-[0_2px_12px_rgba(241,191,98,0.3)]">
-                          {reading.title}
-                        </h2>
-                        <span className="text-[11px] sm:text-xs text-[#c6c6ce]/80 font-black tracking-widest uppercase block mt-1.5">
-                          ხელოვნური ინტელექტის უნივერსალური ანალიზი
-                        </span>
-                      </div>
-                    </div>
-                    
-                    {/* Render Markdown Response elegantly */}
-                    <div className="text-[#c6c6ce] text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-medium">
-                      <ReactMarkdown
-                        components={{
-                          h1: ({node, ...props}) => <h1 className="text-xl sm:text-2xl font-black text-[#f1bf62] font-headline tracking-widest mt-6 mb-2 border-b border-white/5 pb-2 uppercase" {...props} />,
-                          h2: ({node, ...props}) => <h2 className="text-lg sm:text-xl font-black text-[#f1bf62] font-headline tracking-wider mt-5 mb-2 uppercase" {...props} />,
-                          h3: ({node, ...props}) => <h3 className="text-base sm:text-lg font-bold text-[#f1bf62] font-headline mt-4 mb-1.5 uppercase" {...props} />,
-                          p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#c6c6ce]/90 leading-relaxed my-2.5 font-medium" {...props} />,
-                          ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
-                          ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
-                          li: ({node, ...props}) => <li className="marker:text-[#f1bf62]" {...props} />,
-                          strong: ({node, ...props}) => <strong className="text-[#f1bf62] font-black" {...props} />,
-                          hr: ({node, ...props}) => <hr className="border-white/10 my-6" {...props} />,
-                        }}
-                      >
-                        {reading.content}
-                      </ReactMarkdown>
-                    </div>
-
-                    {/* Optional request for phone number to send to WhatsApp */}
-                    {userProfile && userProfile.phone.startsWith("temp_") && (
-                      <div className="mt-8 pt-6 border-t border-white/10 space-y-4">
-                        <div className="p-6 bg-[#1e2022]/40 border border-white/5 rounded-2xl relative overflow-hidden shadow-2xl">
-                          <div className="absolute top-0 left-0 w-[2px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
-                          
-                          <div className="flex items-center space-x-2.5 mb-2">
-                            <MessageSquare className="w-4.5 h-4.5 text-[#f1bf62]" />
-                            <h4 className="text-sm font-black tracking-widest uppercase text-[#f1bf62] font-headline">
-                              მიიღეთ სრული პასუხი ტელეფონზე (WhatsApp) 📱
-                            </h4>
+                      <div className="space-y-6 text-[#c6c6ce] pt-4 border-t border-white/10 animate-fade-in font-sans">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-5 gap-3">
+                          <div>
+                            <h2 className="text-2xl sm:text-3xl tracking-widest text-[#f1bf62] uppercase font-black font-headline drop-shadow-[0_2px_12px_rgba(241,191,98,0.3)]">
+                              {reading.title}
+                            </h2>
+                            <span className="text-[11px] sm:text-xs text-[#c6c6ce]/80 font-black tracking-widest uppercase block mt-1.5 font-headline">
+                              ხელოვნური ინტელექტის უნივერსალური ანალიზი
+                            </span>
                           </div>
-                          
-                          <p className="text-[12px] text-[#c6c6ce]/80 font-semibold uppercase tracking-wider leading-relaxed">
-                            შეიყვანეთ თქვენი ტელეფონის ნომერი, რათა სრული პასუხი გაიგზავნოს WhatsApp-ზე და შეინახოთ თქვენი კოსმიური პროფილი მუდმივ ბაზაში.
-                          </p>
-                          
-                          {!linkedSuccessfully ? (
-                            <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                              <div className="flex-1">
+                        </div>
+                        
+                        {/* Render Markdown Response elegantly */}
+                        <div className="text-[#c6c6ce] text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-medium">
+                          <ReactMarkdown
+                            components={{
+                              h1: ({node, ...props}) => <h1 className="text-xl sm:text-2xl font-black text-[#f1bf62] font-headline tracking-widest mt-6 mb-2 border-b border-white/5 pb-2 uppercase" {...props} />,
+                              h2: ({node, ...props}) => <h2 className="text-lg sm:text-xl font-black text-[#f1bf62] font-headline tracking-wider mt-5 mb-2 uppercase" {...props} />,
+                              h3: ({node, ...props}) => <h3 className="text-base sm:text-lg font-bold text-[#f1bf62] font-headline mt-4 mb-1.5 uppercase" {...props} />,
+                              p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#c6c6ce]/90 leading-relaxed my-2.5 font-medium" {...props} />,
+                              ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
+                              ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
+                              li: ({node, ...props}) => <li className="marker:text-[#f1bf62]" {...props} />,
+                              strong: ({node, ...props}) => <strong className="text-[#f1bf62] font-black" {...props} />,
+                              hr: ({node, ...props}) => <hr className="border-white/10 my-6" {...props} />,
+                            }}
+                          >
+                            {reading.content}
+                          </ReactMarkdown>
+                        </div>
+
+                        {/* Beautiful Results Delivery & Sharing Options Card */}
+                        <div className="mt-8 pt-8 border-t border-white/10 space-y-6">
+                          <div className="p-6 bg-[#1e2022]/40 border border-white/5 rounded-2xl relative overflow-hidden shadow-2xl text-left">
+                            <div className="absolute top-0 left-0 w-[2px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
+                            
+                            <div className="flex items-center space-x-2.5 mb-3">
+                              <Share2 className="w-5 h-5 text-[#f1bf62]" />
+                              <h4 className="text-sm font-black tracking-widest uppercase text-[#f1bf62] font-headline">
+                                ანალიზის მიღება და შენახვა 🔮
+                              </h4>
+                            </div>
+                            
+                            <p className="text-[12px] text-[#c6c6ce]/80 font-medium leading-relaxed mb-6 font-sans">
+                              აირჩიეთ სასურველი არხი თქვენი სიღრმისეული ანალიზის მისაღებად და შესანახად.
+                            </p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              {/* Option 1: WhatsApp */}
+                              <div className="bg-white/3 border border-white/5 rounded-xl p-5 space-y-4">
+                                <div className="flex items-center space-x-2 text-[#f1bf62]">
+                                  <MessageSquare className="w-4.5 h-4.5" />
+                                  <span className="text-xs font-black uppercase tracking-wider font-headline">WhatsApp-ზე გაგზავნა</span>
+                                </div>
                                 <input
                                   type="tel"
-                                  value={phoneNumberInput}
+                                  value={deliveryPhone}
                                   onChange={(e) => {
-                                    setPhoneNumberInput(e.target.value);
-                                    setLinkError(null);
+                                    setDeliveryPhone(e.target.value);
+                                    setDeliveryStatus(null);
                                   }}
                                   placeholder="მაგ: +995555123456"
-                                  className="w-full bg-transparent border-b border-white/10 py-3 text-base text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#f1bf62] transition-colors font-semibold"
+                                  className="w-full bg-transparent border-b border-white/10 py-2.5 text-sm text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#f1bf62] transition-colors font-semibold"
                                 />
-                                {linkError && (
-                                  <p className="text-red-400 text-[11px] font-bold uppercase tracking-wider mt-1.5">{linkError}</p>
-                                )}
-                              </div>
-                              
-                              <button
-                                onClick={handleLinkPhoneAndShare}
-                                disabled={linkingPhone}
-                                className="px-5 py-3.5 bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] text-[11px] font-bold tracking-widest uppercase rounded-xl transition-colors duration-200 shrink-0 self-start sm:self-auto flex items-center justify-center space-x-1.5 disabled:opacity-50 cursor-pointer shadow-[0_0_15px_rgba(241,191,98,0.3)]"
-                              >
-                                {linkingPhone ? (
-                                  <>
-                                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#121416]" />
-                                    <span>მიმდინარეობს...</span>
-                                  </>
-                                ) : (
-                                  <span>გაგზავნა & შენახვა</span>
-                                )}
-                              </button>
-                            </div>
-                          ) : (
-                            <div className="mt-4 p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-xl space-y-3">
-                              <p className="text-[12px] text-emerald-400 uppercase tracking-wider font-bold">
-                                პროფილი წარმატებით შეინახა ტელეფონზე! 🎉
-                              </p>
-                              
-                              <div className="flex flex-wrap gap-2.5">
-                                <a
-                                  href={getCustomWhatsAppShareURL(phoneNumberInput)}
-                                  target="_blank"
-                                  referrerPolicy="no-referrer"
-                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
-                                >
-                                  <MessageSquare className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
-                                  <span>WhatsApp</span>
-                                </a>
-
-                                <a
-                                  href={getCustomTelegramShareURL(phoneNumberInput)}
-                                  target="_blank"
-                                  referrerPolicy="no-referrer"
-                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
-                                >
-                                  <Send className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
-                                  <span>Telegram</span>
-                                </a>
-
-                                <a
-                                  href={getCustomMessengerShareURL(phoneNumberInput)}
-                                  target="_blank"
-                                  referrerPolicy="no-referrer"
-                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
-                                >
-                                  <MessageCircle className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
-                                  <span>Messenger</span>
-                                </a>
-
-                                <a
-                                  href={getCustomFacebookShareURL(phoneNumberInput)}
-                                  target="_blank"
-                                  referrerPolicy="no-referrer"
-                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
-                                >
-                                  <Facebook className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
-                                  <span>Facebook</span>
-                                </a>
-
                                 <button
-                                  onClick={() => handleCustomNativeShare(phoneNumberInput)}
-                                  className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#f1bf62]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] hover:text-[#f1bf62] py-3 px-5 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest cursor-pointer"
+                                  onClick={handleSendWhatsApp}
+                                  className="w-full py-3 bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] text-[10px] font-black tracking-widest uppercase rounded-lg transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline"
                                 >
-                                  <Smartphone className="w-3.5 h-3.5 mr-2 text-[#f1bf62]" />
-                                  <span>ტელეფონში</span>
+                                  <span>გაგზავნა WhatsApp-ზე</span>
+                                </button>
+                              </div>
+
+                              {/* Option 2: Email */}
+                              <div className="bg-white/3 border border-white/5 rounded-xl p-5 space-y-4">
+                                <div className="flex items-center space-x-2 text-[#f1bf62]">
+                                  <Send className="w-4.5 h-4.5" />
+                                  <span className="text-xs font-black uppercase tracking-wider font-headline font-sans">ელ. ფოსტაზე გაგზავნა</span>
+                                </div>
+                                <input
+                                  type="email"
+                                  value={deliveryEmail}
+                                  onChange={(e) => {
+                                    setDeliveryEmail(e.target.value);
+                                    setDeliveryStatus(null);
+                                  }}
+                                  placeholder="მაგ: example@gmail.com"
+                                  className="w-full bg-transparent border-b border-white/10 py-2.5 text-sm text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#f1bf62] transition-colors font-semibold font-sans"
+                                />
+                                <button
+                                  onClick={handleSendEmail}
+                                  className="w-full py-3 bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] text-[10px] font-black tracking-widest uppercase rounded-lg transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline"
+                                >
+                                  <span>გაგზავნა ელ. ფოსტაზე</span>
                                 </button>
                               </div>
                             </div>
-                          )}
+
+                            {deliveryStatus && (
+                              <div className="mt-4 p-3 bg-emerald-950/20 border border-emerald-500/20 rounded-xl text-emerald-400 text-xs font-bold font-headline text-center uppercase tracking-wider">
+                                {deliveryStatus}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     )}
-                  </div>
+                  </>
                 )}
-              </>
-            )}
           </div>
         )}
 
             {/* 2. Relationship Compatibility Panel */}
             <div className="space-y-6">
-              {/* Temporarily Disabled - missing n8n workflow */}
-              {false && (
-                <CompatibilityPanel
-                  userProfile={userProfile}
-                  invitedPhone={invitedPhone}
-                />
-              )}
+              <CompatibilityPanel
+                userProfile={userProfile}
+                invitedPhone={invitedPhone}
+              />
               
               {/* Premium Multi-Channel Social Sharing Row */}
               {reading && !loadingReading && (
