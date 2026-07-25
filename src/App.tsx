@@ -132,9 +132,53 @@ const getTarotIllustration = (type: CalculationType) => {
   }
 };
 
+const EXPRESS_PREVIEWS: Record<string, { title: string; highlight: string; details: string }> = {
+  horoscope: {
+    title: "ასტროლოგიური პორტრეტი (Horoscope)",
+    highlight: "თქვენი მზის, მთვარისა და ასცენდენტის კონფიგურაცია მიუთითებს ძლიერ შინაგან პოტენციალზე და ემოციურ ინტუიციაზე.",
+    details: "თქვენი ასტროლოგიური კოდი ავლენს თქვენს მთავარ პიროვნულ არქეტიპს, ემოციურ მოთხოვნილებებსა და კარიერულ პოტენციალს. სრულ ანალიზში ნახავთ პლანეტარულ ასპექტებსა და ინდივიდუალურ რეკომენდაციებს."
+  },
+  enneagram: {
+    title: "ენიაგრამის ტიპოლოგია (Enneagram)",
+    highlight: "თქვენი ფსიქოლოგიური პროფილი ავლენს ღრმა შინაგან მოტივაციას, ფარულ დრაივერებსა და ზრდის ვექტორებს.",
+    details: "ენიაგრამა ააშკარავებს თქვენს ძირითად ენია-ტიპს, სტრესისა და ინტეგრაციის მიმართულებებს, ასევე ქვეცნობიერ შიშებსა და სურვილებს. სრულ ანალიზში მიიღებთ პიროვნული ტრანსფორმაციის გზამკვლევს."
+  },
+  psychomatrix: {
+    title: "პითაგორას ფსიქომატრიცა (Psychomatrix)",
+    highlight: "პითაგორას კვადრატის ციფრული ვიბრაციები ააშკარავებს თქვენს ენერგეტიკულ რესურსებსა და თანდაყოლილ ნიჭს.",
+    details: "ციფრული მატრიცა აფასებს თქვენს ენერგიას, ნებისყოფას, ინტუიციას, შრომისუნარიანობასა და ჯანმრთელობის პოტენციალს. სრულ ანალიზში ნახავთ ყველა უჯრედის დეტალურ განმარტებას."
+  },
+  numerology: {
+    title: "ნუმეროლოგიური კოდი (Numerology)",
+    highlight: "თქვენი ბედისწერის ციფრული კოდი მიანიშნებს ცხოვრებისეულ მისიაზე, გამოწვევებსა და ფარულ შესაძლებლობებზე.",
+    details: "დაბადების თარიღის ვიბრაცია განსაზღვრავს თქვენი სულის ამოცანებსა და პიროვნულ ციკლებს. სრულ ანალიზში გაიგებთ თქვენი ბედისწერის რიცხვის სიღრმისეულ მნიშვნელობას."
+  },
+  human_design: {
+    title: "ადამიანის დიზაინი (Human Design)",
+    highlight: "თქვენი ენერგეტიკული ტიპი და ავტორიტეტი გიჩვენებთ გადაწყვეტილების მიღების ყველაზე ბუნებრივ გზას.",
+    details: "Human Design აჩვენებს თქვენს ბოდიგრაფს, ენერგიის მოძრაობასა და სტრატეგიას ცხოვრებაში. სრულ ანალიზში ნახავთ თქვენი ტიპის, პროფილისა და ცენტრების დეტალურ რუკას."
+  },
+  vedic: {
+    title: "ვედური ასტროლოგია (Vedic / Jyotish)",
+    highlight: "ჯოტიშის ინდური ასტროლოგიური რუკა ავლენს თქვენს კარმულ ამოცანებსა და პლანეტარულ პერიოდებს (დაშებს).",
+    details: "ვედური ასტროლოგია იყენებს სილიდერულ ზოდიაქოს და ავლენს თქვენს ნაქშატრებს, დჰარმასა და კარმულ კვანძებს (რაჰუ/კეთუ). სრულ ანალიზში ნახავთ სიღრმისეულ კარმულ პროგნოზს."
+  },
+  bazi: {
+    title: "ჩინური ბაზი — 4 სვეტი (Bazi)",
+    highlight: "ჩინური 5 ელემენტის ბალანსი ავლენს თქვენი დაბადების 8 იეროგლიფის ენერგეტიკულ წონასწორობას.",
+    details: "ბაზი (BaZi) ითვლის ხის, ცეცხლის, მიწის, ლითონისა და წყლის ელემენტების თანაფარდობას. სრულ ანალიზში ნახავთ თქვენს იღბლის სვეტებსა და ენერგეტიკულ რეკომენდაციებს."
+  },
+  archetype: {
+    title: "არქეტიპული პორტრეტი (Archetype)",
+    highlight: "თქვენი არქეტიპული პორტრეტი ავლენს დომინანტურ არქეტიპს, ჩრდილოვან მხარეებსა და ევოლუციურ გზას.",
+    details: "იუნგის არქეტიპები ააშკარავებს თქვენს ქვეცნობიერ მითოლოგიურ როლს. სრულ ანალიზში იხილავთ თქვენს პიროვნულ არქეტიპს, ჩრდილოვან არქეტიპს და მათი ჰარმონიზაციის გზებს."
+  }
+};
+
 export default function App() {
   const [userProfile, setUserProfile] = useState<BirthProfile | null>(null);
   const [selectedType, setSelectedType] = useState<CalculationType | null>(null);
+  const [showFullReading, setShowFullReading] = useState(false);
   const [reading, setReading] = useState<ReadingResponse | null>(null);
   const [loadingReading, setLoadingReading] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
@@ -240,6 +284,7 @@ export default function App() {
 
   const handleSelectReading = async (phone: string, type: CalculationType, shouldFreeze = false) => {
     setSelectedType(type);
+    setShowFullReading(false);
     setLoadingReading(true);
     setError(null);
     setReading(null);
@@ -605,89 +650,93 @@ export default function App() {
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62] rounded-t-2xl"></div>
                 
                 {/* Back Button */}
-                {!loadingReading && (
-                  <button
-                    onClick={() => {
-                      setReading(null);
-                      setSelectedType(null);
-                      setError(null);
-                    }}
-                    className="inline-flex items-center space-x-2 text-[11px] tracking-widest text-[#c6c6ce] hover:text-[#f1bf62] font-bold uppercase transition-all mb-6 group cursor-pointer"
-                  >
-                    <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
-                    <span>უკან დაბრუნება</span>
-                  </button>
+                <button
+                  onClick={() => {
+                    setReading(null);
+                    setSelectedType(null);
+                    setError(null);
+                    setShowFullReading(false);
+                  }}
+                  className="inline-flex items-center space-x-2 text-[11px] tracking-widest text-[#c6c6ce] hover:text-[#f1bf62] font-bold uppercase transition-all mb-6 group cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+                  <span>უკან დაბრუნება</span>
+                </button>
+
+                {/* STAGE 1: Instant Express Preview Card */}
+                {selectedType && EXPRESS_PREVIEWS[selectedType] && (
+                  <div className="bg-[#1e2022]/80 border border-[#f1bf62]/30 p-6 rounded-2xl mb-6 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1.5 h-full bg-[#f1bf62]"></div>
+                    <div className="flex items-center space-x-3 mb-3">
+                      <span className="material-symbols-outlined text-[#f1bf62] text-2xl animate-pulse">auto_awesome</span>
+                      <h3 className="text-lg font-black tracking-widest text-[#f1bf62] uppercase font-headline">
+                        {EXPRESS_PREVIEWS[selectedType].title}
+                      </h3>
+                    </div>
+                    <p className="text-sm font-bold text-white/95 leading-relaxed mb-2 font-sans">
+                      {EXPRESS_PREVIEWS[selectedType].highlight}
+                    </p>
+                    <p className="text-xs text-[#c6c6ce]/80 leading-relaxed font-medium">
+                      {EXPRESS_PREVIEWS[selectedType].details}
+                    </p>
+
+                    {!showFullReading && (
+                      <button
+                        onClick={() => setShowFullReading(true)}
+                        className="w-full mt-6 py-4 px-6 bg-gradient-to-r from-[#f1bf62]/20 via-[#b8860b]/30 to-[#f1bf62]/20 hover:from-[#f1bf62]/35 hover:to-[#f1bf62]/35 border border-[#f1bf62]/50 hover:border-[#f1bf62] text-[#f1bf62] hover:text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest transition-all cursor-pointer shadow-[0_10px_25px_rgba(241,191,98,0.2)] flex items-center justify-center gap-3 hover:scale-[1.01] active:scale-98 font-headline"
+                      >
+                        <span>✨ იხილეთ სრული სიღრმისეული ანალიზი (გაიგე მეტი)</span>
+                        <span className="material-symbols-outlined text-xl animate-bounce">expand_more</span>
+                      </button>
+                    )}
+                  </div>
                 )}
-                
-                {/* 2a. Cosmic Loading Mode */}
-                {loadingReading && (
-                  <div className="flex flex-col items-center justify-center py-12 space-y-6">
-                    {/* Floating mystical Tarot Card of the selected theme with a spinning background celestial ring */}
-                    {selectedType && (
-                      <div className="relative flex items-center justify-center mb-2">
-                        {/* Golden spinning celestial rings */}
-                        <div className="absolute w-[180px] h-[180px] rounded-full border border-dashed border-[#f1bf62]/30 animate-[spin_20s_linear_infinite] pointer-events-none"></div>
-                        <div className="absolute w-[150px] h-[150px] rounded-full border border-[#f1bf62]/15 animate-[spin_10s_linear_infinite_reverse] pointer-events-none"></div>
-                        
-                        <div className="w-[120px] h-[170px] rounded-xl border-2 border-[#f1bf62]/35 bg-[#1e2022]/95 flex flex-col items-center justify-center p-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(241,191,98,0.15)] relative overflow-hidden animate-bounce z-10 transition-all duration-300">
-                          {/* Golden inner border frame */}
-                          <div className="absolute inset-1.5 rounded-lg border border-[#f1bf62]/15 pointer-events-none"></div>
-                          
-                          {/* Roman numeral header */}
-                          <div className="absolute top-2.5 left-3 text-[9px] font-black text-[#f1bf62]/75 uppercase tracking-widest font-headline">
-                            {selectedType === CalculationType.HOROSCOPE && "I"}
-                            {selectedType === CalculationType.ENNEAGRAM && "II"}
-                            {selectedType === CalculationType.PSYCHOMATRIX && "III"}
-                            {selectedType === CalculationType.NUMEROLOGY && "IV"}
-                            {selectedType === CalculationType.HUMAN_DESIGN && "V"}
-                            {selectedType === CalculationType.VEDIC && "VI"}
-                            {selectedType === CalculationType.BAZI && "VII"}
-                            {selectedType === CalculationType.ARCHETYPE && "VIII"}
+
+                {/* STAGE 2: Full Analysis Container (revealed on Learn More) */}
+                {showFullReading && (
+                  <>
+                    {/* 2a. Background loading in progress */}
+                    {loadingReading && (
+                      <div className="flex flex-col items-center justify-center py-10 space-y-6 border-t border-white/10 pt-6">
+                        {selectedType && (
+                          <div className="relative flex items-center justify-center mb-2">
+                            <div className="absolute w-[160px] h-[160px] rounded-full border border-dashed border-[#f1bf62]/30 animate-[spin_20s_linear_infinite] pointer-events-none"></div>
+                            <div className="w-[110px] h-[155px] rounded-xl border-2 border-[#f1bf62]/35 bg-[#1e2022]/95 flex flex-col items-center justify-center p-3 shadow-[0_15px_35px_rgba(0,0,0,0.9)] relative overflow-hidden animate-bounce z-10">
+                              <div className="my-auto text-[#f1bf62] scale-[1.2]">
+                                {getTarotIllustration(selectedType)}
+                              </div>
+                            </div>
                           </div>
-                          
-                          {/* Sacred geometry SVG illustration inside the card */}
-                          <div className="my-auto text-[#f1bf62] scale-[1.3] drop-shadow-[0_0_12px_rgba(241,191,98,0.45)]">
-                            {getTarotIllustration(selectedType)}
-                          </div>
-                          
-                          {/* Card bottom footer label */}
-                          <div className="absolute bottom-2.5 text-[7px] font-black text-[#f1bf62]/70 uppercase tracking-widest text-center whitespace-nowrap">
-                            {selectedType.split("-")[0]}
-                          </div>
+                        )}
+                        <p className="text-[16px] sm:text-[20px] font-black text-[#f1bf62] tracking-[0.15em] text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed">
+                          {loadingMessages[loadingMsgIdx]}
+                        </p>
+                        <p className="text-[12px] text-[#c6c6ce]/75 text-center font-black tracking-wider uppercase">
+                          {countdownSeconds > 0 ? (
+                            <>
+                              სავარაუდო ლოდინის დრო: <span className="text-[#f1bf62] font-bold font-sans">{countdownSeconds}</span> წამი
+                            </>
+                          ) : (
+                            "ანალიზი თითქმის მზად არის, გთხოვთ მოითმინოთ..."
+                          )}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* 2b. Error View */}
+                    {error && !loadingReading && (
+                      <div className="flex items-start space-x-3 p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-sm font-semibold mt-4">
+                        <ShieldAlert className="w-4.5 h-4.5 text-red-400 shrink-0" />
+                        <div className="space-y-1">
+                          <p className="font-extrabold tracking-wider uppercase text-[11px] text-[#f1bf62] font-headline">შეცდომა ანალიზისას</p>
+                          <p className="text-[#c6c6ce]/80">{error}</p>
                         </div>
                       </div>
                     )}
-                    
-                    {/* Enlarged Georgian loading messages */}
-                    <p className="text-[17px] sm:text-[21px] md:text-[25px] font-black text-[#f1bf62] tracking-[0.2em] text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed drop-shadow-[0_2px_10px_rgba(241,191,98,0.25)]">
-                      {loadingMessages[loadingMsgIdx]}
-                    </p>
-                    <p className="text-[12px] sm:text-[13px] text-[#c6c6ce]/75 max-w-sm text-center leading-relaxed uppercase font-black tracking-wider">
-                      {countdownSeconds > 0 ? (
-                        <>
-                          სავარაუდო ლოდინის დრო: <span className="text-[#f1bf62] text-sm font-bold font-sans">{countdownSeconds}</span> წამი
-                        </>
-                      ) : (
-                        "ანალიზი თითქმის მზად არის, გთხოვთ მოითმინოთ..."
-                      )}
-                    </p>
-                  </div>
-                )}
 
-                {/* 2b. Error View */}
-                {error && !loadingReading && (
-                  <div className="flex items-start space-x-3 p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-sm font-semibold">
-                    <ShieldAlert className="w-4.5 h-4.5 text-red-400 shrink-0" />
-                    <div className="space-y-1">
-                      <p className="font-extrabold tracking-wider uppercase text-[11px] text-[#f1bf62] font-headline">შეცდომა ანალიზისას</p>
-                      <p className="text-[#c6c6ce]/80">{error}</p>
-                    </div>
-                  </div>
-                )}
-
-                {/* 2c. Successful Reading Response */}
-                {reading && !loadingReading && (
-                  <div className="space-y-6 text-[#c6c6ce]">
+                    {/* 2c. Successful Reading Response */}
+                    {reading && !loadingReading && (
+                      <div className="space-y-6 text-[#c6c6ce] pt-4 border-t border-white/10 animate-fade-in">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-5 gap-3">
                       <div>
                         <h2 className="text-2xl sm:text-3xl tracking-widest text-[#f1bf62] uppercase font-black font-headline drop-shadow-[0_2px_12px_rgba(241,191,98,0.3)]">
@@ -830,8 +879,10 @@ export default function App() {
                     )}
                   </div>
                 )}
-              </div>
+              </>
             )}
+          </div>
+        )}
 
             {/* 2. Relationship Compatibility Panel */}
             <div className="space-y-6">
