@@ -241,6 +241,37 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [error, setError] = useState<string | null>(null);
   const [useStandardCalendar, setUseStandardCalendar] = useState(false);
   const [windowWidth, setWindowWidth] = useState(1024);
+  const [savedProfiles, setSavedProfiles] = useState<{ name: string; surname: string; phone: string; day: number; month: number; year: number; birthPlace: string }[]>([]);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("saved_profiles");
+      if (stored) {
+        setSavedProfiles(JSON.parse(stored));
+      }
+    } catch (e) {
+      console.error("Error reading saved_profiles:", e);
+    }
+  }, []);
+
+  const handleSelectSavedProfile = (p: typeof savedProfiles[0]) => {
+    playTickSound();
+    setFirstName(p.name);
+    setLastName(p.surname);
+    setPhone(p.phone);
+    setDay(p.day);
+    setMonth(p.month);
+    setYear(p.year);
+    setBirthPlace(p.birthPlace || "საქართველო");
+  };
+
+  const handleDeleteSavedProfile = (e: React.MouseEvent, phoneToDelete: string) => {
+    e.stopPropagation();
+    playExitCapSound();
+    const updated = savedProfiles.filter(p => p.phone !== phoneToDelete);
+    setSavedProfiles(updated);
+    localStorage.setItem("saved_profiles", JSON.stringify(updated));
+  };
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
@@ -398,6 +429,25 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
       const data = await response.json();
       if (data.success) {
+        try {
+          const stored = localStorage.getItem("saved_profiles");
+          let list = stored ? JSON.parse(stored) : [];
+          if (!Array.isArray(list)) list = [];
+          const newProfile = {
+            name: cleanName,
+            surname: cleanSurname,
+            phone: normalizedPhone,
+            day,
+            month,
+            year,
+            birthPlace: finalBirthPlace
+          };
+          list = list.filter((p: any) => p.phone !== normalizedPhone);
+          list.unshift(newProfile);
+          localStorage.setItem("saved_profiles", JSON.stringify(list));
+        } catch (e) {
+          console.error("Error updating saved_profiles:", e);
+        }
         onProfileSaved(data.profile, selectedTheme);
       } else {
         playErrorSound();
@@ -442,6 +492,38 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           </p>
         </div>
       </div>
+
+      {savedProfiles.length > 0 && (
+        <div className="mb-6 max-w-[480px] mx-auto w-full space-y-2 font-sans text-left">
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#f1bf62]">
+            დამახსოვრებული პროფილები:
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {savedProfiles.map((p) => (
+              <div
+                key={p.phone}
+                onClick={() => handleSelectSavedProfile(p)}
+                className="group flex items-center space-x-2 px-3 py-1.5 bg-white/5 hover:bg-[#f1bf62]/10 border border-white/10 hover:border-[#f1bf62]/30 rounded-xl cursor-pointer transition-all duration-300 active:scale-95 text-xs text-[#c6c6ce] hover:text-white"
+              >
+                <span className="font-bold truncate max-w-[120px]">
+                  {p.name} {p.surname}
+                </span>
+                <span className="text-[9px] text-[#c6c6ce]/50 group-hover:text-[#f1bf62]/60 font-semibold font-mono">
+                  {p.phone}
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => handleDeleteSavedProfile(e, p.phone)}
+                  className="w-4 h-4 rounded-full bg-white/5 group-hover:bg-[#f1bf62]/20 text-[#c6c6ce]/60 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                  title="წაშლა"
+                >
+                  <span className="text-[10px] font-black leading-none font-sans">×</span>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {error && (
         <div id="error-alert" className="mb-6 p-4 bg-red-950/20 border border-red-500/20 text-red-300 text-xs rounded-xl tracking-wide flex items-start space-x-2.5 font-semibold">

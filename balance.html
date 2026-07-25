@@ -226,6 +226,9 @@
             <span id="profile-error-text"></span>
           </div>
 
+          <!-- Saved Profiles Container -->
+          <div id="balance-saved-profiles-container" class="mb-6 space-y-2 text-left font-sans"></div>
+
           <form id="profile-form-balance" class="space-y-6">
             <div class="grid grid-cols-2 gap-5 w-full">
               <!-- Name -->
@@ -1635,6 +1638,26 @@
             if (data.success) {
               playTickSound();
               localStorage.setItem("user_phone", normalizedPhone);
+              
+              // Save profile to history
+              try {
+                const stored = localStorage.getItem("saved_profiles");
+                let list = stored ? JSON.parse(stored) : [];
+                if (!Array.isArray(list)) list = [];
+                const newProfile = {
+                  name,
+                  surname,
+                  phone: normalizedPhone,
+                  day: 1,
+                  month: 1,
+                  year: 1990,
+                  birthPlace: "თბილისი"
+                };
+                list = list.filter(p => p.phone !== normalizedPhone);
+                list.unshift(newProfile);
+                localStorage.setItem("saved_profiles", JSON.stringify(list));
+              } catch (e) {}
+
               balanceProfilePanel.classList.add('hidden');
               quizWizard.classList.remove('hidden');
               renderStep();
@@ -1655,10 +1678,89 @@
         });
       }
 
+      function renderSavedProfiles() {
+        const container = document.getElementById('balance-saved-profiles-container');
+        if (!container) return;
+        
+        let list = [];
+        try {
+          const stored = localStorage.getItem("saved_profiles");
+          list = stored ? JSON.parse(stored) : [];
+        } catch (e) {}
+        
+        if (!Array.isArray(list) || list.length === 0) {
+          container.innerHTML = '';
+          container.classList.add('hidden');
+          return;
+        }
+        
+        container.classList.remove('hidden');
+        
+        const badgesHtml = list.map(p => `
+          <div
+            data-phone="${p.phone}"
+            class="balance-saved-profile-badge group inline-flex items-center space-x-2 px-3 py-1.5 bg-white/5 hover:bg-[#f1bf62]/10 border border-white/10 hover:border-[#f1bf62]/30 rounded-xl cursor-pointer transition-all duration-300 active:scale-95 text-xs text-[#c6c6ce] hover:text-white mr-2 mb-2"
+          >
+            <span class="font-bold truncate max-w-[120px] pointer-events-none">
+              ${p.name} ${p.surname}
+            </span>
+            <span class="text-[9px] text-[#c6c6ce]/50 group-hover:text-[#f1bf62]/60 font-semibold font-mono pointer-events-none">
+              ${p.phone}
+            </span>
+            <button
+              type="button"
+              data-delete-phone="${p.phone}"
+              class="balance-delete-profile-btn w-4 h-4 rounded-full bg-white/5 group-hover:bg-[#f1bf62]/20 text-[#c6c6ce]/60 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              title="წაშლა"
+            >
+              <span class="text-[10px] font-black leading-none pointer-events-none">×</span>
+            </button>
+          </div>
+        `).join('');
+        
+        container.innerHTML = `
+          <span class="text-[10px] font-black uppercase tracking-widest text-[#f1bf62] block mb-1">
+            დამახსოვრებული პროფილები:
+          </span>
+          <div class="flex flex-wrap">
+            ${badgesHtml}
+          </div>
+        `;
+        
+        // Add click listeners to badges
+        const badges = container.querySelectorAll('.balance-saved-profile-badge');
+        badges.forEach(badge => {
+          badge.addEventListener('click', () => {
+            const phone = badge.getAttribute('data-phone');
+            const found = list.find(p => p.phone === phone);
+            if (found) {
+              playTickSound();
+              profileNameInput.value = found.name || '';
+              profileSurnameInput.value = found.surname || '';
+              profilePhoneInput.value = found.phone || '';
+            }
+          });
+        });
+        
+        // Add click listeners to delete buttons
+        const deleteBtns = container.querySelectorAll('.balance-delete-profile-btn');
+        deleteBtns.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playTickSound();
+            const phoneToDelete = btn.getAttribute('data-delete-phone');
+            list = list.filter(p => p.phone !== phoneToDelete);
+            localStorage.setItem("saved_profiles", JSON.stringify(list));
+            renderSavedProfiles();
+          });
+        });
+      }
+
       // Check Shared Result on startup
       const isSharedResult = checkSharedResultQueryParams();
       if (!isSharedResult) {
         autofillProfile();
+        renderSavedProfiles();
       }
     });
   </script>
