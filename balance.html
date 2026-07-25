@@ -921,8 +921,15 @@
             // Play physical satisfaction sound
             playTickSound();
             
-            // Update UI state immediately
-            renderStep();
+            // Update active rating button classes in DOM immediately for instant feedback
+            ratingBtns.forEach(b => {
+              const bVal = parseInt(b.getAttribute('data-value'));
+              if (bVal === value) {
+                b.className = "rating-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center text-base sm:text-xl font-black transition-all duration-300 transform active:scale-90 cursor-pointer bg-gradient-to-r from-[#f1bf62] to-[#dfab4c] text-[#121416] font-black border-[#f1bf62] shadow-[0_0_20px_rgba(241,191,98,0.5)] scale-110";
+              } else {
+                b.className = "rating-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center text-base sm:text-xl font-black transition-all duration-300 transform active:scale-90 cursor-pointer bg-white/5 hover:bg-white/10 hover:border-[#f1bf62]/40 text-[#c6c6ce] border-white/10";
+              }
+            });
             
             // 250ms organic autoplay transition
             setTimeout(() => {
