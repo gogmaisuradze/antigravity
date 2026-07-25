@@ -294,6 +294,7 @@ export default function App() {
     setLoadingReading(true);
     setError(null);
     setReading(null);
+    setDeliveryPhone(phone);
 
     // Fast initial delay (1.2s) to show loading screen first before short summary appears
     setTimeout(() => {
