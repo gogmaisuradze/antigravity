@@ -1052,9 +1052,14 @@
             <p class="text-xs text-[#c6c6ce]/80 leading-relaxed mb-4">
               პოზიტიური ფსიქოთერაპიის მოდელით თქვენი ენერგეტიკული ბალანსი იდენტიფიცირებულია. სრულ ფსიქოთერაპიულ ანალიზში იხილავთ თითოეული სფეროს დეტალურ რეკომენდაციებსა და ბალანსირების გზამკვლევს.
             </p>
-            <button id="btn-balance-expand-full" class="w-full py-4 px-6 bg-gradient-to-r from-[#f1bf62]/20 via-[#b8860b]/30 to-[#f1bf62]/20 hover:from-[#f1bf62]/35 hover:to-[#f1bf62]/35 border border-[#f1bf62]/50 hover:border-[#f1bf62] text-[#f1bf62] hover:text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-2 font-headline shadow-[0_10px_25px_rgba(241,191,98,0.2)]">
-              <span>✨ სრული ფსიქოთერაპიული ანალიზის ნახვა (გაიგე მეტი)</span>
-              <span class="material-symbols-outlined text-lg animate-bounce">expand_more</span>
+            <button id="btn-balance-expand-full" class="w-full py-4 px-6 bg-gradient-to-r from-[#f1bf62]/20 via-[#b8860b]/30 to-[#f1bf62]/20 hover:from-[#f1bf62]/35 hover:to-[#f1bf62]/35 border border-[#f1bf62]/50 hover:border-[#f1bf62] text-[#f1bf62] hover:text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all cursor-pointer flex flex-col items-center justify-center gap-2 font-headline shadow-[0_10px_25px_rgba(241,191,98,0.2)]">
+              <div class="flex items-center gap-2">
+                <span id="btn-balance-expand-text">✨ სრული ფსიქოთერაპიული ანალიზის ნახვა (გაიგე მეტი)</span>
+                <span class="material-symbols-outlined text-lg animate-bounce">expand_more</span>
+              </div>
+              <div class="w-full h-1 bg-white/10 rounded-full mt-1 overflow-hidden">
+                <div id="balance-btn-bar" class="h-full bg-gradient-to-r from-[#f1bf62] to-[#ffda8b] transition-all duration-300 rounded-full" style="width: 10%"></div>
+              </div>
             </button>
           </div>
           <div id="ai-full-analysis-target" class="hidden"></div>
@@ -1062,6 +1067,8 @@
 
         const fullTarget = document.getElementById('ai-full-analysis-target');
         const expandBtn = document.getElementById('btn-balance-expand-full');
+        const btnText = document.getElementById('btn-balance-expand-text');
+        const btnBar = document.getElementById('balance-btn-bar');
 
         expandBtn.addEventListener('click', () => {
           isFullExpanded = true;
@@ -1072,33 +1079,38 @@
             renderFullAnalysis(fetchedData);
           } else {
             fullTarget.innerHTML = `
-              <div class="flex flex-col items-center justify-center py-10 space-y-4 border-t border-white/10 pt-6">
+              <div class="flex flex-col items-center justify-center py-10 space-y-4 border-t border-white/10 pt-6 font-sans">
                 <div class="w-10 h-10 border-4 border-[#f1bf62] border-t-transparent rounded-full animate-spin"></div>
                 <p class="text-xs uppercase tracking-widest text-[#f1bf62] font-semibold animate-pulse font-headline">მიმდინარეობს სრული ფსიქოთერაპიული ანალიზის გენერირება...</p>
-                <p id="ai-countdown-dyn" class="text-xs font-bold text-[#c6c6ce]/70 font-sans tracking-wide">
-                  სავარაუდო ლოდინის დრო: <span id="countdown-seconds-dyn" class="text-[#f1bf62] font-bold">20</span> წამი
-                </p>
+                <div class="w-full max-w-xs space-y-2">
+                  <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
+                    <div id="dyn-prog-bar" class="h-full bg-gradient-to-r from-[#f1bf62] to-[#ffda8b] transition-all duration-300 rounded-full" style="width: 10%"></div>
+                  </div>
+                  <p id="dyn-prog-text" class="text-[11px] text-[#c6c6ce]/80 text-center font-bold tracking-wider uppercase font-sans">
+                    ანალიზი მზადდება: 10%
+                  </p>
+                </div>
               </div>
             `;
           }
         });
 
-        // Initialize countdown timer
-        let timeLeft = 20;
-        const countdownInterval = setInterval(() => {
-          timeLeft--;
-          const countdownElDyn = document.getElementById('countdown-seconds-dyn');
-          const countdownTextDyn = document.getElementById('ai-countdown-dyn');
-          if (timeLeft > 0) {
-            if (countdownElDyn) countdownElDyn.textContent = timeLeft;
-          } else {
-            clearInterval(countdownInterval);
-            if (countdownTextDyn) countdownTextDyn.textContent = 'ანალიზი თითქმის მზად არის, გთხოვთ მოითმინოთ...';
-          }
-        }, 1000);
+        // Dynamic Real-Time Adaptive Progress Bar
+        let currentProgress = 10;
+        const progressInterval = setInterval(() => {
+          if (currentProgress < 40) currentProgress += 10;
+          else if (currentProgress < 75) currentProgress += 5;
+          else if (currentProgress < 94) currentProgress += 2;
+          
+          if (btnBar) btnBar.style.width = `${currentProgress}%`;
+          const dynBar = document.getElementById('dyn-prog-bar');
+          const dynText = document.getElementById('dyn-prog-text');
+          if (dynBar) dynBar.style.width = `${currentProgress}%`;
+          if (dynText) dynText.textContent = `ანალიზი მზადდება: ${currentProgress}%`;
+        }, 500);
 
         function renderFullAnalysis(data) {
-          clearInterval(countdownInterval);
+          clearInterval(progressInterval);
           let formattedContent = data.content
             .replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#f1bf62] font-bold">$1</strong>')
             .replace(/### (.*?)\n/g, '<h4 class="text-sm font-black uppercase tracking-wider text-[#f1bf62] mt-6 border-b border-white/5 pb-2 font-sans">$1</h4>')
@@ -1106,7 +1118,7 @@
             .replace(/\n\n/g, '</p><p class="mt-4">')
             .replace(/- (.*?)\n/g, '<li class="ml-4 list-disc text-sm text-[#c6c6ce]">$1</li>');
 
-          fullTarget.innerHTML = '<div class="text-base text-white/90 leading-relaxed font-medium pt-4 border-t border-white/10 animate-fade-in">' + formattedContent + '</div>';
+          fullTarget.innerHTML = '<div class="text-base text-white/90 leading-relaxed font-medium pt-4 border-t border-white/10 animate-fade-in font-sans">' + formattedContent + '</div>';
         }
 
         const phone = localStorage.getItem("user_phone") || "";
@@ -1125,9 +1137,11 @@
           });
 
           const data = await res.json();
-          clearInterval(countdownInterval);
+          clearInterval(progressInterval);
           if (data.success) {
             fetchedData = data;
+            if (btnBar) btnBar.style.width = '100%';
+            if (btnText) btnText.textContent = '✅ სრული ფსიქოთერაპიული ანალიზი მზადაა — დააჭირეთ სანახავად (გაიგე მეტი)';
             if (isFullExpanded) {
               renderFullAnalysis(data);
             }
@@ -1135,7 +1149,7 @@
             throw new Error(data.error);
           }
         } catch (err) {
-          clearInterval(countdownInterval);
+          clearInterval(progressInterval);
           if (isFullExpanded) {
             fullTarget.innerHTML = `<div class="p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-xs font-semibold font-sans mt-4">შეცდომა ანალიზისას: ${err.message || "კავშირი ვერ დამყარდა"}</div>`;
           }

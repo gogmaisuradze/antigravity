@@ -202,8 +202,8 @@ export default function App() {
     "ჩინური 5 ელემენტის ბალანსი მუშავდება...",
     "ხელოვნური ინტელექტი აჯამებს მონაცემებს...",
   ];
-  const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
-  const [countdownSeconds, setCountdownSeconds] = useState(25);
+  // Dynamic Real-Time Adaptive Progress Bar (0% to 100%)
+  const [progress, setProgress] = useState(0);
 
   // Rotate loading messages
   useEffect(() => {
@@ -216,24 +216,23 @@ export default function App() {
     return () => clearInterval(interval);
   }, [loadingReading]);
 
-  // Countdown timer for cosmic reading loading
+  // Adaptive progress calculation based on real network loading state
   useEffect(() => {
-    let timer: any;
+    let interval: any;
     if (loadingReading) {
-      setCountdownSeconds(25);
-      timer = setInterval(() => {
-        setCountdownSeconds((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            return 0;
-          }
-          return prev - 1;
+      setProgress(5);
+      interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev < 40) return prev + 10;
+          if (prev < 75) return prev + 5;
+          if (prev < 94) return prev + 2;
+          return prev;
         });
-      }, 1000);
+      }, 500);
+    } else {
+      setProgress(100);
     }
-    return () => {
-      if (timer) clearInterval(timer);
-    };
+    return () => clearInterval(interval);
   }, [loadingReading]);
 
   // Auto-scroll to reading display when loading or showing results
@@ -683,10 +682,18 @@ export default function App() {
                     {!showFullReading && (
                       <button
                         onClick={() => setShowFullReading(true)}
-                        className="w-full mt-6 py-4 px-6 bg-gradient-to-r from-[#f1bf62]/20 via-[#b8860b]/30 to-[#f1bf62]/20 hover:from-[#f1bf62]/35 hover:to-[#f1bf62]/35 border border-[#f1bf62]/50 hover:border-[#f1bf62] text-[#f1bf62] hover:text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest transition-all cursor-pointer shadow-[0_10px_25px_rgba(241,191,98,0.2)] flex items-center justify-center gap-3 hover:scale-[1.01] active:scale-98 font-headline"
+                        className="w-full mt-6 py-4 px-6 bg-gradient-to-r from-[#f1bf62]/20 via-[#b8860b]/30 to-[#f1bf62]/20 hover:from-[#f1bf62]/35 hover:to-[#f1bf62]/35 border border-[#f1bf62]/50 hover:border-[#f1bf62] text-[#f1bf62] hover:text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest transition-all cursor-pointer shadow-[0_10px_25px_rgba(241,191,98,0.2)] flex flex-col items-center justify-center gap-2 hover:scale-[1.01] active:scale-98 font-headline relative overflow-hidden group"
                       >
-                        <span>✨ იხილეთ სრული სიღრმისეული ანალიზი (გაიგე მეტი)</span>
-                        <span className="material-symbols-outlined text-xl animate-bounce">expand_more</span>
+                        <div className="flex items-center gap-3">
+                          <span>{reading ? "✅ სრული ანალიზი მზადაა — დააჭირეთ სანახავად (გაიგე მეტი)" : "✨ სრული სიღრმისეული ანალიზის ნახვა (გაიგე მეტი)"}</span>
+                          <span className="material-symbols-outlined text-xl animate-bounce">expand_more</span>
+                        </div>
+                        <div className="w-full h-1 bg-white/10 rounded-full mt-1 overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-[#f1bf62] to-[#ffda8b] transition-all duration-300 rounded-full"
+                            style={{ width: `${progress}%` }}
+                          ></div>
+                        </div>
                       </button>
                     )}
                   </div>
@@ -711,15 +718,19 @@ export default function App() {
                         <p className="text-[16px] sm:text-[20px] font-black text-[#f1bf62] tracking-[0.15em] text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed">
                           {loadingMessages[loadingMsgIdx]}
                         </p>
-                        <p className="text-[12px] text-[#c6c6ce]/75 text-center font-black tracking-wider uppercase">
-                          {countdownSeconds > 0 ? (
-                            <>
-                              სავარაუდო ლოდინის დრო: <span className="text-[#f1bf62] font-bold font-sans">{countdownSeconds}</span> წამი
-                            </>
-                          ) : (
-                            "ანალიზი თითქმის მზად არის, გთხოვთ მოითმინოთ..."
-                          )}
-                        </p>
+                        
+                        {/* Dynamic Progress Indicator */}
+                        <div className="w-full max-w-xs space-y-2">
+                          <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
+                            <div
+                              className="h-full bg-gradient-to-r from-[#f1bf62] via-[#ffda8b] to-[#f1bf62] transition-all duration-300 rounded-full"
+                              style={{ width: `${progress}%` }}
+                            ></div>
+                          </div>
+                          <p className="text-[11px] text-[#c6c6ce]/80 text-center font-black tracking-wider uppercase font-sans">
+                            {progress < 100 ? `ანალიზი მზადდება: ${progress}%` : "ანალიზი მზადაა! ✨"}
+                          </p>
+                        </div>
                       </div>
                     )}
 
