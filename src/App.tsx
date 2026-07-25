@@ -175,10 +175,12 @@ const EXPRESS_PREVIEWS: Record<string, { title: string; highlight: string; detai
   }
 };
 
+type ReadingStage = 'IDLE' | 'LOADING_SHORT' | 'SHORT_READY' | 'FULL_READY';
+
 export default function App() {
   const [userProfile, setUserProfile] = useState<BirthProfile | null>(null);
   const [selectedType, setSelectedType] = useState<CalculationType | null>(null);
-  const [showFullReading, setShowFullReading] = useState(false);
+  const [readingStage, setReadingStage] = useState<ReadingStage>('IDLE');
   const [reading, setReading] = useState<ReadingResponse | null>(null);
   const [loadingReading, setLoadingReading] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
@@ -283,10 +285,15 @@ export default function App() {
 
   const handleSelectReading = async (phone: string, type: CalculationType, shouldFreeze = false) => {
     setSelectedType(type);
-    setShowFullReading(false);
+    setReadingStage('LOADING_SHORT');
     setLoadingReading(true);
     setError(null);
     setReading(null);
+
+    // Fast initial delay (1.2s) to show loading screen first before short summary appears
+    setTimeout(() => {
+      setReadingStage((prev) => (prev === 'LOADING_SHORT' ? 'SHORT_READY' : prev));
+    }, 1200);
 
     try {
       const data = await generateReading(phone, type);
@@ -654,7 +661,7 @@ export default function App() {
                     setReading(null);
                     setSelectedType(null);
                     setError(null);
-                    setShowFullReading(false);
+                    setReadingStage('IDLE');
                   }}
                   className="inline-flex items-center space-x-2 text-[11px] tracking-widest text-[#c6c6ce] hover:text-[#f1bf62] font-bold uppercase transition-all mb-6 group cursor-pointer"
                 >
@@ -662,9 +669,43 @@ export default function App() {
                   <span>უკან დაბრუნება</span>
                 </button>
 
-                {/* STAGE 1: Instant Express Preview Card */}
-                {selectedType && EXPRESS_PREVIEWS[selectedType] && (
-                  <div className="bg-[#1e2022]/80 border border-[#f1bf62]/30 p-6 rounded-2xl mb-6 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                {/* STEP 1: Fast Loading Screen immediately after selection */}
+                {readingStage === 'LOADING_SHORT' && (
+                  <div className="flex flex-col items-center justify-center py-12 space-y-6">
+                    {selectedType && (
+                      <div className="relative flex items-center justify-center mb-2">
+                        <div className="absolute w-[180px] h-[180px] rounded-full border border-dashed border-[#f1bf62]/30 animate-[spin_20s_linear_infinite] pointer-events-none"></div>
+                        <div className="absolute w-[150px] h-[150px] rounded-full border border-[#f1bf62]/15 animate-[spin_10s_linear_infinite_reverse] pointer-events-none"></div>
+                        
+                        <div className="w-[120px] h-[170px] rounded-xl border-2 border-[#f1bf62]/35 bg-[#1e2022]/95 flex flex-col items-center justify-center p-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(241,191,98,0.15)] relative overflow-hidden animate-bounce z-10">
+                          <div className="my-auto text-[#f1bf62] scale-[1.3] drop-shadow-[0_0_12px_rgba(241,191,98,0.45)]">
+                            {getTarotIllustration(selectedType)}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <p className="text-[17px] sm:text-[21px] font-black text-[#f1bf62] tracking-[0.2em] text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed">
+                      {loadingMessages[loadingMsgIdx]}
+                    </p>
+
+                    <div className="w-full max-w-xs space-y-2">
+                      <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
+                        <div
+                          className="h-full bg-gradient-to-r from-[#f1bf62] via-[#ffda8b] to-[#f1bf62] transition-all duration-300 rounded-full"
+                          style={{ width: `${progress}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-[11px] text-[#c6c6ce]/80 text-center font-black tracking-wider uppercase font-sans">
+                        მზადდება პირველადი ანალიზი...
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 2 & 3: Short Express Preview Card (Appears after fast load) */}
+                {(readingStage === 'SHORT_READY' || readingStage === 'FULL_READY') && selectedType && EXPRESS_PREVIEWS[selectedType] && (
+                  <div className="bg-[#1e2022]/80 border border-[#f1bf62]/30 p-6 rounded-2xl mb-6 shadow-2xl backdrop-blur-md relative overflow-hidden animate-fade-in">
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-[#f1bf62]"></div>
                     <div className="flex items-center space-x-3 mb-3">
                       <span className="material-symbols-outlined text-[#f1bf62] text-2xl animate-pulse">auto_awesome</span>
@@ -679,9 +720,9 @@ export default function App() {
                       {EXPRESS_PREVIEWS[selectedType].details}
                     </p>
 
-                    {!showFullReading && (
+                    {readingStage === 'SHORT_READY' && (
                       <button
-                        onClick={() => setShowFullReading(true)}
+                        onClick={() => setReadingStage('FULL_READY')}
                         className="w-full mt-6 py-4 px-6 bg-gradient-to-r from-[#f1bf62]/20 via-[#b8860b]/30 to-[#f1bf62]/20 hover:from-[#f1bf62]/35 hover:to-[#f1bf62]/35 border border-[#f1bf62]/50 hover:border-[#f1bf62] text-[#f1bf62] hover:text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest transition-all cursor-pointer shadow-[0_10px_25px_rgba(241,191,98,0.2)] flex flex-col items-center justify-center gap-2 hover:scale-[1.01] active:scale-98 font-headline relative overflow-hidden group"
                       >
                         <div className="flex items-center gap-3">
@@ -699,27 +740,16 @@ export default function App() {
                   </div>
                 )}
 
-                {/* STAGE 2: Full Analysis Container (revealed on Learn More) */}
-                {showFullReading && (
+                {/* STEP 3: Full Detailed Analysis Container (revealed on Learn More) */}
+                {readingStage === 'FULL_READY' && (
                   <>
-                    {/* 2a. Background loading in progress */}
+                    {/* Background loading still in progress for full reading */}
                     {loadingReading && (
-                      <div className="flex flex-col items-center justify-center py-10 space-y-6 border-t border-white/10 pt-6">
-                        {selectedType && (
-                          <div className="relative flex items-center justify-center mb-2">
-                            <div className="absolute w-[160px] h-[160px] rounded-full border border-dashed border-[#f1bf62]/30 animate-[spin_20s_linear_infinite] pointer-events-none"></div>
-                            <div className="w-[110px] h-[155px] rounded-xl border-2 border-[#f1bf62]/35 bg-[#1e2022]/95 flex flex-col items-center justify-center p-3 shadow-[0_15px_35px_rgba(0,0,0,0.9)] relative overflow-hidden animate-bounce z-10">
-                              <div className="my-auto text-[#f1bf62] scale-[1.2]">
-                                {getTarotIllustration(selectedType)}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        <p className="text-[16px] sm:text-[20px] font-black text-[#f1bf62] tracking-[0.15em] text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed">
-                          {loadingMessages[loadingMsgIdx]}
+                      <div className="flex flex-col items-center justify-center py-10 space-y-6 border-t border-white/10 pt-6 font-sans">
+                        <div className="w-10 h-10 border-4 border-[#f1bf62] border-t-transparent rounded-full animate-spin"></div>
+                        <p className="text-[15px] font-black text-[#f1bf62] tracking-[0.15em] text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed">
+                          სრულდება სრული სიღრმისეული ანალიზი...
                         </p>
-                        
-                        {/* Dynamic Progress Indicator */}
                         <div className="w-full max-w-xs space-y-2">
                           <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
                             <div
@@ -734,7 +764,7 @@ export default function App() {
                       </div>
                     )}
 
-                    {/* 2b. Error View */}
+                    {/* Error View */}
                     {error && !loadingReading && (
                       <div className="flex items-start space-x-3 p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-sm font-semibold mt-4">
                         <ShieldAlert className="w-4.5 h-4.5 text-red-400 shrink-0" />
@@ -745,7 +775,7 @@ export default function App() {
                       </div>
                     )}
 
-                    {/* 2c. Successful Reading Response */}
+                    {/* Successful Reading Response */}
                     {reading && !loadingReading && (
                       <div className="space-y-6 text-[#c6c6ce] pt-4 border-t border-white/10 animate-fade-in">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-5 gap-3">
