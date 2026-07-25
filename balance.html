@@ -1222,13 +1222,16 @@
               // Show full analysis container
               fullContainer.classList.remove('hidden');
               renderFullAnalysis(fetchedData);
+              fullContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
           }, 300);
         }, 3000);
 
         function renderFullAnalysis(data) {
+          const fullContainer = document.getElementById('balance-full-analysis-container');
+          if (!fullContainer) return;
+
           let formattedContent = data.content
-            .replace(/\*\*(.*?)\*\?/g, '<strong class="text-[#f1bf62] font-bold">$1</strong>')
             .replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#f1bf62] font-bold">$1</strong>')
             .replace(/### (.*?)\n/g, '<h4 class="text-sm font-black uppercase tracking-wider text-[#f1bf62] mt-6 border-b border-white/5 pb-2 font-sans">$1</h4>')
             .replace(/## (.*?)\n/g, '<h3 class="text-lg font-headline font-black text-[#f1bf62] mt-8">$1</h3>')
