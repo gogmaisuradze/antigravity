@@ -172,7 +172,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
   };
 
   return (
-    <div id="compatibility-panel-container" className="w-full max-w-2xl mx-auto bg-[#1e2022]/60 border border-white/5 backdrop-blur-md p-8 rounded-2xl shadow-2xl overflow-hidden relative">
+    <div id="compatibility-panel-container" className="w-full max-w-2xl mx-auto bg-[#1e2022]/60 border border-white/5 backdrop-blur-md p-4 sm:p-8 rounded-2xl shadow-2xl overflow-hidden relative">
       <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62]"></div>
 
       <div className="flex flex-col items-center justify-center text-center space-y-3 mb-8">
@@ -355,7 +355,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
             </button>
 
             {/* Main Score Radial/Card */}
-            <div className="p-8 bg-[#1e2022]/40 border border-white/5 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden shadow-2xl">
+            <div className="p-4 sm:p-8 bg-[#1e2022]/40 border border-white/5 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden shadow-2xl">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#f1bf62]/5 rounded-full blur-3xl"></div>
               
               <span className="text-[12px] uppercase tracking-[0.25em] text-[#c6c6ce]/70 font-bold mb-3">
@@ -415,7 +415,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
             </div>
 
             {/* Narrative Explanation in Georgian */}
-            <div className="p-6 bg-[#1e2022]/60 border border-white/5 rounded-2xl space-y-4 shadow-2xl text-[#c6c6ce]">
+            <div className="p-0 pt-4 sm:p-6 bg-transparent sm:bg-[#1e2022]/60 border-0 sm:border border-white/5 rounded-2xl space-y-4 shadow-none sm:shadow-2xl text-[#c6c6ce]">
               <h4 className="text-sm font-black tracking-wider uppercase text-[#f1bf62] border-b border-white/10 pb-3 flex items-center font-headline">
                 <Sparkles className="w-4.5 h-4.5 mr-2 text-[#f1bf62] shrink-0" />
                 ამომწურავი კოსმიური და ფსიქოლოგიური ანალიზი:

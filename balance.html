@@ -488,7 +488,7 @@
 
           <!-- AI Evaluation section (automatic trigger) -->
           <div id="balance-results-panel" class="pt-8 border-t border-white/10">
-            <div class="bg-black/35 p-8 rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl">
+            <div class="bg-black/35 p-4 sm:p-8 rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl">
               <div class="absolute top-0 left-0 w-[3px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
               
               <div class="flex items-center space-x-3 mb-6">
@@ -1163,7 +1163,7 @@
             const formattedShort = generateExpressPreview(percentages);
 
             aiContainer.innerHTML = `
-              <div class="bg-[#1e2022]/80 border border-[#f1bf62]/30 p-6 rounded-2xl mb-6 shadow-2xl backdrop-blur-md relative overflow-hidden font-sans animate-fade-in text-[#c6c6ce] text-left">
+              <div class="bg-transparent sm:bg-[#1e2022]/80 border-0 sm:border border-[#f1bf62]/30 p-0 pl-4 sm:p-6 rounded-2xl mb-6 shadow-none sm:shadow-2xl backdrop-blur-none sm:backdrop-blur-md relative overflow-hidden font-sans animate-fade-in text-[#c6c6ce] text-left">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-[#f1bf62]"></div>
                 <div class="flex items-center space-x-2.5 mb-4">
                   <span class="material-symbols-outlined text-[#f1bf62] text-2xl animate-pulse">auto_awesome</span>
@@ -1242,7 +1242,7 @@
 
           const deliveryCardHtml = `
             <div class="mt-8 pt-8 border-t border-white/10 space-y-6 font-sans">
-              <div class="p-6 bg-[#1e2022]/40 border border-white/5 rounded-2xl relative overflow-hidden shadow-2xl text-left font-sans">
+              <div class="p-0 pl-4 sm:p-6 bg-transparent sm:bg-[#1e2022]/40 border-0 sm:border border-white/5 rounded-2xl relative overflow-hidden shadow-none sm:shadow-2xl text-left font-sans">
                 <div class="absolute top-0 left-0 w-[2px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
                 
                 <div class="flex items-center space-x-2.5 mb-3">
@@ -1305,7 +1305,7 @@
 
             <!-- Relationship Compatibility Panel -->
             <div class="mt-8 pt-8 border-t border-white/10 space-y-6 font-sans">
-              <div class="p-6 bg-[#1e2022]/40 border border-white/5 rounded-2xl relative overflow-hidden shadow-2xl text-left font-sans">
+              <div class="p-0 pl-4 sm:p-6 bg-transparent sm:bg-[#1e2022]/40 border-0 sm:border border-white/5 rounded-2xl relative overflow-hidden shadow-none sm:shadow-2xl text-left font-sans">
                 <div class="absolute top-0 left-0 w-[2px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
                 
                 <div class="flex items-center space-x-2.5 mb-3">
@@ -1388,7 +1388,7 @@
                   <div id="compatibility-status" class="hidden mt-4 p-3 rounded-xl text-xs font-bold font-headline text-center uppercase tracking-wider border"></div>
 
                   <!-- Compatibility Result -->
-                  <div id="compatibility-result-box" class="hidden mt-6 p-6 bg-[#1e2022]/60 border border-white/5 rounded-2xl relative overflow-hidden text-left font-sans space-y-4">
+                  <div id="compatibility-result-box" class="hidden mt-6 p-0 pt-4 sm:p-6 bg-transparent sm:bg-[#1e2022]/60 border-0 sm:border border-white/5 rounded-2xl relative overflow-hidden text-left font-sans space-y-4">
                     <div class="flex items-center space-x-2 text-[#f1bf62]">
                       <span class="material-symbols-outlined text-xl">favorite</span>
                       <span id="compatibility-score-text" class="text-sm font-black uppercase tracking-wider font-headline">თავსებადობა</span>

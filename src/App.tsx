@@ -764,7 +764,7 @@ export default function App() {
           <div className="space-y-12">
             {/* 1. Reading Display panel */}
             {(loadingReading || reading || error) && (
-              <div id="reading-display" className="w-full bg-[#1e2022]/60 p-8 rounded-2xl border border-white/5 shadow-2xl transition-all relative backdrop-blur-md">
+              <div id="reading-display" className="w-full bg-[#1e2022]/60 p-4 sm:p-8 rounded-2xl border border-white/5 shadow-2xl transition-all relative backdrop-blur-md">
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62] rounded-t-2xl"></div>
                 
                 {/* Back Button */}
@@ -817,7 +817,7 @@ export default function App() {
 
                 {/* STEP 2: Short Express Preview Card (Appears after fast load) */}
                 {readingStage === 'SHORT_READY' && reading && (
-                  <div className="bg-[#1e2022]/80 border border-[#f1bf62]/30 p-6 rounded-2xl mb-6 shadow-2xl backdrop-blur-md relative overflow-hidden animate-fade-in text-[#c6c6ce]">
+                  <div className="bg-transparent sm:bg-[#1e2022]/80 border-0 sm:border border-[#f1bf62]/30 p-0 pl-4 sm:p-6 rounded-2xl mb-6 shadow-none sm:shadow-2xl backdrop-blur-none sm:backdrop-blur-md relative overflow-hidden animate-fade-in text-[#c6c6ce]">
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-[#f1bf62]"></div>
                     <div className="flex items-center space-x-3 mb-4">
                       <span className="material-symbols-outlined text-[#f1bf62] text-2xl animate-pulse">auto_awesome</span>
@@ -920,7 +920,7 @@ export default function App() {
 
                         {/* Beautiful Results Delivery & Sharing Options Card */}
                         <div className="mt-8 pt-8 border-t border-white/10 space-y-6">
-                          <div className="p-6 bg-[#1e2022]/40 border border-white/5 rounded-2xl relative overflow-hidden shadow-2xl text-left">
+                          <div className="p-0 pl-4 sm:p-6 bg-transparent sm:bg-[#1e2022]/40 border-0 sm:border border-white/5 rounded-2xl relative overflow-hidden shadow-none sm:shadow-2xl text-left">
                             <div className="absolute top-0 left-0 w-[2px] h-full bg-[#f1bf62] rounded-l-2xl"></div>
                             
                             <div className="flex items-center space-x-2.5 mb-3">
@@ -1019,7 +1019,7 @@ export default function App() {
               
               {/* Premium Multi-Channel Social Sharing Row */}
               {reading && !loadingReading && (
-                <div className="w-full bg-[#1e2022]/60 p-6 rounded-2xl border border-white/5 shadow-2xl backdrop-blur-md relative flex flex-col items-center justify-center text-center space-y-4">
+                <div className="w-full bg-[#1e2022]/60 p-4 sm:p-6 rounded-2xl border border-white/5 shadow-2xl backdrop-blur-md relative flex flex-col items-center justify-center text-center space-y-4">
                   <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f1bf62] rounded-t-2xl"></div>
                   <h4 className="text-[11px] font-black uppercase tracking-widest text-[#f1bf62] font-headline">
                     ანალიზის გაზიარება სოციალურ ქსელებში 🔮
@@ -1089,7 +1089,7 @@ export default function App() {
             </div>
 
             {/* 3. Spinner (ბზრიალა) container */}
-            <div className="bg-[#1e2022]/60 p-6 rounded-2xl border border-white/5 shadow-2xl overflow-hidden relative backdrop-blur-md">
+            <div className="bg-[#1e2022]/60 p-4 sm:p-6 rounded-2xl border border-white/5 shadow-2xl overflow-hidden relative backdrop-blur-md">
               <SpinWheel
                 onSelect={(type) => handleSelectReading(userProfile.phone, type)}
                 selectedType={selectedType}
