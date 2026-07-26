@@ -3,3 +3,8 @@ dist/
 .env
 .DS_Store
 *.local
+
+# runtime/server data — არ უნდა მოხვდეს public რეპოში
+data/
+server_dump.txt
+server.ts
