@@ -334,32 +334,12 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const form = document.getElementById("registration-form");
-      const fileInput = document.getElementById("reg-receipt");
-      const dropzone = document.getElementById("receipt-dropzone");
-      const uploadPrimary = document.getElementById("upload-primary-text");
-      const uploadSecondary = document.getElementById("upload-secondary-text");
-      const fileDetails = document.getElementById("file-details-container");
-      const fileNameText = document.getElementById("file-name-text");
-      const fileSizeText = document.getElementById("file-size-text");
-      const fileIcon = document.getElementById("file-icon");
-      const removeFileBtn = document.getElementById("btn-remove-file");
       const statusDiv = document.getElementById("status-message");
-      const submitBtn = document.getElementById("btn-submit-registration");
-
-      // Payment method selectors
-      const methodOnlineBtn = document.getElementById("pay-method-online");
-      const methodBankBtn = document.getElementById("pay-method-bank");
-      const onlineContainer = document.getElementById("payment-online-container");
-      const bankContainer = document.getElementById("payment-bank-container");
 
       // Quick payment buttons
       const applePayBtn = document.getElementById("btn-apple-pay");
       const googlePayBtn = document.getElementById("btn-google-pay");
       const cardPayBtn = document.getElementById("btn-card-pay");
-
-      let activeMethod = "online"; // 'online' or 'bank'
-      let receiptBase64 = "";
-      let receiptFileName = "";
 
       const setStatus = (msg, isError = false) => {
         statusDiv.innerHTML = msg;
@@ -376,115 +356,6 @@
       const hideStatus = () => {
         statusDiv.classList.add("hidden");
       };
-
-      // Toggle Payment Methods
-      methodOnlineBtn.addEventListener("click", () => {
-        activeMethod = "online";
-        methodOnlineBtn.className = "py-3.5 px-4 rounded-xl border border-[#f1bf62] bg-[#f1bf62]/10 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none";
-        methodBankBtn.className = "py-3.5 px-4 rounded-xl border border-white/10 bg-white/3 text-[#c6c6ce] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none";
-        
-        onlineContainer.classList.remove("hidden");
-        bankContainer.classList.add("hidden");
-        hideStatus();
-      });
-
-      methodBankBtn.addEventListener("click", () => {
-        activeMethod = "bank";
-        methodBankBtn.className = "py-3.5 px-4 rounded-xl border border-[#f1bf62] bg-[#f1bf62]/10 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none";
-        methodOnlineBtn.className = "py-3.5 px-4 rounded-xl border border-white/10 bg-white/3 text-[#c6c6ce] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none";
-        
-        bankContainer.classList.remove("hidden");
-        onlineContainer.classList.add("hidden");
-        hideStatus();
-      });
-
-      // File selection changes
-      if (fileInput) {
-        fileInput.addEventListener("change", (e) => {
-          const file = e.target.files[0];
-          handleFile(file);
-        });
-      }
-
-      // Drag and drop events
-      if (dropzone) {
-        ["dragenter", "dragover"].forEach(eventName => {
-          dropzone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropzone.classList.add("border-[#f1bf62]/60", "bg-[#121416]/50");
-          }, false);
-        });
-
-        ["dragleave", "drop"].forEach(eventName => {
-          dropzone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropzone.classList.remove("border-[#f1bf62]/60", "bg-[#121416]/50");
-          }, false);
-        });
-
-        dropzone.addEventListener("drop", (e) => {
-          const dt = e.dataTransfer;
-          const file = dt.files[0];
-          if (file) {
-            fileInput.files = dt.files;
-            handleFile(file);
-          }
-        });
-      }
-
-      function handleFile(file) {
-        if (!file) return;
-        if (file.size > 5 * 1024 * 1024) {
-          setStatus("შეცდომა: ფაილის ზომა აღემატება 5 მეგაბაიტს.", true);
-          clearFile();
-          return;
-        }
-        hideStatus();
-        receiptFileName = file.name;
-        fileNameText.textContent = file.name;
-        const sizeInKB = Math.round(file.size / 1024);
-        fileSizeText.textContent = sizeInKB > 1000 ? (sizeInKB / 1024).toFixed(1) + " MB" : sizeInKB + " KB";
-        
-        if (file.type === "application/pdf") {
-          fileIcon.textContent = "picture_as_pdf";
-          fileIcon.className = "material-symbols-outlined text-2xl text-red-400";
-        } else {
-          fileIcon.textContent = "image";
-          fileIcon.className = "material-symbols-outlined text-2xl text-[#f1bf62]";
-        }
-
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          receiptBase64 = reader.result;
-          uploadPrimary.classList.add("hidden");
-          uploadSecondary.classList.add("hidden");
-          fileDetails.classList.remove("hidden");
-        };
-        reader.onerror = () => {
-          setStatus("შეცდომა ფაილის დამუშავებისას.", true);
-          clearFile();
-        };
-      }
-
-      if (removeFileBtn) {
-        removeFileBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          clearFile();
-        });
-      }
-
-      function clearFile() {
-        if (fileInput) fileInput.value = "";
-        receiptBase64 = "";
-        receiptFileName = "";
-        uploadPrimary.classList.remove("hidden");
-        uploadSecondary.classList.remove("hidden");
-        fileDetails.classList.add("hidden");
-      }
 
       // Input Validation helper
       function validateFormInputs() {
@@ -536,11 +407,9 @@
           if (response.ok || data.success) {
             setStatus("✨ რეგისტრაცია წარმატებით დასრულდა! ✨<br/>თქვენი მონაცემები და გადახდა მიღებულია. ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ.");
             form.reset();
-            clearFile();
-            // Hide payment sections for success
-            onlineContainer.style.display = "none";
-            bankContainer.style.display = "none";
-            document.querySelector(".grid.grid-cols-2.gap-4").style.display = "none";
+            // Hide buttons on success
+            applePayBtn.parentElement.style.display = "none";
+            cardPayBtn.style.display = "none";
           } else {
             throw new Error(data.error || "სერვერის შეცდომა გაგზავნისას");
           }
@@ -550,7 +419,6 @@
           applePayBtn.disabled = false;
           googlePayBtn.disabled = false;
           cardPayBtn.disabled = false;
-          submitBtn.disabled = false;
         }
       }
 
@@ -584,34 +452,6 @@
       applePayBtn.addEventListener("click", () => handleOnlinePaymentClick("Apple Pay"));
       googlePayBtn.addEventListener("click", () => handleOnlinePaymentClick("Google Pay"));
       cardPayBtn.addEventListener("click", () => handleOnlinePaymentClick("Card"));
-
-      // Bank Transfer form submission
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        
-        if (activeMethod !== "bank") return; // Online payments are handled by their own click handlers
-
-        const payloadData = validateFormInputs();
-        if (!payloadData) return;
-
-        if (!receiptBase64) {
-          setStatus("გთხოვთ ატვირთოთ გადახდის ქვითარი რეგისტრაციისთვის.", true);
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.querySelector("span").textContent = "მიმდინარეობს გაგზავნა... ⏳";
-        setStatus("მონაცემები იგზავნება... გთხოვთ დაელოდოთ ⏳");
-
-        const finalPayload = {
-          ...payloadData,
-          receipt_base64: receiptBase64,
-          receipt_filename: receiptFileName,
-          payment_method: "bank_transfer"
-        };
-
-        await submitPayload(finalPayload);
-      });
     });
   </script>
 </body>
