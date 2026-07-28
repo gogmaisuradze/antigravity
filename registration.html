@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/src/input.css"/>
   <script type="module" src="/src/main.js"></script>
 </head>
-<body class="selection:bg-secondary/30 selection:text-secondary bg-[#121416] text-[#c6c6ce]">
+<body class="selection:bg-[#f1bf62]/30 selection:text-secondary bg-[#f5f6f8] text-[#1e2022] min-h-screen">
 
 
   <!-- Floating Island Header -->
@@ -132,84 +132,71 @@
 
   <main class="relative z-10 min-h-screen pt-24 md:pt-32">
     <!-- Hero & Form Section -->
-    <section class="relative pt-12 pb-32 px-4 sm:px-6 overflow-hidden bg-gradient-hero">
+    <section class="relative pt-12 pb-32 px-4 sm:px-6 overflow-hidden">
       <div class="max-w-4xl mx-auto">
         <!-- Title Center -->
         <div class="text-center space-y-4 mb-12">
-          <span class="text-secondary font-label tracking-[0.2em] text-xs sm:text-sm uppercase">რეგისტრაცია</span>
-          <h1 class="text-4xl md:text-5xl font-headline italic leading-tight text-on-surface">
-            კურსებზე <span class="text-[#f1bf62]">რეგისტრაცია</span>
+          <span class="text-[#b8860b] font-label tracking-[0.2em] text-xs sm:text-sm uppercase font-bold">რეგისტრაცია</span>
+          <h1 class="text-4xl md:text-5xl font-headline italic leading-tight text-black font-semibold">
+            კურსებზე <span class="text-[#b8860b]">რეგისტრაცია</span>
           </h1>
-          <p class="text-white/90 text-sm sm:text-base leading-relaxed max-w-lg mx-auto font-medium">
-            გთხოვთ შეავსოთ მოცემული ფორმა და ატვირთოთ გადახდის ქვითარი რეგისტრაციის დასასრულებლად.
+          <p class="text-black/75 text-sm sm:text-base leading-relaxed max-w-lg mx-auto font-medium">
+            გთხოვთ შეავსოთ მოცემული ფორმა და აირჩიოთ გადახდის მეთოდი რეგისტრაციის დასასრულებლად.
           </p>
         </div>
 
-        <!-- Registration Form Card (Frosted Glass Card) -->
-        <div class="bg-surface-container-low p-6 sm:p-10 md:p-12 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_40px_80px_rgba(0,0,0,0.5)] border border-outline-variant/10 relative hover-glow transition-all duration-500">
+        <!-- Registration Form Card (Frosted Glass Card - Light Theme) -->
+        <div class="bg-white/85 backdrop-blur-md p-6 sm:p-10 md:p-12 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_30px_60px_rgba(0,0,0,0.06)] border border-black/5 relative transition-all duration-500 hover:shadow-[0px_40px_80px_rgba(0,0,0,0.1)]">
           <div class="absolute -top-6 -right-6 hidden md:block">
-            <div class="bg-secondary p-4 rounded-full shadow-lg">
-              <span class="material-symbols-outlined text-on-secondary text-3xl" style='font-variation-settings: "FILL" 1;'>app_registration</span>
+            <div class="bg-[#b8860b] p-4 rounded-full shadow-lg">
+              <span class="material-symbols-outlined text-white text-3xl" style='font-variation-settings: "FILL" 1;'>app_registration</span>
             </div>
           </div>
 
           <form id="registration-form" class="space-y-6 sm:space-y-8">
             <!-- Alert/Status Box -->
-            <div id="status-message" class="hidden p-4 rounded-xl text-sm font-semibold border transition-all"></div>
+            <div id="status-message" class="hidden p-4 rounded-xl text-sm font-semibold border transition-all text-center"></div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <!-- Name Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">სახელი</label>
-                <input type="text" id="reg-first-name" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="თქვენი სახელი"/>
+                <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">სახელი</label>
+                <input type="text" id="reg-first-name" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black placeholder:text-black/30 text-sm font-semibold" placeholder="თქვენი სახელი"/>
               </div>
               <!-- Surname Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">გვარი</label>
-                <input type="text" id="reg-last-name" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="თქვენი გვარი"/>
+                <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">გვარი</label>
+                <input type="text" id="reg-last-name" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black placeholder:text-black/30 text-sm font-semibold" placeholder="თქვენი გვარი"/>
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <!-- Phone Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">ტელეფონის ნომერი</label>
-                <input type="tel" id="reg-phone" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="მაგ: 5XXXXXXXX"/>
+                <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">ტელეფონის ნომერი</label>
+                <input type="tel" id="reg-phone" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black placeholder:text-black/30 text-sm font-semibold" placeholder="მაგ: 5XXXXXXXX"/>
               </div>
               <!-- Birth Date Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">დაბადების თარიღი</label>
-                <input type="date" id="reg-birthdate" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white [color-scheme:dark] text-sm font-medium cursor-pointer"/>
+                <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">დაბადების თარიღი</label>
+                <input type="date" id="reg-birthdate" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black [color-scheme:light] text-sm font-semibold cursor-pointer"/>
               </div>
             </div>
 
             <!-- Course Input -->
             <div class="space-y-2 text-left">
-              <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">რაზე გსურთ რეგისტრაცია?</label>
-              <input type="text" id="reg-course" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="მაგ: ასტროლოგიური სკოლა, სემინარი..."/>
+              <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">რაზე გსურთ რეგისტრაცია?</label>
+              <input type="text" id="reg-course" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black placeholder:text-black/30 text-sm font-semibold" placeholder="მაგ: ასტროლოგიური სკოლა, სემინარი..."/>
             </div>
 
-            <!-- Payment Method Selection -->
-            <div class="space-y-3 text-left">
-              <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">გადახდის მეთოდი</label>
-              <div class="grid grid-cols-2 gap-4">
-                <button type="button" id="pay-method-online" class="py-3.5 px-4 rounded-xl border border-[#f1bf62] bg-[#f1bf62]/10 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none">
-                  <span class="material-symbols-outlined text-lg">payment</span>
-                  <span>ონლაინ გადახდა</span>
-                </button>
-                <button type="button" id="pay-method-bank" class="py-3.5 px-4 rounded-xl border border-white/10 bg-white/3 text-[#c6c6ce] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none">
-                  <span class="material-symbols-outlined text-lg">account_balance</span>
-                  <span>გადარიცხვა</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- ONLINE PAYMENT CONTAINER -->
-            <div id="payment-online-container" class="space-y-4">
+            <!-- Quick Payment Section -->
+            <div class="space-y-4 pt-6 border-t border-black/5">
+              <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold block text-left">აირჩიეთ გადახდის მეთოდი რეგისტრაციისთვის</label>
+              
               <!-- Quick Payment Options -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Apple Pay Button -->
-                <button type="button" id="btn-apple-pay" class="bg-black hover:bg-black/90 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-white/10 hover:scale-[1.02] active:scale-98">
+                <button type="button" id="btn-apple-pay" class="bg-black hover:bg-black/90 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-black/10 hover:scale-[1.02] active:scale-98">
                   <svg class="h-6 w-auto fill-current text-white" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <path d="M49.2,27.1c-1.3,1.6-3.3,2.7-5.4,2.6c-0.3-2.1,0.6-4.2,1.9-5.7c1.3-1.6,3.4-2.8,5.4-2.6C51.4,23.5,50.5,25.6,49.2,27.1 M52.5,30.3c-2.8,0-5.2,1.7-6.6,1.7c-1.4,0-3.4-1.5-5.7-1.5c-3,0-5.8,1.7-7.4,4.5c-3.1,5.4-0.8,13.4,2.2,17.7c1.5,2.1,3.2,4.5,5.5,4.4c2.2-0.1,3-1.4,5.6-1.4c2.6,0,3.4,1.4,5.7,1.4c2.3-0.1,3.9-2.1,5.4-4.2c1.7-2.5,2.4-4.9,2.4-5c-0.1-0.1-4.6-1.8-4.7-6.9c-0.1-4.3,3.5-6.3,3.6-6.4C58.6,35.1,55.3,30.3,52.5,30.3"/>
                   </svg>
@@ -217,7 +204,7 @@
                 </button>
                 
                 <!-- Google Pay Button -->
-                <button type="button" id="btn-google-pay" class="bg-white hover:bg-white/95 text-black rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer hover:scale-[1.02] active:scale-98">
+                <button type="button" id="btn-google-pay" class="bg-white hover:bg-white/95 text-black rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-black/15 hover:scale-[1.02] active:scale-98">
                   <svg class="h-6 w-auto" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#4285F4" d="M36.3,20.3c0-1.2-0.1-2.4-0.3-3.6H20v6.8h9.1c-0.4,2.1-1.6,3.9-3.4,5.1v4.2h5.5C34.4,29.3,36.3,25.1,36.3,20.3z"/>
                     <path fill="#34A853" d="M20,36.9c4.6,0,8.4-1.5,11.2-4.1l-5.5-4.2c-1.5,1-3.5,1.6-5.7,1.6c-4.4,0-8.1-3-9.4-7H5v4.4C7.8,33.2,13.5,36.9,20,36.9z"/>
@@ -229,60 +216,9 @@
               </div>
 
               <!-- Quick Card Payment Button -->
-              <button type="button" id="btn-card-pay" class="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-white/10 hover:scale-[1.01] active:scale-98 text-xs font-bold uppercase tracking-wider">
+              <button type="button" id="btn-card-pay" class="w-full bg-[#121416] hover:bg-[#121416]/90 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer hover:scale-[1.01] active:scale-98 text-xs font-bold uppercase tracking-wider">
                 <span class="material-symbols-outlined mr-2">credit_card</span>
                 <span>ბარათით გადახდა</span>
-              </button>
-
-              <div class="bg-[#1e2022]/45 border border-white/5 rounded-xl p-4 text-left">
-                <p class="text-xs text-white/80 leading-relaxed font-sans">
-                  💡 ონლაინ გადახდის შემთხვევაში, თქვენი რეგისტრაცია დასტურდება ავტომატურად და ქვითრის გამოგზავნა აღარ არის საჭირო.
-                </p>
-              </div>
-            </div>
-
-            <!-- BANK TRANSFER CONTAINER (HIDDEN BY DEFAULT) -->
-            <div id="payment-bank-container" class="hidden space-y-6">
-              <!-- Requisites Box -->
-              <div class="bg-white/3 border border-white/5 rounded-xl p-5 text-left text-xs sm:text-sm font-sans space-y-2.5">
-                <h5 class="text-[#f1bf62] font-black uppercase tracking-wider text-xs font-headline">საბანკო რეკვიზიტები:</h5>
-                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">მიმღები:</strong> ინტეგრირებული განვითარების ცენტრი (IDC)</p>
-                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">საიდენტიფიკაციო კოდი:</strong> 402234020</p>
-                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">ბანკი:</strong> თიბისი ბანკი</p>
-                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">ანგარიშის ნომერი (IBAN):</strong> GE22TB7777777777777777</p>
-                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">დანიშნულება:</strong> [თქვენი სახელი გვარი] - კურსის რეგისტრაცია</p>
-              </div>
-
-              <!-- Receipt File Uploader -->
-              <div class="space-y-2 text-left">
-                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">გადახდის ქვითარი (სურათი ან PDF)</label>
-                <div id="receipt-dropzone" class="border-2 border-dashed border-white/10 hover:border-[#f1bf62]/50 bg-[#121416]/20 hover:bg-[#121416]/40 transition-all rounded-xl p-6 text-center cursor-pointer relative group flex flex-col items-center justify-center space-y-3">
-                  <input type="file" id="reg-receipt" accept="image/*,application/pdf" class="absolute inset-0 opacity-0 cursor-pointer z-10" />
-                  <span class="material-symbols-outlined text-4xl text-white/60 group-hover:text-[#f1bf62] transition-colors duration-300">cloud_upload</span>
-                  <div class="space-y-1">
-                    <p class="text-sm font-medium text-white" id="upload-primary-text">ჩააგდეთ ფაილი აქ ან დააწკაპუნეთ ასატვირთად</p>
-                    <p class="text-xs text-white/60" id="upload-secondary-text">ფაილის მაქსიმალური ზომა: 5MB (PNG, JPG, PDF)</p>
-                  </div>
-                  <!-- File Preview / Name -->
-                  <div id="file-details-container" class="hidden w-full max-w-md bg-white/5 border border-white/10 rounded-lg p-3 flex items-center justify-between z-20">
-                    <div class="flex items-center space-x-3 text-left">
-                      <span class="material-symbols-outlined text-2xl text-[#f1bf62]" id="file-icon">description</span>
-                      <div class="overflow-hidden">
-                        <p class="text-xs font-semibold text-white truncate max-w-[200px]" id="file-name-text">filename.pdf</p>
-                        <p class="text-[10px] text-white/70" id="file-size-text">0 KB</p>
-                      </div>
-                    </div>
-                    <button type="button" id="btn-remove-file" class="text-white/70 hover:text-red-400 transition-colors p-1 flex items-center justify-center cursor-pointer">
-                      <span class="material-symbols-outlined text-lg">delete</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Submit button -->
-              <button type="submit" id="btn-submit-registration" class="w-full bg-secondary-container text-on-secondary-container py-5 rounded-xl font-semibold text-lg hover:brightness-110 transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer">
-                <span>რეგისტრაციის დასრულება</span>
-                <span class="material-symbols-outlined">arrow_forward</span>
               </button>
             </div>
           </form>
@@ -345,9 +281,9 @@
         statusDiv.innerHTML = msg;
         statusDiv.className = "p-4 rounded-xl text-sm font-semibold border transition-all text-center";
         if (isError) {
-          statusDiv.classList.add("bg-red-950/20", "border-red-500/20", "text-red-300");
+          statusDiv.classList.add("bg-red-50", "border-red-200", "text-red-800");
         } else {
-          statusDiv.classList.add("bg-emerald-950/20", "border-emerald-500/20", "text-emerald-400");
+          statusDiv.classList.add("bg-emerald-50", "border-emerald-200", "text-emerald-800");
         }
         statusDiv.classList.remove("hidden");
         statusDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
