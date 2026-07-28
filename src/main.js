@@ -101,15 +101,25 @@ function initBookingModal() {
               <input type="tel" id="booking-phone" name="phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="ტელ:"/>
             </div>
             <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">აირჩიე სერვისი</label>
-              <select name="service" class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none">
-                <option>კონსულტაცია</option>
-                <option>ინდივიდუალური ფსიქოთერაპია</option>
-                <option>არტ თერაპია</option>
-                <option>ჯგუფური ფსიქოთერაპია</option>
-                <option>პოზიტიური ფსიქოთერაპია</option>
-                <option>პრაქტიკული ფსიქოლოგია</option>
-              </select>
+              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">აირჩიე სერვისი / კურსი</label>
+              <div class="relative">
+                <select name="service" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none cursor-pointer">
+                  <option value="" disabled selected class="text-outline-variant/50 bg-[#0c0e10]">აირჩიეთ სიიდან...</option>
+                  <optgroup label="საგანმანათლებლო კურსები" class="font-bold bg-[#1e2022] text-[#f1bf62]">
+                    <option value="პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია (1-წლიანი)</option>
+                    <option value="პოზიტიური ფსიქოთერაპია WAPP" class="bg-[#121416] text-[#c6c6ce] font-normal">პოზიტიური ფსიქოთერაპია (WAPP პროგრამა)</option>
+                    <option value="არტთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">არტთერაპია (ერთწლიანი სასერტიფიკატო)</option>
+                    <option value="სამაგისტრო კურსი" class="bg-[#121416] text-[#c6c6ce] font-normal">სამაგისტრო კურსი</option>
+                    <option value="სემინარები და ვორქშოფები" class="bg-[#121416] text-[#c6c6ce] font-normal">სემინარები და ვორქშოფები</option>
+                  </optgroup>
+                  <optgroup label="თერაპიული მიმართულებები" class="font-bold bg-[#1e2022] text-[#f1bf62]">
+                    <option value="ინდივიდუალური ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">ინდივიდუალური ფსიქოთერაპია</option>
+                    <option value="ჯგუფური ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">ჯგუფური ფსიქოთერაპია</option>
+                    <option value="ონლაინ კონსულტაცია" class="bg-[#121416] text-[#c6c6ce] font-normal">კონსულტაცია / ონლაინ კონსულტაცია</option>
+                  </optgroup>
+                </select>
+                <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-outline-variant/70">keyboard_arrow_down</span>
+              </div>
             </div>
           </div>
           
