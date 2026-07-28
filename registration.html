@@ -10,8 +10,13 @@
   <link rel="stylesheet" href="/src/input.css"/>
   <script type="module" src="/src/main.js"></script>
 </head>
-<body class="selection:bg-[#f1bf62]/30 selection:text-secondary bg-[#f5f6f8] text-[#1e2022] min-h-screen">
+<body class="selection:bg-[#f1bf62]/30 selection:text-secondary bg-[#f5f6f8] text-[#1e2022] min-h-screen relative">
 
+  <!-- Ambient Graphic Background -->
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+    <img src="/about_hero_abstract.png" class="w-full h-full object-cover opacity-15 blur-[2px]" />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#f5f6f8]/80 via-[#f5f6f8]/60 to-[#f5f6f8]/95"></div>
+  </div>
 
   <!-- Floating Island Header -->
   <header class="fixed top-0 left-0 right-0 z-50 px-2.5 md:px-12 pt-3 md:pt-6 pointer-events-none">
@@ -185,8 +190,25 @@
 
             <!-- Course Input -->
             <div class="space-y-2 text-left">
-              <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">რაზე გსურთ რეგისტრაცია?</label>
-              <input type="text" id="reg-course" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black placeholder:text-black/30 text-sm font-semibold" placeholder="მაგ: ასტროლოგიური სკოლა, სემინარი..."/>
+              <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">აირჩიეთ კურსი / სერვისი</label>
+              <div class="relative">
+                <select id="reg-course" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black text-sm font-semibold cursor-pointer appearance-none">
+                  <option value="" disabled selected class="text-black/30 bg-white">აირჩიეთ სიიდან...</option>
+                  <optgroup label="საგანმანათლებლო კურსები" class="font-bold bg-white text-black">
+                    <option value="პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია" class="bg-white text-black font-normal">პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია (1-წლიანი)</option>
+                    <option value="პოზიტიური ფსიქოთერაპია WAPP" class="bg-white text-black font-normal">პოზიტიური ფსიქოთერაპია (WAPP პროგრამა)</option>
+                    <option value="არტთერაპია" class="bg-white text-black font-normal">არტთერაპია (ერთწლიანი სასერტიფიკატო)</option>
+                    <option value="სამაგისტრო კურსი" class="bg-white text-black font-normal">სამაგისტრო კურსი</option>
+                    <option value="სემინარები და ვორქშოფები" class="bg-white text-black font-normal">სემინარები და ვორქშოფები</option>
+                  </optgroup>
+                  <optgroup label="თერაპიული მიმართულებები" class="font-bold bg-white text-black">
+                    <option value="ინდივიდუალური ფსიქოთერაპია" class="bg-white text-black font-normal">ინდივიდუალური ფსიქოთერაპია</option>
+                    <option value="ჯგუფური ფსიქოთერაპია" class="bg-white text-black font-normal">ჯგუფური ფსიქოთერაპია</option>
+                    <option value="ონლაინ კონსულტაცია" class="bg-white text-black font-normal">კონსულტაცია / ონლაინ კონსულტაცია</option>
+                  </optgroup>
+                </select>
+                <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-black/50">keyboard_arrow_down</span>
+              </div>
             </div>
 
             <!-- Quick Payment Section -->
