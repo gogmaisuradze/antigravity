@@ -10,12 +10,14 @@
   <link rel="stylesheet" href="/src/input.css"/>
   <script type="module" src="/src/main.js"></script>
 </head>
-<body class="selection:bg-[#f1bf62]/30 selection:text-secondary bg-[#f5f6f8] text-[#1e2022] min-h-screen relative">
+<body class="selection:bg-secondary/30 selection:text-secondary bg-[#121416] text-[#c6c6ce] min-h-screen relative">
 
-  <!-- Ambient Graphic Background -->
-  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
-    <img src="/about_hero_abstract.png" class="w-full h-full object-cover opacity-15 blur-[2px]" />
-    <div class="absolute inset-0 bg-gradient-to-b from-[#f5f6f8]/80 via-[#f5f6f8]/60 to-[#f5f6f8]/95"></div>
+  <!-- Ambient Video Background -->
+  <div class="ambient-video-bg fixed inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+    <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-85" style="transform: scale(1.1);">
+      <source src="/background.mp4?v=4" type="video/mp4"/>
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#121416]/40 via-transparent to-[#121416]/50"></div>
   </div>
 
   <!-- Floating Island Header -->
@@ -141,20 +143,20 @@
       <div class="max-w-4xl mx-auto">
         <!-- Title Center -->
         <div class="text-center space-y-4 mb-12">
-          <span class="text-[#b8860b] font-label tracking-[0.2em] text-xs sm:text-sm uppercase font-bold">რეგისტრაცია</span>
-          <h1 class="text-4xl md:text-5xl font-headline italic leading-tight text-black font-semibold">
-            კურსებზე <span class="text-[#b8860b]">რეგისტრაცია</span>
+          <span class="text-[#f1bf62] font-label tracking-[0.2em] text-xs sm:text-sm uppercase font-bold">რეგისტრაცია</span>
+          <h1 class="text-4xl md:text-5xl font-headline italic leading-tight text-white font-semibold">
+            კურსებზე <span class="text-[#f1bf62]">რეგისტრაცია</span>
           </h1>
-          <p class="text-black/75 text-sm sm:text-base leading-relaxed max-w-lg mx-auto font-medium">
+          <p class="text-[#c6c6ce]/80 text-sm sm:text-base leading-relaxed max-w-lg mx-auto font-medium">
             გთხოვთ შეავსოთ მოცემული ფორმა და აირჩიოთ გადახდის მეთოდი რეგისტრაციის დასასრულებლად.
           </p>
         </div>
 
-        <!-- Registration Form Card (Frosted Glass Card - Light Theme) -->
-        <div class="bg-white/85 backdrop-blur-md p-6 sm:p-10 md:p-12 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_30px_60px_rgba(0,0,0,0.06)] border border-black/5 relative transition-all duration-500 hover:shadow-[0px_40px_80px_rgba(0,0,0,0.1)]">
+        <!-- Registration Form Card (Frosted Glass Card - Dark Theme) -->
+        <div class="bg-[#1e2022]/80 border border-white/5 backdrop-blur-md p-6 sm:p-10 md:p-12 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_30px_60px_rgba(0,0,0,0.4)] relative transition-all duration-500 hover:shadow-[0px_40px_80px_rgba(0,0,0,0.6)]">
           <div class="absolute -top-6 -right-6 hidden md:block">
-            <div class="bg-[#b8860b] p-4 rounded-full shadow-lg">
-              <span class="material-symbols-outlined text-white text-3xl" style='font-variation-settings: "FILL" 1;'>app_registration</span>
+            <div class="bg-[#f1bf62] p-4 rounded-full shadow-lg">
+              <span class="material-symbols-outlined text-[#121416] text-3xl" style='font-variation-settings: "FILL" 1;'>app_registration</span>
             </div>
           </div>
 
@@ -165,60 +167,60 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <!-- Name Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">სახელი</label>
-                <input type="text" id="reg-first-name" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black placeholder:text-black/30 text-sm font-semibold" placeholder="თქვენი სახელი"/>
+                <label class="text-xs text-[#c6c6ce]/70 tracking-widest uppercase ml-1 font-bold">სახელი</label>
+                <input type="text" id="reg-first-name" required class="w-full bg-transparent border-none border-b border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-[#c6c6ce]/30 text-sm font-semibold" placeholder="თქვენი სახელი"/>
               </div>
               <!-- Surname Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">გვარი</label>
-                <input type="text" id="reg-last-name" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black placeholder:text-black/30 text-sm font-semibold" placeholder="თქვენი გვარი"/>
+                <label class="text-xs text-[#c6c6ce]/70 tracking-widest uppercase ml-1 font-bold">გვარი</label>
+                <input type="text" id="reg-last-name" required class="w-full bg-transparent border-none border-b border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-[#c6c6ce]/30 text-sm font-semibold" placeholder="თქვენი გვარი"/>
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <!-- Phone Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">ტელეფონის ნომერი</label>
-                <input type="tel" id="reg-phone" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black placeholder:text-black/30 text-sm font-semibold" placeholder="მაგ: 5XXXXXXXX"/>
+                <label class="text-xs text-[#c6c6ce]/70 tracking-widest uppercase ml-1 font-bold">ტელეფონის ნომერი</label>
+                <input type="tel" id="reg-phone" required class="w-full bg-transparent border-none border-b border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-[#c6c6ce]/30 text-sm font-semibold" placeholder="მაგ: 5XXXXXXXX"/>
               </div>
               <!-- Birth Date Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">დაბადების თარიღი</label>
-                <input type="date" id="reg-birthdate" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black [color-scheme:light] text-sm font-semibold cursor-pointer"/>
+                <label class="text-xs text-[#c6c6ce]/70 tracking-widest uppercase ml-1 font-bold">დაბადების თარიღი</label>
+                <input type="date" id="reg-birthdate" required class="w-full bg-transparent border-none border-b border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-4 px-0 text-white [color-scheme:dark] text-sm font-semibold cursor-pointer"/>
               </div>
             </div>
 
             <!-- Course Input -->
             <div class="space-y-2 text-left">
-              <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold">აირჩიეთ კურსი / სერვისი</label>
+              <label class="text-xs text-[#c6c6ce]/70 tracking-widest uppercase ml-1 font-bold">აირჩიეთ კურსი / სერვისი</label>
               <div class="relative">
-                <select id="reg-course" required class="w-full bg-transparent border-none border-b border-black/10 focus:border-[#b8860b] focus:ring-0 transition-all py-4 px-0 text-black text-sm font-semibold cursor-pointer appearance-none">
-                  <option value="" disabled selected class="text-black/30 bg-white">აირჩიეთ სიიდან...</option>
-                  <optgroup label="საგანმანათლებლო კურსები" class="font-bold bg-white text-black">
-                    <option value="პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია" class="bg-white text-black font-normal">პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია (1-წლიანი)</option>
-                    <option value="პოზიტიური ფსიქოთერაპია WAPP" class="bg-white text-black font-normal">პოზიტიური ფსიქოთერაპია (WAPP პროგრამა)</option>
-                    <option value="არტთერაპია" class="bg-white text-black font-normal">არტთერაპია (ერთწლიანი სასერტიფიკატო)</option>
-                    <option value="სამაგისტრო კურსი" class="bg-white text-black font-normal">სამაგისტრო კურსი</option>
-                    <option value="სემინარები და ვორქშოფები" class="bg-white text-black font-normal">სემინარები და ვორქშოფები</option>
+                <select id="reg-course" required class="w-full bg-transparent border-none border-b border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-4 px-0 text-white text-sm font-semibold cursor-pointer appearance-none">
+                  <option value="" disabled selected class="text-[#c6c6ce]/30 bg-[#121416]">აირჩიეთ სიიდან...</option>
+                  <optgroup label="საგანმანათლებლო კურსები" class="font-bold bg-[#1e2022] text-[#f1bf62]">
+                    <option value="პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია (1-წლიანი)</option>
+                    <option value="პოზიტიური ფსიქოთერაპია WAPP" class="bg-[#121416] text-[#c6c6ce] font-normal">პოზიტიური ფსიქოთერაპია (WAPP პროგრამა)</option>
+                    <option value="არტთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">არტთერაპია (ერთწლიანი სასერტიფიკატო)</option>
+                    <option value="სამაგისტრო კურსი" class="bg-[#121416] text-[#c6c6ce] font-normal">სამაგისტრო კურსი</option>
+                    <option value="სემინარები და ვორქშოფები" class="bg-[#121416] text-[#c6c6ce] font-normal">სემინარები და ვორქშოფები</option>
                   </optgroup>
-                  <optgroup label="თერაპიული მიმართულებები" class="font-bold bg-white text-black">
-                    <option value="ინდივიდუალური ფსიქოთერაპია" class="bg-white text-black font-normal">ინდივიდუალური ფსიქოთერაპია</option>
-                    <option value="ჯგუფური ფსიქოთერაპია" class="bg-white text-black font-normal">ჯგუფური ფსიქოთერაპია</option>
-                    <option value="ონლაინ კონსულტაცია" class="bg-white text-black font-normal">კონსულტაცია / ონლაინ კონსულტაცია</option>
+                  <optgroup label="თერაპიული მიმართულებები" class="font-bold bg-[#1e2022] text-[#f1bf62]">
+                    <option value="ინდივიდუალური ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">ინდივიდუალური ფსიქოთერაპია</option>
+                    <option value="ჯგუფური ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">ჯგუფური ფსიქოთერაპია</option>
+                    <option value="ონლაინ კონსულტაცია" class="bg-[#121416] text-[#c6c6ce] font-normal">კონსულტაცია / ონლაინ კონსულტაცია</option>
                   </optgroup>
                 </select>
-                <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-black/50">keyboard_arrow_down</span>
+                <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[#c6c6ce]/50">keyboard_arrow_down</span>
               </div>
             </div>
 
             <!-- Quick Payment Section -->
-            <div class="space-y-4 pt-6 border-t border-black/5">
-              <label class="text-xs text-black/70 tracking-widest uppercase ml-1 font-bold block text-left">აირჩიეთ გადახდის მეთოდი რეგისტრაციისთვის</label>
+            <div class="space-y-4 pt-6 border-t border-white/5">
+              <label class="text-xs text-[#c6c6ce]/70 tracking-widest uppercase ml-1 font-bold block text-left">აირჩიეთ გადახდის მეთოდი რეგისტრაციისთვის</label>
               
               <!-- Quick Payment Options -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Apple Pay Button -->
-                <button type="button" id="btn-apple-pay" class="bg-black hover:bg-black/90 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-black/10 hover:scale-[1.02] active:scale-98">
+                <button type="button" id="btn-apple-pay" class="bg-black hover:bg-black/90 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-white/10 hover:scale-[1.02] active:scale-98">
                   <svg class="h-6 w-auto fill-current text-white" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <path d="M49.2,27.1c-1.3,1.6-3.3,2.7-5.4,2.6c-0.3-2.1,0.6-4.2,1.9-5.7c1.3-1.6,3.4-2.8,5.4-2.6C51.4,23.5,50.5,25.6,49.2,27.1 M52.5,30.3c-2.8,0-5.2,1.7-6.6,1.7c-1.4,0-3.4-1.5-5.7-1.5c-3,0-5.8,1.7-7.4,4.5c-3.1,5.4-0.8,13.4,2.2,17.7c1.5,2.1,3.2,4.5,5.5,4.4c2.2-0.1,3-1.4,5.6-1.4c2.6,0,3.4,1.4,5.7,1.4c2.3-0.1,3.9-2.1,5.4-4.2c1.7-2.5,2.4-4.9,2.4-5c-0.1-0.1-4.6-1.8-4.7-6.9c-0.1-4.3,3.5-6.3,3.6-6.4C58.6,35.1,55.3,30.3,52.5,30.3"/>
                   </svg>
@@ -226,7 +228,7 @@
                 </button>
                 
                 <!-- Google Pay Button -->
-                <button type="button" id="btn-google-pay" class="bg-white hover:bg-white/95 text-black rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-black/15 hover:scale-[1.02] active:scale-98">
+                <button type="button" id="btn-google-pay" class="bg-white hover:bg-white/95 text-black rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-white/10 hover:scale-[1.02] active:scale-98">
                   <svg class="h-6 w-auto" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#4285F4" d="M36.3,20.3c0-1.2-0.1-2.4-0.3-3.6H20v6.8h9.1c-0.4,2.1-1.6,3.9-3.4,5.1v4.2h5.5C34.4,29.3,36.3,25.1,36.3,20.3z"/>
                     <path fill="#34A853" d="M20,36.9c4.6,0,8.4-1.5,11.2-4.1l-5.5-4.2c-1.5,1-3.5,1.6-5.7,1.6c-4.4,0-8.1-3-9.4-7H5v4.4C7.8,33.2,13.5,36.9,20,36.9z"/>
@@ -238,7 +240,7 @@
               </div>
 
               <!-- Quick Card Payment Button -->
-              <button type="button" id="btn-card-pay" class="w-full bg-[#121416] hover:bg-[#121416]/90 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer hover:scale-[1.01] active:scale-98 text-xs font-bold uppercase tracking-wider">
+              <button type="button" id="btn-card-pay" class="w-full bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] font-bold rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer hover:scale-[1.01] active:scale-98 text-xs uppercase tracking-wider">
                 <span class="material-symbols-outlined mr-2">credit_card</span>
                 <span>ბარათით გადახდა</span>
               </button>
@@ -376,9 +378,9 @@
         statusDiv.innerHTML = msg;
         statusDiv.className = "p-4 rounded-xl text-sm font-semibold border transition-all text-center";
         if (isError) {
-          statusDiv.classList.add("bg-red-50", "border-red-200", "text-red-800");
+          statusDiv.className += " bg-red-950/40 border-red-500/30 text-red-200";
         } else {
-          statusDiv.classList.add("bg-emerald-50", "border-emerald-200", "text-emerald-800");
+          statusDiv.className += " bg-emerald-950/40 border-emerald-500/30 text-emerald-200";
         }
         statusDiv.classList.remove("hidden");
         statusDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
