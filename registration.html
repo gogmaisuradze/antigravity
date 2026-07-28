@@ -189,21 +189,10 @@
               </div>
             </div>
 
-            <!-- Course Selection -->
+            <!-- Course Input -->
             <div class="space-y-2 text-left">
               <label class="text-xs text-[#c6c6ce]/75 tracking-widest uppercase ml-1 font-semibold">რაზე გსურთ რეგისტრაცია?</label>
-              <div class="relative">
-                <select id="reg-course" required class="w-full bg-[#121416]/60 border border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-3 px-3 rounded-lg text-white text-sm font-medium cursor-pointer appearance-none">
-                  <option value="" disabled selected>აირჩიეთ კურსი/მიმართულება</option>
-                  <option value="positive_therapy_basic">პოზიტიური ფსიქოთერაპიის ბაზისური კურსი</option>
-                  <option value="astrology_school">ასტროლოგიური სკოლა</option>
-                  <option value="self_discovery_group">თვითშემეცნების ჯგუფები</option>
-                  <option value="seminar_workshop">სხვა სემინარი / ვორქშოპი</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#f1bf62]">
-                  <span class="material-symbols-outlined">keyboard_arrow_down</span>
-                </div>
-              </div>
+              <input type="text" id="reg-course" required class="w-full bg-[#121416]/40 border border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-3 px-3 rounded-lg text-white placeholder:text-[#c6c6ce]/40 text-sm font-medium" placeholder="მაგ: ასტროლოგიური სკოლა, სემინარი..."/>
             </div>
 
             <!-- Receipt File Uploader -->
