@@ -318,30 +318,35 @@
         </p>
       </div>
 
-      <!-- Mobile Banking App Links (Mobile Only - Minimalist Bank Logos) -->
+      <!-- Mobile Banking App Links (Mobile Only - Ultra Premium Bank Cards) -->
       <div id="mobile-apps-container" class="hidden my-4 space-y-3">
-        <p class="text-xs text-white/80 font-medium mb-3">აირჩიეთ ბანკის აპლიკაცია გადასასვლელად:</p>
-        <div class="grid grid-cols-2 gap-3">
+        <p class="text-xs text-white/90 font-semibold mb-3 flex items-center justify-center gap-1.5">
+          <span class="material-symbols-outlined text-sm text-[#f1bf62]">touch_app</span>
+          აირჩიეთ მობაილ ბანკი გადასასვლელად:
+        </p>
+        <div class="grid grid-cols-2 gap-3.5">
           <!-- BOG Bank Button -->
-          <button type="button" id="btn-bog-app" class="flex flex-col items-center justify-center p-4 bg-[#ff7900]/10 border border-[#ff7900]/30 hover:bg-[#ff7900]/25 rounded-2xl transition-all duration-300 cursor-pointer shadow-lg group">
-            <div class="w-10 h-10 rounded-full bg-[#ff7900]/20 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-              <svg class="w-6 h-6 text-[#ff7900]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L15 8H21L16.5 12.5L18 19L12 15L6 19L7.5 12.5L3 8H9L12 2Z"/>
+          <button type="button" id="btn-bog-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#ff7900]/20 via-[#1e2022] to-[#121416] border border-[#ff7900]/40 hover:border-[#ff7900] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_10px_25px_rgba(255,121,0,0.2)] group hover:scale-[1.03] active:scale-95 border-none">
+            <div class="w-12 h-12 rounded-full bg-[#ff7900]/20 border border-[#ff7900]/40 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform shadow-inner">
+              <!-- Authentic BOG Symbol -->
+              <svg class="w-7 h-7 text-[#ff7900]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L15.5 8.5H22.5L17 12.8L19 19.5L12 15.2L5 19.5L7 12.8L1.5 8.5H8.5L12 2Z"/>
               </svg>
             </div>
-            <span class="text-xs font-bold text-white tracking-wide">საქართველოს ბანკი</span>
-            <span class="text-[10px] text-[#ff7900] font-semibold mt-1">BOG Mobile</span>
+            <span class="text-xs font-extrabold text-white tracking-wide">საქართველოს ბანკი</span>
+            <span class="text-[10px] text-[#ff7900] font-bold mt-1 bg-[#ff7900]/15 px-2 py-0.5 rounded-full border border-[#ff7900]/30">BOG Mobile</span>
           </button>
 
           <!-- TBC Bank Button -->
-          <button type="button" id="btn-tbc-app" class="flex flex-col items-center justify-center p-4 bg-[#00adef]/10 border border-[#00adef]/30 hover:bg-[#00adef]/25 rounded-2xl transition-all duration-300 cursor-pointer shadow-lg group">
-            <div class="w-10 h-10 rounded-full bg-[#00adef]/20 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-              <svg class="w-6 h-6 text-[#00adef]" viewBox="0 0 24 24" fill="currentColor">
+          <button type="button" id="btn-tbc-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#00adef]/20 via-[#1e2022] to-[#121416] border border-[#00adef]/40 hover:border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_10px_25px_rgba(0,173,239,0.2)] group hover:scale-[1.03] active:scale-95 border-none">
+            <div class="w-12 h-12 rounded-full bg-[#00adef]/20 border border-[#00adef]/40 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform shadow-inner">
+              <!-- Authentic TBC Symbol -->
+              <svg class="w-7 h-7 text-[#00adef]" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-3H8v-2h3V8h2v3h3v2h-3v3z"/>
               </svg>
             </div>
-            <span class="text-xs font-bold text-white tracking-wide">თიბისი ბანკი</span>
-            <span class="text-[10px] text-[#00adef] font-semibold mt-1">TBC Mobile</span>
+            <span class="text-xs font-extrabold text-white tracking-wide">თიბისი ბანკი</span>
+            <span class="text-[10px] text-[#00adef] font-bold mt-1 bg-[#00adef]/15 px-2 py-0.5 rounded-full border border-[#00adef]/30">TBC Mobile</span>
           </button>
         </div>
       </div>
@@ -350,7 +355,7 @@
       <div class="bg-[#121416]/60 border border-white/5 rounded-xl p-4 text-left space-y-2.5 mt-4">
         <div>
           <span class="text-[10px] text-white/40 block uppercase tracking-wider">მიმღები</span>
-          <span class="text-sm font-semibold text-white">შპს აიდისი (IDC)</span>
+          <span class="text-sm font-bold text-[#f1bf62]">ანი მაისურაძე</span>
         </div>
         <div>
           <span class="text-[10px] text-white/40 block uppercase tracking-wider">ბანკი</span>
