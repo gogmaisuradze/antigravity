@@ -371,9 +371,10 @@ function initFormValidation() {
   // Capture all forms with class 'contact-form' (works on dynamic modal form too!)
   document.addEventListener('submit', (e) => {
     if (e.target && (e.target.classList.contains('contact-form') || e.target.id === 'booking-modal-form')) {
-      e.preventDefault();
-      
       const form = e.target;
+      if (form.id === 'registration-form') return; // Handled specially by registration.html
+      
+      e.preventDefault();
       
       // Parse fields dynamically
       const firstNameInput = form.querySelector('[name="first_name"]') || form.querySelector('[id*="first-name"]') || form.querySelector('input[placeholder*="სახელი"]');
@@ -389,7 +390,7 @@ function initFormValidation() {
       if (isNewsletter) {
         const email = emailInput ? emailInput.value.trim() : '';
         if (!email) {
-          alert('გთხოვთ მიუთითოთ ელ-ფოსტა');
+          showToast('გთხოვთ მიუთითოთ ელ-ფოსტა');
           if (emailInput) emailInput.focus();
           return;
         }
@@ -424,12 +425,12 @@ function initFormValidation() {
       const lastName = lastNameInput ? lastNameInput.value.trim() : '';
 
       if (!firstName || firstName.length < 2) {
-        alert('გთხოვთ მიუთითოთ სახელი (მინიმუმ 2 ასო)');
+        showToast('გთხოვთ მიუთითოთ სახელი (მინიმუმ 2 ასო)');
         if (firstNameInput) firstNameInput.focus();
         return;
       }
       if (!lastName || lastName.length < 2) {
-        alert('გთხოვთ მიუთითოთ გვარი (მინიმუმ 2 ასო)');
+        showToast('გთხოვთ მიუთითოთ გვარი (მინიმუმ 2 ასო)');
         if (lastNameInput) lastNameInput.focus();
         return;
       }
@@ -443,33 +444,33 @@ function initFormValidation() {
         }
         
         if (!/^5\d{8}$/.test(phoneClean)) {
-          alert('ტელეფონის ნომერი უნდა იწყებოდეს 5-იანით და შედგებოდეს ზუსტად 9 ციფრისგან (მაგ: 5XXXXXXXX)');
+          showToast('ტელეფონის ნომერი უნდა იწყებოდეს 5-იანით და შედგებოდეს ზუსტად 9 ციფრისგან');
           phoneInput.focus();
           return;
         }
         if (/^(.)\1+$/.test(phoneClean) || /(.)\1{5,}/.test(phoneClean)) {
-          alert('გთხოვთ შეიყვანოთ სწორი ტელეფონის ნომერი (არ უნდა შედგებოდეს მხოლოდ ერთნაირი ან განმეორებადი ციფრებისგან)');
+          showToast('გთხოვთ შეიყვანოთ სწორი ტელეფონის ნომერი');
           phoneInput.focus();
           return;
         }
       } else {
-        alert('ტელეფონის ნომერი სავალდებულოა');
+        showToast('ტელეფონის ნომერი სავალდებულოა');
         return;
       }
 
       // 3. Strict Validation: All visible form fields must be fully filled
       if (emailInput && !emailInput.value.trim()) {
-        alert('გთხოვთ შეავსოთ ელ-ფოსტის ველი');
+        showToast('გთხოვთ შეავსოთ ელ-ფოსტის ველი');
         emailInput.focus();
         return;
       }
       if (dateInput && !dateInput.value) {
-        alert('გთხოვთ შეავსოთ თარიღის ველი');
+        showToast('გთხოვთ შეავსოთ თარიღის ველი');
         dateInput.focus();
         return;
       }
       if (messageTextarea && !messageTextarea.value.trim()) {
-        alert('გთხოვთ შეავსოთ შეტყობინების ველი');
+        showToast('გთხოვთ შეავსოთ შეტყობინების ველი');
         messageTextarea.focus();
         return;
       }
