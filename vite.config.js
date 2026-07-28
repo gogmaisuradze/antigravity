@@ -24,7 +24,8 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
         cosmic: resolve(__dirname, 'cosmic.html'),
         logic: resolve(__dirname, 'logic.html'),
-        balance: resolve(__dirname, 'balance.html')
+        balance: resolve(__dirname, 'balance.html'),
+        registration: resolve(__dirname, 'registration.html')
       }
     }
   }
