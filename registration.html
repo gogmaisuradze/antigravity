@@ -315,58 +315,27 @@
       </div>
 
       <!-- QR Code Display (Desktop) -->
-      <div id="desktop-qr-container" class="my-5 p-4 bg-white rounded-2xl inline-block shadow-inner">
-        <!-- Gorgeous Vector QR Code -->
-        <svg class="w-48 h-48 text-[#121416]" viewBox="0 0 100 100" fill="currentColor">
-          <!-- QR squares -->
-          <rect x="0" y="0" width="30" height="30" fill="none" stroke="currentColor" stroke-width="4"/>
-          <rect x="6" y="6" width="18" height="18" fill="currentColor"/>
-          <rect x="70" y="0" width="30" height="30" fill="none" stroke="currentColor" stroke-width="4"/>
-          <rect x="76" y="6" width="18" height="18" fill="currentColor"/>
-          <rect x="0" y="70" width="30" height="30" fill="none" stroke="currentColor" stroke-width="4"/>
-          <rect x="6" y="76" width="18" height="18" fill="currentColor"/>
-          <!-- Middle random noise -->
-          <rect x="35" y="5" width="8" height="8" fill="currentColor"/>
-          <rect x="45" y="10" width="12" height="6" fill="currentColor"/>
-          <rect x="60" y="5" width="6" height="10" fill="currentColor"/>
-          <rect x="35" y="20" width="15" height="4" fill="currentColor"/>
-          <rect x="55" y="18" width="10" height="8" fill="currentColor"/>
-          <rect x="40" y="30" width="8" height="12" fill="currentColor"/>
-          <rect x="52" y="32" width="12" height="6" fill="currentColor"/>
-          <rect x="5" y="38" width="10" height="8" fill="currentColor"/>
-          <rect x="20" y="42" width="12" height="6" fill="currentColor"/>
-          <rect x="8" y="55" width="8" height="10" fill="currentColor"/>
-          <rect x="22" y="52" width="6" height="12" fill="currentColor"/>
-          <rect x="75" y="35" width="10" height="8" fill="currentColor"/>
-          <rect x="88" y="42" width="8" height="15" fill="currentColor"/>
-          <rect x="72" y="50" width="12" height="6" fill="currentColor"/>
-          <rect x="35" y="72" width="12" height="8" fill="currentColor"/>
-          <rect x="52" y="75" width="10" height="10" fill="currentColor"/>
-          <rect x="42" y="88" width="15" height="6" fill="currentColor"/>
-          <rect x="72" y="72" width="8" height="8" fill="currentColor"/>
-          <rect x="85" y="75" width="10" height="10" fill="currentColor"/>
-          <rect x="75" y="88" width="15" height="6" fill="currentColor"/>
-          <!-- Center Badge representing Bank Pay -->
-          <rect x="36" y="36" width="28" height="28" rx="6" fill="#1e2022" />
-          <!-- Logo inside badge -->
-          <circle cx="50" cy="50" r="10" fill="#f1bf62" />
-          <rect x="47" y="47" width="6" height="6" fill="#1e2022"/>
-        </svg>
+      <div id="desktop-qr-container" class="my-5 p-3 bg-white rounded-2xl inline-block shadow-lg border border-white/20 text-center">
+        <img id="qr-code-img" src="" alt="Scan with phone camera to pay" class="w-48 h-48 mx-auto rounded-lg" />
+        <p class="text-[11px] text-slate-700 font-semibold mt-2 flex items-center justify-center gap-1">
+          <span class="material-symbols-outlined text-sm text-[#ff7900]">photo_camera</span>
+          დაასკანერეთ ტელეფონის კამერით
+        </p>
       </div>
 
       <!-- Mobile Banking App Links (Mobile Only) -->
       <div id="mobile-apps-container" class="hidden my-4 space-y-3">
         <p class="text-xs text-white/70 mb-2">გახსენით თქვენი ბანკის აპლიკაცია გადასარიცხად:</p>
         <div class="grid grid-cols-2 gap-3">
-          <!-- TBC Bank Link -->
-          <button type="button" id="btn-tbc-app" class="flex flex-col items-center justify-center p-3.5 bg-[#00adef]/10 border border-[#00adef]/20 rounded-xl hover:bg-[#00adef]/20 transition-all cursor-pointer">
-            <span class="text-sm font-bold text-[#00adef]">TBC Bank</span>
-            <span class="text-[10px] text-white/50 mt-1">აპლიკაციაში გადასვლა</span>
-          </button>
           <!-- BOG Bank Link -->
-          <button type="button" id="btn-bog-app" class="flex flex-col items-center justify-center p-3.5 bg-[#ff7900]/10 border border-[#ff7900]/20 rounded-xl hover:bg-[#ff7900]/20 transition-all cursor-pointer">
-            <span class="text-sm font-bold text-[#ff7900]">BOG</span>
-            <span class="text-[10px] text-white/50 mt-1">აპლიკაციაში გადასვლა</span>
+          <button type="button" id="btn-bog-app" class="flex flex-col items-center justify-center p-3.5 bg-[#ff7900]/20 border border-[#ff7900]/40 rounded-xl hover:bg-[#ff7900]/30 transition-all cursor-pointer shadow-md">
+            <span class="text-sm font-bold text-[#ff7900]">Bank of Georgia (BOG)</span>
+            <span class="text-[10px] text-white/70 mt-1">მობაილ ბანკში გადასვლა</span>
+          </button>
+          <!-- TBC Bank Link -->
+          <button type="button" id="btn-tbc-app" class="flex flex-col items-center justify-center p-3.5 bg-[#00adef]/20 border border-[#00adef]/40 rounded-xl hover:bg-[#00adef]/30 transition-all cursor-pointer shadow-md">
+            <span class="text-sm font-bold text-[#00adef]">TBC Bank</span>
+            <span class="text-[10px] text-white/70 mt-1">მობაილ ბანკში გადასვლა</span>
           </button>
         </div>
       </div>
@@ -424,6 +393,38 @@
       const bogBtn = document.getElementById("btn-bog-app");
 
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+
+      // Check if opened on mobile via scanned QR code (with query parameters)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("pay_mobile") === "true") {
+        const name = urlParams.get("name") || "";
+        const course = urlParams.get("course") || "";
+        const qty = urlParams.get("qty") || "1";
+
+        const qtyText = parseInt(qty, 10) > 1 ? ` (${qty} ადგილი)` : "";
+        if (purposeText) {
+          purposeText.innerHTML = `რეგისტრაციის საფასური${qtyText} - <strong>${name} (${course})</strong>`;
+        }
+        
+        // Show mobile view in modal immediately
+        const desktopQr = document.getElementById("desktop-qr-container");
+        const mobileApps = document.getElementById("mobile-apps-container");
+        if (desktopQr) desktopQr.classList.add("hidden");
+        if (mobileApps) mobileApps.classList.remove("hidden");
+
+        if (modal && modalCard) {
+          modal.classList.remove("hidden");
+          setTimeout(() => {
+            modal.classList.remove("opacity-0");
+            modal.classList.add("opacity-100");
+            modalCard.classList.remove("scale-95");
+            modalCard.classList.add("scale-100");
+          }, 100);
+        }
+
+        // Auto-copy IBAN for convenience
+        navigator.clipboard.writeText("GE93BG0000000192399800").catch(() => {});
+      }
 
       const setStatus = (msg, isError = false) => {
         statusDiv.innerHTML = msg;
@@ -497,12 +498,20 @@
             const qtyText = payload.quantity > 1 ? ` (${payload.quantity} ადგილი)` : "";
             purposeText.innerHTML = `რეგისტრაციის საფასური${qtyText} - <strong>${payload.first_name} ${payload.last_name} (${payload.register_for})</strong>`;
 
+            // Generate real scannable QR Code URL pointing to mobile payment view
+            const mobilePayUrl = `${window.location.origin}/registration.html?pay_mobile=true&name=${encodeURIComponent(payload.first_name + ' ' + payload.last_name)}&course=${encodeURIComponent(payload.register_for)}&qty=${payload.quantity}`;
+            const qrImg = document.getElementById("qr-code-img");
+            if (qrImg) {
+              qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(mobilePayUrl)}`;
+            }
+
             // Adjust modal for desktop vs mobile
             const desktopQr = document.getElementById("desktop-qr-container");
             const mobileApps = document.getElementById("mobile-apps-container");
             if (isMobile) {
               desktopQr.classList.add("hidden");
               mobileApps.classList.remove("hidden");
+              navigator.clipboard.writeText("GE93BG0000000192399800").catch(() => {});
             } else {
               desktopQr.classList.remove("hidden");
               mobileApps.classList.add("hidden");
@@ -582,13 +591,14 @@
 
       // Mobile deep linking helper function
       function openBankApp(scheme, webUrl) {
+        navigator.clipboard.writeText("GE93BG0000000192399800").catch(() => {});
         const start = Date.now();
         window.location.href = scheme;
         setTimeout(() => {
           if (Date.now() - start < 2000) {
             window.open(webUrl, '_blank');
           }
-        }, 1500);
+        }, 1200);
       }
 
       tbcBtn.addEventListener("click", () => {
