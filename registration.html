@@ -189,37 +189,102 @@
               <input type="text" id="reg-course" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="მაგ: ასტროლოგიური სკოლა, სემინარი..."/>
             </div>
 
-            <!-- Receipt File Uploader -->
-            <div class="space-y-2 text-left">
-              <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">გადახდის ქვითარი (სურათი ან PDF)</label>
-              <div id="receipt-dropzone" class="border-2 border-dashed border-white/10 hover:border-[#f1bf62]/50 bg-[#121416]/20 hover:bg-[#121416]/40 transition-all rounded-xl p-6 text-center cursor-pointer relative group flex flex-col items-center justify-center space-y-3">
-                <input type="file" id="reg-receipt" accept="image/*,application/pdf" class="absolute inset-0 opacity-0 cursor-pointer z-10" />
-                <span class="material-symbols-outlined text-4xl text-white/60 group-hover:text-[#f1bf62] transition-colors duration-300">cloud_upload</span>
-                <div class="space-y-1">
-                  <p class="text-sm font-medium text-white" id="upload-primary-text">ჩააგდეთ ფაილი აქ ან დააწკაპუნეთ ასატვირთად</p>
-                  <p class="text-xs text-white/60" id="upload-secondary-text">ფაილის მაქსიმალური ზომა: 5MB (PNG, JPG, PDF)</p>
-                </div>
-                <!-- File Preview / Name -->
-                <div id="file-details-container" class="hidden w-full max-w-md bg-white/5 border border-white/10 rounded-lg p-3 flex items-center justify-between z-20">
-                  <div class="flex items-center space-x-3 text-left">
-                    <span class="material-symbols-outlined text-2xl text-[#f1bf62]" id="file-icon">description</span>
-                    <div class="overflow-hidden">
-                      <p class="text-xs font-semibold text-white truncate max-w-[200px]" id="file-name-text">filename.pdf</p>
-                      <p class="text-[10px] text-white/70" id="file-size-text">0 KB</p>
-                    </div>
-                  </div>
-                  <button type="button" id="btn-remove-file" class="text-white/70 hover:text-red-400 transition-colors p-1 flex items-center justify-center cursor-pointer">
-                    <span class="material-symbols-outlined text-lg">delete</span>
-                  </button>
-                </div>
+            <!-- Payment Method Selection -->
+            <div class="space-y-3 text-left">
+              <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">გადახდის მეთოდი</label>
+              <div class="grid grid-cols-2 gap-4">
+                <button type="button" id="pay-method-online" class="py-3.5 px-4 rounded-xl border border-[#f1bf62] bg-[#f1bf62]/10 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none">
+                  <span class="material-symbols-outlined text-lg">payment</span>
+                  <span>ონლაინ გადახდა</span>
+                </button>
+                <button type="button" id="pay-method-bank" class="py-3.5 px-4 rounded-xl border border-white/10 bg-white/3 text-[#c6c6ce] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none">
+                  <span class="material-symbols-outlined text-lg">account_balance</span>
+                  <span>გადარიცხვა</span>
+                </button>
               </div>
             </div>
 
-            <!-- Submit button -->
-            <button type="submit" id="btn-submit-registration" class="w-full bg-secondary-container text-on-secondary-container py-5 rounded-xl font-semibold text-lg hover:brightness-110 transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer">
-              <span>რეგისტრაციის დასრულება</span>
-              <span class="material-symbols-outlined">arrow_forward</span>
-            </button>
+            <!-- ONLINE PAYMENT CONTAINER -->
+            <div id="payment-online-container" class="space-y-4">
+              <!-- Quick Payment Options -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Apple Pay Button -->
+                <button type="button" id="btn-apple-pay" class="bg-black hover:bg-black/90 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-white/10 hover:scale-[1.02] active:scale-98">
+                  <svg class="h-6 w-auto fill-current text-white" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M49.2,27.1c-1.3,1.6-3.3,2.7-5.4,2.6c-0.3-2.1,0.6-4.2,1.9-5.7c1.3-1.6,3.4-2.8,5.4-2.6C51.4,23.5,50.5,25.6,49.2,27.1 M52.5,30.3c-2.8,0-5.2,1.7-6.6,1.7c-1.4,0-3.4-1.5-5.7-1.5c-3,0-5.8,1.7-7.4,4.5c-3.1,5.4-0.8,13.4,2.2,17.7c1.5,2.1,3.2,4.5,5.5,4.4c2.2-0.1,3-1.4,5.6-1.4c2.6,0,3.4,1.4,5.7,1.4c2.3-0.1,3.9-2.1,5.4-4.2c1.7-2.5,2.4-4.9,2.4-5c-0.1-0.1-4.6-1.8-4.7-6.9c-0.1-4.3,3.5-6.3,3.6-6.4C58.6,35.1,55.3,30.3,52.5,30.3"/>
+                  </svg>
+                  <span class="font-sans font-bold text-base ml-1">Pay</span>
+                </button>
+                
+                <!-- Google Pay Button -->
+                <button type="button" id="btn-google-pay" class="bg-white hover:bg-white/95 text-black rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer hover:scale-[1.02] active:scale-98">
+                  <svg class="h-6 w-auto" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#4285F4" d="M36.3,20.3c0-1.2-0.1-2.4-0.3-3.6H20v6.8h9.1c-0.4,2.1-1.6,3.9-3.4,5.1v4.2h5.5C34.4,29.3,36.3,25.1,36.3,20.3z"/>
+                    <path fill="#34A853" d="M20,36.9c4.6,0,8.4-1.5,11.2-4.1l-5.5-4.2c-1.5,1-3.5,1.6-5.7,1.6c-4.4,0-8.1-3-9.4-7H5v4.4C7.8,33.2,13.5,36.9,20,36.9z"/>
+                    <path fill="#FBBC05" d="M10.6,23.2c-0.3-1-0.5-2.1-0.5-3.2s0.2-2.2,0.5-3.2V12.4H5c-1.1,2.2-1.7,4.7-1.7,7.6s0.6,5.4,1.7,7.6L10.6,23.2z"/>
+                    <path fill="#EA4335" d="M20,9.9c2.5,0,4.7,0.9,6.5,2.5l4.8-4.8C28.4,4.9,24.6,3.8,20,3.8C13.5,3.8,7.8,7.5,5,12.4l5.6,4.4C11.9,12.8,15.6,9.9,20,9.9z"/>
+                  </svg>
+                  <span class="font-sans font-bold text-base ml-1 text-black">Pay</span>
+                </button>
+              </div>
+
+              <!-- Quick Card Payment Button -->
+              <button type="button" id="btn-card-pay" class="w-full bg-white/5 hover:bg-white/10 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-white/10 hover:scale-[1.01] active:scale-98 text-xs font-bold uppercase tracking-wider">
+                <span class="material-symbols-outlined mr-2">credit_card</span>
+                <span>ბარათით გადახდა</span>
+              </button>
+
+              <div class="bg-[#1e2022]/45 border border-white/5 rounded-xl p-4 text-left">
+                <p class="text-xs text-white/80 leading-relaxed font-sans">
+                  💡 ონლაინ გადახდის შემთხვევაში, თქვენი რეგისტრაცია დასტურდება ავტომატურად და ქვითრის გამოგზავნა აღარ არის საჭირო.
+                </p>
+              </div>
+            </div>
+
+            <!-- BANK TRANSFER CONTAINER (HIDDEN BY DEFAULT) -->
+            <div id="payment-bank-container" class="hidden space-y-6">
+              <!-- Requisites Box -->
+              <div class="bg-white/3 border border-white/5 rounded-xl p-5 text-left text-xs sm:text-sm font-sans space-y-2.5">
+                <h5 class="text-[#f1bf62] font-black uppercase tracking-wider text-xs font-headline">საბანკო რეკვიზიტები:</h5>
+                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">მიმღები:</strong> ინტეგრირებული განვითარების ცენტრი (IDC)</p>
+                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">საიდენტიფიკაციო კოდი:</strong> 402234020</p>
+                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">ბანკი:</strong> თიბისი ბანკი</p>
+                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">ანგარიშის ნომერი (IBAN):</strong> GE22TB7777777777777777</p>
+                <p class="text-white"><strong class="text-[#c6c6ce] font-semibold">დანიშნულება:</strong> [თქვენი სახელი გვარი] - კურსის რეგისტრაცია</p>
+              </div>
+
+              <!-- Receipt File Uploader -->
+              <div class="space-y-2 text-left">
+                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">გადახდის ქვითარი (სურათი ან PDF)</label>
+                <div id="receipt-dropzone" class="border-2 border-dashed border-white/10 hover:border-[#f1bf62]/50 bg-[#121416]/20 hover:bg-[#121416]/40 transition-all rounded-xl p-6 text-center cursor-pointer relative group flex flex-col items-center justify-center space-y-3">
+                  <input type="file" id="reg-receipt" accept="image/*,application/pdf" class="absolute inset-0 opacity-0 cursor-pointer z-10" />
+                  <span class="material-symbols-outlined text-4xl text-white/60 group-hover:text-[#f1bf62] transition-colors duration-300">cloud_upload</span>
+                  <div class="space-y-1">
+                    <p class="text-sm font-medium text-white" id="upload-primary-text">ჩააგდეთ ფაილი აქ ან დააწკაპუნეთ ასატვირთად</p>
+                    <p class="text-xs text-white/60" id="upload-secondary-text">ფაილის მაქსიმალური ზომა: 5MB (PNG, JPG, PDF)</p>
+                  </div>
+                  <!-- File Preview / Name -->
+                  <div id="file-details-container" class="hidden w-full max-w-md bg-white/5 border border-white/10 rounded-lg p-3 flex items-center justify-between z-20">
+                    <div class="flex items-center space-x-3 text-left">
+                      <span class="material-symbols-outlined text-2xl text-[#f1bf62]" id="file-icon">description</span>
+                      <div class="overflow-hidden">
+                        <p class="text-xs font-semibold text-white truncate max-w-[200px]" id="file-name-text">filename.pdf</p>
+                        <p class="text-[10px] text-white/70" id="file-size-text">0 KB</p>
+                      </div>
+                    </div>
+                    <button type="button" id="btn-remove-file" class="text-white/70 hover:text-red-400 transition-colors p-1 flex items-center justify-center cursor-pointer">
+                      <span class="material-symbols-outlined text-lg">delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit" id="btn-submit-registration" class="w-full bg-secondary-container text-on-secondary-container py-5 rounded-xl font-semibold text-lg hover:brightness-110 transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer">
+                <span>რეგისტრაციის დასრულება</span>
+                <span class="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -281,6 +346,18 @@
       const statusDiv = document.getElementById("status-message");
       const submitBtn = document.getElementById("btn-submit-registration");
 
+      // Payment method selectors
+      const methodOnlineBtn = document.getElementById("pay-method-online");
+      const methodBankBtn = document.getElementById("pay-method-bank");
+      const onlineContainer = document.getElementById("payment-online-container");
+      const bankContainer = document.getElementById("payment-bank-container");
+
+      // Quick payment buttons
+      const applePayBtn = document.getElementById("btn-apple-pay");
+      const googlePayBtn = document.getElementById("btn-google-pay");
+      const cardPayBtn = document.getElementById("btn-card-pay");
+
+      let activeMethod = "online"; // 'online' or 'bank'
       let receiptBase64 = "";
       let receiptFileName = "";
 
@@ -300,57 +377,76 @@
         statusDiv.classList.add("hidden");
       };
 
-      // File selection changes
-      fileInput.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        handleFile(file);
+      // Toggle Payment Methods
+      methodOnlineBtn.addEventListener("click", () => {
+        activeMethod = "online";
+        methodOnlineBtn.className = "py-3.5 px-4 rounded-xl border border-[#f1bf62] bg-[#f1bf62]/10 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none";
+        methodBankBtn.className = "py-3.5 px-4 rounded-xl border border-white/10 bg-white/3 text-[#c6c6ce] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none";
+        
+        onlineContainer.classList.remove("hidden");
+        bankContainer.classList.add("hidden");
+        hideStatus();
       });
+
+      methodBankBtn.addEventListener("click", () => {
+        activeMethod = "bank";
+        methodBankBtn.className = "py-3.5 px-4 rounded-xl border border-[#f1bf62] bg-[#f1bf62]/10 text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none";
+        methodOnlineBtn.className = "py-3.5 px-4 rounded-xl border border-white/10 bg-white/3 text-[#c6c6ce] text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-2 cursor-pointer focus:outline-none";
+        
+        bankContainer.classList.remove("hidden");
+        onlineContainer.classList.add("hidden");
+        hideStatus();
+      });
+
+      // File selection changes
+      if (fileInput) {
+        fileInput.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          handleFile(file);
+        });
+      }
 
       // Drag and drop events
-      ["dragenter", "dragover"].forEach(eventName => {
-        dropzone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dropzone.classList.add("border-[#f1bf62]/60", "bg-[#121416]/50");
-        }, false);
-      });
+      if (dropzone) {
+        ["dragenter", "dragover"].forEach(eventName => {
+          dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.add("border-[#f1bf62]/60", "bg-[#121416]/50");
+          }, false);
+        });
 
-      ["dragleave", "drop"].forEach(eventName => {
-        dropzone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dropzone.classList.remove("border-[#f1bf62]/60", "bg-[#121416]/50");
-        }, false);
-      });
+        ["dragleave", "drop"].forEach(eventName => {
+          dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.remove("border-[#f1bf62]/60", "bg-[#121416]/50");
+          }, false);
+        });
 
-      dropzone.addEventListener("drop", (e) => {
-        const dt = e.dataTransfer;
-        const file = dt.files[0];
-        if (file) {
-          fileInput.files = dt.files;
-          handleFile(file);
-        }
-      });
+        dropzone.addEventListener("drop", (e) => {
+          const dt = e.dataTransfer;
+          const file = dt.files[0];
+          if (file) {
+            fileInput.files = dt.files;
+            handleFile(file);
+          }
+        });
+      }
 
       function handleFile(file) {
         if (!file) return;
-
-        // Size check (5MB)
         if (file.size > 5 * 1024 * 1024) {
           setStatus("შეცდომა: ფაილის ზომა აღემატება 5 მეგაბაიტს.", true);
           clearFile();
           return;
         }
-
         hideStatus();
         receiptFileName = file.name;
-
-        // Visual presentation of file details
         fileNameText.textContent = file.name;
         const sizeInKB = Math.round(file.size / 1024);
         fileSizeText.textContent = sizeInKB > 1000 ? (sizeInKB / 1024).toFixed(1) + " MB" : sizeInKB + " KB";
         
-        // Icon matching
         if (file.type === "application/pdf") {
           fileIcon.textContent = "picture_as_pdf";
           fileIcon.className = "material-symbols-outlined text-2xl text-red-400";
@@ -359,12 +455,10 @@
           fileIcon.className = "material-symbols-outlined text-2xl text-[#f1bf62]";
         }
 
-        // Read file as Base64
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
           receiptBase64 = reader.result;
-          // Hide text, show details card
           uploadPrimary.classList.add("hidden");
           uploadSecondary.classList.add("hidden");
           fileDetails.classList.remove("hidden");
@@ -375,15 +469,16 @@
         };
       }
 
-      // Remove file
-      removeFileBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        clearFile();
-      });
+      if (removeFileBtn) {
+        removeFileBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          clearFile();
+        });
+      }
 
       function clearFile() {
-        fileInput.value = "";
+        if (fileInput) fileInput.value = "";
         receiptBase64 = "";
         receiptFileName = "";
         uploadPrimary.classList.remove("hidden");
@@ -391,20 +486,17 @@
         fileDetails.classList.add("hidden");
       }
 
-      // Form submission
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        
+      // Input Validation helper
+      function validateFormInputs() {
         const firstName = document.getElementById("reg-first-name").value.trim();
         const lastName = document.getElementById("reg-last-name").value.trim();
         const phone = document.getElementById("reg-phone").value.trim().replace(/\s+/g, "");
         const birthdate = document.getElementById("reg-birthdate").value;
-        const course = document.getElementById("reg-course").value;
+        const course = document.getElementById("reg-course").value.trim();
 
-        // Validation checks
         if (!firstName || !lastName || !phone || !birthdate || !course) {
           setStatus("გთხოვთ შეავსოთ ყველა სავალდებულო ველი.", true);
-          return;
+          return null;
         }
 
         let normalizedPhone = phone;
@@ -416,51 +508,109 @@
 
         if (!/^5\d{8}$/.test(normalizedPhone)) {
           setStatus("შეცდომა: ტელეფონის ნომერი არასწორია (უნდა შედგებოდეს 9 ციფრისგან და იწყებოდეს 5-ით).", true);
-          return;
+          return null;
         }
 
-        if (!receiptBase64) {
-          setStatus("გთხოვთ ატვირთოთ გადახდის ქვითარი რეგისტრაციისთვის.", true);
-          return;
-        }
+        return {
+          first_name: firstName,
+          last_name: lastName,
+          phone: "995" + normalizedPhone,
+          birthdate: birthdate,
+          register_for: course
+        };
+      }
 
-        // Form submitting state
-        submitBtn.disabled = true;
-        submitBtn.querySelector("span").textContent = "მიმდინარეობს გაგზავნა... ⏳";
-        setStatus("მონაცემები იგზავნება... გთხოვთ დაელოდოთ ⏳");
-
+      // Submit Payload to Webhook
+      async function submitPayload(payload) {
         try {
           const response = await fetch("https://meticulous-oyster.pikapod.net/webhook/registration", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-              first_name: firstName,
-              last_name: lastName,
-              phone: "995" + normalizedPhone,
-              birthdate: birthdate,
-              register_for: course,
-              receipt_base64: receiptBase64,
-              receipt_filename: receiptFileName
-            })
+            body: JSON.stringify(payload)
           });
 
           const data = await response.json();
 
           if (response.ok || data.success) {
-            setStatus("✨ რეგისტრაცია წარმატებით დასრულდა! ✨<br/>თქვენი მონაცემები და გადახდის ქვითარი მიღებულია. ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ.");
+            setStatus("✨ რეგისტრაცია წარმატებით დასრულდა! ✨<br/>თქვენი მონაცემები და გადახდა მიღებულია. ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ.");
             form.reset();
             clearFile();
-            submitBtn.style.display = "none";
+            // Hide payment sections for success
+            onlineContainer.style.display = "none";
+            bankContainer.style.display = "none";
+            document.querySelector(".grid.grid-cols-2.gap-4").style.display = "none";
           } else {
             throw new Error(data.error || "სერვერის შეცდომა გაგზავნისას");
           }
         } catch (err) {
           setStatus("რეგისტრაცია ვერ მოხერხდა. სცადეთ მოგვიანებით ან დაგვიკავშირდით პირდაპირ.", true);
+          // Restore buttons
+          applePayBtn.disabled = false;
+          googlePayBtn.disabled = false;
+          cardPayBtn.disabled = false;
           submitBtn.disabled = false;
-          submitBtn.querySelector("span").textContent = "რეგისტრაციის დასრულება";
         }
+      }
+
+      // Online payment button handlers (Apple Pay, Google Pay, Card Pay)
+      const handleOnlinePaymentClick = (providerName) => {
+        const payloadData = validateFormInputs();
+        if (!payloadData) return;
+
+        // Disable buttons
+        applePayBtn.disabled = true;
+        googlePayBtn.disabled = true;
+        cardPayBtn.disabled = true;
+
+        setStatus(`მიმდინარეობს კავშირი ${providerName}-თან... 💳 ⏳`);
+
+        setTimeout(() => {
+          setStatus(`✨ გადახდა ავტორიზებულია ${providerName}-ის მეშვეობით! ✨<br/>მიმდინარეობს რეგისტრაციის გაფორმება... ⏳`);
+          
+          setTimeout(() => {
+            const finalPayload = {
+              ...payloadData,
+              receipt_base64: "ONLINE_PAYMENT_SIMULATED",
+              receipt_filename: `${providerName.toLowerCase()}_payment_receipt.txt`,
+              payment_method: providerName.toLowerCase()
+            };
+            submitPayload(finalPayload);
+          }, 1000);
+        }, 1500);
+      };
+
+      applePayBtn.addEventListener("click", () => handleOnlinePaymentClick("Apple Pay"));
+      googlePayBtn.addEventListener("click", () => handleOnlinePaymentClick("Google Pay"));
+      cardPayBtn.addEventListener("click", () => handleOnlinePaymentClick("Card"));
+
+      // Bank Transfer form submission
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        if (activeMethod !== "bank") return; // Online payments are handled by their own click handlers
+
+        const payloadData = validateFormInputs();
+        if (!payloadData) return;
+
+        if (!receiptBase64) {
+          setStatus("გთხოვთ ატვირთოთ გადახდის ქვითარი რეგისტრაციისთვის.", true);
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.querySelector("span").textContent = "მიმდინარეობს გაგზავნა... ⏳";
+        setStatus("მონაცემები იგზავნება... გთხოვთ დაელოდოთ ⏳");
+
+        const finalPayload = {
+          ...payloadData,
+          receipt_base64: receiptBase64,
+          receipt_filename: receiptFileName,
+          payment_method: "bank_transfer"
+        };
+
+        await submitPayload(finalPayload);
       });
     });
   </script>
