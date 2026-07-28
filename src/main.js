@@ -72,7 +72,7 @@ function initBookingModal() {
         <div class="mb-6 sm:mb-10 text-left relative flex items-start justify-between">
           <div>
             <h2 class="text-2xl sm:text-3xl font-headline italic text-on-surface">სესიის დაჯავშნა</h2>
-            <p class="text-xs sm:text-sm text-outline-variant mt-2">შეავსეთ ფორმა და ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ</p>
+            <p class="text-xs sm:text-sm text-white/70 mt-2">შეავსეთ ფორმა და ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ</p>
             <button type="button" onclick="if(window.openAIChat) { document.getElementById('close-modal-btn').click(); window.openAIChat(); }" class="mt-4 flex items-center justify-center gap-2 bg-[#f1bf62]/10 border border-[#f1bf62]/30 hover:bg-[#f1bf62]/20 hover:border-[#f1bf62]/50 text-[#f1bf62] px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider transition-all uppercase w-full">
               <span class="material-symbols-outlined text-sm">psychology</span>
               <span>ჰკითხეთ მეტი ინტელექტუალურ ასისტენტს</span>
@@ -86,25 +86,25 @@ function initBookingModal() {
         <form class="space-y-5 sm:space-y-8 contact-form" id="booking-modal-form">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
             <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">სახელი</label>
-              <input type="text" id="booking-first-name" name="first_name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი სახელი"/>
+              <label class="text-xs text-white/80 tracking-widest uppercase ml-1">სახელი</label>
+              <input type="text" id="booking-first-name" name="first_name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35" placeholder="თქვენი სახელი"/>
             </div>
             <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">გვარი</label>
-              <input type="text" id="booking-last-name" name="last_name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="თქვენი გვარი"/>
+              <label class="text-xs text-white/80 tracking-widest uppercase ml-1">გვარი</label>
+              <input type="text" id="booking-last-name" name="last_name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35" placeholder="თქვენი გვარი"/>
             </div>
           </div>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
             <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">ტელეფონი</label>
-              <input type="tel" id="booking-phone" name="phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50" placeholder="ტელ:"/>
+              <label class="text-xs text-white/80 tracking-widest uppercase ml-1">ტელეფონი</label>
+              <input type="tel" id="booking-phone" name="phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35" placeholder="ტელ:"/>
             </div>
             <div class="space-y-2">
-              <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">აირჩიე სერვისი / კურსი</label>
+              <label class="text-xs text-white/80 tracking-widest uppercase ml-1">აირჩიე სერვისი / კურსი</label>
               <div class="relative">
                 <select name="service" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none cursor-pointer">
-                  <option value="" disabled selected class="text-outline-variant/50 bg-[#0c0e10]">აირჩიეთ სიიდან...</option>
+                  <option value="" disabled selected class="text-white/40 bg-[#0c0e10]">აირჩიეთ სიიდან...</option>
                   <optgroup label="საგანმანათლებლო კურსები" class="font-bold bg-[#1e2022] text-[#f1bf62]">
                     <option value="პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია (1-წლიანი)</option>
                     <option value="პოზიტიური ფსიქოთერაპია WAPP" class="bg-[#121416] text-[#c6c6ce] font-normal">პოზიტიური ფსიქოთერაპია (WAPP პროგრამა)</option>
@@ -118,19 +118,19 @@ function initBookingModal() {
                     <option value="ონლაინ კონსულტაცია" class="bg-[#121416] text-[#c6c6ce] font-normal">კონსულტაცია / ონლაინ კონსულტაცია</option>
                   </optgroup>
                 </select>
-                <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-outline-variant/70">keyboard_arrow_down</span>
+                <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-white/50">keyboard_arrow_down</span>
               </div>
             </div>
           </div>
           
           <div class="space-y-2">
-            <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">თარიღი</label>
+            <label class="text-xs text-white/80 tracking-widest uppercase ml-1">თარიღი</label>
             <input type="date" name="date" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface" style="color-scheme: dark;"/>
           </div>
           
           <div class="space-y-2">
-            <label class="text-xs text-outline-variant tracking-widest uppercase ml-1">მოკლე შეტყობინება</label>
-            <textarea rows="3" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-outline-variant/50 resize-none" placeholder="დაგვიწერეთ მოკლედ თქვენი მოთხოვნის შესახებ..."></textarea>
+            <label class="text-xs text-white/80 tracking-widest uppercase ml-1">მოკლე შეტყობინება</label>
+            <textarea rows="3" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 resize-none" placeholder="დაგვიწერეთ მოკლედ თქვენი მოთხოვნის შესახებ..."></textarea>
           </div>
           
           <div class="pt-3 sm:pt-6">
@@ -143,7 +143,7 @@ function initBookingModal() {
         
         <div class="relative flex py-4 sm:py-6 items-center">
           <div class="flex-grow border-t border-[#45464d]/20"></div>
-          <span class="flex-shrink mx-4 text-xs text-outline-variant tracking-wider uppercase font-semibold text-outline-variant/60">ან დაჯავშნე პირდაპირ</span>
+          <span class="flex-shrink mx-4 text-xs text-white/70 tracking-wider uppercase font-semibold">ან დაჯავშნე პირდაპირ</span>
           <div class="flex-grow border-t border-[#45464d]/20"></div>
         </div>
         
