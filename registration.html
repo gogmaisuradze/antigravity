@@ -294,14 +294,14 @@
   </div>
 
   <!-- Payment Modal -->
-  <div id="payment-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-all duration-300 pointer-events-auto overflow-y-auto">
-    <div class="bg-[#1e2022]/95 border border-white/10 backdrop-blur-xl p-5 sm:p-8 rounded-[1.5rem] max-w-md w-full relative shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] text-center transform scale-95 transition-all duration-300 my-auto max-h-[90vh] overflow-y-auto" id="payment-modal-card">
+  <div id="payment-modal" class="fixed inset-0 z-[100] overflow-y-auto bg-black/85 backdrop-blur-md hidden opacity-0 transition-all duration-300 pointer-events-auto p-3 sm:p-6 text-center">
+    <div class="inline-block w-full max-w-md p-5 sm:p-8 my-6 text-center bg-[#1e2022]/95 border border-white/10 backdrop-blur-xl rounded-[1.5rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] align-middle transform scale-95 transition-all duration-300 relative text-left" id="payment-modal-card">
       <button id="close-payment-modal" class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors cursor-pointer border-none bg-transparent">
         <span class="material-symbols-outlined text-2xl">close</span>
       </button>
       
       <!-- Icon/Header -->
-      <div class="mb-4 flex flex-col items-center">
+      <div class="mb-4 flex flex-col items-center text-center">
         <div class="w-12 h-12 rounded-full bg-[#f1bf62]/10 flex items-center justify-center text-[#f1bf62] mb-3">
           <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
         </div>
@@ -310,7 +310,7 @@
       </div>
 
       <!-- QR Code Display (Desktop) -->
-      <div id="desktop-qr-container" class="my-4 p-3 bg-white rounded-2xl inline-block shadow-lg border border-white/20 text-center">
+      <div id="desktop-qr-container" class="my-4 p-3 bg-white rounded-2xl block text-center shadow-lg border border-white/20">
         <img id="qr-code-img" src="" alt="Scan with phone camera to pay" class="w-44 h-44 mx-auto rounded-lg" />
         <p class="text-[11px] text-slate-700 font-semibold mt-2 flex items-center justify-center gap-1">
           <span class="material-symbols-outlined text-sm text-[#ff7900]">photo_camera</span>
@@ -320,33 +320,33 @@
 
       <!-- Mobile Banking App Links (Mobile Only - Ultra Premium Bank Cards) -->
       <div id="mobile-apps-container" class="hidden my-4 space-y-3">
-        <p class="text-xs text-white/90 font-semibold mb-3 flex items-center justify-center gap-1.5">
+        <p class="text-xs text-white/90 font-semibold mb-3 text-center flex items-center justify-center gap-1.5">
           <span class="material-symbols-outlined text-sm text-[#f1bf62]">touch_app</span>
           აირჩიეთ მობაილ ბანკი გადასასვლელად:
         </p>
         <div class="grid grid-cols-2 gap-3.5">
           <!-- BOG Bank Button -->
-          <button type="button" id="btn-bog-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#ff7900]/20 via-[#1e2022] to-[#121416] border border-[#ff7900]/40 hover:border-[#ff7900] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_10px_25px_rgba(255,121,0,0.2)] group hover:scale-[1.03] active:scale-95 border-none">
+          <button type="button" id="btn-bog-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#ff7900]/25 via-[#1e2022] to-[#121416] border border-[#ff7900]/50 hover:border-[#ff7900] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_8px_20px_rgba(255,121,0,0.25)] group hover:scale-[1.03] active:scale-95">
             <div class="w-12 h-12 rounded-full bg-[#ff7900]/20 border border-[#ff7900]/40 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform shadow-inner">
               <!-- Authentic BOG Symbol -->
               <svg class="w-7 h-7 text-[#ff7900]" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L15.5 8.5H22.5L17 12.8L19 19.5L12 15.2L5 19.5L7 12.8L1.5 8.5H8.5L12 2Z"/>
               </svg>
             </div>
-            <span class="text-xs font-extrabold text-white tracking-wide">საქართველოს ბანკი</span>
-            <span class="text-[10px] text-[#ff7900] font-bold mt-1 bg-[#ff7900]/15 px-2 py-0.5 rounded-full border border-[#ff7900]/30">BOG Mobile</span>
+            <span class="text-xs font-extrabold text-white tracking-wide text-center">საქართველოს ბანკი</span>
+            <span class="text-[10px] text-[#ff7900] font-bold mt-1.5 bg-[#ff7900]/20 px-2.5 py-0.5 rounded-full border border-[#ff7900]/40">BOG Mobile</span>
           </button>
 
           <!-- TBC Bank Button -->
-          <button type="button" id="btn-tbc-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#00adef]/20 via-[#1e2022] to-[#121416] border border-[#00adef]/40 hover:border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_10px_25px_rgba(0,173,239,0.2)] group hover:scale-[1.03] active:scale-95 border-none">
+          <button type="button" id="btn-tbc-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#00adef]/25 via-[#1e2022] to-[#121416] border border-[#00adef]/50 hover:border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_8px_20px_rgba(0,173,239,0.25)] group hover:scale-[1.03] active:scale-95">
             <div class="w-12 h-12 rounded-full bg-[#00adef]/20 border border-[#00adef]/40 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform shadow-inner">
               <!-- Authentic TBC Symbol -->
               <svg class="w-7 h-7 text-[#00adef]" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-3H8v-2h3V8h2v3h3v2h-3v3z"/>
               </svg>
             </div>
-            <span class="text-xs font-extrabold text-white tracking-wide">თიბისი ბანკი</span>
-            <span class="text-[10px] text-[#00adef] font-bold mt-1 bg-[#00adef]/15 px-2 py-0.5 rounded-full border border-[#00adef]/30">TBC Mobile</span>
+            <span class="text-xs font-extrabold text-white tracking-wide text-center">თიბისი ბანკი</span>
+            <span class="text-[10px] text-[#00adef] font-bold mt-1.5 bg-[#00adef]/20 px-2.5 py-0.5 rounded-full border border-[#00adef]/40">TBC Mobile</span>
           </button>
         </div>
       </div>
@@ -377,7 +377,7 @@
       </div>
 
       <!-- Success Notification / Confirm -->
-      <div class="mt-5 pt-4 border-t border-white/5">
+      <div class="mt-5 pt-4 border-t border-white/5 text-center">
         <button id="btn-payment-confirm" class="w-full bg-[#f1bf62] hover:bg-[#e0b053] text-[#121416] py-3 rounded-xl font-bold text-sm transition-all cursor-pointer border-none shadow-lg">
           გადახდა დავასრულე
         </button>
@@ -599,20 +599,41 @@
         });
       }
 
-      // Mobile deep linking handler
-      function triggerBankApp(scheme) {
+      // Crash-proof mobile deep linking handler
+      function triggerBankApp(scheme, webUrl, bankName) {
+        const iban = ibanText ? ibanText.textContent.trim() : "GE93BG0000000192399800";
         try {
-          if (ibanText) navigator.clipboard.writeText(ibanText.textContent.trim()).catch(() => {});
-        } catch (e) {}
-        window.location.href = scheme;
+          navigator.clipboard.writeText(iban).then(() => {
+            setStatus(`✨ ანგარიში (${iban}) და დანიშნულება დაკოპირდა!<br/>გადადიხართ ${bankName}-ში...`);
+          }).catch(() => {
+            setStatus(`✨ გადადიხართ ${bankName}-ში...`);
+          });
+        } catch (e) {
+          setStatus(`✨ გადადიხართ ${bankName}-ში...`);
+        }
+
+        // Use iframe to trigger deep link safely without crashing browser
+        const start = Date.now();
+        const iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.src = scheme;
+        document.body.appendChild(iframe);
+
+        setTimeout(() => {
+          try { document.body.removeChild(iframe); } catch (e) {}
+          // Fallback to web banking in new tab if app does not launch
+          if (Date.now() - start < 2000) {
+            window.open(webUrl, "_blank");
+          }
+        }, 1500);
       }
 
       if (tbcBtn) {
-        tbcBtn.addEventListener("click", () => triggerBankApp("tbcbank://"));
+        tbcBtn.addEventListener("click", () => triggerBankApp("tbcbank://", "https://www.tbconline.ge", "თიბისი ბანკ"));
       }
 
       if (bogBtn) {
-        bogBtn.addEventListener("click", () => triggerBankApp("bogmobile://"));
+        bogBtn.addEventListener("click", () => triggerBankApp("bogmobile://", "https://bog.ge", "საქართველოს ბანკ"));
       }
     });
   </script>
