@@ -17,7 +17,7 @@
     <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-85" style="transform: scale(1.1);">
       <source src="/background.mp4?v=4" type="video/mp4"/>
     </video>
-    <div class="absolute inset-0 bg-gradient-to-b from-[#121416]/40 via-transparent to-[#121416]/50"></div>
+    <div class="absolute inset-0 bg-[#0f172a]/65 backdrop-blur-[8px]"></div>
   </div>
 
   <!-- Floating Island Header -->
@@ -43,9 +43,9 @@
         </a>
       </div>
       <div class="hidden md:flex items-center gap-4 lg:gap-10 font-headline italic text-base lg:text-lg tracking-wide ml-auto mr-4 lg:mr-10">
-        <a class="text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300" href="index.html">მთავარი</a>
+        <a class="text-white hover:text-[#f1bf62] transition-colors duration-300" href="index.html">მთავარი</a>
         <div class="relative group">
-          <button class="flex items-center gap-1 text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300 focus:outline-none cursor-pointer">
+          <button class="flex items-center gap-1 text-white hover:text-[#f1bf62] transition-colors duration-300 focus:outline-none cursor-pointer">
             <span>სერვისები</span>
             <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
           </button>
@@ -55,7 +55,7 @@
           </div>
         </div>
         <div class="relative group">
-          <button class="flex items-center gap-1 text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300 focus:outline-none cursor-pointer">
+          <button class="flex items-center gap-1 text-white hover:text-[#f1bf62] transition-colors duration-300 focus:outline-none cursor-pointer">
             <span>ინტერაქცია</span>
             <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
           </button>
@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="relative group">
-          <button class="flex items-center gap-1 text-[#c6c6ce] hover:text-[#bcc5e9] hover:opacity-80 transition-opacity duration-300 focus:outline-none cursor-pointer">
+          <button class="flex items-center gap-1 text-white hover:text-[#f1bf62] transition-colors duration-300 focus:outline-none cursor-pointer">
             <span>კონტაქტი</span>
             <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:rotate-180">keyboard_arrow_down</span>
           </button>
@@ -147,7 +147,7 @@
           <div class="mb-6 sm:mb-10 text-left relative flex items-start justify-between">
             <div>
               <h2 class="text-2xl sm:text-3xl font-headline italic text-on-surface">რეგისტრაცია კურსებზე</h2>
-              <p class="text-xs sm:text-sm text-white/70 mt-2">შეავსეთ ფორმა და აირჩიეთ გადახდის მეთოდი რეგისტრაციის დასასრულებლად</p>
+              <p class="text-xs sm:text-sm text-white mt-2">შეავსეთ ფორმა და აირჩიეთ გადახდის მეთოდი რეგისტრაციის დასასრულებლად</p>
             </div>
             <div class="bg-secondary/10 border border-secondary/20 p-3.5 rounded-2xl hidden sm:flex items-center justify-center text-secondary shadow-lg">
               <span class="material-symbols-outlined text-3xl" style='font-variation-settings: "FILL" 1;'>edit_calendar</span>
@@ -161,12 +161,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
               <!-- Name Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white/80 tracking-widest uppercase ml-1">სახელი</label>
+                <label class="text-xs text-white">სახელი</label>
                 <input type="text" id="reg-first-name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="თქვენი სახელი"/>
               </div>
               <!-- Surname Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white/80 tracking-widest uppercase ml-1">გვარი</label>
+                <label class="text-xs text-white">გვარი</label>
                 <input type="text" id="reg-last-name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="თქვენი გვარი"/>
               </div>
             </div>
@@ -174,25 +174,25 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
               <!-- Phone Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white/80 tracking-widest uppercase ml-1">ტელეფონი</label>
+                <label class="text-xs text-white">ტელეფონი</label>
                 <input type="tel" id="reg-phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="ტელ:"/>
               </div>
               <!-- Course Input (Manual text field) -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white/80 tracking-widest uppercase ml-1">რაზე გსურთ რეგისტრაცია?</label>
-                <input type="text" id="reg-course" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="მაგ: ასტროლოგიური სკოლა, სემინარი..."/>
+                <label class="text-xs text-white">რაზე გსურთ რეგისტრაცია?</label>
+                <input type="text" id="reg-course" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="მაგ: პრაქტიკული ფსიქოლოგია, არტ თერაპია..."/>
               </div>
             </div>
 
             <!-- Birth Date Input -->
             <div class="space-y-2 text-left">
-              <label class="text-xs text-white/80 tracking-widest uppercase ml-1">დაბადების თარიღი</label>
+              <label class="text-xs text-white">დაბადების თარიღი</label>
               <input type="date" id="reg-birthdate" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface font-semibold" style="color-scheme: dark;"/>
             </div>
 
             <!-- Quick Payment Section -->
             <div class="space-y-4 pt-6 border-t border-outline-variant/20">
-              <label class="text-xs text-white/80 tracking-widest uppercase ml-1 block text-left">გადახდის მეთოდი</label>
+              <label class="text-xs text-white block text-left">გადახდის მეთოდი</label>
               
               <!-- Quick Payment Options -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
