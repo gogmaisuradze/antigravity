@@ -326,11 +326,12 @@
         </p>
         <div class="grid grid-cols-2 gap-3.5">
           <!-- BOG Bank Button -->
-          <button type="button" id="btn-bog-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#ff7900]/25 via-[#1e2022] to-[#121416] border border-[#ff7900]/50 hover:border-[#ff7900] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_8px_20px_rgba(255,121,0,0.25)] group hover:scale-[1.03] active:scale-95">
+          <button type="button" id="btn-bog-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#ff7900]/25 via-[#1e2022] to-[#121416] border border-[#ff7900]/50 hover:border-[#ff7900] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_8px_20px_rgba(255,121,0,0.25)] group active:scale-95">
             <div class="w-12 h-12 rounded-full bg-[#ff7900]/20 border border-[#ff7900]/40 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform shadow-inner">
-              <!-- Authentic BOG Symbol -->
-              <svg class="w-7 h-7 text-[#ff7900]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L15.5 8.5H22.5L17 12.8L19 19.5L12 15.2L5 19.5L7 12.8L1.5 8.5H8.5L12 2Z"/>
+              <!-- Official BOG Lion Emblem -->
+              <svg class="w-7 h-7 text-[#ff7900]" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 8 L63 28 L88 28 L70 45 L78 72 L50 54 L22 72 L30 45 L12 28 L37 28 Z"/>
+                <rect x="22" y="78" width="56" height="10" rx="4"/>
               </svg>
             </div>
             <span class="text-xs font-extrabold text-white tracking-wide text-center">საქართველოს ბანკი</span>
@@ -338,11 +339,14 @@
           </button>
 
           <!-- TBC Bank Button -->
-          <button type="button" id="btn-tbc-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#00adef]/25 via-[#1e2022] to-[#121416] border border-[#00adef]/50 hover:border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_8px_20px_rgba(0,173,239,0.25)] group hover:scale-[1.03] active:scale-95">
+          <button type="button" id="btn-tbc-app" class="relative overflow-hidden flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#00adef]/25 via-[#1e2022] to-[#121416] border border-[#00adef]/50 hover:border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_8px_20px_rgba(0,173,239,0.25)] group active:scale-95">
             <div class="w-12 h-12 rounded-full bg-[#00adef]/20 border border-[#00adef]/40 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform shadow-inner">
-              <!-- Authentic TBC Symbol -->
-              <svg class="w-7 h-7 text-[#00adef]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-3H8v-2h3V8h2v3h3v2h-3v3z"/>
+              <!-- Official TBC 4-Square Logo -->
+              <svg class="w-7 h-7 text-[#00adef]" viewBox="0 0 100 100" fill="currentColor">
+                <rect x="15" y="15" width="32" height="32" rx="7"/>
+                <rect x="53" y="15" width="32" height="32" rx="7"/>
+                <rect x="15" y="53" width="32" height="32" rx="7"/>
+                <rect x="53" y="53" width="32" height="32" rx="7"/>
               </svg>
             </div>
             <span class="text-xs font-extrabold text-white tracking-wide text-center">თიბისი ბანკი</span>
@@ -412,7 +416,11 @@
         const course = urlParams.get("course") || "";
 
         if (purposeText) {
-          purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${name} (${course})</strong>`;
+          if (name && course) {
+            purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${name} (${course})</strong>`;
+          } else {
+            purposeText.innerHTML = `რეგისტრაციის საფასური`;
+          }
         }
         
         // Show mobile view in modal immediately
@@ -599,41 +607,49 @@
         });
       }
 
-      // Crash-proof mobile deep linking handler
-      function triggerBankApp(scheme, webUrl, bankName) {
-        const iban = ibanText ? ibanText.textContent.trim() : "GE93BG0000000192399800";
+      // Direct mobile deep linking handler with immediate button feedback
+      function triggerBankApp(scheme, webUrl, btnElement) {
+        const iban = "GE93BG0000000192399800";
+        
+        // 1. Copy IBAN to clipboard synchronously
         try {
-          navigator.clipboard.writeText(iban).then(() => {
-            setStatus(`✨ ანგარიში (${iban}) და დანიშნულება დაკოპირდა!<br/>გადადიხართ ${bankName}-ში...`);
-          }).catch(() => {
-            setStatus(`✨ გადადიხართ ${bankName}-ში...`);
-          });
-        } catch (e) {
-          setStatus(`✨ გადადიხართ ${bankName}-ში...`);
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(iban);
+          }
+        } catch (e) {}
+
+        // 2. Immediate visual feedback on the button
+        if (btnElement) {
+          const originalHTML = btnElement.innerHTML;
+          btnElement.innerHTML = `
+            <div class="flex flex-col items-center justify-center py-1.5">
+              <span class="material-symbols-outlined text-xl text-emerald-400 mb-0.5">check_circle</span>
+              <span class="text-xs font-bold text-white">დაკოპირდა!</span>
+              <span class="text-[9px] text-emerald-300 mt-0.5">გადადიხართ ბანკში...</span>
+            </div>
+          `;
+          setTimeout(() => {
+            btnElement.innerHTML = originalHTML;
+          }, 3000);
         }
 
-        // Use iframe to trigger deep link safely without crashing browser
-        const start = Date.now();
-        const iframe = document.createElement("iframe");
-        iframe.style.display = "none";
-        iframe.src = scheme;
-        document.body.appendChild(iframe);
+        // 3. Directly trigger custom scheme on click event (required by iOS Safari & Android Chrome)
+        window.location.href = scheme;
 
+        // 4. Fallback to web banking after delay if app is not installed
         setTimeout(() => {
-          try { document.body.removeChild(iframe); } catch (e) {}
-          // Fallback to web banking in new tab if app does not launch
-          if (Date.now() - start < 2000) {
-            window.open(webUrl, "_blank");
+          if (!document.hidden && !document.webkitHidden) {
+            window.location.href = webUrl;
           }
-        }, 1500);
+        }, 2200);
       }
 
       if (tbcBtn) {
-        tbcBtn.addEventListener("click", () => triggerBankApp("tbcbank://", "https://www.tbconline.ge", "თიბისი ბანკ"));
+        tbcBtn.addEventListener("click", () => triggerBankApp("tbcbank://", "https://www.tbconline.ge", tbcBtn));
       }
 
       if (bogBtn) {
-        bogBtn.addEventListener("click", () => triggerBankApp("bogmobile://", "https://bog.ge", "საქართველოს ბანკ"));
+        bogBtn.addEventListener("click", () => triggerBankApp("bogmobile://", "https://bog.ge", bogBtn));
       }
     });
   </script>
