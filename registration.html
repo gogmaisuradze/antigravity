@@ -166,38 +166,38 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <!-- Name Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white/90 tracking-widest uppercase ml-1 font-semibold">სახელი</label>
-                <input type="text" id="reg-first-name" required class="w-full bg-[#121416]/40 border-b border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-3 px-3 rounded-lg text-white placeholder:text-white/50 text-sm font-medium" placeholder="თქვენი სახელი"/>
+                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">სახელი</label>
+                <input type="text" id="reg-first-name" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="თქვენი სახელი"/>
               </div>
               <!-- Surname Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white/90 tracking-widest uppercase ml-1 font-semibold">გვარი</label>
-                <input type="text" id="reg-last-name" required class="w-full bg-[#121416]/40 border-b border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-3 px-3 rounded-lg text-white placeholder:text-white/50 text-sm font-medium" placeholder="თქვენი გვარი"/>
+                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">გვარი</label>
+                <input type="text" id="reg-last-name" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="თქვენი გვარი"/>
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <!-- Phone Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white/90 tracking-widest uppercase ml-1 font-semibold">ტელეფონის ნომერი</label>
-                <input type="tel" id="reg-phone" required class="w-full bg-[#121416]/40 border-b border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-3 px-3 rounded-lg text-white placeholder:text-white/50 text-sm font-medium" placeholder="მაგ: 5XXXXXXXX"/>
+                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">ტელეფონის ნომერი</label>
+                <input type="tel" id="reg-phone" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="მაგ: 5XXXXXXXX"/>
               </div>
               <!-- Birth Date Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white/90 tracking-widest uppercase ml-1 font-semibold">დაბადების თარიღი</label>
-                <input type="date" id="reg-birthdate" required class="w-full bg-[#121416]/40 border border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-2.5 px-3 rounded-lg text-white text-center font-bold tracking-wider cursor-pointer text-sm [color-scheme:dark]"/>
+                <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">დაბადების თარიღი</label>
+                <input type="date" id="reg-birthdate" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white [color-scheme:dark] text-sm font-medium cursor-pointer"/>
               </div>
             </div>
 
             <!-- Course Input -->
             <div class="space-y-2 text-left">
-              <label class="text-xs text-white/90 tracking-widest uppercase ml-1 font-semibold">რაზე გსურთ რეგისტრაცია?</label>
-              <input type="text" id="reg-course" required class="w-full bg-[#121416]/40 border border-white/10 focus:border-[#f1bf62] focus:ring-0 transition-all py-3 px-3 rounded-lg text-white placeholder:text-white/50 text-sm font-medium" placeholder="მაგ: ასტროლოგიური სკოლა, სემინარი..."/>
+              <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">რაზე გსურთ რეგისტრაცია?</label>
+              <input type="text" id="reg-course" required class="w-full bg-surface-container-lowest border-none border-b border-white/20 focus:border-secondary focus:ring-0 transition-all py-4 px-0 text-white placeholder:text-white/45 text-sm font-medium" placeholder="მაგ: ასტროლოგიური სკოლა, სემინარი..."/>
             </div>
 
             <!-- Receipt File Uploader -->
             <div class="space-y-2 text-left">
-              <label class="text-xs text-white/90 tracking-widest uppercase ml-1 font-semibold">გადახდის ქვითარი (სურათი ან PDF)</label>
+              <label class="text-xs text-white tracking-widest uppercase ml-1 font-semibold">გადახდის ქვითარი (სურათი ან PDF)</label>
               <div id="receipt-dropzone" class="border-2 border-dashed border-white/10 hover:border-[#f1bf62]/50 bg-[#121416]/20 hover:bg-[#121416]/40 transition-all rounded-xl p-6 text-center cursor-pointer relative group flex flex-col items-center justify-center space-y-3">
                 <input type="file" id="reg-receipt" accept="image/*,application/pdf" class="absolute inset-0 opacity-0 cursor-pointer z-10" />
                 <span class="material-symbols-outlined text-4xl text-white/60 group-hover:text-[#f1bf62] transition-colors duration-300">cloud_upload</span>
@@ -222,9 +222,9 @@
             </div>
 
             <!-- Submit button -->
-            <button type="submit" id="btn-submit-registration" class="w-full py-4 bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] text-xs sm:text-sm font-black tracking-widest uppercase rounded-xl transition-all cursor-pointer flex items-center justify-center space-x-2 font-headline shadow-lg hover:scale-[1.01] active:scale-98">
+            <button type="submit" id="btn-submit-registration" class="w-full bg-secondary-container text-on-secondary-container py-5 rounded-xl font-semibold text-lg hover:brightness-110 transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer">
               <span>რეგისტრაციის დასრულება</span>
-              <span class="material-symbols-outlined text-lg">check_circle</span>
+              <span class="material-symbols-outlined">arrow_forward</span>
             </button>
           </form>
         </div>
