@@ -184,18 +184,7 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-              <!-- Birth Date Input -->
-              <div class="space-y-2 text-left">
-                <label class="text-xs text-white">დაბადების თარიღი</label>
-                <input type="date" id="reg-birthdate" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface font-semibold" style="color-scheme: dark;"/>
-              </div>
-              <!-- Quantity Input -->
-              <div class="space-y-2 text-left">
-                <label class="text-xs text-white">რაოდენობა</label>
-                <input type="number" id="reg-quantity" required min="1" max="10" value="1" class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface font-semibold"/>
-              </div>
-            </div>
+
 
             <!-- Submit and Pay Button -->
             <div class="pt-6 border-t border-outline-variant/20">
@@ -399,11 +388,9 @@
       if (urlParams.get("pay_mobile") === "true") {
         const name = urlParams.get("name") || "";
         const course = urlParams.get("course") || "";
-        const qty = urlParams.get("qty") || "1";
 
-        const qtyText = parseInt(qty, 10) > 1 ? ` (${qty} ადგილი)` : "";
         if (purposeText) {
-          purposeText.innerHTML = `რეგისტრაციის საფასური${qtyText} - <strong>${name} (${course})</strong>`;
+          purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${name} (${course})</strong>`;
         }
         
         // Show mobile view in modal immediately
@@ -447,11 +434,9 @@
         const firstName = document.getElementById("reg-first-name").value.trim();
         const lastName = document.getElementById("reg-last-name").value.trim();
         const phone = document.getElementById("reg-phone").value.trim().replace(/\s+/g, "");
-        const birthdate = document.getElementById("reg-birthdate").value;
         const course = document.getElementById("reg-course").value.trim();
-        const quantity = document.getElementById("reg-quantity").value;
 
-        if (!firstName || !lastName || !phone || !birthdate || !course || !quantity) {
+        if (!firstName || !lastName || !phone || !course) {
           setStatus("გთხოვთ შეავსოთ ყველა სავალდებულო ველი.", true);
           return null;
         }
@@ -472,9 +457,7 @@
           first_name: firstName,
           last_name: lastName,
           phone: "995" + normalizedPhone,
-          birthdate: birthdate,
-          register_for: course,
-          quantity: parseInt(quantity, 10) || 1
+          register_for: course
         };
       }
 
@@ -495,11 +478,10 @@
             setStatus("✨ რეგისტრაციის მოთხოვნა გაგზავნილია! ✨<br/>რეგისტრაციის დასასრულებლად გთხოვთ გადაიხადოთ კურსის საფასური.");
             
             // Set dynamic transfer purpose
-            const qtyText = payload.quantity > 1 ? ` (${payload.quantity} ადგილი)` : "";
-            purposeText.innerHTML = `რეგისტრაციის საფასური${qtyText} - <strong>${payload.first_name} ${payload.last_name} (${payload.register_for})</strong>`;
+            purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${payload.first_name} ${payload.last_name} (${payload.register_for})</strong>`;
 
             // Generate real scannable QR Code URL pointing to mobile payment view
-            const mobilePayUrl = `${window.location.origin}/registration.html?pay_mobile=true&name=${encodeURIComponent(payload.first_name + ' ' + payload.last_name)}&course=${encodeURIComponent(payload.register_for)}&qty=${payload.quantity}`;
+            const mobilePayUrl = `${window.location.origin}/registration.html?pay_mobile=true&name=${encodeURIComponent(payload.first_name + ' ' + payload.last_name)}&course=${encodeURIComponent(payload.register_for)}`;
             const qrImg = document.getElementById("qr-code-img");
             if (qrImg) {
               qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(mobilePayUrl)}`;
