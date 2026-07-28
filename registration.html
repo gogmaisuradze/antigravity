@@ -184,10 +184,17 @@
               </div>
             </div>
 
-            <!-- Birth Date Input -->
-            <div class="space-y-2 text-left">
-              <label class="text-xs text-white">დაბადების თარიღი</label>
-              <input type="date" id="reg-birthdate" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface font-semibold" style="color-scheme: dark;"/>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+              <!-- Birth Date Input -->
+              <div class="space-y-2 text-left">
+                <label class="text-xs text-white">დაბადების თარიღი</label>
+                <input type="date" id="reg-birthdate" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface font-semibold" style="color-scheme: dark;"/>
+              </div>
+              <!-- Quantity Input -->
+              <div class="space-y-2 text-left">
+                <label class="text-xs text-white">რაოდენობა</label>
+                <input type="number" id="reg-quantity" required min="1" max="10" value="1" class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface font-semibold"/>
+              </div>
             </div>
 
             <!-- Submit and Pay Button -->
@@ -372,7 +379,7 @@
         </div>
         <div>
           <span class="text-[10px] text-white/40 block uppercase tracking-wider">ბანკი</span>
-          <span class="text-sm font-semibold text-white">თიბისი ბანკი (TBC Bank)</span>
+          <span class="text-sm font-semibold text-white">საქართველოს ბანკი (Bank of Georgia)</span>
         </div>
         <div>
           <div class="flex items-center justify-between">
@@ -381,7 +388,7 @@
               <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
             </button>
           </div>
-          <span id="iban-text" class="text-xs sm:text-sm font-mono font-bold text-[#f1bf62] break-all">GE56TB7774450360100002</span>
+          <span id="iban-text" class="text-xs sm:text-sm font-mono font-bold text-[#f1bf62] break-all">GE93BG0000000192399800</span>
         </div>
         <div>
           <span class="text-[10px] text-white/40 block uppercase tracking-wider">დანიშნულება</span>
@@ -441,8 +448,9 @@
         const phone = document.getElementById("reg-phone").value.trim().replace(/\s+/g, "");
         const birthdate = document.getElementById("reg-birthdate").value;
         const course = document.getElementById("reg-course").value.trim();
+        const quantity = document.getElementById("reg-quantity").value;
 
-        if (!firstName || !lastName || !phone || !birthdate || !course) {
+        if (!firstName || !lastName || !phone || !birthdate || !course || !quantity) {
           setStatus("გთხოვთ შეავსოთ ყველა სავალდებულო ველი.", true);
           return null;
         }
@@ -464,7 +472,8 @@
           last_name: lastName,
           phone: "995" + normalizedPhone,
           birthdate: birthdate,
-          register_for: course
+          register_for: course,
+          quantity: parseInt(quantity, 10) || 1
         };
       }
 
@@ -485,7 +494,8 @@
             setStatus("✨ რეგისტრაციის მოთხოვნა გაგზავნილია! ✨<br/>რეგისტრაციის დასასრულებლად გთხოვთ გადაიხადოთ კურსის საფასური.");
             
             // Set dynamic transfer purpose
-            purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${payload.first_name} ${payload.last_name} (${payload.register_for})</strong>`;
+            const qtyText = payload.quantity > 1 ? ` (${payload.quantity} ადგილი)` : "";
+            purposeText.innerHTML = `რეგისტრაციის საფასური${qtyText} - <strong>${payload.first_name} ${payload.last_name} (${payload.register_for})</strong>`;
 
             // Adjust modal for desktop vs mobile
             const desktopQr = document.getElementById("desktop-qr-container");
