@@ -333,7 +333,7 @@
             </svg>
           </a>
           <!-- Telegram -->
-          <a class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-[#c6c6ce]/70 hover:border-[#229ED9] hover:text-[#229ED9] hover:bg-[#229ED9]/10 transition-all duration-300 hover:scale-105" href="https://t.me/IDCPositivepsychotherapybot" target="_blank" title="Telegram">
+          <a class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-[#c6c6ce]/70 hover:border-[#229ED9] hover:text-[#229ED9] hover:bg-[#229ED9]/10 transition-all duration-300 hover:scale-105" href="https://t.me/IDCPosotherapybot" target="_blank" title="Telegram">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.89 1.2-5.33 3.52-.5.35-.96.52-1.37.51-.45-.01-1.32-.26-1.97-.47-.8-.26-1.43-.4-1.38-.85.03-.24.36-.49.99-.75 3.86-1.68 6.43-2.78 7.72-3.3 3.67-1.49 4.43-1.75 4.93-1.76.11 0 .36.03.52.16.13.11.17.26.19.37z"/>
             </svg>
@@ -385,10 +385,39 @@
 
     <!-- Bottom Copyright -->
     <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#c6c6ce]/35 font-light">
-      <p>© 2026 ინტეგრირებული განვითარების ცენტრი. ყველა უფლება დაცულია.</p>
+      <div class="text-center sm:text-left">
+        <p>© 2026 ყველა უფლება დაცულია, დამზადებულია <a href="https://metafora.ge" target="_blank" class="hover:text-[#f1bf62] transition-colors font-medium">metafora.ge</a>-ს მიერ.</p>
+        <div id="visitor-counter" class="text-[10px] text-[#c6c6ce]/20 mt-1.5 font-mono tracking-widest text-center sm:text-left">...</div>
+      </div>
     </div>
   </footer>
-  <!-- Global Search Bar Spotlight Functionality -->
+  
+  <script>
+    (function() {
+      const counterEl = document.getElementById('visitor-counter');
+      if (!counterEl) return;
+      
+      const key = 'idc_unique_visitor';
+      const isUnique = !localStorage.getItem(key);
+      const url = isUnique 
+        ? 'https://api.counterapi.dev/v1/idc_edu_ge/visitors/up' 
+        : 'https://api.counterapi.dev/v1/idc_edu_ge/visitors';
+        
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.count) {
+            counterEl.textContent = (3420 + data.count).toString();
+            if (isUnique) {
+              localStorage.setItem(key, 'true');
+            }
+          }
+        })
+        .catch(() => {
+          counterEl.textContent = '3424';
+        });
+    })();
+  </script><!-- Global Search Bar Spotlight Functionality -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const searchBtn = document.getElementById('nav-search-btn');
