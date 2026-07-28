@@ -177,11 +177,17 @@
                 <label class="text-xs text-white">ტელეფონი</label>
                 <input type="tel" id="reg-phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="ტელ:"/>
               </div>
-              <!-- Course Input (Manual text field) -->
+              <!-- Age Input -->
               <div class="space-y-2 text-left">
-                <label class="text-xs text-white">რაზე გსურთ რეგისტრაცია?</label>
-                <input type="text" id="reg-course" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="მაგ: პრაქტიკული ფსიქოლოგია, არტ თერაპია..."/>
+                <label class="text-xs text-white">ასაკი</label>
+                <input type="number" id="reg-age" min="10" max="120" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="მაგ: 25"/>
               </div>
+            </div>
+
+            <!-- Course Input (Manual text field) -->
+            <div class="space-y-2 text-left">
+              <label class="text-xs text-white">რაზე გსურთ რეგისტრაცია?</label>
+              <input type="text" id="reg-course" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 font-semibold" placeholder="მაგ: პრაქტიკული ფსიქოლოგია, არტ თერაპია..."/>
             </div>
 
 
@@ -428,9 +434,10 @@
         const firstName = document.getElementById("reg-first-name").value.trim();
         const lastName = document.getElementById("reg-last-name").value.trim();
         const phone = document.getElementById("reg-phone").value.trim().replace(/\s+/g, "");
+        const age = document.getElementById("reg-age").value.trim();
         const course = document.getElementById("reg-course").value.trim();
 
-        if (!firstName || !lastName || !phone || !course) {
+        if (!firstName || !lastName || !phone || !age || !course) {
           setStatus("გთხოვთ შეავსოთ ყველა სავალდებულო ველი.", true);
           return null;
         }
@@ -451,6 +458,7 @@
           first_name: firstName,
           last_name: lastName,
           phone: "995" + normalizedPhone,
+          age: age,
           register_for: course
         };
       }
