@@ -5,6 +5,7 @@ const initAll = () => {
   initBookingModal();
   initBlogFilters();
   initFormValidation();
+  initFormPersistence();
   
   // Premium Aesthetic Upgrades
   initAmbientGlow();
@@ -1335,6 +1336,62 @@ function initVisitorCounter() {
   if (visitorCountEl) {
     visitorCountEl.textContent = '1,280';
   }
+}
+
+/* ==========================================================================
+   13. Global Form Auto-Fill & LocalStorage Persistence
+   ========================================================================== */
+function initFormPersistence() {
+  const fieldMapping = {
+    'first_name': 'idc_user_firstname',
+    'first-name': 'idc_user_firstname',
+    'last_name': 'idc_user_lastname',
+    'last-name': 'idc_user_lastname',
+    'phone': 'idc_user_phone',
+    'birthdate': 'idc_user_birthdate',
+    'date': 'idc_user_birthdate'
+  };
+
+  const populateFields = () => {
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+      const identifier = (el.name || el.id || '').toLowerCase();
+      if (!identifier) return;
+
+      for (const [key, storageKey] of Object.entries(fieldMapping)) {
+        if (identifier.includes(key)) {
+          const savedValue = localStorage.getItem(storageKey);
+          if (savedValue && !el.value) {
+            el.value = savedValue;
+          }
+        }
+      }
+    });
+  };
+
+  // Populate immediately on init & retry after DOM updates / modal opens
+  populateFields();
+  setTimeout(populateFields, 200);
+  setTimeout(populateFields, 800);
+
+  // Global listener: Save input values into localStorage as user types
+  document.addEventListener('input', (e) => {
+    const el = e.target;
+    const identifier = (el.name || el.id || '').toLowerCase();
+    if (!identifier || !el.value) return;
+
+    for (const [key, storageKey] of Object.entries(fieldMapping)) {
+      if (identifier.includes(key)) {
+        localStorage.setItem(storageKey, el.value.trim());
+      }
+    }
+  });
+
+  // Re-populate when booking modal opens
+  document.addEventListener('click', (e) => {
+    if (e.target && (e.target.classList.contains('booking-btn') || e.target.closest('.booking-btn'))) {
+      setTimeout(populateFields, 50);
+    }
+  });
 }
 
 
