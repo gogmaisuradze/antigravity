@@ -190,36 +190,11 @@
               <input type="date" id="reg-birthdate" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface font-semibold" style="color-scheme: dark;"/>
             </div>
 
-            <!-- Quick Payment Section -->
-            <div class="space-y-4 pt-6 border-t border-outline-variant/20">
-              <label class="text-xs text-white block text-left">გადახდის მეთოდი</label>
-              
-              <!-- Quick Payment Options -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Apple Pay Button -->
-                <button type="button" id="btn-apple-pay" class="bg-black hover:bg-black/90 text-white rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-white/10 hover:scale-[1.02] active:scale-98">
-                  <svg class="h-6 w-auto fill-current text-white" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M49.2,27.1c-1.3,1.6-3.3,2.7-5.4,2.6c-0.3-2.1,0.6-4.2,1.9-5.7c1.3-1.6,3.4-2.8,5.4-2.6C51.4,23.5,50.5,25.6,49.2,27.1 M52.5,30.3c-2.8,0-5.2,1.7-6.6,1.7c-1.4,0-3.4-1.5-5.7-1.5c-3,0-5.8,1.7-7.4,4.5c-3.1,5.4-0.8,13.4,2.2,17.7c1.5,2.1,3.2,4.5,5.5,4.4c2.2-0.1,3-1.4,5.6-1.4c2.6,0,3.4,1.4,5.7,1.4c2.3-0.1,3.9-2.1,5.4-4.2c1.7-2.5,2.4-4.9,2.4-5c-0.1-0.1-4.6-1.8-4.7-6.9c-0.1-4.3,3.5-6.3,3.6-6.4C58.6,35.1,55.3,30.3,52.5,30.3"/>
-                  </svg>
-                  <span class="font-sans font-bold text-base ml-1">Pay</span>
-                </button>
-                
-                <!-- Google Pay Button -->
-                <button type="button" id="btn-google-pay" class="bg-white hover:bg-white/95 text-black rounded-xl py-3.5 flex items-center justify-center transition-all shadow-md cursor-pointer border border-white/10 hover:scale-[1.02] active:scale-98">
-                  <svg class="h-6 w-auto" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#4285F4" d="M36.3,20.3c0-1.2-0.1-2.4-0.3-3.6H20v6.8h9.1c-0.4,2.1-1.6,3.9-3.4,5.1v4.2h5.5C34.4,29.3,36.3,25.1,36.3,20.3z"/>
-                    <path fill="#34A853" d="M20,36.9c4.6,0,8.4-1.5,11.2-4.1l-5.5-4.2c-1.5,1-3.5,1.6-5.7,1.6c-4.4,0-8.1-3-9.4-7H5v4.4C7.8,33.2,13.5,36.9,20,36.9z"/>
-                    <path fill="#FBBC05" d="M10.6,23.2c-0.3-1-0.5-2.1-0.5-3.2s0.2-2.2,0.5-3.2V12.4H5c-1.1,2.2-1.7,4.7-1.7,7.6s0.6,5.4,1.7,7.6L10.6,23.2z"/>
-                    <path fill="#EA4335" d="M20,9.9c2.5,0,4.7,0.9,6.5,2.5l4.8-4.8C28.4,4.9,24.6,3.8,20,3.8C13.5,3.8,7.8,7.5,5,12.4l5.6,4.4C11.9,12.8,15.6,9.9,20,9.9z"/>
-                  </svg>
-                  <span class="font-sans font-bold text-base ml-1 text-black">Pay</span>
-                </button>
-              </div>
-
-              <!-- Quick Card Payment Button -->
-              <button type="button" id="btn-card-pay" class="w-full bg-secondary-container text-on-secondary-container py-4 rounded-xl font-semibold text-base hover:brightness-110 active:scale-98 transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
-                <span class="material-symbols-outlined text-xl">credit_card</span>
-                <span>ბარათით გადახდა</span>
+            <!-- Submit and Pay Button -->
+            <div class="pt-6 border-t border-outline-variant/20">
+              <button type="submit" id="btn-submit-registration" class="w-full bg-[#f1bf62] hover:bg-[#e0b053] text-[#121416] py-4 rounded-xl font-bold text-base hover:brightness-110 active:scale-98 transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer">
+                <span class="material-symbols-outlined text-xl">payments</span>
+                <span>რეგისტრაცია და გადახდა</span>
               </button>
             </div>
           </form>
@@ -315,41 +290,133 @@
       </div>
     </footer>
   </div>
-  
-  <script>
-    (function() {
-      const counterEl = document.getElementById('visitor-counter');
-      if (!counterEl) return;
+
+  <!-- Payment Modal -->
+  <div id="payment-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-all duration-300 pointer-events-auto">
+    <div class="bg-[#1e2022]/95 border border-white/10 backdrop-blur-xl p-6 sm:p-8 rounded-[1.5rem] max-w-md w-full relative shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] text-center transform scale-95 transition-all duration-300" id="payment-modal-card">
+      <button id="close-payment-modal" class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors cursor-pointer border-none bg-transparent">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
       
-      const key = 'idc_unique_visitor';
-      const isUnique = !localStorage.getItem(key);
-      const url = isUnique 
-        ? 'https://api.counterapi.dev/v1/idc_edu_ge/visitors/up' 
-        : 'https://api.counterapi.dev/v1/idc_edu_ge/visitors';
-        
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.count) {
-            counterEl.textContent = (3420 + data.count).toString();
-            if (isUnique) {
-              localStorage.setItem(key, 'true');
-            }
-          }
-        })
-        .catch(() => {
-          counterEl.textContent = '3424';
-        });
-    })();
-  </script><script>
+      <!-- Icon/Header -->
+      <div class="mb-4 flex flex-col items-center">
+        <div class="w-12 h-12 rounded-full bg-[#f1bf62]/10 flex items-center justify-center text-[#f1bf62] mb-3">
+          <span class="material-symbols-outlined text-2xl">qr_code_2</span>
+        </div>
+        <h3 class="text-xl font-bold text-white">გადახდა საბანკო გადარიცხვით</h3>
+        <p class="text-xs text-white/60 mt-1">რეგისტრაციის დასასრულებლად გადაიხადეთ კურსის საფასური</p>
+      </div>
+
+      <!-- QR Code Display (Desktop) -->
+      <div id="desktop-qr-container" class="my-5 p-4 bg-white rounded-2xl inline-block shadow-inner">
+        <!-- Gorgeous Vector QR Code -->
+        <svg class="w-48 h-48 text-[#121416]" viewBox="0 0 100 100" fill="currentColor">
+          <!-- QR squares -->
+          <rect x="0" y="0" width="30" height="30" fill="none" stroke="currentColor" stroke-width="4"/>
+          <rect x="6" y="6" width="18" height="18" fill="currentColor"/>
+          <rect x="70" y="0" width="30" height="30" fill="none" stroke="currentColor" stroke-width="4"/>
+          <rect x="76" y="6" width="18" height="18" fill="currentColor"/>
+          <rect x="0" y="70" width="30" height="30" fill="none" stroke="currentColor" stroke-width="4"/>
+          <rect x="6" y="76" width="18" height="18" fill="currentColor"/>
+          <!-- Middle random noise -->
+          <rect x="35" y="5" width="8" height="8" fill="currentColor"/>
+          <rect x="45" y="10" width="12" height="6" fill="currentColor"/>
+          <rect x="60" y="5" width="6" height="10" fill="currentColor"/>
+          <rect x="35" y="20" width="15" height="4" fill="currentColor"/>
+          <rect x="55" y="18" width="10" height="8" fill="currentColor"/>
+          <rect x="40" y="30" width="8" height="12" fill="currentColor"/>
+          <rect x="52" y="32" width="12" height="6" fill="currentColor"/>
+          <rect x="5" y="38" width="10" height="8" fill="currentColor"/>
+          <rect x="20" y="42" width="12" height="6" fill="currentColor"/>
+          <rect x="8" y="55" width="8" height="10" fill="currentColor"/>
+          <rect x="22" y="52" width="6" height="12" fill="currentColor"/>
+          <rect x="75" y="35" width="10" height="8" fill="currentColor"/>
+          <rect x="88" y="42" width="8" height="15" fill="currentColor"/>
+          <rect x="72" y="50" width="12" height="6" fill="currentColor"/>
+          <rect x="35" y="72" width="12" height="8" fill="currentColor"/>
+          <rect x="52" y="75" width="10" height="10" fill="currentColor"/>
+          <rect x="42" y="88" width="15" height="6" fill="currentColor"/>
+          <rect x="72" y="72" width="8" height="8" fill="currentColor"/>
+          <rect x="85" y="75" width="10" height="10" fill="currentColor"/>
+          <rect x="75" y="88" width="15" height="6" fill="currentColor"/>
+          <!-- Center Badge representing Bank Pay -->
+          <rect x="36" y="36" width="28" height="28" rx="6" fill="#1e2022" />
+          <!-- Logo inside badge -->
+          <circle cx="50" cy="50" r="10" fill="#f1bf62" />
+          <rect x="47" y="47" width="6" height="6" fill="#1e2022"/>
+        </svg>
+      </div>
+
+      <!-- Mobile Banking App Links (Mobile Only) -->
+      <div id="mobile-apps-container" class="hidden my-4 space-y-3">
+        <p class="text-xs text-white/70 mb-2">გახსენით თქვენი ბანკის აპლიკაცია გადასარიცხად:</p>
+        <div class="grid grid-cols-2 gap-3">
+          <!-- TBC Bank Link -->
+          <button type="button" id="btn-tbc-app" class="flex flex-col items-center justify-center p-3.5 bg-[#00adef]/10 border border-[#00adef]/20 rounded-xl hover:bg-[#00adef]/20 transition-all cursor-pointer">
+            <span class="text-sm font-bold text-[#00adef]">TBC Bank</span>
+            <span class="text-[10px] text-white/50 mt-1">აპლიკაციაში გადასვლა</span>
+          </button>
+          <!-- BOG Bank Link -->
+          <button type="button" id="btn-bog-app" class="flex flex-col items-center justify-center p-3.5 bg-[#ff7900]/10 border border-[#ff7900]/20 rounded-xl hover:bg-[#ff7900]/20 transition-all cursor-pointer">
+            <span class="text-sm font-bold text-[#ff7900]">BOG</span>
+            <span class="text-[10px] text-white/50 mt-1">აპლიკაციაში გადასვლა</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bank Account Transfer Details -->
+      <div class="bg-[#121416]/60 border border-white/5 rounded-xl p-4 text-left space-y-2.5 mt-4">
+        <div>
+          <span class="text-[10px] text-white/40 block uppercase tracking-wider">მიმღები</span>
+          <span class="text-sm font-semibold text-white">შპს აიდისი (IDC)</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-white/40 block uppercase tracking-wider">ბანკი</span>
+          <span class="text-sm font-semibold text-white">თიბისი ბანკი (TBC Bank)</span>
+        </div>
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] text-white/40 block uppercase tracking-wider">ანგარიშის ნომერი (IBAN)</span>
+            <button id="copy-iban" class="text-[10px] text-[#f1bf62] hover:underline cursor-pointer flex items-center gap-0.5 border-none bg-transparent">
+              <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
+            </button>
+          </div>
+          <span id="iban-text" class="text-xs sm:text-sm font-mono font-bold text-[#f1bf62] break-all">GE56TB7774450360100002</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-white/40 block uppercase tracking-wider">დანიშნულება</span>
+          <span id="payment-purpose" class="text-xs font-semibold text-white">რეგისტრაციის საფასური</span>
+        </div>
+      </div>
+
+      <!-- Success Notification / Confirm -->
+      <div class="mt-5 pt-4 border-t border-white/5">
+        <button id="btn-payment-confirm" class="w-full bg-[#f1bf62] hover:bg-[#e0b053] text-[#121416] py-3 rounded-xl font-bold text-sm transition-all cursor-pointer border-none">
+          გადახდა დავასრულე
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
       const form = document.getElementById("registration-form");
       const statusDiv = document.getElementById("status-message");
+      const submitBtn = document.getElementById("btn-submit-registration");
 
-      // Quick payment buttons
-      const applePayBtn = document.getElementById("btn-apple-pay");
-      const googlePayBtn = document.getElementById("btn-google-pay");
-      const cardPayBtn = document.getElementById("btn-card-pay");
+      // Modal elements
+      const modal = document.getElementById("payment-modal");
+      const modalCard = document.getElementById("payment-modal-card");
+      const closeBtn = document.getElementById("close-payment-modal");
+      const confirmBtn = document.getElementById("btn-payment-confirm");
+      const copyBtn = document.getElementById("copy-iban");
+      const ibanText = document.getElementById("iban-text");
+      const purposeText = document.getElementById("payment-purpose");
+
+      const tbcBtn = document.getElementById("btn-tbc-app");
+      const bogBtn = document.getElementById("btn-bog-app");
+
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
 
       const setStatus = (msg, isError = false) => {
         statusDiv.innerHTML = msg;
@@ -415,53 +482,112 @@
           const data = await response.json();
 
           if (response.ok || data.success) {
-            setStatus("✨ რეგისტრაცია წარმატებით დასრულდა! ✨<br/>თქვენი მონაცემები და გადახდა მიღებულია. ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ.");
+            setStatus("✨ რეგისტრაციის მოთხოვნა გაგზავნილია! ✨<br/>რეგისტრაციის დასასრულებლად გთხოვთ გადაიხადოთ კურსის საფასური.");
+            
+            // Set dynamic transfer purpose
+            purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${payload.first_name} ${payload.last_name} (${payload.register_for})</strong>`;
+
+            // Adjust modal for desktop vs mobile
+            const desktopQr = document.getElementById("desktop-qr-container");
+            const mobileApps = document.getElementById("mobile-apps-container");
+            if (isMobile) {
+              desktopQr.classList.add("hidden");
+              mobileApps.classList.remove("hidden");
+            } else {
+              desktopQr.classList.remove("hidden");
+              mobileApps.classList.add("hidden");
+            }
+
+            // Open Modal
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+              modal.classList.remove("opacity-0");
+              modal.classList.add("opacity-100");
+              modalCard.classList.remove("scale-95");
+              modalCard.classList.add("scale-100");
+            }, 50);
+
             form.reset();
-            // Hide buttons on success
-            applePayBtn.parentElement.style.display = "none";
-            cardPayBtn.style.display = "none";
           } else {
             throw new Error(data.error || "სერვერის შეცდომა გაგზავნისას");
           }
         } catch (err) {
           setStatus("რეგისტრაცია ვერ მოხერხდა. სცადეთ მოგვიანებით ან დაგვიკავშირდით პირდაპირ.", true);
-          // Restore buttons
-          applePayBtn.disabled = false;
-          googlePayBtn.disabled = false;
-          cardPayBtn.disabled = false;
+        } finally {
+          submitBtn.disabled = false;
         }
       }
 
-      // Online payment button handlers (Apple Pay, Google Pay, Card Pay)
-      const handleOnlinePaymentClick = (providerName) => {
+      // Form submission handler
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
         const payloadData = validateFormInputs();
         if (!payloadData) return;
 
-        // Disable buttons
-        applePayBtn.disabled = true;
-        googlePayBtn.disabled = true;
-        cardPayBtn.disabled = true;
+        submitBtn.disabled = true;
+        setStatus("მიმდინარეობს მონაცემების გაგზავნა... ⏳");
 
-        setStatus(`მიმდინარეობს კავშირი ${providerName}-თან... 💳 ⏳`);
+        const finalPayload = {
+          ...payloadData,
+          receipt_base64: "BANK_TRANSFER_PENDING",
+          receipt_filename: "bank_transfer_receipt.txt",
+          payment_method: "bank_transfer"
+        };
+        submitPayload(finalPayload);
+      });
 
+      // Close modal handlers
+      const closeModal = () => {
+        modal.classList.remove("opacity-100");
+        modal.classList.add("opacity-0");
+        modalCard.classList.remove("scale-100");
+        modalCard.classList.add("scale-95");
         setTimeout(() => {
-          setStatus(`✨ გადახდა ავტორიზებულია ${providerName}-ის მეშვეობით! ✨<br/>მიმდინარეობს რეგისტრაციის გაფორმება... ⏳`);
-          
-          setTimeout(() => {
-            const finalPayload = {
-              ...payloadData,
-              receipt_base64: "ONLINE_PAYMENT_SIMULATED",
-              receipt_filename: `${providerName.toLowerCase()}_payment_receipt.txt`,
-              payment_method: providerName.toLowerCase()
-            };
-            submitPayload(finalPayload);
-          }, 1000);
-        }, 1500);
+          modal.classList.add("hidden");
+        }, 300);
       };
 
-      applePayBtn.addEventListener("click", () => handleOnlinePaymentClick("Apple Pay"));
-      googlePayBtn.addEventListener("click", () => handleOnlinePaymentClick("Google Pay"));
-      cardPayBtn.addEventListener("click", () => handleOnlinePaymentClick("Card"));
+      closeBtn.addEventListener("click", closeModal);
+      confirmBtn.addEventListener("click", () => {
+        closeModal();
+        setStatus("✨ გმადლობთ რეგისტრაციისთვის! ✨<br/>ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ გადახდის დადასტურებისთანავე.");
+      });
+
+      // Close on backdrop click
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Copy IBAN functionality
+      copyBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(ibanText.textContent.trim()).then(() => {
+          copyBtn.innerHTML = `<span class="material-symbols-outlined text-xs">done</span> დაკოპირდა!`;
+          setTimeout(() => {
+            copyBtn.innerHTML = `<span class="material-symbols-outlined text-xs">content_copy</span> კოპირება`;
+          }, 2000);
+        });
+      });
+
+      // Mobile deep linking helper function
+      function openBankApp(scheme, webUrl) {
+        const start = Date.now();
+        window.location.href = scheme;
+        setTimeout(() => {
+          if (Date.now() - start < 2000) {
+            window.open(webUrl, '_blank');
+          }
+        }, 1500);
+      }
+
+      tbcBtn.addEventListener("click", () => {
+        openBankApp("tbcbank://", "https://www.tbconline.ge");
+      });
+
+      bogBtn.addEventListener("click", () => {
+        openBankApp("bogmobile://", "https://bog.ge");
+      });
     });
   </script>
 </body>
