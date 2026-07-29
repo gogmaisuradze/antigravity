@@ -377,10 +377,12 @@
       </div>
 
       <!-- Success Notification / Confirm -->
-      <div class="mt-5 pt-4 border-t border-white/5 text-center">
-        <button id="btn-payment-confirm" class="w-full bg-[#f1bf62] hover:bg-[#e0b053] text-[#121416] py-3 rounded-xl font-bold text-sm transition-all cursor-pointer border-none shadow-lg">
-          გადახდა დავასრულე
+      <div class="mt-5 pt-4 border-t border-white/10 text-center space-y-2">
+        <button id="btn-payment-confirm" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-3.5 px-4 rounded-xl font-extrabold text-sm sm:text-base transition-all cursor-pointer border-none shadow-[0_4px_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2 active:scale-95">
+          <span class="material-symbols-outlined text-xl">task_alt</span>
+          გადახდა დავასრულე - რეგისტრაცია
         </button>
+        <p class="text-[11px] text-white/60">გადარიცხვის შემდეგ დააჭირეთ ამ ღილაკს რეგისტრაციის დასასრულებლად</p>
       </div>
     </div>
   </div>
@@ -404,6 +406,34 @@
       const bogBtn = document.getElementById("btn-bog-app");
 
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+      let pendingRegistrationPayload = null;
+
+      // Helper function to send Telegram notifications
+      async function sendTelegramNotification(payload) {
+        const botToken = "8563426842:AAEuhg8EXmAV18NXtlAaiky0ZzWGvNXkJQU";
+        const chatId = "443575738";
+
+        const text = `🎓 *ახალი რეგისტრაცია & გადახდის დადასტურება!* 💳\n\n` +
+          `👤 *სახელი გვარი:* ${payload.first_name} ${payload.last_name}\n` +
+          `📅 *დაბადების თარიღი:* ${payload.birthdate}\n` +
+          `📞 *ტელეფონი:* ${payload.phone}\n` +
+          `📚 *კურსი:* ${payload.register_for}\n` +
+          `✅ *სტატუსი:* გადახდილია (მომხმარებელმა დაადასტურა!)`;
+
+        try {
+          await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: text,
+              parse_mode: "Markdown"
+            })
+          });
+        } catch (e) {
+          console.error("Telegram error:", e);
+        }
+      }
 
       // Check if opened on mobile via scanned QR code (with query parameters)
       const urlParams = new URLSearchParams(window.location.search);
@@ -483,22 +513,10 @@
         };
       }
 
-      // Submit Payload & Open Payment Modal
-      async function submitPayload(payload) {
-        // Always attempt background webhook fire-and-forget safely
-        try {
-          fetch("https://meticulous-oyster.pikapod.net/webhook/registration", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          }).catch(e => console.warn("Webhook background note:", e));
-        } catch (e) {
-          console.warn("Webhook dispatch caught:", e);
-        }
+      // Open Payment Modal FIRST without sending Telegram
+      function openPaymentModal(payload) {
+        pendingRegistrationPayload = payload;
 
-        // Show confirmation status
-        setStatus("✨ რეგისტრაციის მოთხოვნა მიღებულია! ✨<br/>რეგისტრაციის დასასრულებლად გთხოვთ გადაიხადოთ კურსის საფასური.");
-        
         // Set dynamic transfer purpose
         if (purposeText) {
           purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${payload.first_name} ${payload.last_name} (${payload.register_for})</strong>`;
@@ -536,27 +554,17 @@
           }, 50);
         }
 
-        if (form) form.reset();
-        if (submitBtn) submitBtn.disabled = false;
+        setStatus("⏳ რეგისტრაციის დასასრულებლად გთხოვთ გადაიხადოთ კურსის საფასური და დააჭიროთ დასტურის ღილაკს.");
       }
 
-      // Form submission handler
+      // Form submission handler -> Opens Modal FIRST
       if (form) {
         form.addEventListener("submit", (e) => {
           e.preventDefault();
           const payloadData = validateFormInputs();
           if (!payloadData) return;
 
-          if (submitBtn) submitBtn.disabled = true;
-          setStatus("მიმდინარეობს მონაცემების გაგზავნა... ⏳");
-
-          const finalPayload = {
-            ...payloadData,
-            receipt_base64: "BANK_TRANSFER_PENDING",
-            receipt_filename: "bank_transfer_receipt.txt",
-            payment_method: "bank_transfer"
-          };
-          submitPayload(finalPayload);
+          openPaymentModal(payloadData);
         });
       }
 
@@ -573,10 +581,46 @@
       };
 
       if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+      // Confirm Payment button handler -> Sends Telegram & Webhook NOW!
       if (confirmBtn) {
-        confirmBtn.addEventListener("click", () => {
+        confirmBtn.addEventListener("click", async () => {
+          if (!pendingRegistrationPayload) {
+            closeModal();
+            return;
+          }
+
+          const originalText = confirmBtn.innerHTML;
+          confirmBtn.disabled = true;
+          confirmBtn.innerHTML = `<span class="material-symbols-outlined text-xl animate-spin">sync</span> იგზავნება...`;
+
+          const payload = {
+            ...pendingRegistrationPayload,
+            payment_status: "USER_CONFIRMED_PAYMENT",
+            payment_method: "bank_transfer"
+          };
+
+          // 1. Send to Telegram Bot
+          await sendTelegramNotification(payload);
+
+          // 2. Send to Webhook
+          try {
+            fetch("https://meticulous-oyster.pikapod.net/webhook/registration", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            }).catch(e => console.warn("Webhook note:", e));
+          } catch (e) {}
+
+          // 3. Reset form and show success
           closeModal();
-          setStatus("✨ გმადლობთ რეგისტრაციისთვის! ✨<br/>ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ გადახდის დადასტურებისთანავე.");
+          if (form) form.reset();
+          if (submitBtn) submitBtn.disabled = false;
+          confirmBtn.disabled = false;
+          confirmBtn.innerHTML = originalText;
+          pendingRegistrationPayload = null;
+
+          setStatus("✨ რეგისტრაცია და გადახდა წარმატებით დადასტურდა! ✨<br/>ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ.");
         });
       }
 
