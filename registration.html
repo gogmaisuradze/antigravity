@@ -718,10 +718,9 @@
         });
       }
 
-      // Direct mobile deep linking handler (App only, NO automatic website force-redirect)
-      function openBankApp(iban, appSchemes, bankName, btnElement) {
-        const targetIban = iban || "GE93BG0000000192399800";
-        const schemes = Array.isArray(appSchemes) ? appSchemes : [appSchemes];
+      // Handle Bank Button Clicks (Computer Web Portals vs Mobile App Deep Links)
+      function handleBankButtonClick(bankType, btnElement) {
+        const targetIban = "GE93BG0000000192399800";
 
         // 1. Copy IBAN to clipboard synchronously
         try {
@@ -731,6 +730,7 @@
         } catch (e) {}
 
         // 2. Visual feedback on button
+        const bankName = bankType === "bog" ? "საქართველოს ბანკ" : "თიბისი ბანკ";
         if (btnElement) {
           const originalHTML = btnElement.innerHTML;
           btnElement.innerHTML = `
@@ -741,23 +741,41 @@
           `;
           setTimeout(() => {
             btnElement.innerHTML = originalHTML;
-          }, 4000);
+          }, 3500);
         }
 
-        // 3. Sequentially trigger mobile app URI schemes (NO web force-redirect!)
-        schemes.forEach((scheme, index) => {
-          setTimeout(() => {
-            window.location.href = scheme;
-          }, index * 300);
-        });
-      }
+        // 3. Desktop Web vs Mobile App Behavior
+        const isMobileOrScanned = isMobileDevice || urlParams.get("pay_mobile") === "true";
 
-      if (tbcBtn) {
-        tbcBtn.addEventListener("click", () => openBankApp("GE93BG0000000192399800", ["tbcbank://", "tbc-mobile://", "tbc://", "tbconline://"], "თიბისი ბანკ", tbcBtn));
+        if (!isMobileOrScanned) {
+          // Computer / Desktop: Open exact web portals requested by user
+          if (bankType === "bog") {
+            window.open("https://ibank.bog.ge/", "_blank");
+          } else if (bankType === "tbc") {
+            window.open("https://tbconline.ge/tbcrd/login?", "_blank");
+          }
+        } else {
+          // Mobile Phone: Open Mobile Bank Apps directly
+          if (bankType === "bog") {
+            const bogSchemes = ["bogmbank://", "bogmobile://"];
+            bogSchemes.forEach((scheme, index) => {
+              setTimeout(() => { window.location.href = scheme; }, index * 300);
+            });
+          } else if (bankType === "tbc") {
+            const tbcSchemes = ["tbcbank://", "tbc-mobile://", "tbc://", "tbconline://"];
+            tbcSchemes.forEach((scheme, index) => {
+              setTimeout(() => { window.location.href = scheme; }, index * 300);
+            });
+          }
+        }
       }
 
       if (bogBtn) {
-        bogBtn.addEventListener("click", () => openBankApp("GE93BG0000000192399800", ["bogmbank://", "bogmobile://"], "საქართველოს ბანკ", bogBtn));
+        bogBtn.addEventListener("click", () => handleBankButtonClick("bog", bogBtn));
+      }
+
+      if (tbcBtn) {
+        tbcBtn.addEventListener("click", () => handleBankButtonClick("tbc", tbcBtn));
       }
     });
   </script>
