@@ -435,18 +435,46 @@
         }
       }
 
-      // Check if opened on mobile via scanned QR code (with query parameters)
+      // Check if opened on mobile via scanned QR code or redirected from booking modal
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get("pay_mobile") === "true") {
         const name = urlParams.get("name") || "";
         const course = urlParams.get("course") || "";
+        const phone = urlParams.get("phone") || "";
+
+        // Auto-fill form fields if available
+        if (name) {
+          const parts = name.split(" ");
+          if (parts[0] && document.getElementById("reg-first-name")) {
+            document.getElementById("reg-first-name").value = parts[0];
+          }
+          if (parts[1] && document.getElementById("reg-last-name")) {
+            document.getElementById("reg-last-name").value = parts.slice(1).join(" ");
+          }
+        }
+        if (phone && document.getElementById("reg-phone")) {
+          document.getElementById("reg-phone").value = phone;
+        }
+        if (course && document.getElementById("reg-course")) {
+          document.getElementById("reg-course").value = course;
+        }
+
+        const firstNameVal = document.getElementById("reg-first-name")?.value || "";
+        const lastNameVal = document.getElementById("reg-last-name")?.value || "";
+        const phoneVal = document.getElementById("reg-phone")?.value || "";
+        const birthdateVal = document.getElementById("reg-birthdate")?.value || "";
+        const courseVal = document.getElementById("reg-course")?.value || course || "ინდივიდუალური ფსიქოთერაპია";
+
+        pendingRegistrationPayload = {
+          first_name: firstNameVal || name || "მომხმარებელი",
+          last_name: lastNameVal || "",
+          phone: phoneVal || phone || "N/A",
+          birthdate: birthdateVal || "N/A",
+          register_for: courseVal
+        };
 
         if (purposeText) {
-          if (name && course) {
-            purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${name} (${course})</strong>`;
-          } else {
-            purposeText.innerHTML = `რეგისტრაციის საფასური`;
-          }
+          purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${pendingRegistrationPayload.first_name} ${pendingRegistrationPayload.last_name} (${courseVal})</strong>`;
         }
         
         // Show mobile view in modal immediately

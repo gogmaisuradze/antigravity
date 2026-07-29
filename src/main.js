@@ -507,51 +507,25 @@ function initFormValidation() {
         });
       }
 
-      // Send to Telegram if Bot Credentials are configured
-      if (telegramBotToken && telegramChatId) {
-        const telegramMessage = `🔔 *ახალი ჯავშანი საიტიდან!* 📅\n\n` +
-          `👤 *სახელი:* ${bookingData.firstName}\n` +
-          `👤 *გვარი:* ${bookingData.lastName}\n` +
-          `📞 *ტელეფონი:* ${bookingData.phone}\n` +
-          `📧 *ელ-ფოსტა:* ${bookingData.email}\n` +
-          `📅 *თარიღი:* ${bookingData.date}\n` +
-          `💼 *სერვისი:* ${bookingData.service}\n` +
-          `✉️ *შეტყობინება:* ${bookingData.message || 'ცარიელი'}\n\n` +
-          `🔗 *გვერდი:* ${bookingData.sourceUrl}`;
+      // Save persistence data
+      try {
+        localStorage.setItem('user_first_name', bookingData.firstName);
+        localStorage.setItem('user_last_name', bookingData.lastName);
+        localStorage.setItem('user_phone', bookingData.phone);
+      } catch (e) {}
 
-        fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            chat_id: telegramChatId,
-            text: telegramMessage,
-            parse_mode: 'Markdown'
-          })
-        })
-        .then(response => {
-          if (!response.ok) {
-            console.warn('Telegram Bot API response was not ok');
-          }
-        })
-        .catch(err => {
-          console.error('Error sending message to Telegram:', err);
-        });
-      }
-
-      // If inside our booking modal, close the modal first
+      // If inside our booking modal or booking form, close modal and redirect to payment registration page
       const modal = document.getElementById('booking-modal');
       if (modal && !modal.classList.contains('opacity-0')) {
         const closeBtn = document.getElementById('close-modal-btn');
         if (closeBtn) closeBtn.click();
-        
-        showToast('ჯავშანი წარმატებით მიღებულია! ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ.');
-      } else {
-        showToast('შეტყობინება წარმატებით გაიგზავნა! ჩვენ მალე დაგიკავშირდებით.');
       }
 
       form.reset();
+
+      // Redirect seamlessly to registration payment confirmation page
+      const targetUrl = `/registration.html?pay_mobile=true&name=${encodeURIComponent(bookingData.firstName + ' ' + bookingData.lastName)}&course=${encodeURIComponent(bookingData.service)}&phone=${encodeURIComponent(bookingData.phone)}`;
+      window.location.href = targetUrl;
     }
   });
 }
