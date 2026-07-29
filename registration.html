@@ -614,49 +614,54 @@
         });
       }
 
-      // Direct mobile deep linking handler with immediate button feedback
-      function triggerBankApp(scheme, webUrl, btnElement) {
-        const iban = "GE93BG0000000192399800";
-        
-        // 1. Copy IBAN to clipboard synchronously
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(iban);
-          }
-        } catch (e) {}
+      // Direct mobile deep linking handler with exact user workflow
+      function openBankApp(iban, appScheme, webUrl, bankName, btnElement) {
+        const targetIban = iban || "GE93BG0000000192399800";
 
-        // 2. Immediate visual feedback on the button
-        if (btnElement) {
-          const originalHTML = btnElement.innerHTML;
-          btnElement.innerHTML = `
-            <div class="flex flex-col items-center justify-center py-1.5">
-              <span class="material-symbols-outlined text-xl text-emerald-400 mb-0.5">check_circle</span>
-              <span class="text-xs font-bold text-white">დაკოპირდა!</span>
-              <span class="text-[9px] text-emerald-300 mt-0.5">გადადიხართ ბანკში...</span>
-            </div>
-          `;
+        const launchApp = () => {
+          // Visual button feedback
+          if (btnElement) {
+            const originalHTML = btnElement.innerHTML;
+            btnElement.innerHTML = `
+              <div class="flex flex-col items-center justify-center py-1">
+                <span class="material-symbols-outlined text-xl text-white mb-0.5 animate-bounce">check_circle</span>
+                <span class="text-xs font-bold text-white">IBAN დაკოპირდა!</span>
+                <span class="text-[9px] text-white/90 mt-0.5 font-medium">გადადიხართ ${bankName}-ში...</span>
+              </div>
+            `;
+            setTimeout(() => {
+              btnElement.innerHTML = originalHTML;
+            }, 3500);
+          }
+
+          // Launch mobile bank app authorization screen
+          window.location.href = appScheme;
+
+          // Fallback to web banking if app is not installed
           setTimeout(() => {
-            btnElement.innerHTML = originalHTML;
-          }, 3000);
+            if (!document.hidden && !document.webkitHidden && webUrl) {
+              window.location.href = webUrl;
+            }
+          }, 2500);
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(targetIban).then(() => {
+            launchApp();
+          }).catch(() => {
+            launchApp();
+          });
+        } else {
+          launchApp();
         }
-
-        // 3. Directly trigger custom scheme on click event (required by iOS Safari & Android Chrome)
-        window.location.href = scheme;
-
-        // 4. Fallback to web banking after delay if app is not installed
-        setTimeout(() => {
-          if (!document.hidden && !document.webkitHidden) {
-            window.location.href = webUrl;
-          }
-        }, 2200);
       }
 
       if (tbcBtn) {
-        tbcBtn.addEventListener("click", () => triggerBankApp("tbcbank://", "https://www.tbconline.ge", tbcBtn));
+        tbcBtn.addEventListener("click", () => openBankApp("GE93BG0000000192399800", "tbc-mobile://", "https://www.tbconline.ge", "თიბისი ბანკ", tbcBtn));
       }
 
       if (bogBtn) {
-        bogBtn.addEventListener("click", () => triggerBankApp("bogmobile://", "https://bog.ge", bogBtn));
+        bogBtn.addEventListener("click", () => openBankApp("GE93BG0000000192399800", "bogmbank://", "https://bog.ge", "საქართველოს ბანკ", bogBtn));
       }
     });
   </script>
