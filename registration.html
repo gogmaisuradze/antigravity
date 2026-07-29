@@ -309,12 +309,15 @@
         <p class="text-xs text-white/60 mt-1">რეგისტრაციის დასასრულებლად გადაიხადეთ კურსის საფასური</p>
       </div>
 
-      <!-- QR Code Display (Desktop Only - Hidden on Mobile) -->
-      <div id="desktop-qr-container" class="hidden sm:block my-4 p-3 bg-white rounded-2xl text-center shadow-lg border border-white/20">
-        <img id="qr-code-img" src="" alt="Scan with phone camera to pay" class="w-44 h-44 mx-auto rounded-lg" />
-        <p class="text-[11px] text-slate-700 font-semibold mt-2 flex items-center justify-center gap-1">
-          <span class="material-symbols-outlined text-sm text-[#ff7900]">photo_camera</span>
+      <!-- QR Code Display (Desktop / Computer Version) -->
+      <div id="desktop-qr-container" class="hidden sm:block my-4 p-4 bg-white rounded-2xl text-center shadow-xl border border-slate-200">
+        <img id="qr-code-img" src="" alt="Scan with phone camera to pay" class="w-48 h-48 mx-auto rounded-xl p-1 bg-white border border-slate-100 shadow-inner" />
+        <p class="text-xs text-slate-800 font-extrabold mt-3 flex items-center justify-center gap-1.5">
+          <span class="material-symbols-outlined text-base text-[#ff6700]">photo_camera</span>
           დაასკანერეთ ტელეფონის კამერით
+        </p>
+        <p class="text-[11px] text-slate-500 font-medium mt-1">
+          ტელეფონით დასკანერებისას ავტომატურად გაგეხსნებათ საქართველოს ბანკისა და თიბისის გადახდის აპლიკაციები 📱
         </p>
       </div>
 
@@ -568,7 +571,7 @@
           if (mobileApps) mobileApps.classList.remove("hidden");
         } else {
           if (desktopQr) desktopQr.classList.remove("hidden");
-          if (mobileApps) mobileApps.classList.add("hidden");
+          if (mobileApps) mobileApps.classList.remove("hidden");
         }
 
         // Open Modal
