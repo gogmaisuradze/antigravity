@@ -511,12 +511,31 @@
         if (purposeText) {
           purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${pendingRegistrationPayload.first_name} ${pendingRegistrationPayload.last_name} (${courseVal})</strong>`;
         }
+
+        // Generate QR Code URL
+        const mobilePayUrl = `${window.location.origin}/registration.html?pay_mobile=true&name=${encodeURIComponent(pendingRegistrationPayload.first_name + ' ' + pendingRegistrationPayload.last_name)}&course=${encodeURIComponent(courseVal)}`;
+        setQrCodeUrl(mobilePayUrl);
         
-        // Show mobile view in modal immediately
+        // Show view in modal immediately based on actual device
         const desktopQr = document.getElementById("desktop-qr-container");
         const mobileApps = document.getElementById("mobile-apps-container");
-        if (desktopQr) desktopQr.classList.add("hidden");
-        if (mobileApps) mobileApps.classList.remove("hidden");
+        const headerText = document.getElementById("bank-buttons-header-text");
+        const bogBadge = document.getElementById("bog-badge-text");
+        const tbcBadge = document.getElementById("tbc-badge-text");
+
+        if (isMobileDevice) {
+          if (desktopQr) desktopQr.classList.add("hidden");
+          if (mobileApps) mobileApps.classList.remove("hidden");
+          if (headerText) headerText.textContent = "აირჩიეთ მობაილ ბანკი გადასასვლელად:";
+          if (bogBadge) bogBadge.textContent = "BOG Mobile";
+          if (tbcBadge) tbcBadge.textContent = "TBC Mobile";
+        } else {
+          if (desktopQr) desktopQr.classList.remove("hidden");
+          if (mobileApps) mobileApps.classList.remove("hidden");
+          if (headerText) headerText.textContent = "ან გადადით ინტერნეტ ბანკში:";
+          if (bogBadge) bogBadge.textContent = "iBank Web";
+          if (tbcBadge) tbcBadge.textContent = "TBC Web";
+        }
 
         if (modal && modalCard) {
           modal.classList.remove("hidden");
@@ -596,7 +615,7 @@
         const bogBadge = document.getElementById("bog-badge-text");
         const tbcBadge = document.getElementById("tbc-badge-text");
 
-        if (isMobileDevice || urlParams.get("pay_mobile") === "true") {
+        if (isMobileDevice) {
           if (desktopQr) desktopQr.classList.add("hidden");
           if (mobileApps) mobileApps.classList.remove("hidden");
           if (headerText) headerText.textContent = "აირჩიეთ მობაილ ბანკი გადასასვლელად:";
@@ -744,10 +763,8 @@
           }, 3500);
         }
 
-        // 3. Desktop Web vs Mobile App Behavior
-        const isMobileOrScanned = isMobileDevice || urlParams.get("pay_mobile") === "true";
-
-        if (!isMobileOrScanned) {
+        // 3. Desktop Web vs Mobile App Behavior based on actual device
+        if (!isMobileDevice) {
           // Computer / Desktop: Open exact web portals requested by user
           if (bankType === "bog") {
             window.open("https://ibank.bog.ge/", "_blank");
