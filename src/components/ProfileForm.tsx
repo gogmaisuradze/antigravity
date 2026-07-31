@@ -5,14 +5,14 @@ import { RollerPicker, playTickSound, getSharedAudioContext } from "./RollerPick
 import { API_URLS } from "../config";
 
 const THEMES = [
-  { value: CalculationType.HOROSCOPE, label: "დასავლური ჰოროსკოპი", description: "ზოდიაქოს ნიშანი, ხასიათი, სტიქიები და კოსმოსური ტრენდები.", numeral: "I" },
-  { value: CalculationType.ENNEAGRAM, label: "ენიაგრამა", description: "თქვენი ფსიქოტიპი, ფარული მოტივაციები, შიშები და ზრდის გზები.", numeral: "II" },
-  { value: CalculationType.PSYCHOMATRIX, label: "ფსიქო მატრიცა", description: "პითაგორას ციფრული მატრიცა: ჯანმრთელობა, იღბალი, ენერგია და ნიჭი.", numeral: "III" },
-  { value: CalculationType.NUMEROLOGY, label: "ნუმეროლოგია", description: "ბედისწერის რიცხვი, თქვენი უმაღლესი მისია და ცხოვრებისეული გზა.", numeral: "IV" },
-  { value: CalculationType.HUMAN_DESIGN, label: "ადამიანის დიზაინი", description: "ენერგეტიკული ტიპი, პროფილი, ავტორიტეტი და ცხოვრებისეული სტრატეგია.", numeral: "V" },
-  { value: CalculationType.VEDIC, label: "ვედური ასტროლოგია", description: "ჯიოტიში: მთვარის ნიშანი, ნაკშატრები და კარმული ვალდებულებები.", numeral: "VI" },
-  { value: CalculationType.BAZI, label: "ბა-ძი (BaZi)", description: "ბედისწერის 4 სვეტი: დღის მბრძანებელი და 5 ელემენტის ბალანსი.", numeral: "VII" },
-  { value: CalculationType.ARCHETYPE, label: "არქეტიპული ანალიზი", description: "იუნგის 12 ფსიქოლოგიური არქეტიპი და ჩრდილოვანი მხარეები.", numeral: "VIII" },
+  { value: CalculationType.HOROSCOPE, label: "დასავლური ჰოროსკოპი", description: "ზოდიაქოს ნიშანი, ხასიათი, სტიქიები და კოსმოსური ტრენდები.", numeral: "I", requiresTime: true },
+  { value: CalculationType.ENNEAGRAM, label: "ენიაგრამა", description: "თქვენი ფსიქოტიპი, ფარული მოტივაციები, შიშები და ზრდის გზები.", numeral: "II", requiresTime: false },
+  { value: CalculationType.PSYCHOMATRIX, label: "ფსიქო მატრიცა", description: "პითაგორას ციფრული მატრიცა: ჯანმრთელობა, იღბალი, ენერგია და ნიჭი.", numeral: "III", requiresTime: false },
+  { value: CalculationType.NUMEROLOGY, label: "ნუმეროლოგია", description: "ბედისწერის რიცხვი, თქვენი უმაღლესი მისია და ცხოვრებისეული გზა.", numeral: "IV", requiresTime: false },
+  { value: CalculationType.HUMAN_DESIGN, label: "ადამიანის დიზაინი", description: "ენერგეტიკული ტიპი, პროფილი, ავტორიტეტი და ცხოვრებისეული სტრატეგია.", numeral: "V", requiresTime: true },
+  { value: CalculationType.VEDIC, label: "ვედური ასტროლოგია", description: "ჯიოტიში: მთვარის ნიშანი, ნაკშატრები და კარმული ვალდებულებები.", numeral: "VI", requiresTime: true },
+  { value: CalculationType.BAZI, label: "ბა-ძი (BaZi)", description: "ბედისწერის 4 სვეტი: დღის მბრძანებელი და 5 ელემენტის ბალანსი.", numeral: "VII", requiresTime: true },
+  { value: CalculationType.ARCHETYPE, label: "არქეტიპული ანალიზი", description: "იუნგის 12 ფსიქოლოგიური არქეტიპი და ჩრდილოვანი მხარეები.", numeral: "VIII", requiresTime: false },
 ];
 
 const getTarotIllustration = (type: CalculationType) => {
@@ -233,6 +233,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [day, setDay] = useState(1);
   const [month, setMonth] = useState(1);
   const [year, setYear] = useState(1995);
+  const [birthTime, setBirthTime] = useState(() => {
+    return savedProfile?.birthTime || "";
+  });
   const [phone, setPhone] = useState(() => {
     return savedProfile?.phone || "";
   });
@@ -423,6 +426,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           day,
           month,
           year,
+          birthTime: birthTime.trim() || undefined,
           phone: normalizedPhone
         }),
       });
@@ -440,6 +444,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
             day,
             month,
             year,
+            birthTime: birthTime.trim() || undefined,
             birthPlace: finalBirthPlace
           };
           list = list.filter((p: any) => p.phone !== normalizedPhone);
@@ -448,7 +453,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         } catch (e) {
           console.error("Error updating saved_profiles:", e);
         }
-        onProfileSaved(data.profile, selectedTheme);
+        const profileObj = {
+          ...data.profile,
+          birthTime: birthTime.trim() || undefined
+        };
+        onProfileSaved(profileObj, selectedTheme);
       } else {
         playErrorSound();
         setError(data.error || "შეცდომა შენახვისას");
@@ -645,6 +654,43 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
               არჩეული თარიღი: {day} {months.find(m => m.value === month)?.label}, {year}
             </p>
           </div>
+        </div>
+
+        {/* Birth Time Input Field for ID Models requiring exact time */}
+        <div className="pt-2 pb-4 max-w-[480px] mx-auto w-full">
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-[12px] font-extrabold uppercase tracking-widest text-[#f1bf62] flex items-center gap-2">
+              <span>⏰ დაბადების საათი</span>
+              <span className="text-[10px] text-[#c6c6ce]/60 font-semibold lowercase tracking-normal">(არასავალდებულო)</span>
+            </label>
+            {THEMES.find(t => t.value === (hoveredTheme || selectedTheme))?.requiresTime && (
+              <span className="text-[10px] bg-[#f1bf62]/10 border border-[#f1bf62]/30 text-[#f1bf62] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider animate-pulse flex items-center gap-1">
+                ✦ საჭიროა ზუსტი ანალიზისთვის
+              </span>
+            )}
+          </div>
+          <div className="relative bg-[#1e2022]/40 rounded-2xl py-3 px-5 border border-white/10 shadow-xl flex items-center justify-between">
+            <input
+              type="time"
+              value={birthTime}
+              onChange={(e) => setBirthTime(e.target.value)}
+              className="w-full bg-transparent border-0 text-base text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
+              style={{ colorScheme: 'dark' }}
+            />
+            {birthTime && (
+              <button
+                type="button"
+                onClick={() => setBirthTime("")}
+                className="text-xs text-white/40 hover:text-white ml-2 cursor-pointer font-bold"
+                title="წაშლა"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+          <p className="text-[11px] text-[#c6c6ce]/60 font-medium text-center mt-1.5 leading-relaxed">
+            * ადამიანის დიზაინის, ჰოროსკოპის, ბაზისა და ვედური ასტროლოგიის მოდელებისთვის საათი უზრუნველყოფს მაქსიმალურ სიზუსტეს.
+          </p>
         </div>
 
         {/* Active / Hovered Card detailed description box - Now between dates and the deck */}

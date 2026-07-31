@@ -189,6 +189,9 @@ export default function App() {
   const [invitedPhone, setInvitedPhone] = useState<string>("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showTimeModal, setShowTimeModal] = useState(false);
+  const [tempBirthTime, setTempBirthTime] = useState("");
+  const [savingTime, setSavingTime] = useState(false);
   const [deliveryPhone, setDeliveryPhone] = useState("");
   const [deliveryEmail, setDeliveryEmail] = useState("");
   const [deliveryStatus, setDeliveryStatus] = useState<string | null>(null);
@@ -303,7 +306,7 @@ export default function App() {
     }, 1200);
 
     try {
-      const data = await generateReading(phone, type);
+      const data = await generateReading(phone, type, userProfile?.birthTime);
       if (data.success) {
         setReading(data);
       } else {
@@ -725,13 +728,30 @@ export default function App() {
                         <UserCheck className="w-3 h-3 text-emerald-400" /> აქტიური
                       </span>
                     </div>
-                    <p className="text-[12px] text-[#c6c6ce]/70 font-semibold uppercase tracking-widest leading-relaxed">
-                      დაბადებული: {userProfile.day}/{userProfile.month}/{userProfile.year} • {userProfile.birthPlace}
+                    <p className="text-[12px] text-[#c6c6ce]/80 font-semibold uppercase tracking-widest leading-relaxed">
+                      დაბადებული: {userProfile.day}/{userProfile.month}/{userProfile.year}
+                      {userProfile.birthTime ? (
+                        <span className="text-[#f1bf62] font-bold"> • ⏰ {userProfile.birthTime} სთ</span>
+                      ) : (
+                        <span className="text-[#c6c6ce]/50"> • ⏰ საათი არ არის</span>
+                      )}
+                      {` • ${userProfile.birthPlace || "თბილისი"}`}
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <button
+                    onClick={() => {
+                      setTempBirthTime(userProfile.birthTime || "");
+                      setShowTimeModal(true);
+                    }}
+                    className="px-4 py-2.5 bg-[#f1bf62]/10 hover:bg-[#f1bf62]/20 text-[#f1bf62] border border-[#f1bf62]/30 hover:border-[#f1bf62]/60 text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer self-start sm:self-auto shadow-sm"
+                    id="btn-trigger-time"
+                  >
+                    <span>⏰ {userProfile.birthTime ? "საათის შეცვლა" : "საათის ჩამატება"}</span>
+                  </button>
+
                   <button
                     onClick={() => {
                       setShowResetConfirm(true);
@@ -775,11 +795,37 @@ export default function App() {
                     setError(null);
                     setReadingStage('IDLE');
                   }}
-                  className="inline-flex items-center space-x-2 text-[11px] tracking-widest text-[#c6c6ce] hover:text-[#f1bf62] font-bold uppercase transition-all mb-6 group cursor-pointer"
+                  className="inline-flex items-center space-x-2 text-[11px] tracking-widest text-[#c6c6ce] hover:text-[#f1bf62] font-bold uppercase transition-all mb-4 group cursor-pointer"
                 >
                   <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
                   <span>უკან დაბრუნება</span>
                 </button>
+
+                {/* Model Birth Time Status & Quick Add Bar */}
+                {selectedType && [CalculationType.HOROSCOPE, CalculationType.HUMAN_DESIGN, CalculationType.VEDIC, CalculationType.BAZI].includes(selectedType) && (
+                  <div className="mb-6 p-3.5 bg-[#f1bf62]/10 border border-[#f1bf62]/30 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-left shadow-sm">
+                    <div className="flex items-center space-x-2.5">
+                      <span className="material-symbols-outlined text-[#f1bf62] text-xl shrink-0">schedule</span>
+                      <p className="text-xs text-[#c6c6ce] font-medium leading-relaxed">
+                        <strong className="text-[#f1bf62] font-bold">დაბადების საათი:</strong>{' '}
+                        {userProfile?.birthTime ? (
+                          <span className="text-emerald-400 font-bold">მითითებულია ({userProfile.birthTime} სთ) ✓</span>
+                        ) : (
+                          <span className="text-amber-300 font-semibold">არ არის მითითებული (სასურველია ზუსტი ანალიზისთვის)</span>
+                        )}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setTempBirthTime(userProfile?.birthTime || "");
+                        setShowTimeModal(true);
+                      }}
+                      className="px-3.5 py-1.5 bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] text-[10px] font-black uppercase tracking-wider rounded-lg transition-colors cursor-pointer shrink-0 shadow-sm"
+                    >
+                      {userProfile?.birthTime ? "საათის შეცვლა" : "+ საათის ჩამატება"}
+                    </button>
+                  </div>
+                )}
 
                 {/* STEP 1: Fast Loading Screen immediately after selection */}
                 {(readingStage === 'LOADING_SHORT' || (readingStage === 'SHORT_READY' && !reading)) && (
@@ -1099,6 +1145,98 @@ export default function App() {
           </div>
         )}
       </div>
+
+      {/* Birth Time Inline Quick Edit Modal */}
+      {showTimeModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="bg-[#1e2022] border border-[#f1bf62]/30 p-6 sm:p-8 rounded-2xl max-w-md w-full shadow-2xl relative space-y-6 text-left">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <h3 className="text-base font-extrabold text-[#f1bf62] uppercase tracking-wider flex items-center gap-2 font-headline">
+                <span className="material-symbols-outlined text-[#f1bf62] text-xl">schedule</span>
+                <span>დაბადების საათის ჩამატება</span>
+              </h3>
+              <button
+                onClick={() => setShowTimeModal(false)}
+                className="text-[#c6c6ce]/60 hover:text-white text-lg font-bold cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <p className="text-xs text-[#c6c6ce]/80 leading-relaxed font-medium">
+              ადამიანის დიზაინის, ჰოროსკოპის, ვედური ასტროლოგიისა და ბაზის მოდელებისთვის ზუსტი საათი (მაგ: 14:30) უზრუნველყოფს მაქსიმალურ სიზუსტეს.
+            </p>
+
+            <div className="space-y-2">
+              <label className="block text-[11px] font-bold uppercase tracking-widest text-[#f1bf62]">
+                მიუთითეთ დაბადების საათი:
+              </label>
+              <div className="relative bg-[#121416] border border-white/20 rounded-xl p-2.5">
+                <input
+                  type="time"
+                  value={tempBirthTime}
+                  onChange={(e) => setTempBirthTime(e.target.value)}
+                  className="w-full bg-transparent border-0 text-lg text-white font-bold text-center tracking-widest focus:outline-none focus:border-[#f1bf62] [color-scheme:dark]"
+                  style={{ colorScheme: 'dark' }}
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowTimeModal(false)}
+                className="px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-[#c6c6ce] rounded-xl uppercase tracking-wider cursor-pointer"
+              >
+                გაუქმება
+              </button>
+              <button
+                type="button"
+                disabled={savingTime}
+                onClick={async () => {
+                  if (!userProfile) return;
+                  setSavingTime(true);
+                  const updatedTime = tempBirthTime.trim() || undefined;
+                  const updatedProfile: BirthProfile = {
+                    ...userProfile,
+                    birthTime: updatedTime
+                  };
+
+                  setUserProfile(updatedProfile);
+
+                  try {
+                    await saveProfile({
+                      name: userProfile.name,
+                      surname: userProfile.surname,
+                      birthPlace: userProfile.birthPlace || "საქართველო",
+                      day: userProfile.day,
+                      month: userProfile.month,
+                      year: userProfile.year,
+                      birthTime: updatedTime,
+                      phone: userProfile.phone
+                    });
+                  } catch (e) {
+                    console.error("Error saving birthTime inline:", e);
+                  } finally {
+                    setSavingTime(false);
+                    setShowTimeModal(false);
+                    if (selectedType) {
+                      handleSelectReading(userProfile.phone, selectedType);
+                    }
+                  }
+                }}
+                className="px-6 py-2.5 bg-[#f1bf62] hover:bg-[#f1bf62]/90 text-[#121416] text-xs font-black rounded-xl uppercase tracking-widest cursor-pointer shadow-[0_0_15px_rgba(241,191,98,0.3)] flex items-center gap-1.5"
+              >
+                {savingTime ? (
+                  <RefreshCw className="w-4 h-4 animate-spin text-[#121416]" />
+                ) : (
+                  <span>შენახვა</span>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer copyright */}
       <footer className="w-full text-center border-t border-white/10 mt-24 pt-6 text-[10px] text-[#c6c6ce]/40 font-bold tracking-[0.2em] uppercase">

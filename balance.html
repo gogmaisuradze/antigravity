@@ -1417,15 +1417,29 @@
                         />
                       </div>
                     </div>
-                    <div>
-                      <label class="block text-[10px] uppercase tracking-widest text-[#c6c6ce]/80 mb-1.5 font-bold font-headline">
-                        დაბადების თარიღი:
-                      </label>
-                      <input
-                        type="date"
-                        id="partner-birthdate"
-                        class="bg-[#1e2022]/40 rounded-xl py-2 px-4 border border-white/10 text-sm text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
-                      />
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-[#c6c6ce]/80 mb-1.5 font-bold font-headline">
+                          დაბადების თარიღი:
+                        </label>
+                        <input
+                          type="date"
+                          id="partner-birthdate"
+                          class="w-full bg-[#1e2022]/40 rounded-xl py-2 px-4 border border-white/10 text-sm text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-[#f1bf62] mb-1.5 font-bold font-headline flex items-center justify-between">
+                          <span>⏰ დაბადების საათი:</span>
+                          <span class="text-[9px] text-[#c6c6ce]/50 font-normal lowercase">(არასავალდებულო)</span>
+                        </label>
+                        <input
+                          type="time"
+                          id="partner-birthtime"
+                          class="w-full bg-[#1e2022]/40 rounded-xl py-2 px-4 border border-white/10 text-sm text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
+                          style="color-scheme: dark;"
+                        />
+                      </div>
                     </div>
                   </div>
 

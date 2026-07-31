@@ -17,6 +17,7 @@ export interface BirthProfile {
   day: number;
   month: number;
   year: number;
+  birthTime?: string; // e.g. "14:30"
   createdAt: string;
 }
 
