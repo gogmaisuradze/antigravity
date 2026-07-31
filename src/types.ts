@@ -39,8 +39,8 @@ export interface CompatibilityRequest {
 }
 
 export interface CompatibilityResponse {
-  profileA: BirthProfile;
-  profileB: BirthProfile;
+  profileA?: BirthProfile;
+  profileB?: BirthProfile;
   compatibilityScore: number; // 0 to 100
   dimensions: {
     astrological: number; // 0 to 100
@@ -49,4 +49,6 @@ export interface CompatibilityResponse {
     karmic: number; // 0 to 100
   };
   narrative: string; // georgian text response from Gemini
+  waLink?: string;
+  waCode?: string;
 }
