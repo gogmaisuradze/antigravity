@@ -581,29 +581,50 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           />
         </div>
 
-        {/* Unified iOS-Style Circular Date Selector or Standard Calendar alternative */}
-        <div className="space-y-4 pt-6 pb-3 md:pt-8 md:pb-5">
-          <label className="block text-[12px] font-extrabold uppercase tracking-widest text-[#c6c6ce]/80 mb-1 text-center w-full">
-            {useStandardCalendar 
-              ? "დაბადების თარიღი (დააწკაპუნეთ კალენდრიდან ასარჩევად)" 
-              : "დაბადების თარიღი (დაატრიალეთ როლიკი ჩასასწორებლად)"}
-          </label>
+        {/* Unified Date Selector with Calendar Toggle Button */}
+        <div className="space-y-3 pt-4 pb-3 md:pt-6 md:pb-4 max-w-[480px] mx-auto w-full">
+          <div className="flex items-center justify-between">
+            <label className="text-[12px] font-extrabold uppercase tracking-widest text-[#f1bf62] flex items-center gap-2">
+              <span>📅 დაბადების თარიღი</span>
+            </label>
+            
+            {/* Calendar / Roller Toggle Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setUseStandardCalendar(!useStandardCalendar);
+                playExitCapSound();
+              }}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-[#f1bf62]/40 bg-[#f1bf62]/10 hover:bg-[#f1bf62]/25 text-[#f1bf62] text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm hover:scale-105"
+              title={useStandardCalendar ? "როლიკით არჩევა" : "კალენდრიდან არჩევა"}
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              <span>{useStandardCalendar ? "⚙️ როლიკი" : "📅 კალენდარი"}</span>
+            </button>
+          </div>
           
           {useStandardCalendar ? (
-            <div className="relative bg-[#1e2022]/40 rounded-2xl py-4 px-6 shadow-2xl border border-white/10 max-w-[480px] mx-auto overflow-hidden">
+            <div className="relative bg-[#1e2022]/60 rounded-2xl py-3 px-5 shadow-2xl border-2 border-[#f1bf62]/40 max-w-[480px] mx-auto overflow-hidden">
               <input
                 type="date"
                 value={`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`}
                 onChange={(e) => {
                   const val = e.target.value;
                   if (val) {
-                    const [y, m, d] = val.split('-').map(Number);
-                    setYear(y);
-                    setMonth(m);
-                    setDay(d);
+                    const parts = val.split('-');
+                    if (parts.length === 3) {
+                      const y = parseInt(parts[0], 10);
+                      const m = parseInt(parts[1], 10);
+                      const d = parseInt(parts[2], 10);
+                      if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
+                        setYear(y);
+                        setMonth(m);
+                        setDay(d);
+                      }
+                    }
                   }
                 }}
-                className="w-full bg-transparent border-0 py-1 text-base text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
+                className="w-full bg-transparent border-0 py-2 text-lg text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
                 style={{ colorScheme: 'dark' }}
                 required
               />
@@ -745,6 +766,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                           playExitCapSound();
                         }
                       }}
+                      onDoubleClick={() => {
+                        setSelectedTheme(theme.value);
+                        playExitCapSound();
+                        setTimeout(() => {
+                          const formEl = document.getElementById("profile-form") as HTMLFormElement;
+                          if (formEl) formEl.requestSubmit();
+                        }, 10);
+                      }}
                       className={`flex items-center justify-between px-3.5 py-3 rounded-xl border text-[11px] font-black uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer ${
                         isSelected
                           ? "bg-[#f1bf62] text-[#121416] border-[#f1bf62] shadow-[0_0_15px_rgba(241,191,98,0.3)] scale-[1.02]"
@@ -875,6 +904,17 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                   }
                 };
 
+                const handleCardDoubleClick = () => {
+                  setSelectedTheme(theme.value);
+                  playExitCapSound();
+                  setTimeout(() => {
+                    const formEl = document.getElementById("profile-form") as HTMLFormElement;
+                    if (formEl) {
+                      formEl.requestSubmit();
+                    }
+                  }, 10);
+                };
+
                 const distanceFromCenter = index - 3.5;
                 const dx = distanceFromCenter * cardSpacing;
                 const dy = 0;
@@ -896,6 +936,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                   <div
                     key={theme.value}
                     onClick={handleCardClick}
+                    onDoubleClick={handleCardDoubleClick}
                     onMouseEnter={() => setHoveredTheme(theme.value)}
                     onMouseLeave={() => setHoveredTheme(null)}
                     style={{
