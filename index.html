@@ -230,40 +230,43 @@
           </a>
         </div>
 
-        <!-- 3 Course Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          <!-- Card 1: Positive Psychotherapy (WAPP International) -->
-          <div class="bg-surface-container p-6 sm:p-8 rounded-2xl border border-white/10 hover:border-[#f1bf62]/40 hover:bg-[#1e2022]/90 transition-all duration-500 hover-glow group cursor-pointer flex flex-col justify-between relative overflow-hidden"
-               onclick="window.location.href='education.html'">
-            <div class="space-y-4">
-              <div class="flex justify-between items-start">
-                <div class="w-12 h-12 rounded-xl bg-[#f1bf62]/10 border border-[#f1bf62]/20 flex items-center justify-center text-[#f1bf62]">
+        <!-- Top Featured Card: Positive Psychotherapy (WAPP International) -->
+        <div class="bg-surface-container p-6 sm:p-10 md:p-12 rounded-2xl border border-white/10 hover:border-[#f1bf62]/40 hover:bg-[#1e2022]/90 transition-all duration-500 hover-glow group cursor-pointer relative overflow-hidden mb-6"
+             onclick="window.location.href='education.html'">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div class="space-y-4 max-w-3xl">
+              <div class="flex flex-wrap items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-[#f1bf62]/10 border border-[#f1bf62]/20 flex items-center justify-center text-[#f1bf62] shrink-0">
                   <span class="material-symbols-outlined text-2xl">workspace_premium</span>
                 </div>
-                <span class="text-[9px] font-black bg-[#f1bf62] text-[#121416] px-2.5 py-1 rounded-md uppercase tracking-wider font-headline shadow-md">
-                  WAPP ACCREDITED
+                <span class="text-[10px] sm:text-xs font-black bg-[#f1bf62] text-[#121416] px-3 py-1 rounded-lg uppercase tracking-wider font-headline shadow-md">
+                  WAPP ACCREDITED — საერთაშორისო პროგრამა
                 </span>
               </div>
 
-              <h3 class="text-lg sm:text-xl font-headline text-white group-hover:text-[#f1bf62] transition-colors leading-snug">
+              <h3 class="text-xl sm:text-3xl font-headline text-white group-hover:text-[#f1bf62] transition-colors leading-tight">
                 პოზიტიური ფსიქოთერაპია — WAPP საერთაშორისო პროგრამა
               </h3>
               
-              <p class="text-[#c6c6ce]/80 text-xs sm:text-sm leading-relaxed font-light">
-                პოზიტიური და ტრანსკულტურალური ფსიქოთერაპიის მსოფლიო ასოციაციის (WAPP, Wiesbaden, Germany) აკრედიტირებული საერთაშორისო სასერტიფიკატო კურსი.
+              <p class="text-[#c6c6ce]/80 text-sm sm:text-base leading-relaxed font-light">
+                პოზიტიური და ტრანსკულტურალური ფსიქოთერაპიის მსოფლიო ასოციაციის (WAPP, Wiesbaden, Germany) აკრედიტირებული საერთაშორისო სასერტიფიკატო კურსი. სიღრმისეული თეორიული და პრაქტიკული მომზადება საერთაშორისო სტანდარტებით.
               </p>
             </div>
 
-            <div class="pt-6 border-t border-white/5 mt-6 flex items-center justify-between">
-              <span class="text-[10px] sm:text-xs text-[#c6c6ce]/60 font-label uppercase tracking-widest font-bold">
-                საერთაშორისო სერტიფიკატი
+            <div class="self-stretch md:self-auto flex md:flex-col justify-between md:justify-center items-end gap-4 shrink-0 pt-4 md:pt-0 border-t md:border-t-0 border-white/5">
+              <span class="bg-[#f1bf62]/10 border border-[#f1bf62]/30 text-[#f1bf62] px-4 py-2 rounded-xl font-headline text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:bg-[#f1bf62] group-hover:text-[#121416] transition-all">
+                <span>კურსის დეტალები</span>
+                <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
               </span>
-              <span class="material-symbols-outlined text-[#f1bf62] text-lg transition-transform group-hover:translate-x-1.5">
-                arrow_forward
+              <span class="text-[10px] text-[#c6c6ce]/50 font-label uppercase tracking-widest">
+                WIESBADEN, GERMANY
               </span>
             </div>
           </div>
+        </div>
 
+        <!-- Bottom Row: 2 Remaining Course Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Card 2: Practical Psychology & Psychotherapy -->
           <div class="bg-surface-container p-6 sm:p-8 rounded-2xl border border-white/10 hover:border-[#f1bf62]/40 hover:bg-[#1e2022]/90 transition-all duration-500 hover-glow group cursor-pointer flex flex-col justify-between relative overflow-hidden"
                onclick="window.location.href='education.html'">
@@ -277,7 +280,7 @@
                 </span>
               </div>
 
-              <h3 class="text-lg sm:text-xl font-headline text-white group-hover:text-[#f1bf62] transition-colors leading-snug">
+              <h3 class="text-lg sm:text-2xl font-headline text-white group-hover:text-[#f1bf62] transition-colors leading-snug">
                 პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია
               </h3>
               
@@ -309,7 +312,7 @@
                 </span>
               </div>
 
-              <h3 class="text-lg sm:text-xl font-headline text-white group-hover:text-[#f1bf62] transition-colors leading-snug">
+              <h3 class="text-lg sm:text-2xl font-headline text-white group-hover:text-[#f1bf62] transition-colors leading-snug">
                 არტთერაპია — ერთწლიანი სასერტიფიკატო კურსი
               </h3>
               
