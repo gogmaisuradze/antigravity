@@ -1688,9 +1688,19 @@
               try {
                 const myPhone = localStorage.getItem("user_phone") || "";
                 
+                const partnerBirthtimeVal = document.getElementById("partner-birthtime") ? document.getElementById("partner-birthtime").value : "";
+                let pDay = 1, pMonth = 1, pYear = 1995;
+                if (partnerBirthdate) {
+                  const parts = partnerBirthdate.split('-').map(Number);
+                  if (parts.length === 3) {
+                    pYear = parts[0];
+                    pMonth = parts[1];
+                    pDay = parts[2];
+                  }
+                }
+
                 // If partner profile is not registered, register it first
                 if (partnerStatus === "not_found") {
-                  const [y, m, d] = partnerBirthdate.split('-').map(Number);
                   await fetch("https://meticulous-oyster.pikapod.net/webhook/profile", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -1699,20 +1709,28 @@
                       name: partnerName,
                       surname: partnerSurname,
                       birthPlace: "თბილისი",
-                      day: d,
-                      month: m,
-                      year: y
+                      day: pDay,
+                      month: pMonth,
+                      year: pYear,
+                      birthTime: partnerBirthtimeVal || undefined
                     })
                   });
                 }
 
-                // Compute compatibility
+                // Compute compatibility with full payload fallback
                 const response = await fetch("https://meticulous-oyster.pikapod.net/webhook/compatibility", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
                     phoneA: myPhone,
-                    phoneB: normPhone
+                    phoneB: normPhone,
+                    partnerName: partnerName || "",
+                    partnerSurname: partnerSurname || "",
+                    partnerDay: pDay,
+                    partnerMonth: pMonth,
+                    partnerYear: pYear,
+                    partnerBirthdate: partnerBirthdate || "",
+                    partnerBirthtime: partnerBirthtimeVal || ""
                   })
                 });
 
