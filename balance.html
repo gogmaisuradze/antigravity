@@ -834,20 +834,16 @@
         return answers[questions[currentQuestionIdx].id] !== undefined;
       }
 
-      // 6. UI Update
+      // 6. UI Update (Smooth step transition without container blinking/flashing)
       function renderStep() {
-        // Scroll slightly up to question card top when shifting step
-        quizQuestionsList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
         const currentBlock = Math.floor(currentQuestionIdx / 5);
-        const questionNumInBlock = (currentQuestionIdx % 5) + 1;
         const completionRate = Math.round(((currentQuestionIdx + 1) / 20) * 100);
 
         // Render single active question
         const q = questions[currentQuestionIdx];
         const selectedVal = answers[q.id];
         quizQuestionsList.innerHTML = `
-          <div class="flex flex-col space-y-6 p-8 md:p-10 rounded-3xl bg-white/5 border border-white/10 transition-all hover:bg-white/10 hover:border-[#f1bf62]/20 shadow-[0_12px_40px_rgba(0,0,0,0.3)] animate-fade-in relative backdrop-blur-md">
+          <div class="flex flex-col space-y-6 p-8 md:p-10 rounded-3xl bg-white/5 border border-white/10 transition-all hover:bg-white/10 hover:border-[#f1bf62]/20 shadow-[0_12px_40px_rgba(0,0,0,0.3)] relative backdrop-blur-md">
             <!-- Instruction text relocated directly inside the question panel -->
             <div class="flex items-center gap-2 text-xs md:text-sm text-[#c6c6ce]/60 uppercase tracking-widest font-black pb-3 border-b border-white/5 font-sans">
               <span class="material-symbols-outlined text-[#f1bf62] text-lg">info</span>
@@ -855,9 +851,9 @@
             </div>
 
             <!-- Question -->
-            <div class="text-base sm:text-lg md:text-xl font-bold text-white tracking-wide pl-2 leading-relaxed">
-              <span class="text-[#f1bf62] font-mono font-black text-xl sm:text-2xl mr-2">${currentQuestionIdx + 1}.</span>
-              ${q.text}
+            <div class="text-base sm:text-lg md:text-xl font-bold text-white tracking-wide pl-2 leading-relaxed min-h-[50px] flex items-center">
+              <span class="text-[#f1bf62] font-mono font-black text-xl sm:text-2xl mr-2.5 shrink-0">${currentQuestionIdx + 1}.</span>
+              <span>${q.text}</span>
             </div>
 
             <!-- Dials and Explanations logical row -->
@@ -873,7 +869,7 @@
                     <button type="button" 
                       data-question-id="${q.id}" 
                       data-value="${num}" 
-                      class="rating-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center text-base sm:text-xl font-black transition-all duration-300 transform active:scale-90 cursor-pointer ${activeClass}">
+                      class="rating-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center text-base sm:text-xl font-black transition-all duration-200 transform active:scale-90 cursor-pointer ${activeClass}">
                       ${num}
                     </button>
                   `;
@@ -924,7 +920,7 @@
           answeredList.innerHTML = answeredQuestions.map((q, idx) => {
             const val = answers[q.id];
             return `
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-white/5 border border-white/5 opacity-70 hover:opacity-100 transition-opacity animate-fade-in font-sans">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-white/5 border border-white/5 opacity-70 hover:opacity-100 transition-opacity font-sans">
                 <div class="text-xs sm:text-sm font-medium text-white/70">
                   <span class="text-[#f1bf62] font-mono mr-1.5 font-bold">${idx + 1}.</span>
                   ${q.text}
@@ -985,7 +981,7 @@
               }
             });
             
-            // 250ms organic autoplay transition
+            // Fast 120ms organic autoplay transition without blinking or screen jumping
             setTimeout(() => {
               if (currentQuestionIdx < 19) {
                 currentQuestionIdx++;
@@ -993,7 +989,7 @@
               } else {
                 calculateAndShowResults();
               }
-            }, 250);
+            }, 120);
           });
         });
 
