@@ -479,7 +479,7 @@ function initFormValidation() {
   const n8nWebhookUrl = ''; 
 
   // Paste your Telegram Bot settings here to automatically receive bookings
-  const telegramBotToken = '8563426842:AAEuhg8EXmAV18NXtlAaiky0ZzWGvNXkJQU'; // E.g., 'YOUR_BOT_TOKEN'
+  const telegramBotToken = ''; // ტოკენი ამოღებულია უსაფრთხოებისთვის — შეტყობინება n8n webhook-ით უნდა გავიდეს, არა პირდაპირ
   const telegramChatId = '443575738';   // E.g., 'YOUR_CHAT_ID'
 
   // Capture all forms with class 'contact-form' (works on dynamic modal form too!)
