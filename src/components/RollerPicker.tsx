@@ -40,32 +40,8 @@ if (typeof window !== "undefined") {
   window.addEventListener("touchstart", resumeAudio, { once: true });
 }
 
-// Low-latency procedural satisfaction "tk" sound using Web Audio API
-export const playTickSound = () => {
-  try {
-    const ctx = getSharedAudioContext();
-    if (!ctx) return;
-    
-    const osc = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-    
-    osc.type = "sine";
-    // Sharper mechanical tick sound (from 900Hz down to 150Hz in 20ms)
-    osc.frequency.setValueAtTime(900, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.02);
-    
-    gainNode.gain.setValueAtTime(0.08, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.022);
-    
-    osc.connect(gainNode);
-    gainNode.connect(ctx.destination);
-    
-    osc.start();
-    osc.stop(ctx.currentTime + 0.03);
-  } catch (e) {
-    // Fail silently if browser blocks audio before user interaction
-  }
-};
+// Click sounds disabled
+export const playTickSound = () => {};
 
 export const RollerPicker: React.FC<RollerPickerProps> = ({
   items,
@@ -216,12 +192,12 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
         {/* Centered triangular arrow identifier pointing downwards */}
         {variant === "ios-light" && (
           <div className="absolute top-0.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-            <span className="text-black text-[10px] leading-none block select-none">▼</span>
+            <span className="text-[#1C3D63] text-[10px] leading-none block select-none">▼</span>
           </div>
         )}
         {variant === "ios-dark" && (
           <div className="absolute top-0.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-            <span className="text-[#f1bf62] text-[10px] leading-none block select-none">▼</span>
+            <span className="text-[#E0AC6B] text-[10px] leading-none block select-none">▼</span>
           </div>
         )}
 
@@ -230,20 +206,20 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
           variant === "ios-light" 
             ? "bg-gradient-to-b from-white via-white/80 to-transparent" 
             : variant === "ios-dark"
-            ? "bg-gradient-to-b from-[#1e2022] via-[#1e2022]/80 to-transparent"
-            : "bg-gradient-to-b from-black via-black/80 to-transparent"
+            ? "bg-gradient-to-b from-[#F4F7F7] via-[#F4F7F7]/80 to-transparent"
+            : "bg-gradient-to-b from-[#F4F7F7] via-[#F4F7F7]/80 to-transparent"
         }`} />
         <div className={`absolute bottom-0 left-0 right-0 h-6 pointer-events-none z-10 transition-all ${
           variant === "ios-light" 
             ? "bg-gradient-to-t from-white via-white/80 to-transparent" 
             : variant === "ios-dark"
-            ? "bg-gradient-to-t from-[#1e2022] via-[#1e2022]/80 to-transparent"
-            : "bg-gradient-to-t from-black via-black/80 to-transparent"
+            ? "bg-gradient-to-t from-[#F4F7F7] via-[#F4F7F7]/80 to-transparent"
+            : "bg-gradient-to-t from-[#F4F7F7] via-[#F4F7F7]/80 to-transparent"
         }`} />
 
         {/* Center active highlighted bar indicator */}
         {(variant === "dark" || variant === "ios-dark") && (
-          <div className="absolute left-1.5 right-1.5 h-10 border-y-2 border-[#f1bf62]/45 bg-[#f1bf62]/5 shadow-[0_0_15px_rgba(241,191,98,0.1)] pointer-events-none z-0 rounded-lg" />
+          <div className="absolute left-1.5 right-1.5 h-10 border-y-2 border-[#E0AC6B]/40 bg-[#E0AC6B]/5 pointer-events-none z-0 rounded-lg" />
         )}
 
         {/* Navigation Buttons visible on hover */}
@@ -252,10 +228,10 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
           onClick={handleStepPrev}
           className={`absolute top-0.5 z-20 transition-colors p-1 ${
             variant === "ios-light"
-              ? "text-gray-300 hover:text-gray-700"
+              ? "text-[#8E8276] hover:text-[#1C3D63]"
               : variant === "ios-dark"
-              ? "text-[#c6c6ce]/30 hover:text-[#f1bf62]"
-              : "text-gray-550 hover:text-white"
+              ? "text-[#8E8276]/60 hover:text-[#E0AC6B]"
+              : "text-[#8E8276] hover:text-[#1C3D63]"
           }`}
           aria-label="Previous item"
         >
@@ -273,7 +249,7 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
             const isCenter = offset === 0;
             const dist = Math.abs(offset);
             
-            const opacity = dist === 0 ? 1.0 : dist === 1 ? 0.65 : 0.22;
+            const opacity = dist === 0 ? 1.0 : dist === 1 ? 0.7 : 0.3;
             const scale = dist === 0 ? 1.25 : dist === 1 ? 0.96 : 0.74;
             const translateY = offset === 0 
               ? 0 
@@ -288,15 +264,11 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
 
             // Styles for light vs dark theme
             const textColor = variant === "ios-light"
-              ? (isCenter ? "#1c1c1e" : dist === 1 ? "rgba(161, 161, 170, 0.7)" : "rgba(161, 161, 170, 0.3)")
+              ? (isCenter ? "#1C3D63" : dist === 1 ? "rgba(59, 94, 99, 0.7)" : "rgba(59, 94, 99, 0.3)")
               : variant === "ios-dark"
-              ? (isCenter ? "#f1bf62" : dist === 1 ? "rgba(198, 198, 206, 0.55)" : "rgba(198, 198, 206, 0.16)")
-              : (isCenter ? "#FFFFFF" : dist === 1 ? "rgba(136, 136, 136, 0.6)" : "rgba(136, 136, 136, 0.2)");
-            const textShadowValue = (variant === "ios-dark" && isCenter)
-              ? "0 0 15px rgba(241, 191, 98, 0.4)"
-              : (!isLight && isCenter)
-              ? "0 0 10px rgba(255, 255, 255, 0.3)"
-              : "none";
+              ? (isCenter ? "#E0AC6B" : dist === 1 ? "rgba(59, 94, 99, 0.7)" : "rgba(59, 94, 99, 0.3)")
+              : (isCenter ? "#1C3D63" : dist === 1 ? "rgba(59, 94, 99, 0.7)" : "rgba(59, 94, 99, 0.3)");
+            const textShadowValue = "none";
             const fontWeightValue = isCenter ? 900 : 700;
 
             return (
@@ -329,10 +301,10 @@ export const RollerPicker: React.FC<RollerPickerProps> = ({
           onClick={handleStepNext}
           className={`absolute bottom-1 z-20 transition-colors p-1 ${
             variant === "ios-light"
-              ? "text-gray-300 hover:text-gray-700"
+              ? "text-[#8E8276] hover:text-[#1C3D63]"
               : variant === "ios-dark"
-              ? "text-[#c6c6ce]/30 hover:text-[#f1bf62]"
-              : "text-gray-550 hover:text-white"
+              ? "text-[#8E8276]/60 hover:text-[#E0AC6B]"
+              : "text-[#8E8276] hover:text-[#1C3D63]"
           }`}
           aria-label="Next item"
         >

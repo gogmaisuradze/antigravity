@@ -9,7 +9,7 @@
 body {
   font-family: var(--font-sans);
   background: transparent !important;
-  color: #c6c6ce !important;
+  color: #222222 !important;
   min-height: 100vh;
   font-size: 1.15rem;
 }
@@ -32,16 +32,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(30, 41, 59, 0.3);
+  background: #F6F3EC;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
+  background: #D8C4B6;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
+  background: #1C3D63;
 }
 
 /* Glowing text effects */
@@ -50,7 +50,7 @@ body {
 }
 
 .glow-text-gold {
-  text-shadow: 0 0 10px rgba(197, 164, 126, 0.5);
+  text-shadow: 0 0 10px rgba(224, 172, 107, 0.5);
 }
 
 .glow-text-cyan {

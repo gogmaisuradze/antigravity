@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html class="dark" lang="ka">
+<html lang="ka">
 <head>
   <link rel="icon" type="image/png" href="/favicon.png" />
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>IDC პოზიტიური ფსიქოთერაპია - საინფორმაციო ხე</title>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Georgian:wght=100..900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Georgian:wght@100..900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/src/input.css"/>
   <style>
     body {
       font-family: 'Inter', 'Noto Sans Georgian', sans-serif;
-      background-color: #040506;
-      color: #c6c6ce;
+      background-color: #F6F3EC;
+      color: #222222;
       overflow: hidden;
     }
     .serif-brand {
@@ -21,13 +21,13 @@
     
     /* Pulsing sidebar orb in brand gold */
     .orb-pulse {
-      box-shadow: 0 0 15px rgba(241, 191, 98, 0.4);
+      box-shadow: 0 0 15px rgba(224, 172, 107, 0.5);
       animation: orbPulseKey 2s infinite alternate;
     }
     @keyframes orbPulseKey {
       to {
-        box-shadow: 0 0 25px rgba(241, 191, 98, 0.8), 0 0 10px rgba(241, 191, 98, 0.4);
-        transform: scale(1.05);
+        box-shadow: 0 0 22px rgba(224, 172, 107, 0.8), 0 0 8px rgba(224, 172, 107, 0.4);
+        transform: scale(1.08);
       }
     }
     
@@ -41,61 +41,22 @@
       animation: pulseDash 6s linear infinite;
     }
     
-    /* Premium Galactic deep space background */
-    .bg-galactic {
-      background: rgba(4, 5, 6, 0.95);
-      background-size: cover;
-    }
-    
-    /* 3D Concave background layer with perfect curved dome illusion ("ოვალიურად უკან კედელი ედგეს") */
-    .concave-bg-layer {
-      position: absolute;
-      inset: 15px;
-      border-radius: 36px;
-      background: 
-        radial-gradient(ellipse at 50% 50%, rgba(20, 24, 28, 0.12) 0%, rgba(4, 5, 6, 0.95) 82%),
-        radial-gradient(circle at 50% 120%, rgba(241, 191, 98, 0.02) 0%, transparent 60%),
-        rgba(6, 7, 8, 0.95);
-      box-shadow: 
-        inset 0 0 100px rgba(0, 0, 0, 0.98),
-        inset 0 0 40px rgba(241, 191, 98, 0.015),
-        0 20px 60px rgba(0, 0, 0, 0.9);
-      border: 1.5px solid rgba(255, 255, 255, 0.02);
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-    
-    .concave-bg-layer::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: 
-        radial-gradient(circle at 50% 130%, transparent 40%, rgba(241, 191, 98, 0.008) 40.2%, rgba(241, 191, 98, 0.008) 40.6%, transparent 40.8%),
-        radial-gradient(circle at 50% 130%, transparent 50%, rgba(241, 191, 98, 0.008) 50.2%, rgba(241, 191, 98, 0.008) 50.6%, transparent 50.8%),
-        radial-gradient(circle at 50% 130%, transparent 60%, rgba(241, 191, 98, 0.008) 60.2%, rgba(241, 191, 98, 0.008) 60.6%, transparent 60.8%),
-        radial-gradient(circle at 50% 130%, transparent 70%, rgba(241, 191, 98, 0.008) 70.2%, rgba(241, 191, 98, 0.008) 70.6%, transparent 70.8%),
-        radial-gradient(circle at 50% 130%, transparent 80%, rgba(241, 191, 98, 0.008) 80.2%, rgba(241, 191, 98, 0.008) 80.6%, transparent 80.8%);
-      opacity: 0.7;
-      filter: blur(0.5px);
-    }
-    
     /* Smooth transition for panning/zooming */
     #graph-viewport {
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       transform-origin: 0 0;
     }
     
-    /* Unified Glassmorphism styling with intense 3D shadows */
+    /* Unified Glassmorphism styling with soft shadows */
     .glass-card {
-      background-color: rgba(22, 24, 26, 0.65) !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
-      backdrop-filter: blur(35px) !important;
-      -webkit-backdrop-filter: blur(35px) !important;
-      box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 255, 255, 0.02) !important;
+      background-color: rgba(255, 255, 255, 0.94) !important;
+      border: 1.5px solid #D8C4B6 !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      box-shadow: 0 10px 30px rgba(28, 61, 99, 0.06), 0 2px 8px rgba(28, 61, 99, 0.03) !important;
     }
 
-    /* Accordion Node Cards Visual Transitions (including gliding top position) */
+    /* Accordion Node Cards Visual Transitions */
     .node-card {
       transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
                   transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -120,7 +81,7 @@
       opacity: 1;
       transform: scale(1) translateY(0);
       max-height: 280px;
-      overflow: visible; /* expand indicators can show outside parent */
+      overflow: visible;
       pointer-events: auto;
     }
 
@@ -137,16 +98,16 @@
 
     @keyframes golden-pulse {
       0% {
-        box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.95), 0 0 10px rgba(241, 191, 98, 0.08) !important;
-        border-color: rgba(255, 255, 255, 0.08) !important;
+        box-shadow: 0 10px 30px rgba(28, 61, 99, 0.06) !important;
+        border-color: #D8C4B6 !important;
       }
       50% {
-        box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.95), 0 0 25px rgba(241, 191, 98, 0.4) !important;
-        border-color: rgba(241, 191, 98, 0.55) !important;
+        box-shadow: 0 14px 35px rgba(224, 172, 107, 0.3) !important;
+        border-color: #E0AC6B !important;
       }
       100% {
-        box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.95), 0 0 10px rgba(241, 191, 98, 0.08) !important;
-        border-color: rgba(255, 255, 255, 0.08) !important;
+        box-shadow: 0 10px 30px rgba(28, 61, 99, 0.06) !important;
+        border-color: #D8C4B6 !important;
       }
     }
     
@@ -162,18 +123,17 @@
       cursor: grabbing;
     }
     .glow-hover:hover, .glow-hover.active-glow, .glow-hover.focused-card {
-      box-shadow: 0 0 35px rgba(241, 191, 98, 0.45) !important;
-      border-color: rgba(241, 191, 98, 0.75) !important;
+      box-shadow: 0 12px 35px rgba(28, 61, 99, 0.2) !important;
+      border-color: #1C3D63 !important;
       transform: scale(1.03) !important;
     }
     
-    /* Turn card titles to gold when hovered or focused */
+    /* Turn card titles to brand navy when hovered or focused */
     .glow-hover:hover .l1-title, 
     .glow-hover.active-glow .l1-title, 
     .glow-hover.focused-card .l1-title,
     .glow-hover.focused-card h6 {
-      color: #f1bf62 !important;
-      text-shadow: 0 0 8px rgba(241, 191, 98, 0.2);
+      color: #1C3D63 !important;
     }
 
     /* Left Sidebar Details Panel */
@@ -181,29 +141,28 @@
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Dynamic Font Size and Style Overrides for Maximum Legibility ("ტექსტები წვრილად და პატარად არ ჩანდეს") */
+    /* Dynamic Font Size and Style Overrides */
     .l1-card div {
       font-size: 11px !important;
       font-weight: 700 !important;
       letter-spacing: 0.1em !important;
-      opacity: 0.9 !important;
     }
     .l1-title {
       font-size: 17px !important;
       font-weight: 800 !important;
       line-height: 1.3 !important;
+      color: #1C3D63 !important;
     }
     
     .l2-card div {
       font-size: 10px !important;
       font-weight: 700 !important;
       letter-spacing: 0.08em !important;
-      opacity: 0.85 !important;
     }
     .l2-card h6 {
       font-size: 14.5px !important;
       font-weight: 700 !important;
-      color: #ffffff !important;
+      color: #1C3D63 !important;
       line-height: 1.35 !important;
     }
     
@@ -211,12 +170,11 @@
       font-size: 9px !important;
       font-weight: 700 !important;
       letter-spacing: 0.06em !important;
-      opacity: 0.8 !important;
     }
     .l3-card h6 {
       font-size: 13px !important;
-      font-weight: 650 !important;
-      color: #e2e8f0 !important;
+      font-weight: 600 !important;
+      color: #222222 !important;
       line-height: 1.35 !important;
     }
 
@@ -226,44 +184,39 @@
     }
   </style>
 </head>
-<body class="h-screen w-screen flex flex-col antialiased selection:bg-[#f1bf62]/20 selection:text-[#f1bf62] bg-[#040506] relative">
-  <!-- Ambient Video Background -->
-  <div class="ambient-video-bg fixed inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
-    <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-60" style="transform: scale(1.1);">
-      <source src="/background.mp4?v=4" type="video/mp4"/>
-    </video>
-    <div class="absolute inset-0 bg-[#040506]/40 backdrop-blur-[3px]"></div>
-  </div>
+<body class="h-screen w-screen flex flex-col antialiased selection:bg-[#E0AC6B]/25 selection:text-[#1C3D63] bg-[#F6F3EC] relative text-[#222222]">
+  <!-- Minimalist Ambient Glow Background -->
+  <div class="beige-ambient-bg"></div>
 
   <!-- Top Bar -->
-  <header class="h-20 border-b border-white/5 bg-[#040506]/40 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-30 select-none relative">
-    <!-- Left Title (Gold Brand) -->
+  <header class="h-20 border-b border-[#D8C4B6] bg-white/90 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between z-30 select-none relative shadow-sm">
+    <!-- Left Title (Brand) -->
     <div class="flex items-center gap-2 z-10">
       <!-- Desktop Brand Name (Goes to logic.html) -->
-      <a href="logic.html" id="brand-link-desktop" class="hidden md:inline text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62] hover:opacity-80 transition-opacity no-underline whitespace-nowrap">IDC პოზიტიური ფსიქოთერაპია</a>
+      <a href="logic.html" id="brand-link-desktop" class="hidden md:inline text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#1C3D63] hover:text-[#3B5E63] transition-colors no-underline whitespace-nowrap">IDC პოზიტიური ფსიქოთერაპია</a>
       <!-- Mobile Brand Name (Goes to index.html) -->
-      <a href="index.html" id="brand-link-mobile" class="md:hidden inline text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#f1bf62] hover:opacity-80 transition-opacity no-underline whitespace-nowrap">IDC</a>
+      <a href="index.html" id="brand-link-mobile" class="md:hidden inline text-sm sm:text-base md:text-2xl font-headline font-bold italic tracking-wide text-[#1C3D63] hover:text-[#3B5E63] transition-colors no-underline whitespace-nowrap">IDC</a>
     </div>
 
-    <!-- Center Logo (Maximized Emblem) -->
+    <!-- Center Logo (Emblem) -->
     <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto h-full z-10">
       <!-- Desktop Logo (Goes to logic.html) -->
       <a href="logic.html" id="logo-link-desktop" class="hidden md:flex hover:opacity-90 transition-opacity duration-300 items-center">
-        <img alt="IDC Logo" class="object-contain max-w-none h-[180px] w-[180px] sm:h-[320px] sm:w-[320px] md:h-[550px] md:w-[550px] mt-[-55px] sm:mt-[-125px] md:mt-[-235px] mb-[-55px] sm:mb-[-125px] md:mb-[-235px] transition-all duration-300" src="/src/logo.png" style="mix-blend-mode: screen;"/>
+        <img alt="IDC Logo" class="object-contain max-w-none h-16 w-16 transition-all duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: normal;"/>
       </a>
       <!-- Mobile Logo (Goes to index.html) -->
       <a href="index.html" id="logo-link-mobile" class="md:hidden flex hover:opacity-90 transition-opacity duration-300 items-center">
-        <img alt="IDC Logo" class="object-contain max-w-none h-[180px] w-[180px] sm:h-[320px] sm:w-[320px] md:h-[550px] md:w-[550px] mt-[-55px] sm:mt-[-125px] md:mt-[-235px] mb-[-55px] sm:mb-[-125px] md:mb-[-235px] transition-all duration-300" src="/src/logo.png" style="mix-blend-mode: screen;"/>
+        <img alt="IDC Logo" class="object-contain max-w-none h-12 w-12 transition-all duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: normal;"/>
       </a>
     </div>
 
-    <!-- Right Header Actions (Home and page links moved here) -->
-    <div class="flex items-center gap-2 sm:gap-4 md:gap-6 z-10">
-      <a href="balance.html" class="hidden md:flex bg-[#1c2022] hover:bg-[#252a2d] text-[#f1bf62] border border-[#f1bf62]/30 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-[0_0_15px_rgba(241,191,98,0.06)] hover:shadow-[0_0_20px_rgba(241,191,98,0.2)] flex items-center gap-2 transition-all cursor-pointer no-underline">
-        <span class="material-symbols-outlined text-sm">scale</span>
+    <!-- Right Header Actions -->
+    <div class="flex items-center gap-2 sm:gap-4 md:gap-4 z-10">
+      <a href="balance.html" class="hidden md:flex bg-white hover:bg-[#F4F7F7] text-[#1C3D63] border border-[#D8C4B6] px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-sm flex items-center gap-2 transition-all cursor-pointer no-underline">
+        <span class="material-symbols-outlined text-sm text-[#E0AC6B]">scale</span>
         <span>ბალანსის მოდელი</span>
       </a>
-      <a href="index.html" class="bg-[#1c2022] hover:bg-[#252a2d] text-[#f1bf62] border border-[#f1bf62]/30 px-3 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-[0_0_15px_rgba(241,191,98,0.06)] hover:shadow-[0_0_20px_rgba(241,191,98,0.2)] flex items-center gap-2 transition-all cursor-pointer no-underline">
+      <a href="index.html" class="bg-[#1C3D63] hover:bg-[#254F7F] text-white border border-[#1C3D63] px-3.5 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-[0_4px_14px_rgba(28,61,99,0.25)] flex items-center gap-2 transition-all cursor-pointer no-underline">
         <span class="material-symbols-outlined text-sm">home</span>
         <span class="hidden sm:inline">მთავარზე გადასვლა</span>
       </a>
@@ -273,85 +226,85 @@
   <!-- Main Workspace Canvas -->
   <div class="flex-grow flex overflow-hidden w-full relative">
     
-    <!-- Dynamic Slide-out Details Panel (Replaces Sidebar) -->
-    <aside id="details-sidebar" class="details-panel w-[90%] max-w-[340px] sm:w-85 bg-[#0c0e10]/95 border-r border-[#f1bf62]/10 backdrop-blur-2xl shadow-2xl p-6 z-20 flex flex-col justify-between absolute left-0 top-0 h-full transform -translate-x-full select-none">
+    <!-- Dynamic Slide-out Details Panel (Sidebar) -->
+    <aside id="details-sidebar" class="details-panel w-[90%] max-w-[340px] sm:w-85 bg-white/95 border-r border-[#D8C4B6] backdrop-blur-2xl shadow-xl p-6 z-20 flex flex-col justify-between absolute left-0 top-0 h-full transform -translate-x-full select-none text-[#222222]">
       <div class="space-y-4 overflow-y-auto max-h-[88%] scrollbar-thin">
         
-        <!-- Details Sidebar Header (Enlarged prominent golden title) -->
-        <div class="flex items-center justify-between border-b border-white/5 pb-3">
+        <!-- Details Sidebar Header -->
+        <div class="flex items-center justify-between border-b border-[#D8C4B6] pb-3">
           <div class="flex items-center gap-2.5">
-            <div class="h-7 w-7 rounded-lg bg-amber-950/20 border border-[#f1bf62]/25 flex items-center justify-center relative overflow-hidden">
-              <div class="h-2 w-2 rounded-full bg-[#f1bf62] orb-pulse"></div>
+            <div class="h-7 w-7 rounded-lg bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center relative overflow-hidden">
+              <div class="h-2 w-2 rounded-full bg-[#E0AC6B] orb-pulse"></div>
             </div>
-            <span class="text-2xl md:text-[25px] font-headline font-extrabold text-[#f1bf62] tracking-wider italic drop-shadow-[0_2px_8px_rgba(241,191,98,0.3)] select-none">გონებრივი რუკა</span>
+            <span class="text-2xl md:text-[24px] font-headline font-bold text-[#1C3D63] tracking-tight italic select-none">გონებრივი რუკა</span>
           </div>
-          <button id="close-sidebar-btn" class="h-6 w-6 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-all cursor-pointer focus:outline-none">
+          <button id="close-sidebar-btn" class="h-7 w-7 rounded-full bg-[#F4F7F7] hover:bg-[#EAE5DF] text-[#222222] hover:text-[#1C3D63] border border-[#D8C4B6] flex items-center justify-center transition-all cursor-pointer focus:outline-none">
             <span class="material-symbols-outlined text-sm">close</span>
           </button>
         </div>
 
-        <!-- Collapsible Search System ( magnifying glass ) -->
-        <div class="relative bg-white/5 border border-white/5 p-3 rounded-2xl">
+        <!-- Collapsible Search System -->
+        <div class="relative bg-[#F4F7F7] border border-[#D8C4B6] p-3 rounded-2xl">
           <div class="flex items-center justify-between">
-            <span class="text-[10px] font-bold text-slate-450 uppercase tracking-widest">ნეირო-ძებნა</span>
-            <button id="search-toggle-btn" class="h-7 w-7 rounded-lg bg-white/5 hover:bg-[#f1bf62]/10 border border-white/5 hover:border-[#f1bf62]/30 text-slate-400 hover:text-[#f1bf62] flex items-center justify-center transition-all cursor-pointer focus:outline-none">
+            <span class="text-[10px] font-bold text-[#3B5E63] uppercase tracking-wider">ნეირო-ძებნა</span>
+            <button id="search-toggle-btn" class="h-7 w-7 rounded-lg bg-white hover:bg-[#F4F7F7] border border-[#D8C4B6] text-[#1C3D63] hover:text-[#3B5E63] flex items-center justify-center transition-all cursor-pointer focus:outline-none shadow-sm">
               <span class="material-symbols-outlined text-base">search</span>
             </button>
           </div>
           
           <div id="search-input-container" class="max-h-0 overflow-hidden transition-all duration-300">
             <div class="relative flex items-center mt-2.5">
-              <input type="text" id="node-search-input" placeholder="მოძებნეთ კვანძი..." class="w-full bg-[#121416]/90 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#f1bf62]/40 font-medium transition-all" />
-              <button id="search-clear-btn" class="absolute right-2 text-slate-500 hover:text-white hidden transition-colors focus:outline-none">
+              <input type="text" id="node-search-input" placeholder="მოძებნეთ კვანძი..." class="w-full bg-white border border-[#D8C4B6] rounded-xl px-3 py-2 text-xs text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-medium transition-all" />
+              <button id="search-clear-btn" class="absolute right-2 text-[#8E8276] hover:text-[#1C3D63] hidden transition-colors focus:outline-none">
                 <span class="material-symbols-outlined text-sm">close</span>
               </button>
             </div>
             <!-- Search Results list -->
-            <div id="search-results-list" class="mt-2 max-h-[160px] overflow-y-auto space-y-1 scrollbar-thin scrollbar-thumb-white/10"></div>
+            <div id="search-results-list" class="mt-2 max-h-[160px] overflow-y-auto space-y-1 scrollbar-thin"></div>
           </div>
         </div>
 
-        <!-- Dynamic Node Description Container (Increased text sizes) -->
+        <!-- Dynamic Node Description Container -->
         <div class="space-y-3 pt-2">
-          <div id="details-empty-state" class="text-center py-6 space-y-2 border border-white/5 rounded-2xl bg-white/5">
-            <span class="material-symbols-outlined text-slate-400 text-3xl">info</span>
-            <p class="text-sm text-slate-355 max-w-[200px] mx-auto leading-relaxed">მიიტანეთ მაუსი კვანძზე ან მოძებნეთ დეტალური ინფორმაციისთვის.</p>
+          <div id="details-empty-state" class="text-center py-6 space-y-2 border border-[#D8C4B6] rounded-2xl bg-[#F4F7F7]">
+            <span class="material-symbols-outlined text-[#E0AC6B] text-3xl">info</span>
+            <p class="text-xs text-[#3B5E63] max-w-[200px] mx-auto leading-relaxed">მიიტანეთ მაუსი კვანძზე ან მოძებნეთ დეტალური ინფორმაციისთვის.</p>
           </div>
           <div class="details-card-wrapper transition-all duration-300">
-            <div id="details-content" class="hidden space-y-3 p-4 border border-white/5 rounded-2xl bg-[#121416]/50 shadow-inner">
+            <div id="details-content" class="hidden space-y-3 p-4 border border-[#D8C4B6] rounded-2xl bg-white shadow-sm">
               <div>
-                <span id="node-detail-category" class="text-[11px] uppercase tracking-widest text-amber-300 font-bold">კატეგორია</span>
-                <h4 id="node-detail-title" class="text-xl md:text-2xl font-headline font-bold text-[#f1bf62] tracking-tight leading-snug italic mt-1.5">კვანძის სათაური</h4>
+                <span id="node-detail-category" class="text-[11px] uppercase tracking-wider text-[#E0AC6B] font-bold">კატეგორია</span>
+                <h4 id="node-detail-title" class="text-xl md:text-2xl font-headline font-bold text-[#1C3D63] tracking-tight leading-snug italic mt-1.5">კვანძის სათაური</h4>
               </div>
-              <div class="h-px bg-white/5"></div>
-              <p id="node-detail-desc" class="text-[14px] text-white leading-relaxed font-normal">დეტალური აღწერა...</p>
+              <div class="h-px bg-[#D8C4B6]"></div>
+              <p id="node-detail-desc" class="text-[13px] text-[#222222] leading-relaxed font-light">დეტალური აღწერა...</p>
             </div>
           </div>
         </div>
 
-        <!-- Interactive Structure Directory (All white initially, lights yellow on hover/click) -->
-        <div class="bg-white/5 border border-white/5 p-3.5 rounded-2xl space-y-2.5">
-          <span class="text-[12px] font-bold text-white uppercase tracking-wider block border-b border-white/5 pb-1">ნეირო-რუკის სტრუქტურა</span>
+        <!-- Interactive Structure Directory -->
+        <div class="bg-[#F4F7F7] border border-[#D8C4B6] p-3.5 rounded-2xl space-y-2.5">
+          <span class="text-[12px] font-bold text-[#1C3D63] uppercase tracking-wider block border-b border-[#D8C4B6] pb-1 font-headline">ნეირო-რუკის სტრუქტურა</span>
           <div class="space-y-2 text-[11px] overflow-y-auto max-h-[200px] scrollbar-thin">
             <div class="space-y-1.5 font-medium">
-              <div id="dir-node-layer1-5" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-5')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
+              <div id="dir-node-layer1-5" class="dir-item text-[#222222] text-xs md:text-sm font-medium hover:text-[#1C3D63] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-5')">
+                <span class="dir-orb w-1.5 h-1.5 rounded-full bg-[#E0AC6B] transition-all"></span>
                 <span>ორგანიზაციული სტრუქტურა</span>
               </div>
-              <div id="dir-node-layer1-2" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-2')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
+              <div id="dir-node-layer1-2" class="dir-item text-[#222222] text-xs md:text-sm font-medium hover:text-[#1C3D63] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-2')">
+                <span class="dir-orb w-1.5 h-1.5 rounded-full bg-[#E0AC6B] transition-all"></span>
                 <span>კონფლიქტის მოდელი</span>
               </div>
-              <div id="dir-node-layer1-4" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-4')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
+              <div id="dir-node-layer1-4" class="dir-item text-[#222222] text-xs md:text-sm font-medium hover:text-[#1C3D63] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-4')">
+                <span class="dir-orb w-1.5 h-1.5 rounded-full bg-[#E0AC6B] transition-all"></span>
                 <span>ფსიქოთერაპიული ინსტრუმენტები</span>
               </div>
-              <div id="dir-node-layer1-3" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-3')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
+              <div id="dir-node-layer1-3" class="dir-item text-[#222222] text-xs md:text-sm font-medium hover:text-[#1C3D63] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-3')">
+                <span class="dir-orb w-1.5 h-1.5 rounded-full bg-[#E0AC6B] transition-all"></span>
                 <span>აქტუალური უნარები</span>
               </div>
-              <div id="dir-node-layer1-1" class="dir-item text-slate-100 text-xs md:text-sm font-medium hover:text-[#f1bf62] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-1')">
-                <span class="dir-orb w-1 h-1 rounded-full bg-white transition-all"></span>
+              <div id="dir-node-layer1-1" class="dir-item text-[#222222] text-xs md:text-sm font-medium hover:text-[#1C3D63] transition-colors cursor-pointer flex items-center gap-2" onclick="focusAndOpenNode('node-layer1-1')">
+                <span class="dir-orb w-1.5 h-1.5 rounded-full bg-[#E0AC6B] transition-all"></span>
                 <span>ძირითადი პრინციპები</span>
               </div>
             </div>
@@ -360,16 +313,13 @@
       </div>
 
       <!-- Bottom Branding -->
-      <div class="border-t border-white/5 pt-3 text-[10px] text-slate-600 font-medium">
+      <div class="border-t border-[#D8C4B6] pt-3 text-[10px] text-[#3B5E63] font-medium">
         საინფორმაციო სისტემები • IDC
       </div>
     </aside>
 
     <!-- Main Workspace (SVG connections + HTML nodes) -->
-    <main id="graph-container" class="flex-grow bg-galactic relative overflow-hidden select-none">
-      
-      <!-- Concave 3D Background Layer ("ოვალიურად უკან კედელი ედგეს") -->
-      <div class="concave-bg-layer"></div>
+    <main id="graph-container" class="flex-grow relative overflow-hidden select-none bg-transparent">
       
       <!-- Interactive zooming viewport -->
       <div id="graph-viewport" class="absolute w-full h-full top-0 left-0 z-10">
@@ -377,225 +327,224 @@
         <!-- Center-offset canvas (Shared container for both SVG and cards) -->
         <div class="relative w-[1600px] h-[950px] shrink-0">
           
-          <!-- SVG connections container (Perfect magnetic snap lines) -->
+          <!-- SVG connections container -->
           <svg id="connections-svg" class="absolute inset-0 pointer-events-none w-full h-full z-0">
             <!-- SVG Definitions for single clean arrow flow direction -->
             <defs>
               <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f1bf62"/>
+                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1C3D63"/>
               </marker>
             </defs>
           </svg>
 
           <!-- CENTRAL CORE NODE (PPT) - Placed directly below the logo -->
-          <!-- CENTRAL CORE NODE (PPT) - Placed directly below the logo -->
-          <div id="node-center" class="visible absolute left-[670px] top-[100px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#f1bf62] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover ambient-gold-pulse">
-            <div class="text-[10px] uppercase tracking-widest text-[#f1bf62] font-bold mb-1">მთავარი სისტემა</div>
-            <h4 class="text-lg font-headline font-bold text-white tracking-tight leading-tight italic select-none">პოზიტიური ფსიქოთერაპია (პეზეშკიანი)</h4>
-            <div class="w-full bg-[#f1bf62]/10 h-[2px] mt-3 rounded-full overflow-hidden">
-              <div class="bg-[#f1bf62] h-full w-[100%]"></div>
+          <div id="node-center" class="visible absolute left-[670px] top-[100px] w-[260px] glass-card border rounded-2xl p-5 hover:border-[#1C3D63] transition-all duration-500 z-20 group cursor-pointer text-center glow-hover ambient-gold-pulse">
+            <div class="text-[10px] uppercase tracking-wider text-[#E0AC6B] font-bold mb-1">მთავარი სისტემა</div>
+            <h4 class="text-lg font-headline font-bold text-[#1C3D63] tracking-tight leading-tight italic select-none">პოზიტიური ფსიქოთერაპია (პეზეშკიანი)</h4>
+            <div class="w-full bg-[#D8C4B6] h-[2px] mt-3 rounded-full overflow-hidden">
+              <div class="bg-[#E0AC6B] h-full w-[100%]"></div>
             </div>
             <!-- Continuation indicator -->
-            <div id="ind-node-center" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center text-[10px] text-[#f1bf62] group-hover:border-[#f1bf62] transition-all font-bold select-none z-30">+</div>
+            <div id="ind-node-center" class="expand-indicator absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#F4F7F7] border border-[#E0AC6B] flex items-center justify-center text-[10px] text-[#1C3D63] group-hover:border-[#1C3D63] transition-all font-bold select-none z-30 shadow-sm">+</div>
           </div>
 
           <!-- COLUMN 1: ორგანიზაციული სტრუქტურა (left = 100px) -->
           <div id="node-layer1-5" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 100px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
-            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ორგანიზაციული სტრუქტურა</h5>
+            <div class="text-[9px] uppercase tracking-wider text-[#E0AC6B] font-bold mb-0.5">კვანძი</div>
+            <h5 class="l1-title text-base font-headline font-bold text-[#1C3D63] italic tracking-wide select-none transition-colors duration-300">ორგანიზაციული სტრუქტურა</h5>
           </div>
 
           <div id="node-l2-5-1" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 85px; top: 470px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">WAPP (მსოფლიო ასოციაცია)</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">WAPP (მსოფლიო ასოციაცია)</h6>
           </div>
 
           <div id="node-l2-5-2" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 115px; top: 580px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">IAPP (საერთაშორისო აკადემია)</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">IAPP (საერთაშორისო აკადემია)</h6>
           </div>
 
           <div id="node-l2-5-3" data-parent="node-layer1-5" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 95px; top: 690px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">ვისბადენის აკადემია (WIAP)</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">ვისბადენის აკადემია (WIAP)</h6>
           </div>
 
 
           <!-- COLUMN 2: კონფლიქტის მოდელი (left = 400px) -->
           <div id="node-layer1-2" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 400px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
-            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">კონფლიქტის მოდელი</h5>
+            <div class="text-[9px] uppercase tracking-wider text-[#E0AC6B] font-bold mb-0.5">კვანძი</div>
+            <h5 class="l1-title text-base font-headline font-bold text-[#1C3D63] italic tracking-wide select-none transition-colors duration-300">კონფლიქტის მოდელი</h5>
           </div>
 
           <div id="node-l2-2-1" data-parent="node-layer1-2" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 385px; top: 470px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">მიკროტრავმები</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">მიკროტრავმები</h6>
           </div>
 
           <div id="node-l3-2-1-1" data-parent="node-l2-2-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 370px; top: 580px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">ყოველდღიური მცირე სტრესები</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">ყოველდღიური მცირე სტრესები</h6>
           </div>
 
           <div id="node-l3-2-1-2" data-parent="node-l2-2-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 410px; top: 690px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">აკუმულირებული ეფექტი</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">აკუმულირებული ეფექტი</h6>
           </div>
 
           <div id="node-l2-2-2" data-parent="node-layer1-2" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 415px; top: 800px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">კონფლიქტის ტიპები</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">კონფლიქტის ტიპები</h6>
           </div>
 
           <div id="node-l3-2-2-1" data-parent="node-l2-2-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 380px; top: 910px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">აქტუალური კონფლიქტი</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">აქტუალური კონფლიქტი</h6>
           </div>
 
           <div id="node-l3-2-2-2" data-parent="node-l2-2-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 410px; top: 1020px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">საბაზისო კონფლიქტი</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">საბაზისო კონფლიქტი</h6>
           </div>
 
           <div id="node-l3-2-2-3" data-parent="node-l2-2-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 375px; top: 1130px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">შინაგანი კონფლიქტი</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">შინაგანი კონფლიქტი</h6>
           </div>
 
 
           <!-- COLUMN 3: ფსიქოთერაპიული ინსტრუმენტები (left = 700px) -->
           <div id="node-layer1-4" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 700px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
-            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ფსიქოთერაპიული ინსტრუმენტები</h5>
+            <div class="text-[9px] uppercase tracking-wider text-[#E0AC6B] font-bold mb-0.5">კვანძი</div>
+            <h5 class="l1-title text-base font-headline font-bold text-[#1C3D63] italic tracking-wide select-none transition-colors duration-300">ფსიქოთერაპიული ინსტრუმენტები</h5>
           </div>
 
           <div id="node-l2-4-1" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 685px; top: 470px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">აღმოსავლური ისტორიები და იგავები</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">აღმოსავლური ისტორიები და იგავები</h6>
           </div>
 
           <div id="node-l2-4-2" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 715px; top: 580px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">ტრანსკულტურალური მიდგომა</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">ტრანსკულტურალური მიდგომა</h6>
           </div>
 
           <div id="node-l2-4-3" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 690px; top: 690px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">ნახევრად სტრუქტურირებული ინტერვიუ</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">ნახევრად სტრუქტურირებული ინტერვიუ</h6>
           </div>
 
           <div id="node-l2-4-4" data-parent="node-layer1-4" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 720px; top: 800px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">WIPPF კითხვარი</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">WIPPF კითხვარი</h6>
           </div>
 
 
           <!-- COLUMN 4: აქტუალური უნარები (left = 1000px) -->
           <div id="node-layer1-3" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1000px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
-            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">აქტუალური უნარები</h5>
+            <div class="text-[9px] uppercase tracking-wider text-[#E0AC6B] font-bold mb-0.5">კვანძი</div>
+            <h5 class="l1-title text-base font-headline font-bold text-[#1C3D63] italic tracking-wide select-none transition-colors duration-300">აქტუალური უნარები</h5>
           </div>
 
           <div id="node-l2-3-1" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 985px; top: 470px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">პირველადი უნარები (სიყვარული)</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">პირველადი უნარები (სიყვარული)</h6>
           </div>
 
           <div id="node-l3-3-1-1" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 970px; top: 580px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">ნდობა და იმედი</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">ნდობა და იმედი</h6>
           </div>
 
           <div id="node-l3-3-1-2" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1010px; top: 690px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">მოთმინება და დრო</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">მოთმინება და დრო</h6>
           </div>
 
           <div id="node-l3-3-1-3" data-parent="node-l2-3-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 975px; top: 800px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">კონტაქტი და სექსუალობა</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">კონტაქტი და სექსუალობა</h6>
           </div>
 
           <div id="node-l2-3-2" data-parent="node-layer1-3" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1015px; top: 910px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">მეორადი უნარები (შემეცნება)</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">მეორადი უნარები (შემეცნება)</h6>
           </div>
 
           <div id="node-l3-3-2-1" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 980px; top: 1020px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">პუნქტუალობა და სისუფთავე</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">პუნქტუალობა და სისუფთავე</h6>
           </div>
 
           <div id="node-l3-3-2-2" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1010px; top: 1130px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">ორგანიზებულობა და მორჩილება</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">ორგანიზებულობა და მორჩილება</h6>
           </div>
 
           <div id="node-l3-3-2-3" data-parent="node-l2-3-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 975px; top: 1240px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">სამართლიანობა და გულწრფელობა</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">სამართლიანობა და გულწრფელობა</h6>
           </div>
 
 
           <!-- COLUMN 5: ძირითადი პრინციპები (left = 1300px) -->
           <div id="node-layer1-1" data-parent="node-center" class="node-card l1-card glass-card border rounded-xl w-[220px] text-center z-10 cursor-pointer absolute glow-hover" style="left: 1300px; top: 360px;">
-            <div class="text-[9px] uppercase tracking-widest text-[#f1bf62] font-bold mb-0.5">კვანძი</div>
-            <h5 class="l1-title text-base font-headline font-bold text-white italic tracking-wide select-none transition-colors duration-300">ძირითადი პრინციპები</h5>
+            <div class="text-[9px] uppercase tracking-wider text-[#E0AC6B] font-bold mb-0.5">კვანძი</div>
+            <h5 class="l1-title text-base font-headline font-bold text-[#1C3D63] italic tracking-wide select-none transition-colors duration-300">ძირითადი პრინციპები</h5>
           </div>
 
           <div id="node-l2-1-1" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1290px; top: 470px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">იმედის პრინციპი</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">იმედის პრინციპი</h6>
           </div>
 
-          <div id="node-l3-1-1-1" data-parent="node-l2-1-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1275px; top: 580px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">სიმპტომების პოზიტიური ინტერპრეტაცია</h6>
+          <div id="node-l3-1-1-1" data-parent="node-layer1-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1275px; top: 580px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">სიმპტომების პოზიტიური ინტერპრეტაცია</h6>
           </div>
 
-          <div id="node-l3-1-1-2" data-parent="node-l2-1-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1310px; top: 690px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">დაავადების სიმბოლური ფუნქცია</h6>
+          <div id="node-l3-1-1-2" data-parent="node-layer1-1" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1310px; top: 690px;">
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">დაავადების სიმბოლური ფუნქცია</h6>
           </div>
 
           <div id="node-l2-1-2" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1315px; top: 800px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">ბალანსის პრინციპი</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">ბალანსის პრინციპი</h6>
           </div>
 
           <div id="node-l3-1-2-1" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1280px; top: 910px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">სხეული / ჯანმრთელობა</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">სხეული / ჯანმრთელობა</h6>
           </div>
 
           <div id="node-l3-1-2-2" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1310px; top: 1020px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">მიღწევა / სამუშაო</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">მიღწევა / სამუშაო</h6>
           </div>
 
           <div id="node-l3-1-2-3" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1270px; top: 1130px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">კონტაქტი / ურთიერთობები</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">კონტაქტი / ურთიერთობები</h6>
           </div>
 
           <div id="node-l3-1-2-4" data-parent="node-l2-1-2" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1320px; top: 1240px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">მომავალი / ფანტაზია / საზრისი</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">მომავალი / ფანტაზია / საზრისი</h6>
           </div>
 
           <div id="node-l2-1-3" data-parent="node-layer1-1" class="node-card l2-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1285px; top: 1350px;">
-            <div class="text-[8px] uppercase tracking-wider text-[#f1bf62]/75 mb-0.5">კვანძი</div>
-            <h6 class="text-sm font-semibold text-slate-200">კონსულტაციის პრინციპი</h6>
+            <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">კვანძი</div>
+            <h6 class="text-sm font-semibold text-[#1C3D63]">კონსულტაციის პრინციპი</h6>
           </div>
 
           <div id="node-l3-1-3-1" data-parent="node-l2-1-3" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1270px; top: 1460px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">თვითდახმარების ხუთი ეტაპი</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">თვითდახმარების ხუთი ეტაპი</h6>
           </div>
 
           <div id="node-l3-1-3-2" data-parent="node-l2-1-3" class="node-card l3-card glass-card border rounded-xl w-[220px] absolute glow-hover cursor-pointer" style="left: 1315px; top: 1570px;">
-            <div class="text-[7px] uppercase tracking-wider text-[#f1bf62]/60 mb-0.5">ქვე-კვანძი</div>
-            <h6 class="text-xs font-semibold text-slate-300">ოჯახის ჩართულობა</h6>
+            <div class="text-[7px] uppercase tracking-wider text-[#E0AC6B] mb-0.5 font-bold">ქვე-კვანძი</div>
+            <h6 class="text-xs font-semibold text-[#222222]">ოჯახის ჩართულობა</h6>
           </div>
 
         </div>
@@ -603,58 +552,58 @@
 
       <!-- Floating Zoom & Control Panel -->
       <div class="absolute right-6 top-6 flex flex-col gap-2 z-30 select-none">
-        <button id="zoom-in-btn" class="h-10 w-10 bg-[#1e2022]/85 border border-white/5 backdrop-blur-xl rounded-lg shadow-xl flex items-center justify-center text-white hover:text-[#f1bf62] hover:bg-[#1e2022] transition-colors cursor-pointer focus:outline-none" title="მოახლოება">
+        <button id="zoom-in-btn" class="h-10 w-10 bg-white/95 border border-[#D8C4B6] backdrop-blur-xl rounded-xl shadow-sm flex items-center justify-center text-[#1C3D63] hover:text-[#E0AC6B] hover:bg-[#F4F7F7] transition-colors cursor-pointer focus:outline-none" title="მოახლოება">
           <span class="material-symbols-outlined text-lg">add</span>
         </button>
-        <button id="zoom-out-btn" class="h-10 w-10 bg-[#1e2022]/85 border border-white/5 backdrop-blur-xl rounded-lg shadow-xl flex items-center justify-center text-white hover:text-[#f1bf62] hover:bg-[#1e2022] transition-colors cursor-pointer focus:outline-none" title="დაშორება">
+        <button id="zoom-out-btn" class="h-10 w-10 bg-white/95 border border-[#D8C4B6] backdrop-blur-xl rounded-xl shadow-sm flex items-center justify-center text-[#1C3D63] hover:text-[#E0AC6B] hover:bg-[#F4F7F7] transition-colors cursor-pointer focus:outline-none" title="დაშორება">
           <span class="material-symbols-outlined text-lg">remove</span>
         </button>
-        <button id="zoom-reset-btn" class="h-10 w-10 bg-[#1e2022]/85 border border-white/5 backdrop-blur-xl rounded-lg shadow-xl flex items-center justify-center text-white hover:text-[#f1bf62] hover:bg-[#1e2022] transition-colors cursor-pointer focus:outline-none" title="სინქრონიზაციის აღდგენა">
+        <button id="zoom-reset-btn" class="h-10 w-10 bg-white/95 border border-[#D8C4B6] backdrop-blur-xl rounded-xl shadow-sm flex items-center justify-center text-[#1C3D63] hover:text-[#E0AC6B] hover:bg-[#F4F7F7] transition-colors cursor-pointer focus:outline-none" title="სინქრონიზაციის აღდგენა">
           <span class="material-symbols-outlined text-lg">autorenew</span>
         </button>
-        <button id="show-legend-btn" class="h-10 w-10 bg-[#1e2022]/85 border border-white/5 backdrop-blur-xl rounded-lg shadow-xl flex items-center justify-center text-white hover:text-[#f1bf62] hover:bg-[#1e2022] transition-colors cursor-pointer focus:outline-none" title="განმარტებითი დაფის ჩვენება">
+        <button id="show-legend-btn" class="h-10 w-10 bg-white/95 border border-[#D8C4B6] backdrop-blur-xl rounded-xl shadow-sm flex items-center justify-center text-[#1C3D63] hover:text-[#E0AC6B] hover:bg-[#F4F7F7] transition-colors cursor-pointer focus:outline-none" title="განმარტებითი დაფის ჩვენება">
           <span class="material-symbols-outlined text-lg font-bold">info</span>
         </button>
       </div>
 
-      <!-- Bottom-Right Explanatory Legend Board (Added Close Button!) -->
+      <!-- Bottom-Right Explanatory Legend Board -->
       <div id="legend-panel" class="absolute right-6 bottom-6 glass-card border rounded-2xl p-4 w-[280px] z-30 select-none pointer-events-auto transition-all duration-300">
-        <div class="flex items-center justify-between gap-2 mb-2 border-b border-white/5 pb-2">
+        <div class="flex items-center justify-between gap-2 mb-2 border-b border-[#D8C4B6] pb-2">
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-[#f1bf62] text-lg">info</span>
-            <span class="text-[10px] font-headline font-bold text-[#f1bf62] tracking-wider uppercase">რუკის განმარტებითი დაფა</span>
+            <span class="material-symbols-outlined text-[#E0AC6B] text-lg">info</span>
+            <span class="text-[10px] font-headline font-bold text-[#1C3D63] tracking-wider uppercase">რუკის განმარტებითი დაფა</span>
           </div>
-          <button id="close-legend-btn" class="h-5 w-5 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-all cursor-pointer focus:outline-none" title="დაფის გათიშვა">
+          <button id="close-legend-btn" class="h-5 w-5 rounded-full bg-[#F4F7F7] hover:bg-[#EAE5DF] text-[#8E8276] hover:text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer focus:outline-none" title="დაფის გათიშვა">
             <span class="material-symbols-outlined text-[10px] font-bold">close</span>
           </button>
         </div>
         <div class="space-y-2 text-[10px]">
-          <div class="flex items-center gap-2 text-slate-350">
-            <div class="w-3.5 h-3.5 rounded bg-[#1c2022] border border-[#f1bf62]/40 flex items-center justify-center font-bold text-[8px] text-[#f1bf62]">+</div>
+          <div class="flex items-center gap-2 text-[#222222]">
+            <div class="w-3.5 h-3.5 rounded bg-[#F4F7F7] border border-[#E0AC6B] flex items-center justify-center font-bold text-[8px] text-[#1C3D63]">+</div>
             <span>დააწკაპუნეთ კვანძზე ტოტების გასაშლელად</span>
           </div>
-          <div class="flex items-center gap-2 text-slate-350">
-            <div class="w-3.5 h-3.5 rounded bg-[#1c2022] border border-red-500/40 flex items-center justify-center font-bold text-[8px] text-red-400">−</div>
+          <div class="flex items-center gap-2 text-[#222222]">
+            <div class="w-3.5 h-3.5 rounded bg-[#F4F7F7] border border-red-400 flex items-center justify-center font-bold text-[8px] text-red-600">−</div>
             <span>დააჭირეთ მინუსს ცალკეული ფანჯრის გასათიშად</span>
           </div>
-          <div class="flex items-center gap-2 text-slate-350">
-            <div class="w-4 h-0.5 bg-[#f1bf62] opacity-50"></div>
-            <span>ნეირონული კავშირის ოქროსფერი ხაზები</span>
+          <div class="flex items-center gap-2 text-[#222222]">
+            <div class="w-4 h-0.5 bg-[#1C3D63] opacity-70"></div>
+            <span>ნეირონული კავშირის ხაზები</span>
           </div>
-          <div class="flex items-center gap-2 text-slate-350">
+          <div class="flex items-center gap-2 text-[#222222]">
             <div class="flex gap-0.5">
-              <span class="w-1 h-1 rounded-full bg-[#f1bf62] animate-pulse"></span>
-              <span class="w-1 h-1 rounded-full bg-[#f1bf62] opacity-60"></span>
-              <span class="w-1 h-1 rounded-full bg-[#f1bf62] opacity-25"></span>
+              <span class="w-1 h-1 rounded-full bg-[#E0AC6B] animate-pulse"></span>
+              <span class="w-1 h-1 rounded-full bg-[#E0AC6B] opacity-60"></span>
+              <span class="w-1 h-1 rounded-full bg-[#E0AC6B] opacity-25"></span>
             </div>
             <span>იმპულსების ნაკადის დინამიკური მოძრაობა</span>
           </div>
-          <div class="flex items-center gap-2 text-slate-350">
-            <span class="material-symbols-outlined text-slate-400 text-xs">pan_tool</span>
+          <div class="flex items-center gap-2 text-[#222222]">
+            <span class="material-symbols-outlined text-[#3B5E63] text-xs">pan_tool</span>
             <span>გადაადგილება შესაძლებელია მაუსით (Drag)</span>
           </div>
-          <div class="flex items-center gap-2 text-slate-350">
-            <span class="material-symbols-outlined text-slate-400 text-xs">zoom_in</span>
+          <div class="flex items-center gap-2 text-[#222222]">
+            <span class="material-symbols-outlined text-[#3B5E63] text-xs">zoom_in</span>
             <span>სქროლინგი აახლოებს და აშორებს ხედს</span>
           </div>
         </div>
@@ -663,11 +612,11 @@
   </div>
 
   <!-- Footer -->
-  <footer class="h-10 border-t border-white/5 bg-[#040506] px-8 flex items-center justify-between z-30 text-[10px] text-slate-600 select-none font-medium">
-    <span>© 2024 IDC პოზიტიური ფსიქოთერაპია • საინფორმაციო ხე. ყველა უფლება დაცულია.</span>
+  <footer class="h-10 border-t border-[#D8C4B6] bg-white px-8 flex items-center justify-between z-30 text-[10px] text-[#3B5E63] select-none font-medium">
+    <span>© 2026 IDC პოზიტიური ფსიქოთერაპია • საინფორმაციო ხე. ყველა უფლება დაცულია.</span>
     <div class="flex items-center gap-6">
-      <a href="#" class="hover:text-slate-400 transition-colors">დოკუმენტაცია</a>
-      <a href="#" class="hover:text-slate-400 transition-colors">კონფიდენციალურობის პროტოკოლი</a>
+      <a href="#" class="hover:text-[#1C3D63] transition-colors">დოკუმენტაცია</a>
+      <a href="#" class="hover:text-[#1C3D63] transition-colors">კონფიდენციალურობის პროტოკოლი</a>
     </div>
   </footer>
 
@@ -717,7 +666,7 @@
         'node-center': {
           title: 'პოზიტიური ფსიქოთერაპია (პეზეშკიანი)',
           category: 'მთავარი სისტემა',
-          desc: 'პოზიტიური ფსიქოთერაპია (PPT) არის ჰუმანისტური ფსიქოთერაპიის საერთაშორისოდ აღიარებული მეთოდი, რომელიც 1967 წელს დააარსა პროფესორმა <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" class="text-[#f1bf62] hover:underline font-semibold">ნოსრატ პეზეშკიანმა</a>. მეთოდი ეფუძნება ადამიანის შინაგანი პოტენციალისა და თვითგანკურნების თანდაყოლილი ძალების რწმენას, სადაც სიმპტომები და კონფლიქტები განიხილება როგორც განვითარებისა და ადაპტაციის შესაძლებლობები.'
+          desc: 'პოზიტიური ფსიქოთერაპია (PPT) არის ჰუმანისტური ფსიქოთერაპიის საერთაშორისოდ აღიარებული მეთოდი, რომელიც 1967 წელს დააარსა პროფესორმა <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" class="text-[#1C3D63] hover:text-[#E0AC6B] underline font-semibold">ნოსრატ პეზეშკიანმა</a>. მეთოდი ეფუძნება ადამიანის შინაგანი პოტენციალისა და თვითგანკურნების თანდაყოლილი ძალების რწმენას, სადაც სიმპტომები და კონფლიქტები განიხილება როგორც განვითარებისა და ადაპტაციის შესაძლებლობები.'
         },
         'node-layer1-1': {
           title: 'ძირითადი პრინციპები',
@@ -907,7 +856,7 @@
         'node-l2-5-3': {
           title: 'ვისბადენის აკადემია (WIAP)',
           category: 'ორგანიზაციული სტრუქტურა > WIAP',
-          desc: 'ვისბადენის ფსიქოთერაპიის აკადემია (WIAP) გერმანიაში — პოზიტიური ფსიქოთერაპიის სამშობლო და უძველესი საგანმანათლებლო ცენტრი, რომელიც დააარსა პროფესორმა <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" class="text-[#f1bf62] hover:underline font-semibold">ნოსრატ პეზეშკიანმა</a>.'
+          desc: 'ვისბადენის ფსიქოთერაპიის აკადემია (WIAP) გერმანიაში — პოზიტიური ფსიქოთერაპიის სამშობლო და უძველესი საგანმანათლებლო ცენტრი, რომელიც დააარსა პროფესორმა <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" class="text-[#1C3D63] hover:text-[#E0AC6B] underline font-semibold">ნოსრატ პეზეშკიანმა</a>.'
         }
       };
 
@@ -957,7 +906,7 @@
         const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
         defs.innerHTML = `
           <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f1bf62"/>
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1C3D63"/>
           </marker>
         `;
         svg.appendChild(defs);
@@ -979,29 +928,29 @@
 
           const pathData = getPathData(parentX, parentY, childX, childY);
 
-          // Solid line
+          // Solid line in Brand Navy
           const connectionLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
           connectionLine.setAttribute('d', pathData);
           connectionLine.setAttribute('fill', 'none');
-          connectionLine.setAttribute('stroke', '#f1bf62');
+          connectionLine.setAttribute('stroke', '#1C3D63');
           connectionLine.setAttribute('stroke-width', '1.5');
-          connectionLine.setAttribute('opacity', '0.45');
+          connectionLine.setAttribute('opacity', '0.55');
           connectionLine.setAttribute('marker-end', 'url(#arrow)');
           svg.appendChild(connectionLine);
 
-          // Glimmer pulse dash
+          // Glimmer pulse dash in Warm Gold
           const pulseLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
           pulseLine.setAttribute('d', pathData);
           pulseLine.setAttribute('fill', 'none');
-          pulseLine.setAttribute('stroke', '#f1bf62');
+          pulseLine.setAttribute('stroke', '#E0AC6B');
           pulseLine.setAttribute('stroke-width', '1.5');
           pulseLine.setAttribute('stroke-dasharray', '30 180');
           pulseLine.setAttribute('class', 'animate-pulse-dash');
           
           const isL3 = childId.includes('l3');
           pulseLine.style.animationDuration = isL3 ? '6s' : '4.5s';
-          pulseLine.style.opacity = isL3 ? '0.45' : '0.8';
-          pulseLine.setAttribute('filter', 'drop-shadow(0 0 3px rgba(241,191,98,0.5))');
+          pulseLine.style.opacity = isL3 ? '0.5' : '0.85';
+          pulseLine.setAttribute('filter', 'drop-shadow(0 0 4px rgba(224,172,107,0.7))');
           svg.appendChild(pulseLine);
         }
 
@@ -1338,24 +1287,24 @@
         // Clear active highlighting from all directory items
         const dirItems = document.querySelectorAll('.dir-item');
         dirItems.forEach(item => {
-          item.classList.remove('text-[#f1bf62]', 'font-semibold');
-          item.classList.add('text-slate-300');
+          item.classList.remove('text-[#1C3D63]', 'font-semibold');
+          item.classList.add('text-[#222222]');
           const orb = item.querySelector('.dir-orb');
           if (orb) {
             orb.classList.remove('orb-pulse', 'h-1.5', 'w-1.5');
-            orb.classList.add('h-1', 'w-1');
-            orb.className = 'dir-orb w-1 h-1 rounded-full bg-white transition-all';
+            orb.classList.add('h-1.5', 'w-1.5');
+            orb.className = 'dir-orb w-1.5 h-1.5 rounded-full bg-[#E0AC6B]/40 transition-all';
           }
         });
 
         // Highlight the clicked item in the sidebar directory list
         const clickedDirItem = document.getElementById(`dir-${nodeId}`);
         if (clickedDirItem) {
-          clickedDirItem.classList.remove('text-slate-300');
-          clickedDirItem.classList.add('text-[#f1bf62]', 'font-semibold');
+          clickedDirItem.classList.remove('text-[#222222]');
+          clickedDirItem.classList.add('text-[#1C3D63]', 'font-semibold');
           const orb = clickedDirItem.querySelector('.dir-orb');
           if (orb) {
-            orb.className = 'dir-orb w-1.5 h-1.5 rounded-full bg-[#f1bf62] orb-pulse transition-all';
+            orb.className = 'dir-orb w-1.5 h-1.5 rounded-full bg-[#E0AC6B] orb-pulse transition-all';
           }
         }
 
@@ -1491,10 +1440,10 @@
             
             // Create glassmorphic result item
             const searchItem = document.createElement('div');
-            searchItem.className = 'p-2 bg-white/5 hover:bg-[#f1bf62]/10 border border-white/5 hover:border-[#f1bf62]/35 rounded-xl cursor-pointer transition-all duration-300 select-none';
+            searchItem.className = 'p-2 bg-[#F4F7F7] hover:bg-[#EAE5DF] border border-[#D8C4B6] hover:border-[#1C3D63] rounded-xl cursor-pointer transition-all duration-300 select-none';
             searchItem.innerHTML = `
-              <div class="text-[8px] uppercase tracking-wider text-[#f1bf62] font-semibold">${nodeData.category}</div>
-              <div class="text-[11px] text-white font-bold tracking-tight mt-0.5">${nodeData.title}</div>
+              <div class="text-[8px] uppercase tracking-wider text-[#E0AC6B] font-semibold">${nodeData.category}</div>
+              <div class="text-[11px] text-[#1C3D63] font-bold tracking-tight mt-0.5">${nodeData.title}</div>
             `;
             
             searchItem.addEventListener('click', () => {
@@ -1513,7 +1462,7 @@
 
         if (matchesFound === 0) {
           searchResultsList.innerHTML = `
-            <div class="text-center py-4 text-slate-500 text-xs leading-relaxed">
+            <div class="text-center py-4 text-[#8E8276] text-xs leading-relaxed">
               შედეგები ვერ მოიძებნა
             </div>
           `;
@@ -1608,10 +1557,10 @@
         const hasChildren = children.length > 0;
 
         plusBtn.id = `ind-${card.id}`;
-        plusBtn.className = `w-6 h-6 rounded-full bg-[#1c2022] border flex items-center justify-center text-[11px] transition-all font-bold select-none cursor-pointer shadow-lg `;
+        plusBtn.className = `w-6 h-6 rounded-full bg-[#F4F7F7] border flex items-center justify-center text-[11px] transition-all font-bold select-none cursor-pointer shadow-sm `;
         
         if (hasChildren) {
-          plusBtn.classList.add('border-[#f1bf62]/40', 'text-[#f1bf62]', 'hover:border-[#f1bf62]', 'hover:bg-[#f1bf62]/10');
+          plusBtn.classList.add('border-[#E0AC6B]', 'text-[#1C3D63]', 'hover:border-[#1C3D63]', 'hover:bg-[#EAE5DF]');
           plusBtn.textContent = '+';
           plusBtn.title = 'ქვე-ფანჯრების გაშლა';
           
@@ -1623,7 +1572,7 @@
           });
         } else {
           // Leaf node - plus button is disabled/subtle
-          plusBtn.classList.add('border-[#f1bf62]/20', 'text-[#f1bf62]/40', 'cursor-not-allowed', 'opacity-65');
+          plusBtn.classList.add('border-[#D8C4B6]', 'text-[#8E8276]', 'cursor-not-allowed', 'opacity-60');
           plusBtn.textContent = '+';
           plusBtn.title = 'ქვე-ფანჯრები არ არის';
           plusBtn.addEventListener('click', (e) => {
@@ -1635,7 +1584,7 @@
         // 2. Minus (-) button: closes/hides the card itself!
         const minusBtn = document.createElement('div');
         minusBtn.id = `minus-btn-${card.id}`;
-        minusBtn.className = 'w-6 h-6 rounded-full bg-[#1c2022] border border-red-500/40 hover:border-red-500 text-red-400 hover:bg-red-500/10 flex items-center justify-center text-[11px] transition-all font-bold select-none cursor-pointer shadow-lg';
+        minusBtn.className = 'w-6 h-6 rounded-full bg-[#F4F7F7] border border-red-300 hover:border-red-500 text-red-500 hover:bg-red-50 flex items-center justify-center text-[11px] transition-all font-bold select-none cursor-pointer shadow-sm';
         minusBtn.textContent = '−';
         minusBtn.title = 'ფანჯრის გათიშვა';
         minusBtn.addEventListener('click', (e) => {
@@ -1908,13 +1857,13 @@
         // Reset sidebar directory list row highlights
         const dirItems = document.querySelectorAll('.dir-item');
         dirItems.forEach(item => {
-          item.classList.remove('text-[#f1bf62]', 'font-semibold');
-          item.classList.add('text-slate-300');
+          item.classList.remove('text-[#1C3D63]', 'font-semibold');
+          item.classList.add('text-[#222222]');
           const orb = item.querySelector('.dir-orb');
           if (orb) {
             orb.classList.remove('orb-pulse', 'h-1.5', 'w-1.5');
-            orb.classList.add('h-1', 'w-1');
-            orb.className = 'dir-orb w-1 h-1 rounded-full bg-white transition-all';
+            orb.classList.add('h-1.5', 'w-1.5');
+            orb.className = 'dir-orb w-1.5 h-1.5 rounded-full bg-[#E0AC6B]/40 transition-all';
           }
         });
 

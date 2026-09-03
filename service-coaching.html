@@ -4,14 +4,14 @@
   <link rel="icon" type="image/png" href="/favicon.png" />
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>რეგისტრაცია - IDC აიდისი</title>
+  <title>ინდივიდუალური ქოუჩინგი — IDC აიდისი — IDC აიდისი</title>
+  <meta name="description" content="პერსონალური ქოუჩინგი მიზნების დასახვის, ლიდერობისა და ცხოვრებისეული ტრანსფორმაციისთვის."/>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+Georgian:wght@100..900&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/src/input.css"/>
   <script type="module" src="/src/main.js"></script>
 </head>
-<body class="selection:bg-[#E0AC6B]/20 selection:text-[#1C3D63] bg-[#F6F3EC] text-[#222222] min-h-screen relative overflow-x-hidden">
-
+<body class="selection:bg-[#E0AC6B]/20 selection:text-[#1C3D63] bg-[#F6F3EC] text-[#222222]">
   <!-- Minimalist Beige Ambient Moodboard Canvas -->
   <div class="beige-ambient-bg"></div>
 
@@ -19,20 +19,19 @@
   <header class="fixed top-0 left-0 right-0 z-50 px-2.5 md:px-12 pt-3 md:pt-6 pointer-events-none">
     <nav id="main-nav" class="pointer-events-auto flex items-center justify-between px-4 md:px-12 py-1.5 md:py-2 w-full max-w-7xl mx-auto bg-white/55 border border-[#D8C4B6] backdrop-blur-2xl rounded-xl md:rounded-2xl shadow-[0px_10px_30px_rgba(28,61,99,0.06)] transition-all duration-500">
       <div class="flex items-center gap-2 md:gap-4 pointer-events-auto pl-1 md:pl-4">
-        <!-- Desktop Logo (Goes to logic.html) -->
+        <!-- Desktop Logo -->
         <a href="logic.html" class="hidden md:inline hover:opacity-85 transition-opacity duration-300">
           <img alt="IDC Logo" class="h-12 w-12 object-contain transition-transform duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: normal; margin: 0; max-width: none;"/>
         </a>
-        <!-- Mobile Logo (Goes to index.html) -->
+        <!-- Mobile Logo -->
         <a href="index.html" class="md:hidden inline hover:opacity-85 transition-opacity duration-300">
           <img alt="IDC Logo" class="h-10 w-10 object-contain transition-transform duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: normal; margin: 0; max-width: none;"/>
         </a>
         
-        <!-- Desktop Brand Name (Goes to about.html) -->
+        <!-- Brand Name -->
         <a href="about.html" class="hidden md:inline hover:opacity-85 transition-opacity duration-300 no-underline">
           <span class="text-3xl font-headline font-bold text-[#1C3D63] tracking-normal italic">აიდისი</span>
         </a>
-        <!-- Mobile Brand Name (Goes to index.html) -->
         <a href="index.html" class="md:hidden inline hover:opacity-85 transition-opacity duration-300 no-underline">
           <span class="text-2xl font-headline font-bold text-[#1C3D63] tracking-normal italic">აიდისი</span>
         </a>
@@ -40,13 +39,15 @@
 
       <div class="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-9 font-headline italic text-base lg:text-lg tracking-wide ml-auto mr-4 lg:mr-8">
         <a class="text-[#222222] hover:text-[#1C3D63] transition-colors duration-300" href="index.html">მთავარი</a>
+        
+        <!-- Dropdown with Right-Flyout Submenus (No Arrow Icon) -->
         <div class="relative group">
-          <a href="education-wapp.html" class="flex items-center gap-1 text-[#222222] hover:text-[#1C3D63] transition-colors duration-300 focus:outline-none cursor-pointer no-underline">
+          <a href="education-wapp.html" class="flex items-center text-[#1C3D63] font-bold pb-1 border-b-2 border-[#E0AC6B] hover:text-[#3B5E63] transition-colors duration-300 focus:outline-none cursor-pointer no-underline">
             <span>სერვისები</span>
           </a>
-                                        <div class="absolute left-0 mt-2 w-64 rounded-2xl bg-white/95 border border-[#D8C4B6] backdrop-blur-xl shadow-2xl p-2 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50 font-normal">
+          <div class="absolute left-0 mt-2 w-64 rounded-2xl bg-white/95 border border-[#D8C4B6] backdrop-blur-xl shadow-2xl p-2 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50 font-normal">
             
-            <!-- Item 1: განათლება with Right Flyout -->
+            <!-- Item 1: განათლება with Right Flyout (Starts with WAPP) -->
             <div class="relative group/sub-edu">
               <a href="education-wapp.html" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-[#F4F7F7] text-[#1C3D63] hover:text-[#1C3D63] transition-all no-underline">
                 <div class="flex items-center gap-2.5">
@@ -61,7 +62,7 @@
                 <span class="material-symbols-outlined text-base text-[#8E8276] group-hover/sub-edu:translate-x-1 group-hover/sub-edu:text-[#1C3D63] transition-all">chevron_right</span>
               </a>
 
-              <!-- Flyout Submenu to the Right for განათლება (WAPP is 1st, Erickson is 2nd) -->
+              <!-- Flyout Submenu to the Right for განათლება (Erickson is #2!) -->
               <div class="absolute left-full top-0 ml-1.5 w-64 rounded-2xl bg-white/95 border border-[#D8C4B6] backdrop-blur-xl shadow-2xl p-2 invisible opacity-0 translate-x-2 group-hover/sub-edu:visible group-hover/sub-edu:opacity-100 group-hover/sub-edu:translate-x-0 transition-all duration-200 z-50">
                 <div class="text-[10px] font-bold uppercase tracking-wider text-[#E0AC6B] px-2.5 py-1 mb-1 border-b border-[#D8C4B6]/40 flex items-center justify-between">
                   <span>კურსების ჩამონათვალი</span>
@@ -102,7 +103,7 @@
 
             <div class="h-px bg-[#D8C4B6]/40 my-1"></div>
 
-            <!-- Item 2: ფსიქოლოგია თერაპია with Right Flyout -->
+            <!-- Item 2: ფსიქოლოგია თერაპია with Right Flyout (Starts with Consultation) -->
             <div class="relative group/sub-srv">
               <a href="service-consultation.html" class="flex items-center justify-between p-2.5 rounded-xl hover:bg-[#F4F7F7] text-[#1C3D63] hover:text-[#1C3D63] transition-all no-underline">
                 <div class="flex items-center gap-2.5">
@@ -148,7 +149,7 @@
           </div>
         </div>
 
-                        <!-- Dropdown for ინტერაქცია (Starts with balance.html) -->
+                <!-- Dropdown for ინტერაქცია (Starts with balance.html) -->
         <div class="relative group">
           <a href="balance.html" class="flex items-center text-[#222222] hover:text-[#1C3D63] transition-colors duration-300 focus:outline-none cursor-pointer no-underline">
             <span>ინტერაქცია</span>
@@ -195,7 +196,8 @@
             </a>
           </div>
         </div>
-        <!-- Dropdown for ჩვენს შესახებ (Starts with about.html) -->
+
+                <!-- Dropdown for ჩვენს შესახებ (Starts with about.html) -->
         <div class="relative group">
           <a href="about.html" class="flex items-center text-[#222222] hover:text-[#1C3D63] transition-colors duration-300 focus:outline-none cursor-pointer no-underline">
             <span>ჩვენს შესახებ</span>
@@ -244,7 +246,7 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-2 md:gap-4">
+      <div class="flex items-center gap-2 md:gap-4 pointer-events-auto">
         <!-- Search Toggle Button -->
         <button id="nav-search-btn" class="h-9 w-9 md:h-10 md:w-10 flex items-center justify-center text-[#222222] hover:text-[#1C3D63] transition-colors focus:outline-none cursor-pointer pointer-events-auto">
           <span class="material-symbols-outlined text-2xl">search</span>
@@ -269,12 +271,9 @@
         </button>
       </div>
       
-      <!-- Instant search results inside the panel -->
       <div id="search-results-dropdown" class="mt-4 border-t border-[#D8C4B6] pt-3 hidden">
         <div class="px-2 py-1 text-[10px] uppercase tracking-widest text-[#1C3D63] font-semibold border-b border-[#D8C4B6] pb-2 mb-2">ძიების შედეგები</div>
-        <div id="search-results-container" class="max-h-60 overflow-y-auto space-y-1">
-          <!-- Dynamic search results populated by js -->
-        </div>
+        <div id="search-results-container" class="max-h-60 overflow-y-auto space-y-1"></div>
       </div>
     </div>
 
@@ -307,9 +306,9 @@
       <div class="py-1.5 border-b border-[#D8C4B6]">
         <span class="block text-[#1C3D63] font-headline italic text-base pb-0.5 font-semibold">ინტერაქცია</span>
         <div class="pl-3 space-y-1.5 mt-0.5">
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="balance.html">ბალანსის მოდელი</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="cosmic.html">აიდი მოდელები</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="blog.html">ბლოგი</a>
+          <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="balance.html">• ბალანსის მოდელი</a>
+          <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="cosmic.html">• აიდი მოდელები</a>
+          <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="blog.html">• ბლოგი & სტატიები</a>
         </div>
       </div>
       <div class="py-1.5">
@@ -323,71 +322,94 @@
     </div>
   </header>
 
-  <main class="relative z-10 min-h-screen pt-28 md:pt-40">
-    <!-- Hero & Form Section -->
-    <section class="relative pb-24 md:pb-32 px-4 sm:px-6 overflow-hidden">
-      <div class="max-w-2xl mx-auto">
-        <!-- Registration Form Card -->
-        <div class="bg-white p-6 sm:p-10 md:p-12 rounded-3xl shadow-sm border border-[#D8C4B6] w-full relative hover-glow transition-all">
-          
-          <div class="mb-6 sm:mb-8 text-left relative flex items-start justify-between">
-            <div>
-              <span class="moodboard-badge mb-3">ონლაინ რეგისტრაცია</span>
-              <h1 class="text-2xl sm:text-3xl font-headline italic text-[#1C3D63]">რეგისტრაცია</h1>
-              <p class="text-xs sm:text-sm text-[#3B5E63] mt-2 font-light">შეავსეთ ფორმა და აირჩიეთ გადახდის მეთოდი რეგისტრაციის დასასრულებლად</p>
-            </div>
-            <div class="bg-[#F4F7F7] border border-[#D8C4B6] p-3 rounded-2xl hidden sm:flex items-center justify-center text-[#E0AC6B] shadow-sm">
-              <span class="material-symbols-outlined text-3xl">edit_calendar</span>
-            </div>
+  <main class="relative z-10 pt-28 md:pt-40">
+    <!-- Primary Direction Switcher (განათლება <-> ფსიქოლოგია თერაპია) -->
+    <div class="max-w-xl mx-auto px-6 mb-4">
+      <div class="p-1.5 bg-white/95 border border-[#D8C4B6] rounded-2xl shadow-[0_10px_30px_rgba(28,61,99,0.06)] backdrop-blur-md flex items-center justify-between gap-2">
+        <a href="education-wapp.html" class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] no-underline transition-all group">
+          <span class="material-symbols-outlined text-lg text-[#E0AC6B] group-hover:scale-110 transition-transform">school</span>
+          <span>განათლება</span>
+        </a>
+        <a href="service-consultation.html" class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase bg-[#1C3D63] text-white shadow-md border-b-2 border-[#E0AC6B] no-underline transition-all">
+          <span class="material-symbols-outlined text-lg text-[#1C3D63]">psychology</span>
+          <span>ფსიქოლოგია თერაპია</span>
+          <span class="text-[9px] bg-[#E0AC6B] text-[#1C3D63] font-bold px-2 py-0.5 rounded-full hidden sm:inline">აქტიური</span>
+        </a>
+      </div>
+    </div>
+<!-- Sibling Sub-Services Switcher Bar (თერაპიული სერვისების გადამრთველი - გასქროლვადი) -->
+<div class="max-w-5xl mx-auto px-2 sm:px-6 mb-12 sm:mb-16">
+  <div class="switcher-wrapper relative flex items-center">
+    <button class="switcher-btn-prev hidden sm:flex items-center justify-center w-8 h-8 rounded-full bg-white/90 border border-[#D8C4B6] text-[#1C3D63] hover:bg-[#F4F7F7] shadow-sm shrink-0 mr-2 z-10 transition-all cursor-pointer" title="წინა">
+      <span class="material-symbols-outlined text-lg">chevron_left</span>
+    </button>
+    <div class="horizontal-switcher-bar flex items-center justify-start gap-3 overflow-x-auto pb-3 pt-1 px-1 scrollbar-none scroll-smooth flex-1">
+      <a href="service-consultation.html" class="shrink-0 whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] border border-[#D8C4B6] no-underline flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm text-[#8E8276]">support_agent</span>
+        <span>კონსულტაცია</span>
+      </a>
+      <a href="service-individual.html" class="shrink-0 whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] border border-[#D8C4B6] no-underline flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm text-[#8E8276]">person</span>
+        <span>ინდივიდუალური თერაპია</span>
+      </a>
+      <a href="service-group.html" class="shrink-0 whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] border border-[#D8C4B6] no-underline flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm text-[#8E8276]">groups</span>
+        <span>ჯგუფური თერაპია</span>
+      </a>
+      <a href="service-coaching.html" class="shrink-0 whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-[#1C3D63] text-white shadow-md border border-[#1C3D63] no-underline flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm text-[#E0AC6B]">trending_up</span>
+        <span>ქოუჩინგი</span>
+      </a>
+      <a href="service-group-coaching.html" class="shrink-0 whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] border border-[#D8C4B6] no-underline flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm text-[#8E8276]">diversity_2</span>
+        <span>ჯგუფური ქოუჩინგი</span>
+      </a>
+      <a href="services.html" class="shrink-0 whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] border border-[#D8C4B6] no-underline flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm text-[#8E8276]">apps</span>
+        <span>ყველა სერვისი</span>
+      </a>
+    </div>
+    <button class="switcher-btn-next hidden sm:flex items-center justify-center w-8 h-8 rounded-full bg-white/90 border border-[#D8C4B6] text-[#1C3D63] hover:bg-[#F4F7F7] shadow-sm shrink-0 ml-2 z-10 transition-all cursor-pointer" title="შემდეგი">
+      <span class="material-symbols-outlined text-lg">chevron_right</span>
+    </button>
+  </div>
+</div>
+
+    <!-- Service Hero Section -->
+    <section class="px-6 md:px-12 max-w-7xl mx-auto mb-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-white rounded-3xl p-8 md:p-14 border border-[#D8C4B6] shadow-md relative overflow-hidden">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E0AC6B]/20 border border-[#E0AC6B] text-[#1C3D63] text-xs font-bold uppercase tracking-wider">
+            <span class="material-symbols-outlined text-sm text-[#E0AC6B]">trending_up</span>
+            <span>პერსონალური ქოუჩინგი</span>
           </div>
+          <h1 class="text-3xl sm:text-5xl font-headline italic text-[#1C3D63] leading-tight">
+            ინდივიდუალური <span class="text-[#E0AC6B]">ქოუჩინგი</span>
+          </h1>
+          <p class="text-[#222222] text-base md:text-lg leading-relaxed font-light">
+            ორიენტირებულია მომავალზე, შედეგებსა და თქვენი პოტენციალის მაქსიმიზაციაზე. ქოუჩინგი დაგეხმარებათ მკაფიო მიზნების დასახვაში, ეჭვების დაძლევასა და კარიერულ თუ პიროვნულ ტრანსფორმაციაში.
+          </p>
+          
+          <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-[#D8C4B6]">
+            <button class="booking-btn inline-flex items-center gap-2 bg-[#1C3D63] text-white hover:bg-[#254F7F] px-8 py-3.5 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-md cursor-pointer">
+              <span>სესიის დაჯავშნა</span>
+              <span class="material-symbols-outlined text-sm">calendar_month</span>
+            </button>
+            <button onclick="if(window.openAIChat) window.openAIChat();" class="inline-flex items-center gap-2 bg-[#F4F7F7] text-[#1C3D63] hover:bg-[#EAE5DF] px-6 py-3.5 rounded-xl text-sm font-semibold tracking-wider transition-all border border-[#D8C4B6] cursor-pointer">
+              <span class="material-symbols-outlined text-base text-[#E0AC6B]">psychology</span>
+              <span>ჰკითხეთ AI ასისტენტს</span>
+            </button>
+          </div>
+        </div>
 
-          <form id="registration-form" class="space-y-5 sm:space-y-6">
-            <!-- Alert/Status Box -->
-            <div id="status-message" class="hidden p-4 rounded-xl text-sm font-semibold border transition-all text-center"></div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <!-- Name Input -->
-              <div class="space-y-1.5 text-left">
-                <label class="text-xs text-[#8E8276] uppercase tracking-wider font-semibold ml-1">სახელი</label>
-                <input type="text" id="reg-first-name" required class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl py-3 px-4 text-sm text-[#222222] placeholder-[#8E8276] transition-all outline-none font-medium" placeholder="თქვენი სახელი"/>
-              </div>
-              <!-- Surname Input -->
-              <div class="space-y-1.5 text-left">
-                <label class="text-xs text-[#8E8276] uppercase tracking-wider font-semibold ml-1">გვარი</label>
-                <input type="text" id="reg-last-name" required class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl py-3 px-4 text-sm text-[#222222] placeholder-[#8E8276] transition-all outline-none font-medium" placeholder="თქვენი გვარი"/>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <!-- Phone Input -->
-              <div class="space-y-1.5 text-left">
-                <label class="text-xs text-[#8E8276] uppercase tracking-wider font-semibold ml-1">ტელეფონი</label>
-                <input type="tel" id="reg-phone" required class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl py-3 px-4 text-sm text-[#222222] placeholder-[#8E8276] transition-all outline-none font-medium" placeholder="ტელ:"/>
-              </div>
-              <!-- Birth Date Input -->
-              <div class="space-y-1.5 text-left">
-                <label class="text-xs text-[#8E8276] uppercase tracking-wider font-semibold ml-1">დაბადების თარიღი</label>
-                <input type="date" id="reg-birthdate" required class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl py-3 px-4 text-sm text-[#222222] transition-all outline-none font-medium"/>
-              </div>
-            </div>
-
-            <!-- Course Input (Manual text field) -->
-            <div class="space-y-1.5 text-left">
-              <label class="text-xs text-[#8E8276] uppercase tracking-wider font-semibold ml-1">რაზე გსურთ რეგისტრაცია?</label>
-              <input type="text" id="reg-course" required class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl py-3 px-4 text-sm text-[#222222] placeholder-[#8E8276] transition-all outline-none font-medium" placeholder="მაგ: პრაქტიკული ფსიქოლოგია, არტ თერაპია..."/>
-            </div>
-
-            <!-- Submit and Pay Button -->
-            <div class="pt-4 border-t border-[#D8C4B6]">
-              <button type="submit" id="btn-submit-registration" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-4 rounded-xl font-bold text-base transition-all duration-300 shadow-sm flex items-center justify-center gap-3 cursor-pointer">
-                <span class="material-symbols-outlined text-xl">payments</span>
-                <span>რეგისტრაცია და გადახდა</span>
-              </button>
-            </div>
-          </form>
+        <div class="lg:col-span-5 relative">
+          <div class="aspect-square rounded-3xl overflow-hidden border border-[#D8C4B6] shadow-xl bg-[#FAF7F2]">
+            <img src="/images/service-coaching.jpg" alt="ქოუჩინგი" class="w-full h-full object-cover"/>
+          </div>
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- Footer -->
@@ -505,503 +527,80 @@
     </div>
   </footer>
 
-  <!-- Payment Modal -->
-  <div id="payment-modal" class="fixed inset-0 z-[100] overflow-y-auto bg-black/60 backdrop-blur-md hidden opacity-0 transition-all duration-300 pointer-events-auto p-3 sm:p-6 text-center">
-    <div class="inline-block w-full max-w-md sm:max-w-3xl md:max-w-4xl p-6 sm:p-8 my-6 text-center bg-white border border-[#D8C4B6] rounded-3xl shadow-2xl align-middle transform scale-95 transition-all duration-300 relative text-left" id="payment-modal-card">
-      <button id="close-payment-modal" class="absolute top-4 right-4 text-[#8E8276] hover:text-[#1C3D63] transition-colors cursor-pointer border-none bg-transparent z-10">
-        <span class="material-symbols-outlined text-2xl sm:text-3xl">close</span>
+  <!-- Booking Modal -->
+  <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-white border border-[#D8C4B6] rounded-3xl p-6 md:p-8 max-w-lg w-full mx-4 shadow-2xl relative transform scale-95 transition-transform duration-300">
+      <button id="close-booking-modal" class="absolute top-5 right-5 text-[#8E8276] hover:text-[#1C3D63] transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-2xl">close</span>
       </button>
-      
-      <!-- Icon/Header -->
-      <div class="mb-6 flex flex-col items-center text-center">
-        <div class="w-12 h-12 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] mb-2 shadow-sm">
-          <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
+      <div class="space-y-4">
+        <div class="w-12 h-12 rounded-2xl bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center">
+          <span class="material-symbols-outlined text-2xl">calendar_month</span>
         </div>
-        <h3 class="text-xl sm:text-2xl font-headline italic text-[#1C3D63]">გადახდა საბანკო გადარიცხვით</h3>
-        <p class="text-xs text-[#3B5E63] mt-1 font-light">რეგისტრაციის დასასრულებლად გადაიხადეთ კურსის საფასური</p>
-      </div>
-
-      <!-- Modal Content Grid (Desktop 2 Columns vs Mobile 1 Column) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
-        
-        <!-- Left Side: QR Code Display (Desktop / Computer Version) -->
-        <div id="desktop-qr-container" class="my-0 p-4 sm:p-5 bg-[#F4F7F7] rounded-2xl text-center shadow-sm border border-[#D8C4B6] flex flex-col items-center justify-center h-full">
-          <div class="relative w-48 h-48 sm:w-52 sm:h-52 mx-auto bg-white p-2 rounded-xl border border-[#D8C4B6] shadow-inner flex items-center justify-center">
-            <img id="qr-code-img" src="" alt="Scan with phone camera to pay" class="w-full h-full object-contain rounded-lg" />
-          </div>
-          <p class="text-xs sm:text-sm text-[#1C3D63] font-bold mt-3.5 flex items-center justify-center gap-1.5">
-            <span class="material-symbols-outlined text-base text-[#E0AC6B]">photo_camera</span>
-            დაასკანერეთ ტელეფონის კამერით
-          </p>
-          <p class="text-[11px] text-[#3B5E63] font-light mt-1.5 leading-relaxed text-center">
-            ტელეფონით დასკანერებისას ავტომატურად გაგეხსნებათ საქართველოს ბანკისა და თიბისის გადახდის აპლიკაციები 📱
-          </p>
-        </div>
-
-        <!-- Right Side: Bank Options & Recipient Details -->
-        <div class="space-y-4">
-          <!-- Mobile / Web Bank Links -->
-          <div id="mobile-apps-container" class="space-y-2.5">
-            <p class="text-xs text-[#3B5E63] font-semibold text-center flex items-center justify-center gap-1.5">
-              <span class="material-symbols-outlined text-sm text-[#E0AC6B]">touch_app</span>
-              <span id="bank-buttons-header-text">აირჩიეთ ბანკი გადასასვლელად:</span>
-            </p>
-            <div class="grid grid-cols-1 gap-3">
-              <!-- BOG Bank Button -->
-              <button type="button" id="btn-bog-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#ff6700] hover:bg-[#e65c00] border border-[#ff6700] rounded-2xl transition-all duration-300 cursor-pointer shadow-md group active:scale-95 text-white w-full gap-3">
-                <div class="flex items-center gap-3">
-                  <img src="/assets/bog-logo.png" alt="Bank of Georgia" class="w-11 h-11 rounded-xl shadow-md bg-white object-contain p-0.5 flex-shrink-0" />
-                  <div class="text-left leading-tight">
-                    <span class="text-xs sm:text-sm font-black tracking-tight text-white block">საქართველოს ბანკი</span>
-                    <span class="text-[9px] font-bold text-white/90 tracking-wider uppercase block">BANK OF GEORGIA</span>
-                  </div>
-                </div>
-                <span id="bog-badge-text" class="text-[10px] text-white font-extrabold bg-black/20 px-3 py-1 rounded-full border border-white/20 flex-shrink-0">BOG</span>
-              </button>
-
-              <!-- TBC Bank Button -->
-              <button type="button" id="btn-tbc-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#00adef] hover:bg-[#009bd7] border border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-md group active:scale-95 text-white w-full gap-3">
-                <div class="flex items-center gap-3">
-                  <img src="/assets/tbc-logo.png" alt="TBC Bank" class="w-11 h-11 rounded-xl shadow-md bg-white object-contain p-0.5 flex-shrink-0" />
-                  <div class="text-left leading-tight">
-                    <span class="text-xs sm:text-sm font-black tracking-tight text-white block">თიბისი ბანკი</span>
-                    <span class="text-[9px] font-bold text-white/90 tracking-widest uppercase block">T B C   B A N K</span>
-                  </div>
-                </div>
-                <span id="tbc-badge-text" class="text-[10px] text-white font-extrabold bg-black/20 px-3 py-1 rounded-full border border-white/20 flex-shrink-0">TBC</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Bank Account Transfer Details -->
-          <div class="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-4 text-left space-y-2.5">
-            <div>
-              <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">მიმღები</span>
-              <span class="text-sm font-bold text-[#1C3D63]">ანი მაისურაძე</span>
-            </div>
-            <div>
-              <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ბანკი</span>
-              <span class="text-sm font-semibold text-[#222222]">საქართველოს ბანკი (Bank of Georgia)</span>
-            </div>
-            <div>
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ანგარიშის ნომერი (IBAN)</span>
-                <button id="copy-iban" class="text-[10px] text-[#1C3D63] hover:text-[#E0AC6B] cursor-pointer flex items-center gap-0.5 border-none bg-transparent font-bold">
-                  <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
-                </button>
-              </div>
-              <span id="iban-text" class="text-xs sm:text-sm font-mono font-bold text-[#1C3D63] break-all">GE93BG0000000192399800</span>
-            </div>
-            <div>
-              <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">დანიშნულება</span>
-              <span id="payment-purpose" class="text-xs font-semibold text-[#222222]">რეგისტრაციის საფასური</span>
-            </div>
-          </div>
-
-          <!-- Success Notification / Confirm -->
-          <div class="pt-2 text-center space-y-2">
-            <button id="btn-payment-confirm" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-3.5 px-4 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 cursor-pointer border-none shadow-sm flex items-center justify-center gap-2 active:scale-95">
-              <span class="material-symbols-outlined text-xl">task_alt</span>
-              გადახდა დავასრულე - რეგისტრაცია
-            </button>
-            <p class="text-[11px] text-[#8E8276]">გადარიცხვის შემდეგ დააჭირეთ ამ ღილაკს რეგისტრაციის დასასრულებლად</p>
-          </div>
-        </div>
-
+        <h3 class="text-2xl font-headline italic text-[#1C3D63]">სესიის / კურსის დაჯავშნა</h3>
+        <p class="text-xs text-[#3B5E63] font-light">გთხოვთ შეავსოთ მოკლე ინფორმაცია და ჩვენი მენეჯერი უმოკლეს დროში დაგიკავშირდებათ.</p>
+        <form class="space-y-3 pt-2" onsubmit="event.preventDefault(); alert('თქვენი განაცხადი მიღებულია!'); document.getElementById('booking-modal').classList.add('hidden');">
+          <input type="text" placeholder="თქვენი სახელი და გვარი" required class="w-full px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-[#F4F7F7] text-xs text-[#222222] focus:outline-none focus:border-[#1C3D63]"/>
+          <input type="tel" placeholder="ტელეფონის ნომერი" required class="w-full px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-[#F4F7F7] text-xs text-[#222222] focus:outline-none focus:border-[#1C3D63]"/>
+          <input type="email" placeholder="ელ-ფოსტა" class="w-full px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-[#F4F7F7] text-xs text-[#222222] focus:outline-none focus:border-[#1C3D63]"/>
+          <button type="submit" class="w-full py-3 rounded-xl bg-[#1C3D63] hover:bg-[#254F7F] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer">
+            განაცხადის გაგზავნა
+          </button>
+        </form>
       </div>
     </div>
   </div>
 
+  <!-- Search & UI Scripts -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("registration-form");
-      const statusDiv = document.getElementById("status-message");
-      const submitBtn = document.getElementById("btn-submit-registration");
-
-      // Modal elements
-      const modal = document.getElementById("payment-modal");
-      const modalCard = document.getElementById("payment-modal-card");
-      const closeBtn = document.getElementById("close-payment-modal");
-      const confirmBtn = document.getElementById("btn-payment-confirm");
-      const copyBtn = document.getElementById("copy-iban");
-      const ibanText = document.getElementById("iban-text");
-      const purposeText = document.getElementById("payment-purpose");
-
-      const tbcBtn = document.getElementById("btn-tbc-app");
-      const bogBtn = document.getElementById("btn-bog-app");
-
-      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-      let pendingRegistrationPayload = null;
-
-      // Helper function to set scannable QR code with bulletproof providers
-      function setQrCodeUrl(url) {
-        const qrImg = document.getElementById("qr-code-img");
-        if (!qrImg) return;
-
-        const encoded = encodeURIComponent(url);
-        const qrProviders = [
-          `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encoded}`,
-          `https://quickchart.io/qr?size=300&text=${encoded}`,
-          `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${encoded}`
-        ];
-
-        let providerIndex = 0;
-        qrImg.onerror = () => {
-          providerIndex++;
-          if (providerIndex < qrProviders.length) {
-            qrImg.src = qrProviders[providerIndex];
-          }
-        };
-        qrImg.src = qrProviders[0];
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mobile menu
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
       }
 
-      // Helper function to send Telegram notifications
-      async function sendTelegramNotification(payload) {
-        const botToken = "8563426842:AAEuhg8EXmAV18NXtlAaiky0ZzWGvNXkJQU";
-        const chatId = "443575738";
-
-        const text = `🎓 *ახალი რეგისტრაცია & გადახდის დადასტურება!* 💳\n\n` +
-          `👤 *სახელი გვარი:* ${payload.first_name} ${payload.last_name}\n` +
-          `📅 *დაბადების თარიღი:* ${payload.birthdate}\n` +
-          `📞 *ტელეფონი:* ${payload.phone}\n` +
-          `📚 *კურსი:* ${payload.register_for}\n` +
-          `✅ *სტატუსი:* გადახდილია (მომხმარებელმა დაადასტურა!)`;
-
-        try {
-          await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              chat_id: chatId,
-              text: text,
-              parse_mode: "Markdown"
-            })
+      // Booking modal
+      const bookingBtns = document.querySelectorAll('.booking-btn');
+      const bookingModal = document.getElementById('booking-modal');
+      const closeBookingBtn = document.getElementById('close-booking-modal');
+      if (bookingModal) {
+        bookingBtns.forEach(btn => btn.addEventListener('click', () => {
+          bookingModal.classList.remove('hidden');
+          setTimeout(() => {
+            bookingModal.classList.remove('opacity-0');
+            bookingModal.querySelector('div').classList.remove('scale-95');
+          }, 10);
+        }));
+        if (closeBookingBtn) {
+          closeBookingBtn.addEventListener('click', () => {
+            bookingModal.classList.add('opacity-0');
+            bookingModal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => bookingModal.classList.add('hidden'), 200);
           });
-        } catch (e) {
-          console.error("Telegram error:", e);
         }
       }
 
-      // Check if opened on mobile via scanned QR code or redirected from booking modal
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get("pay_mobile") === "true") {
-        const name = urlParams.get("name") || "";
-        const course = urlParams.get("course") || "";
-        const phone = urlParams.get("phone") || "";
-
-        // Auto-fill form fields if available
-        if (name) {
-          const parts = name.split(" ");
-          if (parts[0] && document.getElementById("reg-first-name")) {
-            document.getElementById("reg-first-name").value = parts[0];
-          }
-          if (parts[1] && document.getElementById("reg-last-name")) {
-            document.getElementById("reg-last-name").value = parts.slice(1).join(" ");
-          }
-        }
-        if (phone && document.getElementById("reg-phone")) {
-          document.getElementById("reg-phone").value = phone;
-        }
-        if (course && document.getElementById("reg-course")) {
-          document.getElementById("reg-course").value = course;
-        }
-
-        const firstNameVal = document.getElementById("reg-first-name")?.value || "";
-        const lastNameVal = document.getElementById("reg-last-name")?.value || "";
-        const phoneVal = document.getElementById("reg-phone")?.value || "";
-        const birthdateVal = document.getElementById("reg-birthdate")?.value || "";
-        const courseVal = document.getElementById("reg-course")?.value || course || "ინდივიდუალური ფსიქოთერაპია";
-
-        pendingRegistrationPayload = {
-          first_name: firstNameVal || name || "მომხმარებელი",
-          last_name: lastNameVal || "",
-          phone: phoneVal || phone || "N/A",
-          birthdate: birthdateVal || "N/A",
-          register_for: courseVal
-        };
-
-        if (purposeText) {
-          purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${pendingRegistrationPayload.first_name} ${pendingRegistrationPayload.last_name} (${courseVal})</strong>`;
-        }
-
-        // Generate QR Code URL
-        const mobilePayUrl = `${window.location.origin}/registration.html?pay_mobile=true&name=${encodeURIComponent(pendingRegistrationPayload.first_name + ' ' + pendingRegistrationPayload.last_name)}&course=${encodeURIComponent(courseVal)}`;
-        setQrCodeUrl(mobilePayUrl);
-        
-        // Show view in modal immediately based on actual device
-        const desktopQr = document.getElementById("desktop-qr-container");
-        const mobileApps = document.getElementById("mobile-apps-container");
-        const headerText = document.getElementById("bank-buttons-header-text");
-        const bogBadge = document.getElementById("bog-badge-text");
-        const tbcBadge = document.getElementById("tbc-badge-text");
-
-        if (isMobileDevice) {
-          if (desktopQr) desktopQr.classList.add("hidden");
-          if (mobileApps) mobileApps.classList.remove("hidden");
-          if (headerText) headerText.textContent = "აირჩიეთ მობაილ ბანკი გადასასვლელად:";
-          if (bogBadge) bogBadge.textContent = "BOG Mobile";
-          if (tbcBadge) tbcBadge.textContent = "TBC Mobile";
-        } else {
-          if (desktopQr) desktopQr.classList.remove("hidden");
-          if (mobileApps) mobileApps.classList.remove("hidden");
-          if (headerText) headerText.textContent = "ან გადადით ინტერნეტ ბანკში:";
-          if (bogBadge) bogBadge.textContent = "iBank Web";
-          if (tbcBadge) tbcBadge.textContent = "TBC Web";
-        }
-
-        if (modal && modalCard) {
-          modal.classList.remove("hidden");
-          setTimeout(() => {
-            modal.classList.remove("opacity-0");
-            modal.classList.add("opacity-100");
-            modalCard.classList.remove("scale-95");
-            modalCard.classList.add("scale-100");
-          }, 100);
-        }
-      }
-
-      const setStatus = (msg, isError = false) => {
-        if (!statusDiv) return;
-        statusDiv.innerHTML = msg;
-        statusDiv.className = "p-4 rounded-xl text-sm font-semibold border transition-all text-center";
-        if (isError) {
-          statusDiv.className += " bg-red-50 border-red-200 text-red-700";
-        } else {
-          statusDiv.className += " bg-emerald-50 border-emerald-200 text-emerald-800";
-        }
-        statusDiv.classList.remove("hidden");
-        statusDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      };
-
-      // Input Validation helper
-      function validateFormInputs() {
-        const firstName = document.getElementById("reg-first-name").value.trim();
-        const lastName = document.getElementById("reg-last-name").value.trim();
-        const phone = document.getElementById("reg-phone").value.trim().replace(/\s+/g, "");
-        const birthdate = document.getElementById("reg-birthdate").value;
-        const course = document.getElementById("reg-course").value.trim();
-
-        if (!firstName || !lastName || !phone || !birthdate || !course) {
-          setStatus("გთხოვთ შეავსოთ ყველა სავალდებულო ველი.", true);
-          return null;
-        }
-
-        let normalizedPhone = phone;
-        if (normalizedPhone.startsWith("+995")) {
-          normalizedPhone = normalizedPhone.slice(4);
-        } else if (normalizedPhone.startsWith("995")) {
-          normalizedPhone = normalizedPhone.slice(3);
-        }
-
-        if (!/^5\d{8}$/.test(normalizedPhone)) {
-          setStatus("შეცდომა: ტელეფონის ნომერი არასწორია (უნდა შედგებოდეს 9 ციფრისგან და იწყებოდეს 5-ით).", true);
-          return null;
-        }
-
-        return {
-          first_name: firstName,
-          last_name: lastName,
-          phone: "995" + normalizedPhone,
-          birthdate: birthdate,
-          register_for: course
-        };
-      }
-
-      // Open Payment Modal FIRST without sending Telegram
-      function openPaymentModal(payload) {
-        pendingRegistrationPayload = payload;
-
-        // Set dynamic transfer purpose
-        if (purposeText) {
-          purposeText.innerHTML = `რეგისტრაციის საფასური - <strong>${payload.first_name} ${payload.last_name} (${payload.register_for})</strong>`;
-        }
-
-        // Generate real scannable QR Code URL pointing to mobile payment screen
-        const mobilePayUrl = `${window.location.origin}/registration.html?pay_mobile=true&name=${encodeURIComponent(payload.first_name + ' ' + payload.last_name)}&course=${encodeURIComponent(payload.register_for)}`;
-        setQrCodeUrl(mobilePayUrl);
-
-        // Adjust modal for desktop vs mobile
-        const desktopQr = document.getElementById("desktop-qr-container");
-        const mobileApps = document.getElementById("mobile-apps-container");
-        const headerText = document.getElementById("bank-buttons-header-text");
-        const bogBadge = document.getElementById("bog-badge-text");
-        const tbcBadge = document.getElementById("tbc-badge-text");
-
-        if (isMobileDevice) {
-          if (desktopQr) desktopQr.classList.add("hidden");
-          if (mobileApps) mobileApps.classList.remove("hidden");
-          if (headerText) headerText.textContent = "აირჩიეთ მობაილ ბანკი გადასასვლელად:";
-          if (bogBadge) bogBadge.textContent = "BOG Mobile";
-          if (tbcBadge) tbcBadge.textContent = "TBC Mobile";
-        } else {
-          if (desktopQr) desktopQr.classList.remove("hidden");
-          if (mobileApps) mobileApps.classList.remove("hidden");
-          if (headerText) headerText.textContent = "ან გადადით ინტერნეტ ბანკში:";
-          if (bogBadge) bogBadge.textContent = "iBank Web";
-          if (tbcBadge) tbcBadge.textContent = "TBC Web";
-        }
-
-        // Open Modal
-        if (modal && modalCard) {
-          modal.classList.remove("hidden");
-          setTimeout(() => {
-            modal.classList.remove("opacity-0");
-            modal.classList.add("opacity-100");
-            modalCard.classList.remove("scale-95");
-            modalCard.classList.add("scale-100");
-          }, 50);
-        }
-
-        setStatus("⏳ რეგისტრაციის დასასრულებლად გთხოვთ გადაიხადოთ კურსის საფასური და დააჭიროთ დასტურის ღილაკს.");
-      }
-
-      // Form submission handler -> Opens Modal FIRST
-      if (form) {
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const payloadData = validateFormInputs();
-          if (!payloadData) return;
-
-          openPaymentModal(payloadData);
+      // Search bar
+      const searchBtn = document.getElementById('nav-search-btn');
+      const searchPanel = document.getElementById('search-bar-panel');
+      const closeSearchBtn = document.getElementById('close-search-btn');
+      if (searchBtn && searchPanel) {
+        searchBtn.addEventListener('click', () => {
+          searchPanel.classList.toggle('pointer-events-none');
+          searchPanel.classList.toggle('opacity-0');
+          searchPanel.classList.toggle('-translate-y-8');
         });
-      }
-
-      // Close modal handlers
-      const closeModal = () => {
-        if (!modal || !modalCard) return;
-        modal.classList.remove("opacity-100");
-        modal.classList.add("opacity-0");
-        modalCard.classList.remove("scale-100");
-        modalCard.classList.add("scale-95");
-        setTimeout(() => {
-          modal.classList.add("hidden");
-        }, 300);
-      };
-
-      if (closeBtn) closeBtn.addEventListener("click", closeModal);
-
-      // Confirm Payment button handler -> Sends Telegram & Webhook NOW!
-      if (confirmBtn) {
-        confirmBtn.addEventListener("click", async () => {
-          if (!pendingRegistrationPayload) {
-            closeModal();
-            return;
-          }
-
-          const originalText = confirmBtn.innerHTML;
-          confirmBtn.disabled = true;
-          confirmBtn.innerHTML = `<span class="material-symbols-outlined text-xl animate-spin">sync</span> იგზავნება...`;
-
-          const payload = {
-            ...pendingRegistrationPayload,
-            payment_status: "USER_CONFIRMED_PAYMENT",
-            payment_method: "bank_transfer"
-          };
-
-          // 1. Send to Telegram Bot
-          await sendTelegramNotification(payload);
-
-          // 2. Send to Webhook
-          try {
-            fetch("https://meticulous-oyster.pikapod.net/webhook/registration", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload)
-            }).catch(e => console.warn("Webhook note:", e));
-          } catch (e) {}
-
-          // 3. Reset form and show success
-          closeModal();
-          if (form) form.reset();
-          if (submitBtn) submitBtn.disabled = false;
-          confirmBtn.disabled = false;
-          confirmBtn.innerHTML = originalText;
-          pendingRegistrationPayload = null;
-
-          setStatus("✨ რეგისტრაცია და გადახდა წარმატებით დადასტურდა! ✨<br/>ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ.");
-        });
-      }
-
-      // Close on backdrop click
-      if (modal) {
-        modal.addEventListener("click", (e) => {
-          if (e.target === modal) {
-            closeModal();
-          }
-        });
-      }
-
-      // Copy IBAN functionality
-      if (copyBtn && ibanText) {
-        copyBtn.addEventListener("click", () => {
-          try {
-            navigator.clipboard.writeText(ibanText.textContent.trim()).then(() => {
-              copyBtn.innerHTML = `<span class="material-symbols-outlined text-xs">done</span> დაკოპირდა!`;
-              setTimeout(() => {
-                copyBtn.innerHTML = `<span class="material-symbols-outlined text-xs">content_copy</span> კოპირება`;
-              }, 2000);
-            }).catch(() => {});
-          } catch (e) {}
-        });
-      }
-
-      // Handle Bank Button Clicks (Computer Web Portals vs Mobile App Deep Links)
-      function handleBankButtonClick(bankType, btnElement) {
-        const targetIban = "GE93BG0000000192399800";
-
-        // 1. Copy IBAN to clipboard synchronously
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(targetIban);
-          }
-        } catch (e) {}
-
-        // 2. Visual feedback on button
-        const bankName = bankType === "bog" ? "საქართველოს ბანკ" : "თიბისი ბანკ";
-        if (btnElement) {
-          const originalHTML = btnElement.innerHTML;
-          btnElement.innerHTML = `
-            <div class="flex items-center justify-center gap-2 py-2 w-full text-center">
-              <span class="material-symbols-outlined text-xl text-white animate-bounce">check_circle</span>
-              <span class="text-xs font-bold text-white">IBAN დაკოპირდა! გადადიხართ ${bankName}-ში...</span>
-            </div>
-          `;
-          setTimeout(() => {
-            btnElement.innerHTML = originalHTML;
-          }, 3500);
-        }
-
-        // 3. Desktop Web vs Mobile App Behavior based on actual device
-        if (!isMobileDevice) {
-          // Computer / Desktop: Open exact web portals requested by user
-          if (bankType === "bog") {
-            window.open("https://ibank.bog.ge/", "_blank");
-          } else if (bankType === "tbc") {
-            window.open("https://tbconline.ge/tbcrd/login?", "_blank");
-          }
-        } else {
-          // Mobile Phone: Open Mobile Bank Apps directly
-          if (bankType === "bog") {
-            const bogSchemes = ["bogmbank://", "bogmobile://"];
-            bogSchemes.forEach((scheme, index) => {
-              setTimeout(() => { window.location.href = scheme; }, index * 300);
-            });
-          } else if (bankType === "tbc") {
-            const tbcSchemes = ["tbcbank://", "tbc-mobile://", "tbc://", "tbconline://"];
-            tbcSchemes.forEach((scheme, index) => {
-              setTimeout(() => { window.location.href = scheme; }, index * 300);
-            });
-          }
+        if (closeSearchBtn) {
+          closeSearchBtn.addEventListener('click', () => {
+            searchPanel.classList.add('pointer-events-none', 'opacity-0', '-translate-y-8');
+          });
         }
       }
-
-      if (bogBtn) {
-        bogBtn.addEventListener("click", () => handleBankButtonClick("bog", bogBtn));
-      }
-
-      if (tbcBtn) {
-        tbcBtn.addEventListener("click", () => handleBankButtonClick("tbc", tbcBtn));
-      }
+    });
   </script>
 </body>
 </html>

@@ -3,26 +3,25 @@
 
 @layer base {
   body {
-    background-color: #121416;
-    color: #c6c6ce;
+    background-color: #F6F3EC;
+    color: #222222;
     font-family: 'Inter', 'Noto Sans Georgian', sans-serif;
-    scroll-behavior: smooth;
     overflow-x: hidden;
   }
   
-  /* Custom Elegant Scrollbar */
+  /* Custom Elegant Minimalist Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0c0e10;
+    background: #EDE6DC;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(47, 57, 86, 0.6);
+    background: #C7BAA8;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(241, 191, 98, 0.8);
+    background: #1C3D63;
   }
 }
 
@@ -32,164 +31,177 @@
   vertical-align: middle;
 }
 
-.hero-gradient {
-  background: radial-gradient(circle at 70% 30%, rgba(47, 57, 86, 0.35) 0%, rgba(18, 20, 22, 0.45) 70%);
-}
-
-.glass-nav {
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-}
-
-.tonal-gradient {
-  background: linear-gradient(180deg, rgba(47, 57, 86, 0.35) 0%, rgba(18, 20, 22, 0.45) 100%);
-}
-
-.bg-gradient-hero {
-  background: linear-gradient(180deg, rgba(47, 57, 86, 0.35) 0%, rgba(18, 20, 22, 0.45) 100%);
-}
-
-/* Custom fade-in micro-animations for interactive feel */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-/* Glassmorphic backdrop custom style */
-.glass-panel {
-  background: rgba(30, 32, 34, 0.7);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(69, 70, 77, 0.1);
-}
-
-/* Floating Ambient Glow Blobs */
-.glow-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.12;
-  mix-blend-mode: screen;
-  pointer-events: none;
+/* Minimalist Beige Aesthetic Moodboard Background */
+.beige-ambient-bg {
+  position: fixed;
+  inset: 0;
   z-index: 0;
-  will-change: transform;
+  pointer-events: none;
+  background-color: #F6F3EC;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.95) 0%, transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(240, 230, 215, 0.7) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(235, 224, 208, 0.5) 0%, transparent 50%),
+    radial-gradient(circle at 80% 85%, rgba(255, 255, 255, 0.8) 0%, transparent 35%);
+}
+
+/* Moodboard Connector Lines */
+.moodboard-line {
+  border-color: #D8C4B6;
+}
+
+/* Moodboard Pill Badges */
+.moodboard-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  background-color: rgba(224, 172, 107, 0.15);
+  border: 1px solid rgba(224, 172, 107, 0.4);
+  color: #1C3D63;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* Glassmorphism overrides for Header Nav, Dropdowns, and Mobile Menus */
+#main-nav, .glass-nav {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid #D8C4B6 !important;
+  box-shadow: 0 10px 30px -4px rgba(28, 61, 99, 0.06) !important;
+}
+
+.absolute.left-0.mt-2, .absolute.right-0.mt-2, #mobile-menu {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid #D8C4B6 !important;
+  box-shadow: 0 20px 45px rgba(28, 61, 99, 0.1) !important;
+}
+
+/* Floating Navbar dynamic scrolling effect */
+#main-nav {
+  background: rgba(255, 255, 255, 0.55) !important;
+  backdrop-filter: blur(28px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
+}
+
+.nav-scrolled {
+  margin-top: 0.75rem !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-color: #D8C4B6 !important;
+  box-shadow: 0 16px 40px rgba(28, 61, 99, 0.08) !important;
+}
+
+/* Horizontal Sub-Services Switcher Bar */
+.horizontal-switcher-bar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.horizontal-switcher-bar::-webkit-scrollbar {
+  display: none;
+}
+.horizontal-switcher-bar:active {
+  cursor: grabbing;
+}
+
+/* Header Logo Styling */
+header img[alt="IDC Logo"] {
+  width: 52px !important;
+  height: 52px !important;
+  margin-right: 0.5rem !important;
+  object-fit: contain !important;
+  mix-blend-mode: normal !important;
+  filter: drop-shadow(0 2px 6px rgba(28, 61, 99, 0.15)) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Card Surface Styling - Crisp Minimalist Linen & Warm Ivory */
+.bg-surface,
+.bg-surface-container,
+.bg-surface-container-high,
+.bg-surface-container-highest,
+.bg-primary-container,
+.introspection-card,
+.glass-panel {
+  background-color: #FFFFFF !important;
+  border: 1px solid #D8C4B6 !important;
+  box-shadow: 0 10px 30px -5px rgba(28, 61, 99, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+  border-radius: 1.25rem !important;
+}
+
+.bg-surface-container-low,
+.bg-surface-container-lowest {
+  background-color: #F4F7F7 !important;
+  border: 1px solid #D8C4B6 !important;
+  border-radius: 1rem !important;
+}
+
+.bg-background {
+  background-color: transparent !important;
+}
+
+/* Introspection Card Hover */
+.introspection-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.introspection-card:hover {
+  background-color: #FFFFFF !important;
+  border: 1px solid #1C3D63 !important;
+  box-shadow: 0 20px 45px -6px rgba(28, 61, 99, 0.12), 0 0 20px rgba(224, 172, 107, 0.15) !important;
+  transform: translateY(-4px);
+}
+
+/* Premium Card Glow Hover Effect */
+.hover-glow {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.hover-glow:hover {
+  transform: translateY(-4px) scale(1.005) !important;
+  box-shadow: 0 20px 45px -6px rgba(28, 61, 99, 0.12), 0 0 0 1px rgba(28, 61, 99, 0.2) !important;
+  border-color: #1C3D63 !important;
 }
 
 /* Reveal on scroll styling */
 .reveal-hidden {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .reveal-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Premium Card Glow Hover Effect */
-.hover-glow {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+/* Custom fade-in micro-animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.hover-glow:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(241, 191, 98, 0.04);
-  border-color: rgba(241, 191, 98, 0.15);
-}
-
-/* Floating Navbar dynamic shrinking effect */
-.nav-scrolled {
-  margin-top: 1rem !important;
-  background: rgba(30, 32, 34, 0.75) !important;
-  border-color: rgba(241, 191, 98, 0.25) !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
-/* Global Premium Surface Overrides for Ambient Video Visibility (Frosted Glass Aesthetics) */
-.bg-surface {
-  background-color: rgba(18, 20, 22, 0.65) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.12) !important;
-}
-.bg-surface-container {
-  background-color: rgba(18, 20, 22, 0.50) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.14) !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
-}
-.bg-surface-container-low {
-  background-color: rgba(18, 20, 22, 0.50) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.10) !important;
-}
-.bg-surface-container-lowest {
-  background-color: rgba(18, 20, 22, 0.50) !important;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
-}
-.bg-surface-container-high {
-  background-color: rgba(18, 20, 22, 0.50) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.16) !important;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5) !important;
-}
-.bg-surface-container-highest {
-  background-color: rgba(18, 20, 22, 0.50) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.18) !important;
-}
-.bg-primary-container {
-  background-color: rgba(18, 20, 22, 0.70) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.14) !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
-}
-.bg-background {
-  background-color: transparent !important;
-}
-
-
-/* Glassmorphism overrides for Header Nav, Dropdowns, and Mobile Menus */
-#main-nav, .glass-nav {
-  background: rgba(30, 32, 34, 0.45) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.18) !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
-}
-
-.absolute.left-0.mt-2, .absolute.right-0.mt-2, #mobile-menu {
-  background: rgba(30, 32, 34, 0.85) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  border: 1px solid rgba(241, 191, 98, 0.2) !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* contact-form inputs re-styling to rounded glassmorphic fields */
+/* Contact & Booking Form Inputs */
 .contact-form input[type="text"],
 .contact-form input[type="email"],
 .contact-form input[type="tel"],
 .contact-form input[type="date"],
 .contact-form select,
 .contact-form textarea {
-  background: rgba(255, 255, 255, 0.02) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: #FFFFFF !important;
+  border: 1px solid #D8C4B6 !important;
   border-radius: 12px !important;
-  padding: 14px 20px !important;
-  color: #ffffff !important;
-  backdrop-filter: blur(8px) !important;
-  transition: all 0.3s ease !important;
+  padding: 13px 18px !important;
+  color: #222222 !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  transition: all 0.25s ease !important;
   font-family: inherit;
 }
 
@@ -200,74 +212,283 @@
 .contact-form select:focus,
 .contact-form textarea:focus {
   outline: none !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border-color: #f1bf62 !important;
-  box-shadow: 0 0 15px rgba(241, 191, 98, 0.25) !important;
+  background: #FFFFFF !important;
+  border-color: #1C3D63 !important;
+  box-shadow: 0 0 0 3px rgba(28, 61, 99, 0.15) !important;
 }
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: rgba(198, 198, 206, 0.45) !important;
+  color: #8E8276 !important;
 }
 
-/* Premium Card Glow Hover Effect Override */
-.hover-glow {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.hover-glow:hover {
-  transform: translateY(-6px) scale(1.01) !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border-color: rgba(241, 191, 98, 0.4) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(241, 191, 98, 0.15) !important;
+/* Smooth hover transition for links and headers */
+a, button {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Increase top header logo size and separate it from text */
-header img[alt="IDC Logo"] {
-  width: 48px !important;
-  height: 48px !important;
-  margin-right: 0.75rem !important;
-  object-fit: contain !important;
-  transition: all 0.3s ease !important;
+/* ==========================================================================
+   Interactive Calendar & Time Slots Styles (Metaphora Style for IDC)
+   ========================================================================== */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
 }
-
-/* Smooth hover transition for all text elements to become white on hover */
-p:not(input):not(textarea),
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-li,
-span:not(.material-symbols-outlined),
-a,
-label,
-strong,
-em:not(.material-symbols-outlined),
-b,
-i,
-td,
-th {
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+.cal-grid .wd {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #8E8276;
+  padding: 4px 0;
+  text-transform: uppercase;
 }
-
-p:not(input):not(textarea):hover,
-h1:hover,
-h2:hover,
-h3:hover,
-h4:hover,
-h5:hover,
-h6:hover,
-li:hover,
-span:not(.material-symbols-outlined):hover,
-a:hover,
-label:hover,
-strong:hover,
-em:not(.material-symbols-outlined):hover,
-b:hover,
-i:hover,
-td:hover,
-th:hover {
+.cal-grid .day {
+  min-height: 38px;
+  height: 38px;
+  border: 1px solid #D8C4B6;
+  background: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1C3D63;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  box-shadow: 0 1px 3px rgba(28, 61, 99, 0.04);
+}
+.cal-grid .day:hover:not(:disabled) {
+  border-color: #1C3D63;
+  background: #FAF7F2;
+  color: #1C3D63;
+  transform: translateY(-1px) scale(1.04);
+}
+.cal-grid .day.sel {
+  background: #1C3D63 !important;
   color: #ffffff !important;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+  border-color: #1C3D63 !important;
+  box-shadow: 0 4px 14px rgba(28, 61, 99, 0.25) !important;
 }
+.cal-grid .day.has-event .day-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #E0AC6B;
+  display: block;
+  margin-top: 1px;
+}
+.cal-grid .day.sel.has-event .day-dot {
+  background: #ffffff;
+}
+.cal-grid .day.past, .cal-grid .day:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: #F4F7F7;
+  border-color: #D8C4B6;
+}
+.cal-grid .day.empty {
+  visibility: hidden;
+  pointer-events: none;
+  border: none;
+  background: transparent;
+}
+.slot-btn {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #D8C4B6;
+  background: #ffffff;
+  color: #3B5E63;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(28, 61, 99, 0.03);
+}
+.slot-btn:hover {
+  border-color: #1C3D63;
+  color: #1C3D63;
+  background: #FAF7F2;
+}
+.slot-btn.sel {
+  background: #1C3D63 !important;
+  color: #ffffff !important;
+  border-color: #1C3D63 !important;
+  box-shadow: 0 4px 12px rgba(28, 61, 99, 0.2) !important;
+}
+
+/* ==========================================================================
+   Glowing & Shimmering Metaphora-Style CTA Banner (IDC Palette)
+   ========================================================================== */
+.booking-cta-card {
+  max-width: 1040px;
+  margin: 0 auto;
+  background: radial-gradient(circle at 50% 0%, #1C3D63 0%, #10243E 60%, #0B192C 100%);
+  border-radius: 40px;
+  padding: 64px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 65px rgba(28, 61, 99, 0.45), 0 0 0 1.5px rgba(216, 196, 182, 0.25);
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .booking-cta-card {
+    padding: 76px 56px;
+  }
+}
+
+.cta-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(65px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.glow-1 {
+  width: 280px;
+  height: 280px;
+  background: #254F7F;
+  top: -60px;
+  left: 15%;
+  animation: pulseOrb 4.5s infinite alternate ease-in-out;
+}
+
+.glow-2 {
+  width: 240px;
+  height: 240px;
+  background: #E0AC6B;
+  bottom: -50px;
+  right: 15%;
+  animation: pulseOrb 5.5s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes pulseOrb {
+  0% { transform: scale(0.88); opacity: 0.35; }
+  100% { transform: scale(1.22); opacity: 0.7; }
+}
+
+.booking-cta-badge {
+  display: inline-block;
+  padding: 7px 22px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(224, 172, 107, 0.4);
+  border-radius: 9999px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #E0AC6B;
+  margin-bottom: 22px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.booking-cta-title {
+  font-family: inherit;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.booking-cta-desc {
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  color: #D8C4B6;
+  max-width: 650px;
+  margin: 0 auto 36px auto;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* Attractively Glowing & Shimmering Action Button */
+.shimmer-btn-wrapper {
+  display: inline-block;
+  position: relative;
+  z-index: 10;
+}
+
+.btn-glowing-shimmer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 46px;
+  background: linear-gradient(135deg, #1C3D63 0%, #254F7F 50%, #432638 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(28, 61, 99, 0.65), 0 0 30px rgba(224, 172, 107, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: glowPulse 2.8s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 10px 35px rgba(28, 61, 99, 0.55), 0 0 22px rgba(224, 172, 107, 0.35);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 16px 52px rgba(28, 61, 99, 0.85), 0 0 40px rgba(224, 172, 107, 0.7);
+    transform: scale(1.035);
+  }
+}
+
+.btn-glowing-shimmer:hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 20px 58px rgba(28, 61, 99, 0.95), 0 0 48px rgba(224, 172, 107, 0.85);
+}
+
+.btn-glowing-shimmer:active {
+  transform: scale(0.97);
+}
+
+.shimmer-sweep {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-25deg);
+  animation: shimmerSweep 2.8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes shimmerSweep {
+  0% { left: -120%; }
+  40%, 100% { left: 180%; }
+}
+
+.shimmer-btn-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+}
+
+.shimmer-sparkle {
+  font-size: 1.3rem;
+  color: #E0AC6B;
+  animation: sparkleSpin 3s infinite linear;
+}
+
+@keyframes sparkleSpin {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.25) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+
+

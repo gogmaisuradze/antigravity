@@ -11,13 +11,17 @@ const initAll = () => {
   initAmbientGlow();
   initScrollReveal();
   initFloatingNav();
+  initHeroSlider();
   initMethodologyInteractions();
   initFAQAccordion();
   initBlogQuickRead();
   initVideoScrollScrub();
   initN8nChat();
   initVisitorCounter();
+  initHorizontalSwitcher();
 };
+
+window.initAll = initAll;
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initAll);
@@ -33,7 +37,7 @@ function initMobileMenu() {
   const mobileMenu = document.getElementById('mobile-menu');
 
   if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', (e) => {
+    mobileMenuBtn.onclick = (e) => {
       e.stopPropagation();
       mobileMenu.classList.toggle('hidden');
       
@@ -45,13 +49,17 @@ function initMobileMenu() {
           icon.textContent = 'close';
         }
       }
-    });
+    };
+  }
 
-    // Close menu when clicking outside
+  if (!window.__mobileMenuCloseAttached) {
+    window.__mobileMenuCloseAttached = true;
     document.addEventListener('click', (e) => {
-      if (!mobileMenu.contains(e.target) && e.target !== mobileMenuBtn) {
-        mobileMenu.classList.add('hidden');
-        const icon = mobileMenuBtn.querySelector('span');
+      const curMobileMenu = document.getElementById('mobile-menu');
+      const curBtn = document.getElementById('mobile-menu-btn');
+      if (curMobileMenu && !curMobileMenu.contains(e.target) && e.target !== curBtn) {
+        curMobileMenu.classList.add('hidden');
+        const icon = curBtn ? curBtn.querySelector('span') : null;
         if (icon) icon.textContent = 'menu';
       }
     });
@@ -59,154 +67,350 @@ function initMobileMenu() {
 }
 
 /* ==========================================================================
-   2. Dynamic Booking Modal
+   2. Interactive Calendar & Booking System (Metaphora Style for IDC)
    ========================================================================== */
+function setupCalendar(config) {
+  const {
+    gridEl,
+    monthTitleEl,
+    prevBtnEl,
+    nextBtnEl,
+    slotsEl,
+    summaryEl,
+    dateInputEl,
+    timeInputEl,
+    eventBannerEl
+  } = config;
+
+  if (!gridEl || !slotsEl) return;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  let viewDate = new Date();
+  viewDate.setDate(1);
+
+  let selectedDate = new Date();
+  let selectedTime = '14:30';
+
+  const MONTHS_KA = [
+    'იანვარი', 'თებერვალი', 'მარტი', 'აპრილი', 'მაისი', 'ივნისი',
+    'ივლისი', 'აგვისტო', 'სექტემბერი', 'ოქტომბერი', 'ნოემბერი', 'დეკემბერი'
+  ];
+  const WDS_KA = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვი'];
+  const SLOTS = ['10:00', '11:30', '13:00', '14:30', '16:00', '17:30', '19:00', '20:00'];
+
+  function updatePickedSummary() {
+    if (summaryEl && selectedDate) {
+      summaryEl.textContent = `${selectedDate.getDate()} ${MONTHS_KA[selectedDate.getMonth()]} · ${selectedTime}`;
+    }
+    if (dateInputEl && selectedDate) {
+      const y = selectedDate.getFullYear();
+      const m = String(selectedDate.getMonth() + 1).padStart(2, '0');
+      const d = String(selectedDate.getDate()).padStart(2, '0');
+      dateInputEl.value = `${y}-${m}-${d}`;
+    }
+    if (timeInputEl) {
+      timeInputEl.value = selectedTime;
+    }
+    if (eventBannerEl && selectedDate) {
+      eventBannerEl.textContent = `📅 ${selectedDate.getDate()} ${MONTHS_KA[selectedDate.getMonth()]} | ${selectedTime} · პირველადი კონსულტაცია & თერაპია`;
+    }
+  }
+
+  function renderSlots() {
+    slotsEl.innerHTML = '';
+    SLOTS.forEach(time => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `slot-btn ${time === selectedTime ? 'sel' : ''}`;
+      btn.textContent = time;
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        selectedTime = time;
+        renderSlots();
+        updatePickedSummary();
+      });
+      slotsEl.appendChild(btn);
+    });
+  }
+
+  function renderCalendar() {
+    const year = viewDate.getFullYear();
+    const month = viewDate.getMonth();
+
+    if (monthTitleEl) {
+      monthTitleEl.textContent = `${MONTHS_KA[month]} ${year}`;
+    }
+
+    gridEl.innerHTML = '';
+
+    WDS_KA.forEach(wd => {
+      const wdEl = document.createElement('div');
+      wdEl.className = 'wd';
+      wdEl.textContent = wd;
+      gridEl.appendChild(wdEl);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const startOffset = (firstDay + 6) % 7;
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 0; i < startOffset; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day empty';
+      gridEl.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cellDate = new Date(year, month, d);
+      cellDate.setHours(0, 0, 0, 0);
+
+      const isPast = (cellDate < today);
+      const isSelected = selectedDate && (cellDate.toDateString() === selectedDate.toDateString());
+      const hasEvent = (d % 2 === 0);
+
+      const dayBtn = document.createElement('button');
+      dayBtn.type = 'button';
+      dayBtn.className = `day ${isSelected ? 'sel' : ''} ${hasEvent ? 'has-event' : ''} ${isPast ? 'past' : ''}`;
+      
+      let dotHtml = hasEvent ? '<span class="day-dot"></span>' : '';
+      dayBtn.innerHTML = `<span>${d}</span>${dotHtml}`;
+
+      if (isPast) {
+        dayBtn.disabled = true;
+      } else {
+        dayBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          selectedDate = new Date(year, month, d);
+          renderCalendar();
+          updatePickedSummary();
+        });
+      }
+
+      gridEl.appendChild(dayBtn);
+    }
+
+    if (prevBtnEl) {
+      const prevMonthLast = new Date(year, month, 0);
+      prevBtnEl.disabled = (prevMonthLast < today);
+      prevBtnEl.style.opacity = prevBtnEl.disabled ? '0.35' : '1';
+    }
+  }
+
+  if (prevBtnEl) {
+    prevBtnEl.addEventListener('click', (e) => {
+      e.preventDefault();
+      viewDate.setMonth(viewDate.getMonth() - 1);
+      renderCalendar();
+    });
+  }
+
+  if (nextBtnEl) {
+    nextBtnEl.addEventListener('click', (e) => {
+      e.preventDefault();
+      viewDate.setMonth(viewDate.getMonth() + 1);
+      renderCalendar();
+    });
+  }
+
+  renderCalendar();
+  renderSlots();
+  updatePickedSummary();
+}
+
 function initBookingModal() {
+  // Initialize in-page calendar if present (e.g. on index.html)
+  const pageCalGrid = document.getElementById('page-cal-grid-container');
+  if (pageCalGrid) {
+    setupCalendar({
+      gridEl: pageCalGrid,
+      monthTitleEl: document.getElementById('page-cal-month-title'),
+      prevBtnEl: document.getElementById('page-cal-prev-btn'),
+      nextBtnEl: document.getElementById('page-cal-next-btn'),
+      slotsEl: document.getElementById('page-cal-slots-container'),
+      summaryEl: document.getElementById('page-booking-picked-summary'),
+      dateInputEl: document.getElementById('page-booking-date-input'),
+      timeInputEl: document.getElementById('page-booking-time-input'),
+      eventBannerEl: document.getElementById('page-cal-banner-title')
+    });
+
+    const pageForm = document.getElementById('page-booking-form');
+    if (pageForm) {
+      pageForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const statusEl = document.getElementById('page-booking-status');
+        const name = document.getElementById('page-booking-name-input')?.value || '';
+        const phone = document.getElementById('page-booking-phone-input')?.value || '';
+        const service = document.getElementById('page-booking-service-select')?.value || '';
+        const date = document.getElementById('page-booking-date-input')?.value || '';
+        const time = document.getElementById('page-booking-time-input')?.value || '';
+
+        if (statusEl) {
+          statusEl.className = 'p-3.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 block shadow-sm';
+          statusEl.innerHTML = `✓ გმადლობთ, <strong>${name}</strong>! თქვენი ჯავშანი (${service}, ${date} · ${time}) მიღებულია. ჩვენი ადმინისტრატორი დაგიკავშირდებათ ნომერზე: ${phone}.`;
+        }
+        pageForm.reset();
+      });
+    }
+  }
+
+  if (document.getElementById('booking-modal')) return;
+
   // Inject Modal HTML into the bottom of body
   const modalHTML = `
-    <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-      <div class="bg-[#1e2022]/95 p-6 sm:p-8 md:p-10 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_40px_80px_rgba(0,0,0,0.85)] border border-white/10 max-w-2xl sm:max-w-3xl md:max-w-4xl w-full relative hover-glow transition-all duration-500 transform scale-95 max-h-[90vh] overflow-y-auto text-left" id="booking-modal-card">
-        <button id="close-modal-btn" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-[#c6c6ce] hover:text-white transition-colors focus:outline-none z-50 bg-transparent border-none cursor-pointer">
-          <span class="material-symbols-outlined text-2xl sm:text-3xl">close</span>
+    <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-[#1C3D63]/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+      <div class="bg-[#FFFFFF] p-5 sm:p-7 md:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_25px_60px_rgba(28,61,99,0.2)] border border-[#D8C4B6] max-w-4xl w-full relative transition-all duration-500 transform scale-95 max-h-[92vh] overflow-y-auto text-left" id="booking-modal-card">
+        <button id="close-modal-btn" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] text-[#8E8276] hover:text-[#1C3D63] hover:border-[#1C3D63] flex items-center justify-center transition-colors focus:outline-none z-50 cursor-pointer">
+          <span class="material-symbols-outlined text-xl">close</span>
         </button>
 
-        <!-- STEP 1: Registration / Session Booking Form -->
+        <!-- STEP 1: Interactive Calendar & Booking Form (Metaphora Style) -->
         <div id="booking-step-form">
-          <div class="mb-6 sm:mb-8 text-left relative flex items-start justify-between">
-            <div>
-              <h2 class="text-2xl sm:text-3xl font-headline italic text-on-surface">სესიის დაჯავშნა</h2>
-              <p class="text-xs sm:text-sm text-white/70 mt-2">შეავსეთ ფორმა და ჩვენი ადმინისტრატორი მალე დაგიკავშირდებათ</p>
-              <button type="button" onclick="if(window.openAIChat) { document.getElementById('close-modal-btn').click(); window.openAIChat(); }" class="mt-4 flex items-center justify-center gap-2 bg-[#f1bf62]/10 border border-[#f1bf62]/30 hover:bg-[#f1bf62]/20 hover:border-[#f1bf62]/50 text-[#f1bf62] px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider transition-all uppercase w-full">
-                <span class="material-symbols-outlined text-sm">psychology</span>
-                <span>ჰკითხეთ მეტი ინტელექტუალურ ასისტენტს</span>
-              </button>
+          <div class="mb-5 text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-xs font-bold uppercase tracking-wider mb-2">
+              <span class="material-symbols-outlined text-sm text-[#E0AC6B]">calendar_month</span>
+              <span>✨ ონლაინ დაჯავშნა</span>
             </div>
-            <div class="bg-secondary/10 border border-secondary/20 p-3.5 rounded-2xl hidden sm:flex items-center justify-center text-secondary shadow-lg">
-              <span class="material-symbols-outlined text-3xl" style='font-variation-settings: "FILL" 1;'>edit_calendar</span>
-            </div>
+            <h2 class="text-2xl sm:text-3xl font-headline italic text-[#1C3D63] font-bold">აირჩიე დღე და დრო</h2>
+            <p class="text-xs sm:text-sm text-[#3B5E63]">დაჯავშნე ვიზიტი კალენდარში — დაგიდასტურებთ ტელეფონით.</p>
           </div>
-          
-          <form class="space-y-5 sm:space-y-8 contact-form" id="booking-modal-form">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-              <div class="space-y-2">
-                <label class="text-xs text-white/80 tracking-widest uppercase ml-1">სახელი</label>
-                <input type="text" id="booking-first-name" name="first_name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35" placeholder="თქვენი სახელი"/>
-              </div>
-              <div class="space-y-2">
-                <label class="text-xs text-white/80 tracking-widest uppercase ml-1">გვარი</label>
-                <input type="text" id="booking-last-name" name="last_name" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35" placeholder="თქვენი გვარი"/>
-              </div>
-            </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 bg-[#FAF7F2]/60 border border-[#D8C4B6] rounded-2xl p-4 sm:p-6 mb-4">
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-              <div class="space-y-2">
-                <label class="text-xs text-white/80 tracking-widest uppercase ml-1">ტელეფონი</label>
-                <input type="tel" id="booking-phone" name="phone" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35" placeholder="ტელ:"/>
+            <!-- Left: Calendar & Time Slots Pane (7 cols) -->
+            <div class="md:col-span-7 bg-white p-4 sm:p-5 rounded-2xl border border-[#D8C4B6]/80 shadow-sm flex flex-col justify-between">
+              <div>
+                <!-- Calendar Month & Nav -->
+                <div class="flex items-center justify-between mb-4">
+                  <div class="text-base sm:text-lg font-headline italic font-bold text-[#1C3D63]" id="modal-cal-month-title">
+                    სექტემბერი 2026
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <button type="button" id="modal-cal-prev-btn" class="w-8 h-8 rounded-lg border border-[#D8C4B6] bg-white hover:bg-[#1C3D63] hover:text-white text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer">
+                      <span class="material-symbols-outlined text-sm">chevron_left</span>
+                    </button>
+                    <button type="button" id="modal-cal-next-btn" class="w-8 h-8 rounded-lg border border-[#D8C4B6] bg-white hover:bg-[#1C3D63] hover:text-white text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer">
+                      <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Days of week & Grid -->
+                <div class="cal-grid grid grid-cols-7 gap-1.5 mb-4 text-center" id="modal-cal-grid-container">
+                  <!-- Populated dynamically -->
+                </div>
               </div>
-              <div class="space-y-2">
-                <label class="text-xs text-white/80 tracking-widest uppercase ml-1">აირჩიე სერვისი / კურსი</label>
-                <div class="relative">
-                  <select name="service" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface appearance-none cursor-pointer">
-                    <option value="" disabled selected class="text-white/40 bg-[#0c0e10]">აირჩიეთ სიიდან...</option>
-                    <optgroup label="საგანმანათლებლო კურსები" class="font-bold bg-[#1e2022] text-[#f1bf62]">
-                      <option value="პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">პრაქტიკული ფსიქოლოგია-ფსიქოთერაპია (1-წლიანი)</option>
-                      <option value="პოზიტიური ფსიქოთერაპია WAPP" class="bg-[#121416] text-[#c6c6ce] font-normal">პოზიტიური ფსიქოთერაპია (WAPP პროგრამა)</option>
-                      <option value="არტთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">არტთერაპია (ერთწლიანი სასერტიფიკატო)</option>
-                      <option value="სამაგისტრო კურსი" class="bg-[#121416] text-[#c6c6ce] font-normal">სამაგისტრო კურსი</option>
-                      <option value="სემინარები და ვორქშოფები" class="bg-[#121416] text-[#c6c6ce] font-normal">სემინარები და ვორქშოფები</option>
-                    </optgroup>
-                    <optgroup label="თერაპიული მიმართულებები" class="font-bold bg-[#1e2022] text-[#f1bf62]">
-                      <option value="ინდივიდუალური ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">ინდივიდუალური ფსიქოთერაპია</option>
-                      <option value="ჯგუფური ფსიქოთერაპია" class="bg-[#121416] text-[#c6c6ce] font-normal">ჯგუფური ფსიქოთერაპია</option>
-                      <option value="ონლაინ კონსულტაცია" class="bg-[#121416] text-[#c6c6ce] font-normal">კონსულტაცია / ონლაინ კონსულტაცია</option>
-                    </optgroup>
-                  </select>
-                  <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-white/50">keyboard_arrow_down</span>
+
+              <div>
+                <!-- Scheduled Banner -->
+                <div class="p-2.5 rounded-xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-between text-xs mb-3">
+                  <span class="text-[11px] font-bold text-[#1C3D63]" id="modal-cal-event-banner">📅 პირველადი კონსულტაცია &amp; თერაპია</span>
+                  <span class="text-[9px] bg-[#E0AC6B] text-[#1C3D63] font-bold px-2 py-0.5 rounded-full font-sans">ხელმისაწვდომია</span>
+                </div>
+
+                <!-- Time slots -->
+                <div>
+                  <div class="text-[11px] font-bold uppercase tracking-wider text-[#1C3D63] mb-2">აირჩიე დრო</div>
+                  <div class="grid grid-cols-4 gap-1.5" id="modal-cal-slots-container">
+                    <!-- Populated dynamically -->
+                  </div>
                 </div>
               </div>
             </div>
-            
-            <div class="space-y-2">
-              <label class="text-xs text-white/80 tracking-widest uppercase ml-1">თარიღი</label>
-              <input type="date" name="date" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface" style="color-scheme: dark;"/>
-            </div>
-            
-            <div class="space-y-2">
-              <label class="text-xs text-white/80 tracking-widest uppercase ml-1">მოკლე შეტყობინება</label>
-              <textarea rows="3" required class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/30 focus:border-secondary focus:ring-0 transition-all py-3 sm:py-4 px-0 text-on-surface placeholder:text-white/35 resize-none" placeholder="დაგვიწერეთ მოკლედ თქვენი მოთხოვნის შესახებ..."></textarea>
-            </div>
-            
-            <div class="pt-3 sm:pt-6">
-              <button type="submit" class="w-full bg-secondary-container text-on-secondary-container py-4 sm:py-5 rounded-xl font-semibold text-base sm:text-lg hover:brightness-110 active:scale-98 transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
-                დაჯავშნა
-                <span class="material-symbols-outlined text-xl">arrow_forward</span>
-              </button>
-            </div>
-          </form>
-          
-          <div class="relative flex py-4 sm:py-6 items-center">
-            <div class="flex-grow border-t border-[#45464d]/20"></div>
-            <span class="flex-shrink mx-4 text-xs text-white/70 tracking-wider uppercase font-semibold">ან დაჯავშნე პირდაპირ</span>
-            <div class="flex-grow border-t border-[#45464d]/20"></div>
-          </div>
-          
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <!-- Telegram -->
-            <a href="https://t.me/IDCPositivepsychotherapybot" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-2.5 sm:py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.89 1.2-5.33 3.52-.5.35-.96.52-1.37.51-.45-.01-1.32-.26-1.97-.47-.8-.26-1.43-.4-1.38-.85.03-.24.36-.49.99-.75 3.86-1.68 6.43-2.78 7.72-3.3 3.67-1.49 4.43-1.75 4.93-1.76.11 0 .36.03.52.16.13.11.17.26.19.37z"/>
-              </svg>
-              <span class="text-[10px] sm:text-xs font-semibold tracking-wide">Telegram</span>
-            </a>
 
-            <!-- Facebook -->
-            <a href="https://www.facebook.com/IDCgeorgia" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-2.5 sm:py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-              <span class="text-[10px] sm:text-xs font-semibold tracking-wide">Facebook</span>
-            </a>
+            <!-- Right: Details Form Pane (5 cols) -->
+            <div class="md:col-span-5 flex flex-col justify-between">
+              <div>
+                <h3 class="text-lg font-headline italic font-bold text-[#1C3D63] mb-1">ვიზიტის დეტალები</h3>
+                <p class="text-xs text-[#8E8276] mb-3">შეავსეთ ველები და გადადით დასტურზე.</p>
 
-            <!-- Instagram -->
-            <a href="https://www.instagram.com/idcgeo/" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-2.5 sm:py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-              </svg>
-              <span class="text-[10px] sm:text-xs font-semibold tracking-wide">Instagram</span>
-            </a>
+                <!-- Picked Summary Badge -->
+                <div class="p-2.5 rounded-xl bg-white border border-[#D8C4B6] flex items-center gap-2 mb-3 shadow-sm">
+                  <span class="material-symbols-outlined text-sm text-[#E0AC6B]">event</span>
+                  <span class="text-xs font-bold text-[#1C3D63]" id="modal-booking-picked-summary">15 სექტემბერი · 14:30</span>
+                </div>
 
-            <!-- WhatsApp -->
-            <a href="https://wa.me/995598324020" target="_blank" class="flex flex-col items-center justify-center bg-white/5 border border-white/10 hover:bg-[#f1bf62]/10 hover:border-[#f1bf62]/35 hover:text-[#f1bf62] text-[#c6c6ce] py-2.5 sm:py-3.5 px-2 rounded-xl transition-all gap-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] group">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.249 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.458L0 24zm6.59-4.846c1.6.95 3.197 1.45 4.817 1.451 5.4 0 9.794-4.394 9.798-9.794.002-2.617-1.018-5.077-2.873-6.932-1.854-1.854-4.312-2.873-6.924-2.874-5.405 0-9.799 4.393-9.802 9.794-.001 1.705.454 3.371 1.316 4.856l-.993 3.63 3.731-.979zm11.238-6.84c-.266-.134-1.582-.78-1.83-.87-.247-.089-.427-.134-.607.135-.18.267-.697.87-.852 1.047-.157.178-.314.2-.58.067-.266-.134-1.127-.415-2.147-1.325-.793-.706-1.33-1.579-1.485-1.846-.157-.267-.017-.411.117-.544.12-.12.267-.312.4-.467.133-.156.177-.267.266-.445.09-.178.044-.334-.022-.467-.067-.134-.607-1.464-.83-2.005-.218-.524-.458-.453-.628-.461-.163-.008-.349-.01-.536-.01-.186 0-.49.07-.747.347-.257.278-.98.957-.98 2.335s1.002 2.703 1.142 2.89c.14.188 1.972 3.012 4.778 4.221.668.288 1.19.46 1.597.59.67.213 1.28.183 1.761.111.537-.08 1.582-.647 1.805-1.272.223-.624.223-1.157.157-1.272-.067-.116-.247-.183-.514-.316z"/>
-              </svg>
-              <span class="text-[10px] sm:text-xs font-semibold tracking-wide">WhatsApp</span>
-            </a>
+                <form class="space-y-3 contact-form" id="booking-modal-form">
+                  <input type="hidden" id="modal-booking-date-input" name="booking_date" value="2026-09-15">
+                  <input type="hidden" id="modal-booking-time-input" name="booking_time" value="14:30">
+
+                  <div>
+                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">მიმართულება</label>
+                    <select name="service" id="booking-service-select" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]">
+                      <option value="კონსულტაცია" selected>🎧 კონსულტაცია (ონლაინ / პირისპირ)</option>
+                      <option value="ინდივიდუალური თერაპია">🌿 ინდივიდუალური ფსიქოთერაპია</option>
+                      <option value="წყვილთა თერაპია">👥 წყვილთა &amp; ოჯახური თერაპია</option>
+                      <option value="ჯგუფური თერაპია">🏛️ ჯგუფური თერაპია</option>
+                      <option value="ქოუჩინგი">📈 პერსონალური ქოუჩინგი</option>
+                      <option value="WAPP პროგრამა">🎓 WAPP პოზიტიური ფსიქოთერაპია</option>
+                      <option value="არტთერაპია">🎨 არტთერაპიის კურსი</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">სახელი და გვარი</label>
+                    <input type="text" id="booking-first-name" name="first_name" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]" placeholder="თქვენი სახელი და გვარი"/>
+                  </div>
+
+                  <div>
+                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ტელეფონი</label>
+                    <input type="tel" id="booking-phone" name="phone" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]" placeholder="598 32 40 20"/>
+                  </div>
+
+                  <div>
+                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ფორმატი</label>
+                    <select name="format" id="booking-format-select" class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]">
+                      <option value="პირისპირ" selected>🏢 პირისპირ კაბინეტში (ჭავჭავაძის 2)</option>
+                      <option value="ონლაინ">💻 ონლაინ ვიდეოზარი (Google Meet / Zoom)</option>
+                    </select>
+                  </div>
+
+                  <div class="pt-2">
+                    <button type="submit" class="w-full bg-[#1C3D63] text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-[#254F7F] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                      <span>ვიზიტის დაჯავშნა</span>
+                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Direct Messenger Contacts -->
+              <div class="pt-3 border-t border-[#D8C4B6]/60 mt-3 flex items-center justify-between text-xs text-[#8E8276]">
+                <span>ან პირდაპირ:</span>
+                <div class="flex items-center gap-2">
+                  <a href="https://t.me/IDCPosotherapybot" target="_blank" class="text-[#1C3D63] hover:text-[#229ED9] font-bold no-underline">Telegram</a>
+                  <span>·</span>
+                  <a href="https://wa.me/995598324020" target="_blank" class="text-[#1C3D63] hover:text-[#25D366] font-bold no-underline">WhatsApp</a>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- STEP 2: Payment Modal Content Grid (Desktop 2 Columns vs Mobile 1 Column) -->
+        <!-- STEP 2: Payment Modal Content Grid -->
         <div id="booking-step-payment" class="hidden space-y-6">
           <div class="mb-4 text-center">
-            <div class="w-12 h-12 rounded-full bg-[#f1bf62]/10 flex items-center justify-center text-[#f1bf62] mb-2 mx-auto">
+            <div class="w-12 h-12 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] mb-2 mx-auto">
               <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
             </div>
-            <h3 class="text-xl sm:text-2xl font-extrabold text-white">გადახდა საბანკო გადარიცხვით</h3>
-            <p class="text-xs text-white/60 mt-1">ჯავშნის დასასრულებლად გადაიხადეთ საფასური</p>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-[#1C3D63]">გადახდა საბანკო გადარიცხვით</h3>
+            <p class="text-xs text-[#3B5E63] mt-1">ჯავშნის დასასრულებლად გადაიხადეთ საფასური</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
             
-            <!-- Left Side: QR Code Display (Desktop / Computer Version) -->
-            <div id="modal-desktop-qr-container" class="p-4 sm:p-5 bg-white rounded-2xl text-center shadow-xl border border-slate-200 flex flex-col items-center justify-center h-full">
-              <div class="relative w-44 h-44 sm:w-52 sm:h-52 mx-auto bg-white p-2 rounded-xl border border-slate-200 shadow-inner flex items-center justify-center">
+            <!-- Left Side: QR Code Display -->
+            <div id="modal-desktop-qr-container" class="p-4 sm:p-5 bg-white rounded-2xl text-center shadow-md border border-[#D8C4B6] flex flex-col items-center justify-center h-full">
+              <div class="relative w-44 h-44 sm:w-52 sm:h-52 mx-auto bg-white p-2 rounded-xl border border-[#D8C4B6] shadow-inner flex items-center justify-center">
                 <img id="modal-qr-code-img" src="" alt="Scan with phone camera to pay" class="w-full h-full object-contain rounded-lg" />
               </div>
-              <p class="text-xs text-slate-800 font-extrabold mt-3 flex items-center justify-center gap-1.5">
-                <span class="material-symbols-outlined text-base text-[#ff6700]">photo_camera</span>
+              <p class="text-xs text-[#1C3D63] font-extrabold mt-3 flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-base text-[#E0AC6B]">photo_camera</span>
                 დაასკანერეთ ტელეფონის კამერით
               </p>
-              <p class="text-[11px] text-slate-500 font-medium mt-1 leading-relaxed text-center">
+              <p class="text-[11px] text-[#3B5E63] font-medium mt-1 leading-relaxed text-center">
                 ტელეფონით დასკანერებისას ავტომატურად გაგეხსნებათ საქართველოს ბანკისა და თიბისის გადახდის აპლიკაციები 📱
               </p>
             </div>
@@ -215,15 +419,15 @@ function initBookingModal() {
             <div class="space-y-4">
               <!-- Mobile / Web Bank Links -->
               <div id="modal-mobile-apps-container" class="space-y-2.5">
-                <p class="text-xs text-white/90 font-semibold text-center flex items-center justify-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-[#f1bf62]">touch_app</span>
+                <p class="text-xs text-[#1C3D63] font-semibold text-center flex items-center justify-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-[#E0AC6B]">touch_app</span>
                   <span id="modal-bank-buttons-header-text">აირჩიეთ ბანკი გადასასვლელად:</span>
                 </p>
                 <div class="grid grid-cols-1 gap-3">
                   <!-- BOG Bank Button -->
-                  <button type="button" id="modal-btn-bog-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#ff6700] hover:bg-[#e65c00] border border-[#ff6700] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_8px_25px_rgba(255,103,0,0.35)] group active:scale-95 text-white w-full gap-3">
+                  <button type="button" id="modal-btn-bog-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#ff6700] hover:bg-[#e65c00] border border-[#ff6700] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_4px_15px_rgba(255,103,0,0.25)] group active:scale-95 text-white w-full gap-3">
                     <div class="flex items-center gap-3">
-                      <img src="/assets/bog-logo.png" alt="Bank of Georgia" class="w-11 h-11 rounded-xl shadow-md bg-white object-contain p-0.5 flex-shrink-0" />
+                      <img src="/assets/bog-logo.png" alt="Bank of Georgia" class="w-11 h-11 rounded-xl shadow-sm bg-white object-contain p-0.5 flex-shrink-0" />
                       <div class="text-left leading-tight">
                         <span class="text-xs sm:text-sm font-black tracking-tight text-white block">საქართველოს ბანკი</span>
                         <span class="text-[9px] font-bold text-white/90 tracking-wider uppercase block">BANK OF GEORGIA</span>
@@ -233,9 +437,9 @@ function initBookingModal() {
                   </button>
 
                   <!-- TBC Bank Button -->
-                  <button type="button" id="modal-btn-tbc-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#00adef] hover:bg-[#009bd7] border border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_8px_25px_rgba(0,173,239,0.35)] group active:scale-95 text-white w-full gap-3">
+                  <button type="button" id="modal-btn-tbc-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#00adef] hover:bg-[#009bd7] border border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_4px_15px_rgba(0,173,239,0.25)] group active:scale-95 text-white w-full gap-3">
                     <div class="flex items-center gap-3">
-                      <img src="/assets/tbc-logo.png" alt="TBC Bank" class="w-11 h-11 rounded-xl shadow-md bg-white object-contain p-0.5 flex-shrink-0" />
+                      <img src="/assets/tbc-logo.png" alt="TBC Bank" class="w-11 h-11 rounded-xl shadow-sm bg-white object-contain p-0.5 flex-shrink-0" />
                       <div class="text-left leading-tight">
                         <span class="text-xs sm:text-sm font-black tracking-tight text-white block">თიბისი ბანკი</span>
                         <span class="text-[9px] font-bold text-white/90 tracking-widest uppercase block">T B C   B A N K</span>
@@ -247,37 +451,37 @@ function initBookingModal() {
               </div>
 
               <!-- Bank Account Transfer Details -->
-              <div class="bg-[#121416]/60 border border-white/5 rounded-xl p-4 text-left space-y-2.5">
+              <div class="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-4 text-left space-y-2.5">
                 <div>
-                  <span class="text-[10px] text-white/40 block uppercase tracking-wider">მიმღები</span>
-                  <span class="text-sm font-bold text-[#f1bf62]">ანი მაისურაძე</span>
+                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">მიმღები</span>
+                  <span class="text-sm font-bold text-[#222222]">ანი მაისურაძე</span>
                 </div>
                 <div>
-                  <span class="text-[10px] text-white/40 block uppercase tracking-wider">ბანკი</span>
-                  <span class="text-sm font-semibold text-white">საქართველოს ბანკი (Bank of Georgia)</span>
+                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ბანკი</span>
+                  <span class="text-sm font-semibold text-[#222222]">საქართველოს ბანკი (Bank of Georgia)</span>
                 </div>
                 <div>
                   <div class="flex items-center justify-between">
-                    <span class="text-[10px] text-white/40 block uppercase tracking-wider">ანგარიშის ნომერი (IBAN)</span>
-                    <button id="modal-copy-iban" class="text-[10px] text-[#f1bf62] hover:underline cursor-pointer flex items-center gap-0.5 border-none bg-transparent">
+                    <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ანგარიშის ნომერი (IBAN)</span>
+                    <button id="modal-copy-iban" class="text-[10px] text-[#1C3D63] hover:underline cursor-pointer flex items-center gap-0.5 border-none bg-transparent font-bold">
                       <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
                     </button>
                   </div>
-                  <span id="modal-iban-text" class="text-xs sm:text-sm font-mono font-bold text-[#f1bf62] break-all">GE93BG0000000192399800</span>
+                  <span id="modal-iban-text" class="text-xs sm:text-sm font-mono font-bold text-[#1C3D63] break-all">GE93BG0000000192399800</span>
                 </div>
                 <div>
-                  <span class="text-[10px] text-white/40 block uppercase tracking-wider">დანიშნულება</span>
-                  <span id="modal-payment-purpose" class="text-xs font-semibold text-white">რეგისტრაციის საფასური</span>
+                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">დანიშნულება</span>
+                  <span id="modal-payment-purpose" class="text-xs font-semibold text-[#222222]">რეგისტრაციის საფასური</span>
                 </div>
               </div>
 
               <!-- Success Notification / Confirm -->
               <div class="pt-2 text-center space-y-2">
-                <button id="modal-btn-payment-confirm" class="w-full bg-[#f1bf62] hover:bg-emerald-500 active:bg-emerald-600 text-[#121416] hover:text-white active:text-white py-3.5 px-4 rounded-xl font-extrabold text-sm sm:text-base transition-all duration-300 cursor-pointer border-none shadow-[0_4px_15px_rgba(241,191,98,0.35)] flex items-center justify-center gap-2 active:scale-95">
+                <button id="modal-btn-payment-confirm" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-3.5 px-4 rounded-xl font-extrabold text-sm sm:text-base transition-all duration-300 cursor-pointer border-none shadow-md flex items-center justify-center gap-2 active:scale-95">
                   <span class="material-symbols-outlined text-xl">task_alt</span>
                   გადახდა დავასრულე - რეგისტრაცია
                 </button>
-                <p class="text-[11px] text-white/60">გადარიცხვის შემდეგ დააჭირეთ ამ ღილაკს რეგისტრაციის დასასრულებლად</p>
+                <p class="text-[11px] text-[#3B5E63]">გადარიცხვის შემდეგ დააჭირეთ ამ ღილაკს რეგისტრაციის დასასრულებლად</p>
               </div>
             </div>
 
@@ -296,8 +500,17 @@ function initBookingModal() {
   const stepForm = document.getElementById('booking-step-form');
   const stepPayment = document.getElementById('booking-step-payment');
 
-  let pendingBookingPayload = null;
-  const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+  setupCalendar({
+    gridEl: document.getElementById('modal-cal-grid-container'),
+    monthTitleEl: document.getElementById('modal-cal-month-title'),
+    prevBtnEl: document.getElementById('modal-cal-prev-btn'),
+    nextBtnEl: document.getElementById('modal-cal-next-btn'),
+    slotsEl: document.getElementById('modal-cal-slots-container'),
+    summaryEl: document.getElementById('modal-booking-picked-summary'),
+    dateInputEl: document.getElementById('modal-booking-date-input'),
+    timeInputEl: document.getElementById('modal-booking-time-input'),
+    eventBannerEl: document.getElementById('modal-cal-event-banner')
+  });
 
   function openModal() {
     if (stepForm) stepForm.classList.remove('hidden');
@@ -338,6 +551,7 @@ function initBookingModal() {
   });
 }
 
+
 /* ==========================================================================
    3. Blog Filters & Search Engine
    ========================================================================== */
@@ -370,9 +584,9 @@ function initBlogFilters() {
       filter.addEventListener('click', () => {
         // Update category active state
         filters.forEach(f => {
-          f.className = 'category-filter text-on-surface-variant hover:text-primary transition-colors cursor-pointer';
+          f.className = 'category-filter px-4 py-2 rounded-xl bg-white border border-[#D8C4B6] text-[#222222] hover:border-[#1C3D63] hover:text-[#1C3D63] transition-all cursor-pointer shadow-sm font-semibold';
         });
-        filter.className = 'category-filter text-secondary border-b border-secondary pb-1 cursor-pointer hover:opacity-85 transition-opacity';
+        filter.className = 'category-filter px-4 py-2 rounded-xl bg-[#1C3D63] text-white cursor-pointer shadow-sm font-semibold';
 
         currentCategory = filter.getAttribute('data-category');
         applyFilterAndSearch();
@@ -447,13 +661,13 @@ function initFormValidation() {
   // Inject premium Toast Notification container to document body
   const toastHTML = `
     <div id="toast-container" class="fixed bottom-8 right-8 z-[200] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 max-w-sm w-full">
-      <div class="bg-[#1e2022] border border-[#f1bf62]/20 p-6 rounded-2xl shadow-2xl flex items-start gap-4">
-        <div class="bg-[#835c00]/30 p-2 rounded-xl text-secondary">
+      <div class="bg-[#FFFFFF] border border-[#D8C4B6] p-6 rounded-2xl shadow-[0_15px_40px_rgba(28,61,99,0.15)] flex items-start gap-4">
+        <div class="bg-[#F4F7F7] border border-[#D8C4B6] p-2 rounded-xl text-[#E0AC6B]">
           <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">task_alt</span>
         </div>
         <div>
-          <h4 class="font-headline italic text-white text-lg">გაგზავნილია!</h4>
-          <p class="text-xs text-on-surface-variant mt-1" id="toast-message">შეტყობინება წარმატებით გაიგზავნა. ჩვენ მალე დაგიკავშირდებით.</p>
+          <h4 class="font-headline italic text-[#1C3D63] text-lg">გაგზავნილია!</h4>
+          <p class="text-xs text-[#3B5E63] mt-1" id="toast-message">შეტყობინება წარმატებით გაიგზავნა. ჩვენ მალე დაგიკავშირდებით.</p>
         </div>
       </div>
     </div>
@@ -647,7 +861,7 @@ function initFormValidation() {
 function initAmbientGlow() {
   const blob1 = document.createElement('div');
   blob1.className = 'glow-blob';
-  blob1.style.background = 'radial-gradient(circle, rgba(241,191,98,0.2) 0%, rgba(18,20,22,0) 70%)';
+  blob1.style.background = 'radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(246,243,236,0) 70%)';
   blob1.style.width = '600px';
   blob1.style.height = '600px';
   blob1.style.left = '-100px';
@@ -656,7 +870,7 @@ function initAmbientGlow() {
   
   const blob2 = document.createElement('div');
   blob2.className = 'glow-blob';
-  blob2.style.background = 'radial-gradient(circle, rgba(47,57,86,0.35) 0%, rgba(18,20,22,0) 70%)';
+  blob2.style.background = 'radial-gradient(circle, rgba(240,230,215,0.6) 0%, rgba(246,243,236,0) 70%)';
   blob2.style.width = '800px';
   blob2.style.height = '800px';
   blob2.style.right = '-200px';
@@ -799,11 +1013,11 @@ function initMethodologyInteractions() {
       
       // Update pills active styling
       pills.forEach(p => {
-        p.classList.remove('bg-secondary', 'text-on-secondary');
-        p.classList.add('bg-surface-container', 'text-on-surface-variant', 'hover:text-white');
+        p.classList.remove('bg-[#1C3D63]', 'text-white', 'hover:bg-[#254F7F]');
+        p.classList.add('bg-white', 'text-[#222222]', 'border', 'border-[#D8C4B6]', 'hover:border-[#1C3D63]', 'hover:text-[#1C3D63]');
       });
-      pill.classList.remove('bg-surface-container', 'text-on-surface-variant', 'hover:text-white');
-      pill.classList.add('bg-secondary', 'text-on-secondary');
+      pill.classList.remove('bg-white', 'text-[#222222]', 'border', 'border-[#D8C4B6]', 'hover:border-[#1C3D63]', 'hover:text-[#1C3D63]');
+      pill.classList.add('bg-[#1C3D63]', 'text-white', 'hover:bg-[#254F7F]');
 
       // Animate card transition (fade-out, change, fade-in)
       card.style.opacity = '0';
@@ -813,15 +1027,15 @@ function initMethodologyInteractions() {
         const item = contentMap[type];
         card.innerHTML = `
           <div class="flex items-center gap-4 mb-6">
-            <span class="material-symbols-outlined text-secondary text-4xl" style="font-variation-settings: 'FILL' 1;">${item.icon}</span>
+            <span class="material-symbols-outlined text-[#E0AC6B] text-4xl" style="font-variation-settings: 'FILL' 1;">${item.icon}</span>
             <div>
-              <h3 class="text-2xl font-headline text-white">${item.title}</h3>
-              <p class="text-xs text-outline-variant tracking-wider uppercase">${item.subtitle}</p>
+              <h3 class="text-2xl font-headline text-[#1C3D63]">${item.title}</h3>
+              <p class="text-xs text-[#8E8276] tracking-wider uppercase font-semibold">${item.subtitle}</p>
             </div>
           </div>
-          <p class="text-on-surface-variant leading-relaxed text-sm md:text-base font-light mb-8">${item.text}</p>
-          <div class="border-t border-outline-variant/10 pt-6">
-            <p class="text-secondary italic font-headline text-base md:text-lg">${item.quote}</p>
+          <p class="text-[#222222] leading-relaxed text-sm md:text-base font-light mb-8">${item.text}</p>
+          <div class="border-t border-[#D8C4B6] pt-6">
+            <p class="text-[#E0AC6B] italic font-headline text-base md:text-lg">${item.quote}</p>
           </div>
         `;
         card.style.opacity = '1';
@@ -881,43 +1095,43 @@ function initFAQAccordion() {
 function initBlogQuickRead() {
   // Inject Drawer HTML
   const drawerHTML = `
-    <div id="quick-read-drawer" class="fixed inset-y-0 right-0 z-[110] w-full md:w-[650px] bg-[#1e2022] border-l border-[#45464d]/25 shadow-2xl transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto pointer-events-none">
+    <div id="quick-read-drawer" class="fixed inset-y-0 right-0 z-[110] w-full md:w-[650px] bg-[#F4F7F7] border-l border-[#D8C4B6] shadow-2xl transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto pointer-events-none">
       <div class="relative p-8 md:p-12 space-y-8">
-        <button id="close-drawer-btn" class="absolute top-6 left-6 text-[#c6c6ce] hover:text-secondary transition-colors focus:outline-none flex items-center gap-2">
+        <button id="close-drawer-btn" class="absolute top-6 left-6 text-[#222222] hover:text-[#1C3D63] transition-colors focus:outline-none flex items-center gap-2 cursor-pointer">
           <span class="material-symbols-outlined text-3xl">arrow_back</span>
-          <span class="text-xs uppercase tracking-widest font-label">დაბრუნება</span>
+          <span class="text-xs uppercase tracking-widest font-label font-bold">დაბრუნება</span>
         </button>
         
         <div class="pt-12 space-y-6">
-          <div class="flex items-center gap-4 text-xs font-label uppercase tracking-widest text-[#f1bf62]" id="drawer-meta">
+          <div class="flex items-center gap-4 text-xs font-label uppercase tracking-widest text-[#E0AC6B] font-bold" id="drawer-meta">
             <span>თვითგანვითარება</span>
-            <span class="w-1.5 h-1.5 bg-secondary rounded-full"></span>
+            <span class="w-1.5 h-1.5 bg-[#E0AC6B] rounded-full"></span>
             <span>15 მარტი, 2024</span>
           </div>
           
-          <h2 class="text-4xl md:text-5xl font-headline italic text-white leading-tight" id="drawer-title">სტატიის სათაური</h2>
-          <button type="button" onclick="if(window.openAIChat) { document.getElementById('close-drawer-btn').click(); window.openAIChat(); }" class="mt-3 flex items-center justify-center gap-2 bg-[#f1bf62]/10 border border-[#f1bf62]/30 hover:bg-[#f1bf62]/20 hover:border-[#f1bf62]/50 text-[#f1bf62] px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider transition-all uppercase w-full">
-            <span class="material-symbols-outlined text-sm">psychology</span>
+          <h2 class="text-4xl md:text-5xl font-headline italic text-[#1C3D63] leading-tight" id="drawer-title">სტატიის სათაური</h2>
+          <button type="button" onclick="if(window.openAIChat) { document.getElementById('close-drawer-btn').click(); window.openAIChat(); }" class="mt-3 flex items-center justify-center gap-2 bg-white border border-[#D8C4B6] hover:bg-[#EAE5DF] hover:border-[#1C3D63] text-[#1C3D63] px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider transition-all uppercase w-full cursor-pointer shadow-sm">
+            <span class="material-symbols-outlined text-sm text-[#E0AC6B]">psychology</span>
             <span>ჰკითხეთ მეტი ინტელექტუალურ ასისტენტს</span>
           </button>
           
-          <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-xl" id="drawer-img-container">
+          <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-sm border border-[#D8C4B6]" id="drawer-img-container">
             <img class="w-full h-full object-cover" id="drawer-image" src="" alt="article image"/>
           </div>
           
-          <div class="space-y-6 text-on-surface-variant font-light leading-relaxed text-base md:text-lg pr-2" id="drawer-content">
+          <div class="space-y-6 text-[#222222] font-normal leading-relaxed text-base md:text-lg pr-2" id="drawer-content">
             <!-- Article content will be dynamically loaded here -->
           </div>
           
-          <div class="border-t border-outline-variant/10 pt-12 text-center">
-            <button class="booking-btn bg-secondary text-on-secondary px-8 py-3.5 rounded-xl font-medium tracking-wide hover:brightness-110 active:scale-98 transition-all shadow-xl">
+          <div class="border-t border-[#D8C4B6] pt-12 text-center">
+            <button class="booking-btn bg-[#1C3D63] text-white hover:bg-[#254F7F] px-8 py-3.5 rounded-xl font-medium tracking-wide active:scale-98 transition-all shadow-sm cursor-pointer">
               დაგვიკავშირდით სესიისთვის
             </button>
           </div>
         </div>
       </div>
     </div>
-    <div id="drawer-backdrop" class="fixed inset-0 z-[105] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="drawer-backdrop" class="fixed inset-0 z-[105] bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
   `;
 
   document.body.insertAdjacentHTML('beforeend', drawerHTML);
@@ -1137,20 +1351,56 @@ function initN8nChat() {
     <style>
       #n8n-chat-messages::-webkit-scrollbar { width: 4px; }
       #n8n-chat-messages::-webkit-scrollbar-track { background: transparent; }
-      #n8n-chat-messages::-webkit-scrollbar-thumb { background: rgba(241, 191, 98, 0.2); border-radius: 10px; }
-      #n8n-chat-messages::-webkit-scrollbar-thumb:hover { background: rgba(241, 191, 98, 0.5); }
+      #n8n-chat-messages::-webkit-scrollbar-thumb { background: #D8C4B6; border-radius: 10px; }
+      #n8n-chat-messages::-webkit-scrollbar-thumb:hover { background: #1C3D63; }
       .chat-typing-dots { display: flex; align-items: center; justify-content: center; gap: 4px; width: 30px; height: 12px; }
-      .chat-typing-dot { width: 5px; height: 5px; background: #f1bf62; border-radius: 50%; opacity: 0.3; animation: typing-blink 1.4s infinite both; }
+      .chat-typing-dot { width: 5px; height: 5px; background: #E0AC6B; border-radius: 50%; opacity: 0.3; animation: typing-blink 1.4s infinite both; }
       .chat-typing-dot:nth-child(2) { animation-delay: .2s; }
       .chat-typing-dot:nth-child(3) { animation-delay: .4s; }
       @keyframes typing-blink { 0% { opacity: .3; transform: scale(1); } 20% { opacity: 1; transform: scale(1.1); } 100% { opacity: .3; transform: scale(1); } }
-      @keyframes gold-glow-pulse {
-        0% { box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0px rgba(241, 191, 98, 0); }
-        50% { box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(241, 191, 98, 0.6); }
-        100% { box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0px rgba(241, 191, 98, 0); }
+      @keyframes chat-glow-shimmer {
+        0%, 100% {
+          box-shadow: 0 10px 28px rgba(28,61,99,0.45), 0 0 14px rgba(224,172,107,0.35), 0 0 0 2px rgba(224,172,107,0.5);
+          transform: scale(1);
+        }
+        50% {
+          box-shadow: 0 16px 36px rgba(28,61,99,0.65), 0 0 26px rgba(224,172,107,0.75), 0 0 0 3px rgba(224,172,107,0.85);
+          transform: scale(1.045);
+        }
       }
       .glow-pulse-active {
-        animation: gold-glow-pulse 2s infinite ease-in-out !important;
+        animation: chat-glow-shimmer 2.8s infinite ease-in-out !important;
+      }
+      .chat-shimmer-sweep {
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 55%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+        transform: skewX(-25deg);
+        animation: chatShimmerSweep 3s infinite ease-in-out;
+        pointer-events: none;
+      }
+      @keyframes chatShimmerSweep {
+        0% { left: -120%; }
+        45%, 100% { left: 160%; }
+      }
+      .chat-logo-img {
+        width: 38px;
+        height: 38px;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+        transition: transform 0.3s ease;
+      }
+      @media (min-width: 640px) {
+        .chat-logo-img {
+          width: 42px;
+          height: 42px;
+        }
+      }
+      #n8n-chat-trigger:hover .chat-logo-img {
+        transform: scale(1.08);
       }
       #n8n-chat-tooltip {
         opacity: 0;
@@ -1182,49 +1432,50 @@ function initN8nChat() {
     ${styleHTML}
     <div id="n8n-chat-widget" class="fixed bottom-6 right-6 z-[100] font-sans">
       <!-- Tooltip showing purpose -->
-      <div id="n8n-chat-tooltip" class="absolute bottom-16 right-0 mb-3 w-48 bg-[#1e2022]/95 border border-[#f1bf62]/20 text-[#c6c6ce] text-[11px] font-semibold px-4 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md text-center">
+      <div id="n8n-chat-tooltip" class="absolute bottom-20 right-0 mb-3 w-48 bg-[#FFFFFF] border border-[#D8C4B6] text-[#222222] text-[11px] font-semibold px-4 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(28,61,99,0.12)] text-center">
         ინტელექტუალური ასისტენტი 🔮
-        <div class="text-[9px] text-[#f1bf62] mt-0.5 font-bold uppercase tracking-wider">ჰკითხეთ კალენდარი და სერვისები</div>
-        <div class="absolute bottom-[-5px] right-6 w-2.5 h-2.5 bg-[#1e2022]/95 border-r border-b border-[#f1bf62]/20 rotate-45"></div>
+        <div class="text-[9px] text-[#1C3D63] mt-0.5 font-bold uppercase tracking-wider">ჰკითხეთ კალენდარი და სერვისები</div>
+        <div class="absolute bottom-[-5px] right-7 w-2.5 h-2.5 bg-[#FFFFFF] border-r border-b border-[#D8C4B6] rotate-45"></div>
       </div>
 
-      <!-- Floating Action Chat Button -->
-      <button id="n8n-chat-trigger" class="glow-pulse-active w-14 h-14 rounded-full bg-[#1e2022]/80 border border-[#f1bf62]/20 text-[#f1bf62] hover:text-white flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(241,191,98,0.2)] hover:border-[#f1bf62]/40 backdrop-blur-md cursor-pointer transition-all duration-300 hover:-translate-y-1">
-        <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+      <!-- Floating Action Chat Button with Static Logo & Shimmer Glow -->
+      <button id="n8n-chat-trigger" class="glow-pulse-active relative overflow-hidden w-16 h-16 sm:w-[68px] sm:h-[68px] rounded-full bg-[#1C3D63] border-2 border-[#E0AC6B]/80 text-white hover:bg-[#254F7F] flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95" aria-label="IDC ასისტენტი">
+        <span class="chat-shimmer-sweep"></span>
+        <img src="/src/logo.png" alt="IDC Logo" class="chat-logo-img pointer-events-none" />
       </button>
       
-      <!-- Interactive Frosted Glass Chat Window (Slightly Transparent bg-[#1e2022]/75) -->
-      <div id="n8n-chat-window" class="hidden absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] flex flex-col bg-[#1e2022]/75 border border-white/10 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-300 scale-95 opacity-0 origin-bottom-right">
+      <!-- Interactive Frosted Glass Chat Window -->
+      <div id="n8n-chat-window" class="hidden absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] flex flex-col bg-[#FFFFFF] border border-[#D8C4B6] rounded-3xl shadow-[0_20px_50px_rgba(28,61,99,0.15)] overflow-hidden transition-all duration-300 scale-95 opacity-0 origin-bottom-right">
         
         <!-- Header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-[#D8C4B6] bg-[#F4F7F7]">
           <div class="flex items-center gap-3">
             <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
             <div>
-              <h3 class="text-sm font-bold text-white font-headline">AI ასისტენტი</h3>
-              <p class="text-[10px] text-[#c6c6ce]/60 font-semibold uppercase tracking-wider">ონლაინ მხარდაჭერა</p>
+              <h3 class="text-sm font-bold text-[#1C3D63] font-headline">AI ასისტენტი</h3>
+              <p class="text-[10px] text-[#3B5E63] font-semibold uppercase tracking-wider">ონლაინ მხარდაჭერა</p>
             </div>
           </div>
-          <button id="n8n-chat-close" class="text-[#c6c6ce] hover:text-[#f1bf62] transition-colors focus:outline-none cursor-pointer">
+          <button id="n8n-chat-close" class="text-[#8E8276] hover:text-[#1C3D63] transition-colors focus:outline-none cursor-pointer">
             <span class="material-symbols-outlined text-2xl">close</span>
           </button>
         </div>
         
         <!-- Messages Area -->
-        <div id="n8n-chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col">
+        <div id="n8n-chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col bg-[#F4F7F7]/50">
           <div class="flex flex-col gap-1 max-w-[85%] self-start">
-            <div class="bg-white/5 border border-white/5 backdrop-blur-md text-[#c6c6ce] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed">
+            <div class="bg-[#FFFFFF] border border-[#D8C4B6] text-[#222222] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed shadow-sm">
               გამარჯობა! 👋<br/><br/>მე ვარ IDC-ის (პოზიტიური ფსიქოთერაპიის საერთაშორისო ცენტრის) ვირტუალური ასისტენტი. როგორ შემიძლია დაგეხმაროთ? 🧠💬
             </div>
-            <span class="text-[9px] text-[#c6c6ce]/40 font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
+            <span class="text-[9px] text-[#3B5E63] font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
           </div>
         </div>
         
         <!-- Input Form -->
-        <form id="n8n-chat-form" class="p-4 border-t border-white/5 bg-white/3 flex gap-2.5 items-center">
-          <input id="n8n-chat-input" type="text" placeholder="ჩაწერეთ შეტყობინება..." required class="flex-grow bg-[#121416]/50 border border-white/10 focus:border-[#f1bf62] focus:outline-none rounded-xl px-4 py-3 text-sm text-white placeholder-[#c6c6ce]/40 transition-colors font-medium"/>
-          <button type="submit" class="w-11 h-11 rounded-xl bg-[#f1bf62] text-[#121416] hover:bg-white hover:text-[#121416] flex items-center justify-center shrink-0 cursor-pointer shadow-[0_4px_12px_rgba(241,191,98,0.25)] hover:shadow-[0_4px_12px_rgba(255,255,255,0.25)] transition-all duration-300">
-            <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">send</span>
+        <form id="n8n-chat-form" class="p-4 border-t border-[#D8C4B6] bg-[#F4F7F7] flex gap-2.5 items-center">
+          <input id="n8n-chat-input" type="text" placeholder="ჩაწერეთ შეტყობინება..." required class="flex-grow bg-[#FFFFFF] border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-4 py-3 text-sm text-[#222222] placeholder-[#8E8276] transition-colors font-medium"/>
+          <button type="submit" class="w-11 h-11 rounded-xl bg-[#1C3D63] text-white hover:bg-[#254F7F] flex items-center justify-center shrink-0 cursor-pointer shadow-sm transition-all duration-300">
+            <span class="material-symbols-outlined text-2xl text-[#E0AC6B]" style="font-variation-settings: 'FILL' 1;">send</span>
           </button>
         </form>
         
@@ -1305,10 +1556,10 @@ function initN8nChat() {
     // Append User Message to UI
     const userMessageHTML = `
       <div class="flex flex-col gap-1 max-w-[85%] self-end items-end animate-fade-in">
-        <div class="bg-[#f1bf62]/10 border border-[#f1bf62]/30 text-[#f1bf62] px-4 py-3 rounded-2xl rounded-tr-none text-sm font-medium leading-relaxed">
+        <div class="bg-[#2B231D] text-[#FAF7F2] px-4 py-3 rounded-2xl rounded-tr-none text-sm font-medium leading-relaxed shadow-sm">
           ${escapeHtml(userMessage)}
         </div>
-        <span class="text-[9px] text-[#f1bf62]/50 font-bold uppercase tracking-wider pr-1">თქვენ</span>
+        <span class="text-[9px] text-[#8E8276] font-bold uppercase tracking-wider pr-1">თქვენ</span>
       </div>
     `;
     chatMessages.insertAdjacentHTML('beforeend', userMessageHTML);
@@ -1318,14 +1569,14 @@ function initN8nChat() {
     const typingIndicatorId = 'typing-' + Date.now();
     const typingHTML = `
       <div id="${typingIndicatorId}" class="flex flex-col gap-1 max-w-[80%] self-start animate-fade-in">
-        <div class="bg-white/5 border border-white/5 backdrop-blur-md text-[#c6c6ce] px-5 py-4 rounded-2xl rounded-tl-none">
+        <div class="bg-[#F4F7F7] border border-[#D8C4B6] text-[#222222] px-5 py-4 rounded-2xl rounded-tl-none shadow-sm">
           <div class="chat-typing-dots">
             <span class="chat-typing-dot"></span>
             <span class="chat-typing-dot"></span>
             <span class="chat-typing-dot"></span>
           </div>
         </div>
-        <span class="text-[9px] text-[#c6c6ce]/40 font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
+        <span class="text-[9px] text-[#3B5E63] font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
       </div>
     `;
     chatMessages.insertAdjacentHTML('beforeend', typingHTML);
@@ -1361,10 +1612,10 @@ function initN8nChat() {
       // Append Bot Response
       const botMessageHTML = `
         <div class="flex flex-col gap-1 max-w-[85%] self-start animate-fade-in">
-          <div class="bg-white/5 border border-white/5 backdrop-blur-md text-[#c6c6ce] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed">
+          <div class="bg-[#F4F7F7] border border-[#D8C4B6] text-[#222222] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed shadow-sm">
             ${parseMarkdown(botResponseText)}
           </div>
-          <span class="text-[9px] text-[#c6c6ce]/40 font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
+          <span class="text-[9px] text-[#3B5E63] font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
         </div>
       `;
       chatMessages.insertAdjacentHTML('beforeend', botMessageHTML);
@@ -1376,11 +1627,11 @@ function initN8nChat() {
       if (typingEl) typingEl.remove();
 
       const errorMessageHTML = `
-        <div class="flex flex-col gap-1 max-w-[85%] self-start animate-fade-in text-red-400">
-          <div class="bg-red-950/20 border border-red-500/20 px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed">
+        <div class="flex flex-col gap-1 max-w-[85%] self-start animate-fade-in text-red-600">
+          <div class="bg-red-50 border border-red-200 px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed shadow-sm">
             კავშირი ვერ დამყარდა n8n სერვერთან. გთხოვთ შეამოწმოთ ვებჰუკის მისამართი და სერვერის სტატუსი.
           </div>
-          <span class="text-[9px] text-red-500/50 font-bold uppercase tracking-wider pl-1">სისტემური შეცდომა</span>
+          <span class="text-[9px] text-red-500 font-bold uppercase tracking-wider pl-1">სისტემური შეცდომა</span>
         </div>
       `;
       chatMessages.insertAdjacentHTML('beforeend', errorMessageHTML);
@@ -1402,10 +1653,10 @@ function initN8nChat() {
     let html = escapeHtml(text);
     
     // Bold: **text** to <strong>text</strong>
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-[#f1bf62]">$1</strong>');
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-[#1C3D63]">$1</strong>');
     
     // Links: [Text](URL) to styled <a>
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="inline-flex items-center gap-0.5 text-[#f1bf62] hover:text-white underline decoration-[#f1bf62]/40 hover:decoration-white transition-all font-semibold">$1<span class="material-symbols-outlined text-[10px] inline-block align-middle ml-0.5">arrow_outward</span></a>');
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="inline-flex items-center gap-0.5 text-[#1C3D63] hover:text-[#E0AC6B] underline decoration-[#E0AC6B]/50 transition-all font-semibold">$1<span class="material-symbols-outlined text-[10px] inline-block align-middle ml-0.5">arrow_outward</span></a>');
     
     // Newlines to breaks
     html = html.replace(/\n/g, '<br/>');
@@ -1480,5 +1731,180 @@ function initFormPersistence() {
   });
 }
 
+/* ==========================================================================
+   Hero Section Feather Frame Slider Functionality
+   ========================================================================== */
+function initHeroSlider() {
+  const slider = document.getElementById('hero-slider');
+  if (!slider) return;
+
+  const slides = slider.querySelectorAll('.slider-slide');
+  const dots = document.querySelectorAll('.slider-dot');
+  const prevBtn = document.getElementById('slider-prev-btn');
+  const nextBtn = document.getElementById('slider-next-btn');
+  if (!slides || slides.length === 0) return;
+
+  let currentIndex = 0;
+  let timer = null;
+  const intervalTime = 4500;
+
+  function showSlide(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentIndex = index;
+
+    slides.forEach((slide, i) => {
+      if (i === currentIndex) {
+        slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+        slide.classList.add('opacity-100', 'z-10');
+      } else {
+        slide.classList.remove('opacity-100', 'z-10');
+        slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      if (i === currentIndex) {
+        dot.classList.remove('w-2', 'bg-white/70');
+        dot.classList.add('w-7', 'bg-[#E0AC6B]');
+      } else {
+        dot.classList.remove('w-7', 'bg-[#E0AC6B]');
+        dot.classList.add('w-2', 'bg-white/70');
+      }
+    });
+  }
+
+  function nextSlide() {
+    showSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentIndex - 1);
+  }
+
+  function startAutoPlay() {
+    stopAutoPlay();
+    timer = setInterval(nextSlide, intervalTime);
+  }
+
+  function stopAutoPlay() {
+    if (timer) clearInterval(timer);
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nextSlide();
+      startAutoPlay();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      prevSlide();
+      startAutoPlay();
+    });
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
+      showSlide(idx);
+      startAutoPlay();
+    });
+  });
+
+  // Touch Swipe for Mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoPlay();
+  }, { passive: true });
+
+  slider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 45) {
+      nextSlide();
+    } else if (touchEndX - touchStartX > 45) {
+      prevSlide();
+    }
+    startAutoPlay();
+  }, { passive: true });
+
+  slider.addEventListener('mouseenter', stopAutoPlay);
+  slider.addEventListener('mouseleave', startAutoPlay);
+
+  showSlide(0);
+  startAutoPlay();
+}
+
+/* ==========================================================================
+   16. Horizontal Switcher Bar Wheel & Drag Smooth Scrolling
+   ========================================================================== */
+function initHorizontalSwitcher() {
+  const bars = document.querySelectorAll('.horizontal-switcher-bar');
+  bars.forEach(bar => {
+    // Mouse wheel horizontal scrolling
+    bar.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        bar.scrollBy({ left: e.deltaY * 2.5, behavior: 'smooth' });
+      }
+    }, { passive: false });
+
+    // Click & Drag horizontal scrolling
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    bar.addEventListener('mousedown', (e) => {
+      isDown = true;
+      bar.classList.add('cursor-grabbing');
+      startX = e.pageX - bar.offsetLeft;
+      scrollLeft = bar.scrollLeft;
+    });
+
+    const stopDrag = () => {
+      isDown = false;
+      bar.classList.remove('cursor-grabbing');
+    };
+
+    bar.addEventListener('mouseleave', stopDrag);
+    bar.addEventListener('mouseup', stopDrag);
+
+    bar.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - bar.offsetLeft;
+      const walk = (x - startX) * 1.8;
+      bar.scrollLeft = scrollLeft - walk;
+    });
+
+    // Arrow controls (if present in wrapper)
+    const wrapper = bar.closest('.switcher-wrapper') || bar.parentElement;
+    if (wrapper) {
+      const prevBtn = wrapper.querySelector('.switcher-btn-prev');
+      const nextBtn = wrapper.querySelector('.switcher-btn-next');
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          bar.scrollBy({ left: -260, behavior: 'smooth' });
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          bar.scrollBy({ left: 260, behavior: 'smooth' });
+        });
+      }
+    }
+
+    // Ensure initial alignment at start without any involuntary jumping
+    bar.scrollLeft = 0;
+  });
+}
 
 
