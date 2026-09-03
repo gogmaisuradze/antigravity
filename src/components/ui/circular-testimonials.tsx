@@ -182,9 +182,17 @@ export const CircularTestimonials = ({
               key={testimonial.src + index}
               src={testimonial.src}
               alt={testimonial.name}
-              className="testimonial-image absolute w-full h-full object-cover rounded-3xl shadow-[0_12px_36px_rgba(28,61,99,0.18)] border border-[#D8C4B6]"
+              className="testimonial-image absolute w-full h-full object-cover rounded-3xl shadow-[0_12px_36px_rgba(28,61,99,0.18)] border border-[#D8C4B6] cursor-pointer hover:brightness-105"
               data-index={index}
               style={getImageStyle(index)}
+              onClick={() => {
+                if (index === activeIndex) {
+                  window.location.href = "about.html#team";
+                } else {
+                  setActiveIndex(index);
+                }
+              }}
+              title="დააჭირეთ გუნდის სექციაზე გადასასვლელად"
             />
           ))}
         </div>
@@ -198,9 +206,12 @@ export const CircularTestimonials = ({
               animate="animate"
               exit="exit"
               transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="cursor-pointer group/card"
+              onClick={() => { window.location.href = "about.html#team"; }}
+              title="დააჭირეთ გუნდის სექციაზე გადასასვლელად"
             >
               <h3
-                className="name font-headline italic font-bold mb-1"
+                className="name font-headline italic font-bold mb-1 group-hover/card:text-[#E0AC6B] transition-colors"
                 style={{ color: colorName, fontSize: fontSizeName }}
               >
                 {activeTestimonial?.name}
@@ -241,31 +252,42 @@ export const CircularTestimonials = ({
               </motion.p>
             </motion.div>
           </AnimatePresence>
-          <div className="arrow-buttons flex gap-4 pt-4">
-            <button
-              className="arrow-button prev-button w-11 h-11 rounded-full flex items-center justify-center cursor-pointer transition-all border border-[#D8C4B6] shadow-md hover:scale-105"
-              onClick={handlePrev}
-              style={{
-                backgroundColor: hoverPrev ? colorArrowHoverBg : colorArrowBg,
-              }}
-              onMouseEnter={() => setHoverPrev(true)}
-              onMouseLeave={() => setHoverPrev(false)}
-              aria-label="Previous testimonial"
+          <div className="arrow-buttons flex items-center justify-between gap-4 pt-4 flex-wrap">
+            <div className="flex items-center gap-3">
+              <button
+                className="arrow-button prev-button w-11 h-11 rounded-full flex items-center justify-center cursor-pointer transition-all border border-[#D8C4B6] shadow-md hover:scale-105"
+                onClick={handlePrev}
+                style={{
+                  backgroundColor: hoverPrev ? colorArrowHoverBg : colorArrowBg,
+                }}
+                onMouseEnter={() => setHoverPrev(true)}
+                onMouseLeave={() => setHoverPrev(false)}
+                aria-label="Previous testimonial"
+              >
+                <FaArrowLeft size={18} color={colorArrowFg} />
+              </button>
+              <button
+                className="arrow-button next-button w-11 h-11 rounded-full flex items-center justify-center cursor-pointer transition-all border border-[#D8C4B6] shadow-md hover:scale-105"
+                onClick={handleNext}
+                style={{
+                  backgroundColor: hoverNext ? colorArrowHoverBg : colorArrowBg,
+                }}
+                onMouseEnter={() => setHoverNext(true)}
+                onMouseLeave={() => setHoverNext(false)}
+                aria-label="Next testimonial"
+              >
+                <FaArrowRight size={18} color={colorArrowFg} />
+              </button>
+            </div>
+
+            <a
+              href="about.html#team"
+              className="inline-flex items-center gap-2 bg-[#1C3D63] hover:bg-[#254F7F] text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md transition-all no-underline"
+              title="გუნდის სრული შემადგენლობის გაცნობა"
             >
-              <FaArrowLeft size={18} color={colorArrowFg} />
-            </button>
-            <button
-              className="arrow-button next-button w-11 h-11 rounded-full flex items-center justify-center cursor-pointer transition-all border border-[#D8C4B6] shadow-md hover:scale-105"
-              onClick={handleNext}
-              style={{
-                backgroundColor: hoverNext ? colorArrowHoverBg : colorArrowBg,
-              }}
-              onMouseEnter={() => setHoverNext(true)}
-              onMouseLeave={() => setHoverNext(false)}
-              aria-label="Next testimonial"
-            >
-              <FaArrowRight size={18} color={colorArrowFg} />
-            </button>
+              <span>გუნდის გაცნობა</span>
+              <span className="material-symbols-outlined text-sm text-[#E0AC6B]">arrow_forward</span>
+            </a>
           </div>
         </div>
       </div>
