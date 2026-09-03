@@ -522,106 +522,235 @@
 
   <main class="relative z-10">
     <!-- =========================================================================
-         1. FULL-WIDTH CINEMATIC HERO SLIDER BANNER (მენიუს ქვეშ მთელ სიგრძეზე)
+         1. COMPACT HERO SLIDER BANNER WITH UNIQUE PER-SLIDE CONTENT
          ========================================================================= -->
-    <section class="relative px-3 sm:px-6 md:px-8 lg:px-12 pt-20 sm:pt-24 md:pt-26 pb-8 md:pb-14 w-full max-w-[1550px] mx-auto">
-      <!-- Full-Width Slider Container -->
-      <div class="relative w-full h-[78vh] sm:h-[80vh] md:h-[82vh] lg:h-[85vh] min-h-[580px] max-h-[820px] rounded-[28px] sm:rounded-[36px] md:rounded-[44px] border border-[#D8C4B6] shadow-[0_25px_60px_rgba(28,61,99,0.16)] bg-[#1C3D63] overflow-hidden group select-none" id="hero-slider-frame">
+    <section class="relative px-3 sm:px-6 md:px-8 pt-20 sm:pt-22 md:pt-24 pb-6 md:pb-10 w-full max-w-5xl mx-auto">
+      <!-- Narrower & Proportioned Slider Container -->
+      <div class="relative w-full h-[520px] sm:h-[550px] md:h-[580px] rounded-[28px] sm:rounded-[36px] md:rounded-[40px] border border-[#D8C4B6] shadow-[0_20px_50px_rgba(28,61,99,0.14)] bg-[#1C3D63] overflow-hidden group select-none" id="hero-slider-frame">
         
         <!-- Inner Slider Viewport -->
         <div class="relative w-full h-full overflow-hidden" id="hero-slider">
           
-          <!-- Slides Track (Background Photos) -->
+          <!-- Slides Track (Each slide with background image, gradient, unique text & centered bottom buttons) -->
           <div class="relative w-full h-full" id="slider-track">
-            <!-- Slide 1 (Active by default): Feather Artwork -->
-            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-100 z-10" data-index="0">
-              <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="პოზიტიური ფსიქოთერაპია - სიმშვიდე და წონასწორობა" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1eoJmQicEl2W4nkEvD8EXgY-H3jNybGNk5ccwn30AmUCkykavp2oT-y7Ya-tJSGpaM_JQ4VWwS_31DmayAd3cStS-0lPNohVRe8p2aTmCNaPd7ewfrO8aqwRGByAKBWhQ7-GQqg0l2QxXpRidhUTa72ufp9S_Sdi8P6sGlH96dd8tX-NyLw0RSEU1XzlPHEwyuPimb4aT2EV2Z16kGH-4SRk2C4TkNJDwj6GRo_LxNCgg-J66SJLnr9_hfkAu3SP0ZOqORRlvQtS"/>
-            </div>
-
-            <!-- Slide 2: Therapy & Services -->
-            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0 pointer-events-none" data-index="1">
-              <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="ინდივიდუალური და ჯგუფური თერაპია" src="/services_hero.png"/>
-            </div>
-
-            <!-- Slide 3: Education & WAPP Accreditation -->
-            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0 pointer-events-none" data-index="2">
-              <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="WAPP საერთაშორისო საგანმანათლებლო პროგრამები" src="/education_hero.png"/>
-            </div>
-
-            <!-- Slide 4: Self Discovery & Transformation -->
-            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0 pointer-events-none" data-index="3">
-              <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="თვითშემეცნება და ტრანსფორმაცია" src="/about_hero_abstract.png"/>
-            </div>
-
-            <!-- Slide 5: Balance Model 4 Dimensions -->
-            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0 pointer-events-none" data-index="4">
-              <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="ბალანსის მოდელი - 4 განზომილება" src="/idc_hands_orb.png"/>
-            </div>
-          </div>
-
-          <!-- Cinematic Contrast Gradient (Ensures flawless readability on any background) -->
-          <div class="absolute inset-0 z-10 bg-gradient-to-t md:bg-gradient-to-r from-[#1C3D63]/95 via-[#1C3D63]/85 md:via-[#1C3D63]/70 to-[#1C3D63]/40 md:to-transparent pointer-events-none"></div>
-
-          <!-- Hero Content Layer (Overlaid directly on the Slider) -->
-          <div class="absolute inset-0 z-20 flex flex-col justify-center p-6 sm:p-10 md:p-14 lg:p-20 pointer-events-none">
-            <div class="max-w-2xl text-center md:text-left flex flex-col items-center md:items-start mx-auto md:mx-0">
+            
+            <!-- ================= SLIDE 1: ფილოსოფია & გააცნობიერე ================= -->
+            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-100 z-10 flex flex-col justify-between" data-index="0">
+              <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="პოზიტიური ფსიქოთერაპია - სიმშვიდე და წონასწორობა" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1eoJmQicEl2W4nkEvD8EXgY-H3jNybGNk5ccwn30AmUCkykavp2oT-y7Ya-tJSGpaM_JQ4VWwS_31DmayAd3cStS-0lPNohVRe8p2aTmCNaPd7ewfrO8aqwRGByAKBWhQ7-GQqg0l2QxXpRidhUTa72ufp9S_Sdi8P6sGlH96dd8tX-NyLw0RSEU1XzlPHEwyuPimb4aT2EV2Z16kGH-4SRk2C4TkNJDwj6GRo_LxNCgg-J66SJLnr9_hfkAu3SP0ZOqORRlvQtS"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
               
-              <!-- Philosophical Journey Badge -->
-              <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-xs font-bold uppercase tracking-wider mb-3 sm:mb-4 md:mb-6 shadow-sm backdrop-blur-md">
-                <span class="w-2 h-2 rounded-full bg-[#E0AC6B] animate-pulse"></span>
-                ფილოსოფიური მოგზაურობა
-              </span>
-              
-              <!-- Main Brand Title -->
-              <h1 class="text-white font-headline italic text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] leading-none tracking-tight drop-shadow-md">
-                გააცნობიერე
-              </h1>
-              
-              <!-- Subtitle -->
-              <p class="text-[#E0AC6B] font-headline text-lg sm:text-2xl md:text-3xl mt-2 sm:mt-3 md:mt-4 italic tracking-wide font-medium drop-shadow-sm">
-                პოზიტიური ფსიქოთერაპიის ცენტრი
-              </p>
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+                <!-- Top / Center Content -->
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
+                    ფილოსოფიური მოგზაურობა
+                  </span>
+                  <h1 class="text-white font-headline italic text-4xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
+                    გააცნობიერე
+                  </h1>
+                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                    პოზიტიური ფსიქოთერაპიის ცენტრი
+                  </p>
+                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                    <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
+                      „ადამიანი ფასდაუდებელი, ძვირფასი ქვებით სავსე საბადოა.“
+                    </p>
+                    <div class="text-right mt-1 text-[11px] sm:text-xs text-[#E0AC6B] font-medium italic">
+                      — ნოსრატ პეზეშკიანი
+                    </div>
+                  </div>
+                </div>
 
-              <!-- Pezeshkian Quote Glass Card -->
-              <div class="w-full max-w-xl my-4 sm:my-5 md:my-6 p-4 sm:p-5 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-2xl shadow-xl text-center md:text-left pointer-events-auto">
-                <p class="text-white/95 text-xs sm:text-base font-light leading-relaxed italic drop-shadow-sm">
-                  „ადამიანი ფასდაუდებელი, ძვირფასი ქვებით სავსე საბადოა.“
-                </p>
-                <div class="text-center md:text-right mt-1.5">
-                  <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%90%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-label italic text-[#E0AC6B] hover:text-white transition-colors underline decoration-[#E0AC6B]/60 font-semibold pointer-events-auto">
-                    — ნოსრატ პეზეშკიანი
+                <!-- Centered Bottom Buttons -->
+                <div class="w-full max-w-sm flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 mb-4 sm:mb-5">
+                  <button class="booking-btn w-full sm:w-auto flex-1 bg-[#E0AC6B] hover:bg-[#cf9857] text-[#1C3D63] font-bold px-6 py-2.5 sm:py-3 rounded-xl tracking-wide transition-all shadow-[0_4px_16px_rgba(224,172,107,0.35)] text-center text-xs sm:text-sm cursor-pointer">
+                    სესიის დაჯავშნა
+                  </button>
+                  <a href="logic.html" class="w-full sm:w-auto flex-1 border-2 border-white/80 hover:border-white hover:bg-white text-white hover:text-[#1C3D63] backdrop-blur-md px-5 py-2 sm:py-2.5 rounded-xl font-bold tracking-wide transition-all text-center text-xs sm:text-sm no-underline">
+                    გონებრივი რუკა
                   </a>
                 </div>
               </div>
-
-              <!-- Action Buttons -->
-              <div class="w-full max-w-md flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-1 sm:mt-2 pointer-events-auto">
-                <button class="booking-btn flex-1 bg-[#E0AC6B] hover:bg-[#cf9857] text-[#1C3D63] font-bold px-7 py-3.5 sm:py-4 rounded-xl tracking-wide transition-all shadow-[0_6px_22px_rgba(224,172,107,0.35)] text-center text-sm sm:text-base cursor-pointer">
-                  სესიის დაჯავშნა
-                </button>
-                <a href="logic.html" class="flex-1 border-2 border-white/80 hover:border-white hover:bg-white text-white hover:text-[#1C3D63] backdrop-blur-md px-6 py-3 sm:py-3.5 rounded-xl font-bold tracking-wide transition-all text-center text-sm sm:text-base no-underline">
-                  გონებრივი რუკა
-                </a>
-              </div>
-
             </div>
+
+            <!-- ================= SLIDE 2: თერაპია & სიმშვიდე ================= -->
+            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0 pointer-events-none flex flex-col justify-between" data-index="1">
+              <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="ინდივიდუალური და ჯგუფური თერაპია" src="/services_hero.png"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
+              
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+                <!-- Top / Center Content -->
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
+                    თერაპიული სივრცე
+                  </span>
+                  <h2 class="text-white font-headline italic text-4xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
+                    იპოვე სიმშვიდე
+                  </h2>
+                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                    ინდივიდუალური & ჯგუფური თერაპია
+                  </p>
+                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                    <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
+                      „უსაფრთხო გარემო ემოციური ტკივილის გააზრებისა და შინაგანი განკურნებისთვის.“
+                    </p>
+                    <div class="text-right mt-1 text-[11px] sm:text-xs text-[#E0AC6B] font-medium italic">
+                      — IDC თერაპია
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Centered Bottom Buttons -->
+                <div class="w-full max-w-sm flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 mb-4 sm:mb-5">
+                  <button class="booking-btn w-full sm:w-auto flex-1 bg-[#E0AC6B] hover:bg-[#cf9857] text-[#1C3D63] font-bold px-6 py-2.5 sm:py-3 rounded-xl tracking-wide transition-all shadow-[0_4px_16px_rgba(224,172,107,0.35)] text-center text-xs sm:text-sm cursor-pointer">
+                    თერაპიის დაჯავშნა
+                  </button>
+                  <a href="services.html" class="w-full sm:w-auto flex-1 border-2 border-white/80 hover:border-white hover:bg-white text-white hover:text-[#1C3D63] backdrop-blur-md px-5 py-2 sm:py-2.5 rounded-xl font-bold tracking-wide transition-all text-center text-xs sm:text-sm no-underline">
+                    სერვისების ნახვა
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= SLIDE 3: საერთაშორისო განათლება ================= -->
+            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0 pointer-events-none flex flex-col justify-between" data-index="2">
+              <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="WAPP საერთაშორისო საგანმანათლებლო პროგრამები" src="/education_hero.png"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
+              
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+                <!-- Top / Center Content -->
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
+                    WAPP & ICF აკრედიტაცია
+                  </span>
+                  <h2 class="text-white font-headline italic text-4xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
+                    დაეუფლე პროფესიას
+                  </h2>
+                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                    საერთაშორისო განათლება & სერტიფიცირება
+                  </p>
+                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                    <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
+                      „ვისბადენის აკადემიის მიერ აკრედიტირებული საერთაშორისო პროგრამები და კურსები.“
+                    </p>
+                    <div class="text-right mt-1 text-[11px] sm:text-xs text-[#E0AC6B] font-medium italic">
+                      — აკადემიური პროგრამები
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Centered Bottom Buttons -->
+                <div class="w-full max-w-sm flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 mb-4 sm:mb-5">
+                  <a href="education.html" class="w-full sm:w-auto flex-1 bg-[#E0AC6B] hover:bg-[#cf9857] text-[#1C3D63] font-bold px-6 py-2.5 sm:py-3 rounded-xl tracking-wide transition-all shadow-[0_4px_16px_rgba(224,172,107,0.35)] text-center text-xs sm:text-sm no-underline">
+                    კურსების ნახვა
+                  </a>
+                  <a href="registration.html" class="w-full sm:w-auto flex-1 border-2 border-white/80 hover:border-white hover:bg-white text-white hover:text-[#1C3D63] backdrop-blur-md px-5 py-2 sm:py-2.5 rounded-xl font-bold tracking-wide transition-all text-center text-xs sm:text-sm no-underline">
+                    რეგისტრაცია
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= SLIDE 4: თვითშემეცნება & ტრანსფორმაცია ================= -->
+            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0 pointer-events-none flex flex-col justify-between" data-index="3">
+              <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="თვითშემეცნება და ტრანსფორმაცია" src="/about_hero_abstract.png"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
+              
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+                <!-- Top / Center Content -->
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
+                    გაცნობიერება & ზრდა
+                  </span>
+                  <h2 class="text-white font-headline italic text-4xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
+                    შეიცანი საკუთარი თავი
+                  </h2>
+                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                    ტრანსფორმაციული ფსიქოლოგია
+                  </p>
+                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                    <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
+                      „სანამ ქვეცნობიერს გააცნობიერებდე, ის მართავს შენს ცხოვრებას.“
+                    </p>
+                    <div class="text-right mt-1 text-[11px] sm:text-xs text-[#E0AC6B] font-medium italic">
+                      — კარლ გუსტავ იუნგი
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Centered Bottom Buttons -->
+                <div class="w-full max-w-sm flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 mb-4 sm:mb-5">
+                  <a href="about.html" class="w-full sm:w-auto flex-1 bg-[#E0AC6B] hover:bg-[#cf9857] text-[#1C3D63] font-bold px-6 py-2.5 sm:py-3 rounded-xl tracking-wide transition-all shadow-[0_4px_16px_rgba(224,172,107,0.35)] text-center text-xs sm:text-sm no-underline">
+                    ჩვენს შესახებ
+                  </a>
+                  <a href="team.html" class="w-full sm:w-auto flex-1 border-2 border-white/80 hover:border-white hover:bg-white text-white hover:text-[#1C3D63] backdrop-blur-md px-5 py-2 sm:py-2.5 rounded-xl font-bold tracking-wide transition-all text-center text-xs sm:text-sm no-underline">
+                    გუნდის გაცნობა
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= SLIDE 5: ბალანსის მოდელი ================= -->
+            <div class="slider-slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0 pointer-events-none flex flex-col justify-between" data-index="4">
+              <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="ბალანსის მოდელი - 4 განზომილება" src="/idc_hands_orb.png"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
+              
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+                <!-- Top / Center Content -->
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
+                    ცხოვრების 4 სფერო
+                  </span>
+                  <h2 class="text-white font-headline italic text-4xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
+                    აღადგინე ბალანსი
+                  </h2>
+                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                    სხეული • მიღწევა • კონტაქტი • მომავალი
+                  </p>
+                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                    <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
+                      „ცხოვრება არის ხელოვნება — იპოვო წონასწორობა ყოველდღიურ ქაოსსა და შინაგან სამყაროს შორის.“
+                    </p>
+                    <div class="text-right mt-1 text-[11px] sm:text-xs text-[#E0AC6B] font-medium italic">
+                      — ბალანსის მოდელი
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Centered Bottom Buttons -->
+                <div class="w-full max-w-sm flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 mb-4 sm:mb-5">
+                  <a href="balance.html" class="w-full sm:w-auto flex-1 bg-[#E0AC6B] hover:bg-[#cf9857] text-[#1C3D63] font-bold px-6 py-2.5 sm:py-3 rounded-xl tracking-wide transition-all shadow-[0_4px_16px_rgba(224,172,107,0.35)] text-center text-xs sm:text-sm no-underline">
+                    ბალანსის ტესტი
+                  </a>
+                  <button class="booking-btn w-full sm:w-auto flex-1 border-2 border-white/80 hover:border-white hover:bg-white text-white hover:text-[#1C3D63] backdrop-blur-md px-5 py-2 sm:py-2.5 rounded-xl font-bold tracking-wide transition-all text-center text-xs sm:text-sm cursor-pointer">
+                    სესიის დაჯავშნა
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <!-- Controls: Prev / Next Buttons (Glass Aesthetic) -->
-          <button id="slider-prev-btn" class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/30 hover:bg-white text-white hover:text-[#1C3D63] border border-white/30 backdrop-blur-md flex items-center justify-center shadow-2xl transition-all cursor-pointer focus:outline-none" title="წინა სლაიდი">
-            <span class="material-symbols-outlined text-lg md:text-xl">arrow_back_ios_new</span>
+          <button id="slider-prev-btn" class="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/30 hover:bg-white text-white hover:text-[#1C3D63] border border-white/30 backdrop-blur-md flex items-center justify-center shadow-xl transition-all cursor-pointer focus:outline-none" title="წინა სლაიდი">
+            <span class="material-symbols-outlined text-base sm:text-lg">arrow_back_ios_new</span>
           </button>
-          <button id="slider-next-btn" class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/30 hover:bg-white text-white hover:text-[#1C3D63] border border-white/30 backdrop-blur-md flex items-center justify-center shadow-2xl transition-all cursor-pointer focus:outline-none" title="შემდეგი სლაიდი">
-            <span class="material-symbols-outlined text-lg md:text-xl">arrow_forward_ios</span>
+          <button id="slider-next-btn" class="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/30 hover:bg-white text-white hover:text-[#1C3D63] border border-white/30 backdrop-blur-md flex items-center justify-center shadow-xl transition-all cursor-pointer focus:outline-none" title="შემდეგი სლაიდი">
+            <span class="material-symbols-outlined text-base sm:text-lg">arrow_forward_ios</span>
           </button>
 
           <!-- Dots Indicators (Bottom Center) -->
-          <div class="absolute bottom-4 sm:bottom-6 left-0 right-0 z-30 flex justify-center items-center gap-2" id="slider-dots">
-            <button class="slider-dot w-8 h-2.5 rounded-full bg-[#E0AC6B] transition-all cursor-pointer focus:outline-none" data-index="0" title="Slide 1"></button>
-            <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/60 hover:bg-white transition-all cursor-pointer focus:outline-none" data-index="1" title="Slide 2"></button>
-            <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/60 hover:bg-white transition-all cursor-pointer focus:outline-none" data-index="2" title="Slide 3"></button>
-            <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/60 hover:bg-white transition-all cursor-pointer focus:outline-none" data-index="3" title="Slide 4"></button>
-            <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/60 hover:bg-white transition-all cursor-pointer focus:outline-none" data-index="4" title="Slide 5"></button>
+          <div class="absolute bottom-2 sm:bottom-3 left-0 right-0 z-30 flex justify-center items-center gap-1.5" id="slider-dots">
+            <button class="slider-dot w-7 h-2 rounded-full bg-[#E0AC6B] transition-all cursor-pointer focus:outline-none" data-index="0" title="Slide 1"></button>
+            <button class="slider-dot w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-all cursor-pointer focus:outline-none" data-index="1" title="Slide 2"></button>
+            <button class="slider-dot w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-all cursor-pointer focus:outline-none" data-index="2" title="Slide 3"></button>
+            <button class="slider-dot w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-all cursor-pointer focus:outline-none" data-index="3" title="Slide 4"></button>
+            <button class="slider-dot w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-all cursor-pointer focus:outline-none" data-index="4" title="Slide 5"></button>
           </div>
 
         </div>
