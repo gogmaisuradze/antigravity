@@ -303,47 +303,234 @@
       </div>
     </div>
     <!-- Mobile Navigation Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white/95 border border-[#D8C4B6] rounded-xl mt-2 px-5 py-4 space-y-3 shadow-xl pointer-events-auto">
-      <a class="block text-[#222222] hover:text-[#1C3D63] font-headline italic text-base py-1.5 border-b border-[#D8C4B6]" href="index.html">მთავარი</a>
-      <div class="py-1.5 border-b border-[#D8C4B6]">
-        <a href="education-wapp.html" class="block text-[#1C3D63] font-headline italic text-base pb-1 font-bold no-underline flex items-center justify-between">
-          <span>სერვისები & განათლება</span>
-          <span class="text-[10px] bg-[#E0AC6B] text-[#1C3D63] px-2 py-0.5 rounded font-sans font-bold">განათლება პირველი</span>
-        </a>
-        <div class="pl-2 mt-1 space-y-1">
-          <span class="block text-[10px] font-bold uppercase tracking-wider text-[#E0AC6B]">🎓 განათლება</span>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="education-wapp.html">• WAPP პროგრამა</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="education-erickson.html">• ერიქსონის აკადემია (ICF)</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="education-practical.html">• პრაქტიკული ფსიქოლოგია</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="education-art.html">• არტთერაპია</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="education-master.html">• სამაგისტრო</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="education-seminars.html">• სემინარები</a>
+        <!-- Mobile Navigation Menu with Interactive Expandable Accordions -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 border border-[#D8C4B6] backdrop-blur-2xl rounded-2xl mt-2 p-3.5 space-y-2 shadow-2xl pointer-events-auto max-h-[85vh] overflow-y-auto">
+      
+      <!-- 1. მთავარი -->
+      <a class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#F4F7F7] text-[#1C3D63] font-bold text-sm no-underline border border-transparent hover:border-[#D8C4B6]/60 transition-all" href="index.html">
+        <div class="w-8 h-8 rounded-lg bg-[#1C3D63]/10 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#1C3D63]/20">
+          <span class="material-symbols-outlined text-base">home</span>
         </div>
-        <div class="pl-2 mt-2 space-y-1 pt-1 border-t border-[#D8C4B6]/40">
-          <span class="block text-[10px] font-bold uppercase tracking-wider text-[#1C3D63]">🌿 ფსიქოლოგია თერაპია</span>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="service-consultation.html">• კონსულტაცია</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="service-individual.html">• ინდივიდუალური თერაპია</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="service-group.html">• ჯგუფური თერაპია</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="service-coaching.html">• ქოუჩინგი</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63] py-0.5" href="service-group-coaching.html">• ჯგუფური ქოუჩინგი</a>
-        </div>
-      </div>
-      <div class="py-1.5 border-b border-[#D8C4B6]">
-        <span class="block text-[#1C3D63] font-headline italic text-base pb-0.5 font-bold">ინტერაქცია</span>
-        <div class="pl-3 space-y-1.5 mt-0.5">
-          <a class="block text-sm text-[#1C3D63] font-bold" href="balance.html">ბალანსის მოდელი</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="cosmic.html">აიდი მოდელები</a>
-          <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="blog.html">ბლოგი</a>
-        </div>
-      </div>
-      <div class="py-1.5">
-          <a class="block text-sm text-[#1C3D63] font-bold" href="about.html">ჩვენს შესახებ</a>
-          <div class="pl-3 space-y-1.5 mt-1 border-l-2 border-[#D8C4B6]/50">
-            <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="about.html#team">გუნდი</a>
-            <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="about.html#gallery">გალერეა</a>
-            <a class="block text-xs text-[#222222] hover:text-[#1C3D63]" href="about.html#contact">კონტაქტი</a>
+        <span class="font-headline italic text-base">მთავარი</span>
+      </a>
+
+      <!-- 2. Accordion: სერვისები & განათლება -->
+      <div class="border border-[#D8C4B6]/70 rounded-xl overflow-hidden bg-[#FAF7F2]/40">
+        <button type="button" class="mobile-accordion-toggle w-full flex items-center justify-between p-2.5 text-left text-[#1C3D63] font-bold text-sm hover:bg-[#F4F7F7] transition-all cursor-pointer focus:outline-none">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#E0AC6B]/40">
+              <span class="material-symbols-outlined text-base">school</span>
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm font-bold font-headline italic">სერვისები & განათლება</div>
+              <div class="text-[10px] text-[#8E8276] font-sans">აკადემიური კურსები & თერაპია</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-lg text-[#8E8276] transition-transform duration-300 accordion-arrow">expand_more</span>
+        </button>
+
+        <div class="mobile-accordion-content hidden p-2 pt-0 space-y-3 border-t border-[#D8C4B6]/40 bg-white">
+          <!-- Sub-block 1: განათლება -->
+          <div class="space-y-1 pt-2">
+            <div class="flex items-center justify-between px-2 py-1 bg-[#F4F7F7] rounded-lg mb-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[#E0AC6B]">🎓 განათლება (6 კურსი)</span>
+              <a href="education.html" class="text-[9px] text-[#1C3D63] font-semibold underline">ყველა →</a>
+            </div>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="education-wapp.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">WAPP პროგრამა</span>
+                <span class="block text-[10px] text-[#8E8276]">პოზიტიური ფსიქოთერაპია</span>
+              </div>
+              <span class="text-[8px] bg-[#1C3D63] text-white font-bold px-1.5 py-0.5 rounded font-sans">WAPP</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="education-erickson.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">ერიქსონის აკადემია</span>
+                <span class="block text-[10px] text-[#8E8276]">ქოუჩინგის საერთაშორისო კურსი</span>
+              </div>
+              <span class="text-[8px] bg-[#E0AC6B] text-[#1C3D63] font-bold px-1.5 py-0.5 rounded font-sans">ICF</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="education-practical.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">პრაქტიკული ფსიქოლოგია</span>
+                <span class="block text-[10px] text-[#8E8276]">1-წლიანი ჰიბრიდული & TOT</span>
+              </div>
+              <span class="text-[8px] bg-[#F4F7F7] text-[#1C3D63] font-semibold px-1.5 py-0.5 rounded border border-[#D8C4B6]">1 წელი</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="education-art.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">არტთერაპია</span>
+                <span class="block text-[10px] text-[#8E8276]">11 მიმართულება & პრაქტიკა</span>
+              </div>
+              <span class="text-[8px] bg-[#F4F7F7] text-[#1C3D63] font-semibold px-1.5 py-0.5 rounded border border-[#D8C4B6]">არტი</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="education-master.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">სამაგისტრო კურსი</span>
+                <span class="block text-[10px] text-[#8E8276]">კლინიკური პრაქტიკა</span>
+              </div>
+              <span class="text-[8px] bg-[#F4F7F7] text-[#1C3D63] font-semibold px-1.5 py-0.5 rounded border border-[#D8C4B6]">Master</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="education-seminars.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">სემინარები & ვორქშოფები</span>
+                <span class="block text-[10px] text-[#8E8276]">მოკლევადიანი ტრენინგები</span>
+              </div>
+              <span class="text-[8px] bg-[#F4F7F7] text-[#1C3D63] font-semibold px-1.5 py-0.5 rounded border border-[#D8C4B6]">ტრენინგი</span>
+            </a>
+          </div>
+
+          <!-- Sub-block 2: ფსიქოლოგია თერაპია -->
+          <div class="space-y-1 pt-2 border-t border-[#D8C4B6]/40">
+            <div class="flex items-center justify-between px-2 py-1 bg-[#F4F7F7] rounded-lg mb-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[#1C3D63]">🌿 ფსიქოლოგია & თერაპია (5)</span>
+              <a href="services.html" class="text-[9px] text-[#1C3D63] font-semibold underline">ყველა →</a>
+            </div>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="service-consultation.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">კონსულტაცია</span>
+                <span class="block text-[10px] text-[#8E8276]">პირველადი შეფასება & დიაგნოსტიკა</span>
+              </div>
+              <span class="text-[8px] bg-[#1C3D63]/10 text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">დაწყება</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="service-individual.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">ინდივიდუალური თერაპია</span>
+                <span class="block text-[10px] text-[#8E8276]">პერსონალური მუშაობა</span>
+              </div>
+              <span class="text-[8px] bg-[#1C3D63]/10 text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">1-on-1</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="service-group.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">ჯგუფური თერაპია</span>
+                <span class="block text-[10px] text-[#8E8276]">ურთიერთდახმარების ჯგუფები</span>
+              </div>
+              <span class="text-[8px] bg-[#1C3D63]/10 text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">ჯგუფი</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="service-coaching.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">ქოუჩინგი</span>
+                <span class="block text-[10px] text-[#8E8276]">მიზნები & პიროვნული ზრდა</span>
+              </div>
+              <span class="text-[8px] bg-[#E0AC6B]/20 text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">ზრდა</span>
+            </a>
+            <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="service-group-coaching.html">
+              <div>
+                <span class="font-bold text-[#1C3D63]">ჯგუფური ქოუჩინგი</span>
+                <span class="block text-[10px] text-[#8E8276]">გუნდური & კორპორატიული</span>
+              </div>
+              <span class="text-[8px] bg-[#E0AC6B]/20 text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">გუნდი</span>
+            </a>
           </div>
         </div>
+      </div>
+
+      <!-- 3. Accordion: ინტერაქცია -->
+      <div class="border border-[#D8C4B6]/70 rounded-xl overflow-hidden bg-[#FAF7F2]/40">
+        <button type="button" class="mobile-accordion-toggle w-full flex items-center justify-between p-2.5 text-left text-[#1C3D63] font-bold text-sm hover:bg-[#F4F7F7] transition-all cursor-pointer focus:outline-none">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[#1C3D63]/10 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#1C3D63]/20">
+              <span class="material-symbols-outlined text-base">all_inclusive</span>
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm font-bold font-headline italic">ინტერაქცია</div>
+              <div class="text-[10px] text-[#8E8276] font-sans">ბალანსის მოდელი & 3D</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-lg text-[#8E8276] transition-transform duration-300 accordion-arrow">expand_more</span>
+        </button>
+
+        <div class="mobile-accordion-content hidden p-2 pt-0 space-y-1 border-t border-[#D8C4B6]/40 bg-white">
+          <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline mt-2" href="balance.html">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm text-[#E0AC6B]">balance</span>
+              <div>
+                <span class="font-bold text-[#1C3D63]">ბალანსის მოდელი</span>
+                <span class="block text-[10px] text-[#8E8276]">ცხოვრების 4 განზომილების ტესტი</span>
+              </div>
+            </div>
+            <span class="text-[8px] bg-[#E0AC6B] text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">ტესტი</span>
+          </a>
+          <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="cosmic.html">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm text-[#1C3D63]">auto_awesome</span>
+              <div>
+                <span class="font-bold text-[#1C3D63]">აიდი მოდელები</span>
+                <span class="block text-[10px] text-[#8E8276]">ინტერაქტიული 3D თვითშემეცნება</span>
+              </div>
+            </div>
+            <span class="text-[8px] bg-[#1C3D63] text-white font-bold px-1.5 py-0.5 rounded">3D</span>
+          </a>
+          <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="blog.html">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm text-[#3B5E63]">menu_book</span>
+              <div>
+                <span class="font-bold text-[#1C3D63]">ბლოგი & სტატიები</span>
+                <span class="block text-[10px] text-[#8E8276]">პუბლიკაციები & რჩევები</span>
+              </div>
+            </div>
+            <span class="text-[8px] bg-[#D8C4B6] text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">ცოდნა</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4. Accordion: ჩვენს შესახებ -->
+      <div class="border border-[#D8C4B6]/70 rounded-xl overflow-hidden bg-[#FAF7F2]/40">
+        <button type="button" class="mobile-accordion-toggle w-full flex items-center justify-between p-2.5 text-left text-[#1C3D63] font-bold text-sm hover:bg-[#F4F7F7] transition-all cursor-pointer focus:outline-none">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#E0AC6B]/40">
+              <span class="material-symbols-outlined text-base">groups</span>
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm font-bold font-headline italic">ჩვენს შესახებ</div>
+              <div class="text-[10px] text-[#8E8276] font-sans">გუნდი, გალერეა, კონტაქტი</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-lg text-[#8E8276] transition-transform duration-300 accordion-arrow">expand_more</span>
+        </button>
+
+        <div class="mobile-accordion-content hidden p-2 pt-0 space-y-1 border-t border-[#D8C4B6]/40 bg-white">
+          <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline mt-2" href="about.html#team">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm text-[#E0AC6B]">diversity_3</span>
+              <div>
+                <span class="font-bold text-[#1C3D63]">ჩვენი გუნდი</span>
+                <span class="block text-[10px] text-[#8E8276]">ფსიქოთერაპევტები & ლექტორები</span>
+              </div>
+            </div>
+            <span class="text-[8px] bg-[#E0AC6B] text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">გუნდი</span>
+          </a>
+          <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="about.html#gallery">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm text-[#3B5E63]">photo_library</span>
+              <div>
+                <span class="font-bold text-[#1C3D63]">გალერეა</span>
+                <span class="block text-[10px] text-[#8E8276]">მყუდრო გარემო & აუდიტორიები</span>
+              </div>
+            </div>
+            <span class="text-[8px] bg-[#3B5E63] text-white font-bold px-1.5 py-0.5 rounded">სივრცე</span>
+          </a>
+          <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline" href="about.html#contact">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm text-[#1C3D63]">location_on</span>
+              <div>
+                <span class="font-bold text-[#1C3D63]">კონტაქტი & მისამართი</span>
+                <span class="block text-[10px] text-[#8E8276]">ჭავჭავაძის 2 • 598 32 40 20</span>
+              </div>
+            </div>
+            <span class="text-[8px] bg-[#D8C4B6] text-[#1C3D63] font-bold px-1.5 py-0.5 rounded">რუკა</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Action: დაჯავშნა -->
+      <div class="pt-2">
+        <button class="booking-btn w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md cursor-pointer">
+          <span class="material-symbols-outlined text-sm text-[#E0AC6B]">calendar_month</span>
+          <span>ვიზიტის დაჯავშნა</span>
+        </button>
+      </div>
+
     </div>
   </header>
 

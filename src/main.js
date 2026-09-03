@@ -50,6 +50,45 @@ function initMobileMenu() {
         }
       }
     };
+
+    // Attach click listeners to all accordion triggers inside mobile menu
+    mobileMenu.querySelectorAll('.mobile-accordion-toggle').forEach((toggleBtn) => {
+      toggleBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const content = toggleBtn.nextElementSibling;
+        const arrow = toggleBtn.querySelector('.accordion-arrow');
+        if (content) {
+          const isHidden = content.classList.contains('hidden');
+          // Optional: close other accordions in the same menu for clean accordion behavior
+          mobileMenu.querySelectorAll('.mobile-accordion-content').forEach(otherContent => {
+            if (otherContent !== content) {
+              otherContent.classList.add('hidden');
+              const parent = otherContent.previousElementSibling;
+              const otherArrow = parent ? parent.querySelector('.accordion-arrow') : null;
+              if (otherArrow) {
+                otherArrow.textContent = 'expand_more';
+                otherArrow.classList.remove('rotate-180', 'text-[#1C3D63]');
+              }
+            }
+          });
+
+          if (isHidden) {
+            content.classList.remove('hidden');
+            if (arrow) {
+              arrow.textContent = 'expand_less';
+              arrow.classList.add('text-[#1C3D63]');
+            }
+          } else {
+            content.classList.add('hidden');
+            if (arrow) {
+              arrow.textContent = 'expand_more';
+              arrow.classList.remove('text-[#1C3D63]');
+            }
+          }
+        }
+      };
+    });
   }
 
   if (!window.__mobileMenuCloseAttached) {
@@ -1435,9 +1474,9 @@ function initN8nChat() {
 
   const chatHTML = `
     ${styleHTML}
-    <div id="n8n-chat-widget" class="fixed bottom-6 right-6 z-[100] font-sans">
-      <!-- Tooltip showing purpose -->
-      <div id="n8n-chat-tooltip" class="absolute bottom-20 right-0 mb-3 w-48 bg-[#FFFFFF] border border-[#D8C4B6] text-[#222222] text-[11px] font-semibold px-4 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(28,61,99,0.12)] text-center">
+    <div id="n8n-chat-widget" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] font-sans">
+      <!-- Tooltip showing purpose (Hidden on mobile phones, shown on desktop) -->
+      <div id="n8n-chat-tooltip" class="hidden sm:block absolute bottom-20 right-0 mb-3 w-48 bg-[#FFFFFF] border border-[#D8C4B6] text-[#222222] text-[11px] font-semibold px-4 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(28,61,99,0.12)] text-center">
         ინტელექტუალური ასისტენტი 🔮
         <div class="text-[9px] text-[#1C3D63] mt-0.5 font-bold uppercase tracking-wider">ჰკითხეთ კალენდარი და სერვისები</div>
         <div class="absolute bottom-[-5px] right-7 w-2.5 h-2.5 bg-[#FFFFFF] border-r border-b border-[#D8C4B6] rotate-45"></div>
