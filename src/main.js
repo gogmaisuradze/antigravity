@@ -1387,16 +1387,16 @@ function initN8nChat() {
         45%, 100% { left: 160%; }
       }
       .chat-logo-img {
-        width: 38px;
-        height: 38px;
+        width: 44px;
+        height: 44px;
         object-fit: contain;
-        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+        filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45)) brightness(1.15);
         transition: transform 0.3s ease;
       }
       @media (min-width: 640px) {
         .chat-logo-img {
-          width: 42px;
-          height: 42px;
+          width: 48px;
+          height: 48px;
         }
       }
       #n8n-chat-trigger:hover .chat-logo-img {
@@ -1441,18 +1441,21 @@ function initN8nChat() {
       <!-- Floating Action Chat Button with Static Logo & Shimmer Glow -->
       <button id="n8n-chat-trigger" class="glow-pulse-active relative overflow-hidden w-16 h-16 sm:w-[68px] sm:h-[68px] rounded-full bg-[#1C3D63] border-2 border-[#E0AC6B]/80 text-white hover:bg-[#254F7F] flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95" aria-label="IDC ასისტენტი">
         <span class="chat-shimmer-sweep"></span>
-        <img src="/src/logo.png" alt="IDC Logo" class="chat-logo-img pointer-events-none" />
+        <img src="/logo.png" alt="IDC Logo" class="chat-logo-img pointer-events-none" />
       </button>
       
       <!-- Interactive Frosted Glass Chat Window -->
       <div id="n8n-chat-window" class="hidden absolute bottom-20 right-0 w-[360px] max-w-[calc(100vw-32px)] h-[500px] max-h-[80vh] flex flex-col bg-[#FFFFFF] border border-[#D8C4B6] rounded-3xl shadow-[0_20px_50px_rgba(28,61,99,0.15)] overflow-hidden transition-all duration-300 scale-95 opacity-0 origin-bottom-right">
         
         <!-- Header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b border-[#D8C4B6] bg-[#F4F7F7]">
+        <div class="flex items-center justify-between px-5 py-3.5 border-b border-[#D8C4B6] bg-[#F4F7F7]">
           <div class="flex items-center gap-3">
-            <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
+            <div class="relative w-10 h-10 rounded-xl bg-[#1C3D63] border border-[#E0AC6B]/80 flex items-center justify-center p-1.5 shadow-sm shrink-0">
+              <img src="/logo.png" alt="IDC Logo" class="w-full h-full object-contain" />
+              <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></div>
+            </div>
             <div>
-              <h3 class="text-sm font-bold text-[#1C3D63] font-headline">AI ასისტენტი</h3>
+              <h3 class="text-sm font-bold text-[#1C3D63] font-headline">IDC ასისტენტი</h3>
               <p class="text-[10px] text-[#3B5E63] font-semibold uppercase tracking-wider">ონლაინ მხარდაჭერა</p>
             </div>
           </div>
@@ -1464,10 +1467,15 @@ function initN8nChat() {
         <!-- Messages Area -->
         <div id="n8n-chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col bg-[#F4F7F7]/50">
           <div class="flex flex-col gap-1 max-w-[85%] self-start">
+            <div class="flex items-center gap-2 pl-1 mb-0.5">
+              <div class="w-4 h-4 rounded bg-[#1C3D63] border border-[#E0AC6B]/80 p-0.5 flex items-center justify-center shrink-0">
+                <img src="/logo.png" alt="IDC" class="w-full h-full object-contain" />
+              </div>
+              <span class="text-[9px] text-[#1C3D63] font-bold uppercase tracking-wider">IDC ასისტენტი</span>
+            </div>
             <div class="bg-[#FFFFFF] border border-[#D8C4B6] text-[#222222] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed shadow-sm">
               გამარჯობა! 👋<br/><br/>მე ვარ IDC-ის (პოზიტიური ფსიქოთერაპიის საერთაშორისო ცენტრის) ვირტუალური ასისტენტი. როგორ შემიძლია დაგეხმაროთ? 🧠💬
             </div>
-            <span class="text-[9px] text-[#3B5E63] font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
           </div>
         </div>
         
