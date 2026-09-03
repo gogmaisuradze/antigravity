@@ -1564,10 +1564,10 @@ function initN8nChat() {
     // Append User Message to UI
     const userMessageHTML = `
       <div class="flex flex-col gap-1 max-w-[85%] self-end items-end animate-fade-in">
-        <div class="bg-[#2B231D] text-[#FAF7F2] px-4 py-3 rounded-2xl rounded-tr-none text-sm font-medium leading-relaxed shadow-sm">
+        <div class="bg-gradient-to-r from-[#1C3D63] to-[#254F7F] text-[#FAF7F2] border border-[#1C3D63] px-4 py-3 rounded-2xl rounded-tr-none text-sm font-medium leading-relaxed shadow-[0_4px_12px_rgba(28,61,99,0.18)]">
           ${escapeHtml(userMessage)}
         </div>
-        <span class="text-[9px] text-[#8E8276] font-bold uppercase tracking-wider pr-1">თქვენ</span>
+        <span class="text-[9px] text-[#1C3D63] font-bold uppercase tracking-wider pr-1">თქვენ</span>
       </div>
     `;
     chatMessages.insertAdjacentHTML('beforeend', userMessageHTML);
@@ -1584,7 +1584,7 @@ function initN8nChat() {
             <span class="chat-typing-dot"></span>
           </div>
         </div>
-        <span class="text-[9px] text-[#3B5E63] font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
+        <span class="text-[9px] text-[#1C3D63] font-bold uppercase tracking-wider pl-1">IDC ასისტენტი</span>
       </div>
     `;
     chatMessages.insertAdjacentHTML('beforeend', typingHTML);
@@ -1620,10 +1620,15 @@ function initN8nChat() {
       // Append Bot Response
       const botMessageHTML = `
         <div class="flex flex-col gap-1 max-w-[85%] self-start animate-fade-in">
+          <div class="flex items-center gap-2 pl-1 mb-0.5">
+            <div class="w-4 h-4 rounded bg-[#1C3D63] border border-[#E0AC6B]/80 p-0.5 flex items-center justify-center shrink-0">
+              <img src="/logo.png" alt="IDC" class="w-full h-full object-contain" />
+            </div>
+            <span class="text-[9px] text-[#1C3D63] font-bold uppercase tracking-wider">IDC ასისტენტი</span>
+          </div>
           <div class="bg-[#F4F7F7] border border-[#D8C4B6] text-[#222222] px-4 py-3 rounded-2xl rounded-tl-none text-sm font-medium leading-relaxed shadow-sm">
             ${parseMarkdown(botResponseText)}
           </div>
-          <span class="text-[9px] text-[#3B5E63] font-bold uppercase tracking-wider pl-1">AI ასისტენტი</span>
         </div>
       `;
       chatMessages.insertAdjacentHTML('beforeend', botMessageHTML);
