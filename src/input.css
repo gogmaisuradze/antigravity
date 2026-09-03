@@ -2,14 +2,19 @@
 @config "../tailwind.config.js";
 
 @layer base {
-  html, body {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+  body {
     background-color: #F6F3EC;
     color: #222222;
     font-family: 'Inter', 'Noto Sans Georgian', sans-serif;
-    overflow-x: hidden !important;
-    position: relative;
+    overflow-x: clip;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     width: 100%;
-    max-width: 100vw;
+    min-height: 100%;
   }
   
   /* Custom Elegant Minimalist Scrollbar */
