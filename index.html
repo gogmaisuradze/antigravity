@@ -522,52 +522,70 @@
 
   <main class="relative z-10">
     <!-- =========================================================================
-         1. HERO SECTION WITH FEATHER FRAME SLIDER (Mobile layout matching simulator)
+         1. HERO SECTION WITH FEATHER FRAME SLIDER
          ========================================================================= -->
-    <section class="relative flex flex-col items-center px-4 sm:px-8 md:px-12 pt-20 sm:pt-24 md:pt-28 pb-8 md:pb-14 md:min-h-[calc(100vh-5rem)] md:flex-row md:items-center">
-      <div class="max-w-7xl w-full mx-auto flex flex-col md:grid md:grid-cols-12 gap-5 md:gap-12 items-center">
+    <section class="relative min-h-[85vh] md:min-h-[calc(100vh-5rem)] flex items-center px-4 sm:px-8 md:px-12 pt-20 md:pt-24 lg:pt-28 pb-8 md:pb-14">
+      <div class="max-w-7xl w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center">
         <!-- Hero Left Content -->
-        <div class="w-full md:col-span-7 z-10 text-center md:text-left flex flex-col items-center md:items-start pt-1 md:pt-0">
+        <div class="md:col-span-7 z-10 flex flex-col items-center md:items-start text-center md:text-left">
           
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2.5 sm:mb-4 shadow-sm">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B]"></span>
+          <span class="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-[10px] md:text-xs font-bold uppercase tracking-wider mb-2.5 md:mb-6 shadow-sm">
+            <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#E0AC6B]"></span>
             ფილოსოფიური მოგზაურობა
           </span>
           
-          <h1 class="font-headline italic text-4xl sm:text-6xl md:text-8xl lg:text-[7.5rem] font-bold text-[#1C3D63] tracking-tight leading-none text-center md:text-left w-full">
+          <h1 class="text-[#1C3D63] font-headline italic md:not-italic text-4xl sm:text-7xl md:text-8xl lg:text-[7.5rem] leading-none tracking-tight transition-all duration-700">
             გააცნობიერე
           </h1>
           
-          <p class="font-headline italic text-base sm:text-2xl md:text-3xl text-[#3B5E63] mt-2 font-medium text-center md:text-left w-full">
+          <p class="text-[#3B5E63] font-headline text-base sm:text-2xl md:text-3xl mt-2 md:mt-5 italic tracking-wide">
             პოზიტიური ფსიქოთერაპიის ცენტრი
           </p>
 
-          <!-- Quote Card (Identical to simulator) -->
-          <div class="w-full max-w-xl my-3.5 sm:my-5 p-3.5 sm:p-5 bg-white/90 border border-[#E0AC6B]/40 border-l-4 border-l-[#E0AC6B] rounded-2xl shadow-sm text-center md:text-left">
-            <p class="text-xs sm:text-base text-[#222222] font-light leading-relaxed italic">
+          <!-- MOBILE ONLY: Simulator Style Quote Card -->
+          <div class="md:hidden w-full my-3.5 p-3.5 bg-white/90 border border-[#E0AC6B]/40 border-l-4 border-l-[#E0AC6B] rounded-2xl shadow-sm text-center">
+            <p class="text-xs text-[#222222] font-light leading-relaxed italic">
               „ადამიანი ფასდაუდებელი, ძვირფასი ქვებით სავსე საბადოა.“
             </p>
-            <div class="text-xs sm:text-sm font-medium text-[#3B5E63] mt-1 sm:mt-1.5 italic text-center md:text-right">
-              <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" rel="noopener noreferrer" class="hover:text-[#1C3D63] transition-colors underline decoration-[#D8C4B6]">
-                — ნოსრატ პეზეშკიანი
-              </a>
+            <div class="text-xs font-medium text-[#3B5E63] mt-1 italic">
+              — ნოსრატ პეზეშკიანი
             </div>
           </div>
 
-          <!-- Action Buttons (სრულ სიგანეზე გაშლილი მობილურზე) -->
-          <div class="w-full max-w-md flex flex-col sm:flex-row gap-2.5 sm:gap-4 mt-1 sm:mt-3 md:mt-6">
-            <button class="booking-btn w-full sm:flex-1 bg-[#1C3D63] text-white py-3 sm:py-3.5 px-6 rounded-xl font-bold text-xs sm:text-sm tracking-wider shadow-md hover:bg-[#254F7F] transition-all cursor-pointer text-center">
+          <!-- DESKTOP ONLY: 100% Original Desktop Quote -->
+          <p class="hidden md:block mt-4 md:mt-6 text-[#222222] max-w-lg text-sm sm:text-lg font-light leading-relaxed">
+            „ადამიანი ფასდაუდებელი, ძვირფასი ქვებით სავსე საბადოა.“
+          </p>
+          <div class="hidden md:block mt-2 text-right max-w-lg">
+            <a href="https://ka.wikipedia.org/wiki/%E1%83%9E%E1%83%9D%E1%83%96%E1%83%98%E1%83%A2%E1%83%98%E1%83%A3%E1%83%90%E1%83%A0%E1%83%98_%E1%83%A4%E1%83%A1%E1%83%98%E1%83%A5%E1%83%9D%E1%83%97%E1%83%94%E1%83%A0%E1%83%90%E1%83%9E%E1%83%98%E1%83%90" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-base font-label italic text-[#3B5E63] hover:text-[#1C3D63] transition-colors underline decoration-[#D8C4B6] font-semibold">
+              ნოსრატ პეზეშკიანი
+            </a>
+          </div>
+
+          <!-- MOBILE ONLY: Simulator Style Stacked Action Buttons -->
+          <div class="md:hidden w-full flex flex-col gap-2.5 mt-1">
+            <button class="booking-btn w-full bg-[#1C3D63] text-white py-3 rounded-xl font-bold text-xs tracking-wider shadow-md hover:bg-[#254F7F] transition-all cursor-pointer">
               სესიის დაჯავშნა
             </button>
-            <a href="logic.html" class="w-full sm:flex-1 border-2 border-[#1C3D63] text-[#1C3D63] py-3 sm:py-3.5 px-6 rounded-xl font-bold text-xs sm:text-sm tracking-wider hover:bg-[#1C3D63] hover:text-white transition-all text-center block no-underline">
+            <a href="logic.html" class="w-full border-2 border-[#1C3D63] text-[#1C3D63] py-3 rounded-xl font-bold text-xs tracking-wider hover:bg-[#1C3D63] hover:text-white transition-all text-center block no-underline">
+              გონებრივი რუკა
+            </a>
+          </div>
+
+          <!-- DESKTOP ONLY: 100% Original Side-by-side Desktop Action Buttons -->
+          <div class="hidden md:flex mt-8 md:mt-12 flex-wrap items-center gap-4 sm:gap-6">
+            <button class="booking-btn bg-[#1C3D63] text-white px-7 py-3.5 md:px-10 md:py-4 rounded-xl font-medium tracking-wide hover:bg-[#254F7F] transition-all shadow-[0_4px_16px_rgba(28,61,99,0.25)] text-center text-sm md:text-base cursor-pointer">
+              სესიის დაჯავშნა
+            </button>
+            <a href="logic.html" class="border border-[#1C3D63] text-[#1C3D63] hover:bg-[#1C3D63] hover:text-white px-6 py-3.5 md:px-8 md:py-4 rounded-xl font-medium tracking-wide transition-all text-center text-sm md:text-base no-underline">
               გონებრივი რუკა
             </a>
           </div>
         </div>
 
         <!-- Hero Right: Interactive Slider Inside the Exact Feather Frame -->
-        <div class="w-full md:col-span-5 flex justify-center md:justify-end mt-2 md:mt-0">
-          <div class="relative w-full max-w-md md:max-w-none aspect-[4/3] sm:aspect-[3/4] max-h-[380px] sm:max-h-none rounded-3xl border border-[#D8C4B6] shadow-xl bg-white p-2.5 sm:p-3 group select-none transition-all duration-500 hover:shadow-[0_25px_60px_rgba(28,61,99,0.14)] mx-auto" id="hero-slider-frame">
+        <div class="col-span-12 md:col-span-5 flex justify-center md:justify-end mt-4 md:mt-0 w-full">
+          <div class="relative w-full max-w-md md:max-w-none aspect-[4/3] sm:aspect-[4/5] lg:aspect-[3/4] rounded-3xl border border-[#D8C4B6] shadow-2xl bg-white p-2.5 sm:p-3 group select-none transition-all duration-500 hover:shadow-[0_25px_60px_rgba(28,61,99,0.14)]" id="hero-slider-frame">
             <!-- Inner Slider Viewport -->
             <div class="relative w-full h-full rounded-2xl overflow-hidden bg-[#FAF7F2]" id="hero-slider">
               <!-- Slides Track -->
