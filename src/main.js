@@ -260,13 +260,17 @@ function initBookingModal() {
   // Inject Modal HTML into the bottom of body
   const modalHTML = `
     <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-[#1C3D63]/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-      <div class="bg-[#FFFFFF] p-5 sm:p-7 md:p-8 rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_25px_60px_rgba(28,61,99,0.2)] border border-[#D8C4B6] max-w-4xl w-full relative transition-all duration-500 transform scale-95 max-h-[92vh] overflow-y-auto text-left" id="booking-modal-card">
-        <button id="close-modal-btn" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] text-[#8E8276] hover:text-[#1C3D63] hover:border-[#1C3D63] flex items-center justify-center transition-colors focus:outline-none z-50 cursor-pointer">
-          <span class="material-symbols-outlined text-xl">close</span>
+      <div class="bg-[#FFFFFF] rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_25px_60px_rgba(28,61,99,0.25)] border border-[#D8C4B6] max-w-4xl w-full relative transition-all duration-500 transform scale-95 max-h-[92vh] flex flex-col text-left overflow-hidden" id="booking-modal-card">
+        
+        <!-- Pinned Close Button: Fixed to top-right of modal card at all times, NEVER scrolls away -->
+        <button id="close-modal-btn" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-10 h-10 rounded-full bg-white/95 backdrop-blur-md border border-[#D8C4B6] text-[#1C3D63] hover:bg-[#1C3D63] hover:text-white hover:border-[#1C3D63] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-200 focus:outline-none z-50 cursor-pointer hover:scale-105 active:scale-95" aria-label="ფანჯრის დახურვა">
+          <span class="material-symbols-outlined text-2xl">close</span>
         </button>
 
-        <!-- STEP 1: Interactive Calendar & Booking Form (Metaphora Style) -->
-        <div id="booking-step-form">
+        <!-- Inner Scrollable Content Area -->
+        <div class="overflow-y-auto p-5 sm:p-7 md:p-8 flex-grow">
+          <!-- STEP 1: Interactive Calendar & Booking Form (Metaphora Style) -->
+          <div id="booking-step-form">
           <div class="mb-5 text-left">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-xs font-bold uppercase tracking-wider mb-2">
               <span class="material-symbols-outlined text-sm text-[#E0AC6B]">calendar_month</span>
@@ -488,6 +492,7 @@ function initBookingModal() {
           </div>
         </div>
 
+        </div>
       </div>
     </div>
   `;
