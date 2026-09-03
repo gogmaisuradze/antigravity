@@ -187,6 +187,15 @@ header img[alt="IDC Logo"] {
   transform: translateY(0);
 }
 
+/* Ensure all content on mobile devices is instantly visible without relying on scroll triggers */
+@media (max-width: 768px) {
+  .reveal-hidden {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* Custom fade-in micro-animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
