@@ -823,57 +823,14 @@
         </p>
       </div>
 
-<!-- Bento Gallery Grid -->
-    <section class="px-6 md:px-12 max-w-7xl mx-auto mb-24">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-        <!-- Feature 1: Large Zen Therapy Room -->
-        <div class="md:col-span-8 group relative rounded-3xl overflow-hidden bg-white border border-[#D8C4B6] shadow-md aspect-[16/10] sm:aspect-[16/9]">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMjgAbCYbQAoi2ausd46BM0bNWphgvYR4jfkcgIKVIb08AOaSJrr-PtfYDc78vHMKo6KfcVCAAss7J0fJJ8oEr5oeT3vwF26Gd6TWbRQ3MV_dm6H8Ilc_mqyj1MiMJwI0qtBMZSi3KBk-z5dRcGxeiZou_NpgwWkhXTE8sAnakg1Db_-kIsBpYR5x3iOIpnMZFoa9kWNZFz4O92cM1DpYov9eIyxnGQ6Sji2lEKcBJJQg3nglECyP07ST_HvtOKPK1S7dDAkA8wkNA" alt="ინდივიდუალური თერაპიის მყუდრო ოთახი" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/85 via-[#1C3D63]/20 to-transparent p-6 sm:p-10 flex flex-col justify-end text-white">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#E0AC6B]">თერაპიული სივრცე</span>
-            <h3 class="text-xl sm:text-2xl font-headline italic font-bold">ინდივიდუალური თერაპიისა და კონსულტაციის ოთახი</h3>
-            <p class="text-xs sm:text-sm text-white/80 font-light mt-1 max-w-lg">
-              სრული ხმის იზოლაცია, ერგონომიული კომფორტი და ჰარმონიული გარემო ღრმა ინტროსპექციისთვის.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 2: Art Therapy & Studio -->
-        <div class="md:col-span-4 group relative rounded-3xl overflow-hidden bg-white border border-[#D8C4B6] shadow-md aspect-[4/5] md:aspect-auto">
-          <img src="/about_hero_abstract.png" alt="არტთერაპიის სტუდია" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/90 via-[#1C3D63]/30 to-transparent p-6 flex flex-col justify-end text-white">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#E0AC6B]">შემოქმედება</span>
-            <h3 class="text-lg font-headline italic font-bold">არტთერაპიის სტუდია</h3>
-            <p class="text-xs text-white/80 font-light mt-1">
-              მასალები, თიხა, ფერები და თავისუფალი თვითგამოხატვის კუთხე.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 3: Lecture Hall & Academy -->
-        <div class="md:col-span-4 group relative rounded-3xl overflow-hidden bg-white border border-[#D8C4B6] shadow-md aspect-[4/5] md:aspect-auto">
-          <img src="/education_hero.png" alt="სალექციო დარბაზი" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/90 via-[#1C3D63]/30 to-transparent p-6 flex flex-col justify-end text-white">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#E0AC6B]">განათლება</span>
-            <h3 class="text-lg font-headline italic font-bold">სასწავლო აუდიტორია</h3>
-            <p class="text-xs text-white/80 font-light mt-1">
-              WAPP და ერიქსონის აკადემიის ინტერაქტიული სასწავლო სივრცე.
-            </p>
-          </div>
-        </div>
-
-        <!-- Feature 4: Library & Discussion Lounge -->
-        <div class="md:col-span-8 group relative rounded-3xl overflow-hidden bg-white border border-[#D8C4B6] shadow-md aspect-[16/10] sm:aspect-[16/9]">
-          <img src="/services_hero.png" alt="ბიბლიოთეკა და ლაუნჯი" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/85 via-[#1C3D63]/20 to-transparent p-6 sm:p-10 flex flex-col justify-end text-white">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#E0AC6B]">ცოდნის სივრცე</span>
-            <h3 class="text-xl sm:text-2xl font-headline italic font-bold">ფსიქოლოგიური ბიბლიოთეკა და ლაუნჯი</h3>
-            <p class="text-xs sm:text-sm text-white/80 font-light mt-1 max-w-lg">
-              კლასიკური და თანამედროვე ლიტერატურა, პროფესიული ჟურნალები და მყუდრო ზონა შეხვედრებისთვის.
-            </p>
-          </div>
-        </div>
-
+    <!-- Continuous Moving Columns Gallery Grid -->
+    <section class="px-4 sm:px-8 md:px-12 max-w-7xl mx-auto mb-24">
+      <div id="about-gallery-marquee-root" class="w-full"></div>
+      <div class="text-center mt-6">
+        <a href="gallery.html" class="inline-flex items-center gap-2 bg-[#1C3D63] hover:bg-[#254F7F] text-white px-6 py-3 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider shadow-md transition-all no-underline">
+          <span>გალერეის სრულად დათვალიერება</span>
+          <span class="material-symbols-outlined text-sm text-[#E0AC6B]">arrow_forward</span>
+        </a>
       </div>
     </section>
     </div>

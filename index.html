@@ -912,8 +912,80 @@
           </a>
         </div>
 
-        <!-- News Articles Multi-Column Continuous Marquee -->
-        <div id="news-columns-marquee-root" class="w-full"></div>
+        <!-- News Articles Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Article 1 -->
+          <article class="bg-white p-6 rounded-3xl border border-[#D8C4B6] shadow-sm hover:border-[#1C3D63] hover:shadow-[0_15px_30px_rgba(28,61,99,0.08)] transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-[#FAF7F2] mb-5 border border-[#D8C4B6]/60">
+                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="სიჩუმის ხელოვნება" src="/blog_silence.png"/>
+              </div>
+              <div class="flex items-center gap-3 text-xs font-label uppercase tracking-widest font-semibold mb-2">
+                <span class="text-[#E0AC6B]">თვითგანვითარება</span>
+              </div>
+              <h3 class="text-xl font-headline italic leading-snug text-[#1C3D63] group-hover:text-[#3B5E63] transition-colors mb-3">
+                სიჩუმის ხელოვნება თანამედროვე ქაოსში
+              </h3>
+              <p class="text-[#222222] text-sm leading-relaxed font-light line-clamp-3">
+                როგორ მოვძებნოთ სიმშვიდე იქ, სადაც ხმაური არასდროს წყდება? ჩვენი პირველი ნაბიჯები შინაგანი დიალოგისკენ იწყება სიჩუმით.
+              </p>
+            </div>
+            <div class="pt-5 border-t border-[#D8C4B6] mt-6">
+              <a href="blog.html" class="inline-flex items-center gap-1.5 text-[#1C3D63] hover:text-[#3B5E63] transition-colors text-xs font-label uppercase tracking-widest font-bold no-underline">
+                <span>სრულად წაკითხვა</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 2 -->
+          <article class="bg-white p-6 rounded-3xl border border-[#D8C4B6] shadow-sm hover:border-[#1C3D63] hover:shadow-[0_15px_30px_rgba(28,61,99,0.08)] transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-[#FAF7F2] mb-5 border border-[#D8C4B6]/60">
+                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="ცვლილებების შიში და მათი მიღება" src="/blog_transformation.png"/>
+              </div>
+              <div class="flex items-center gap-3 text-xs font-label uppercase tracking-widest font-semibold mb-2">
+                <span class="text-[#A37B73]">ტრანსფორმაცია</span>
+              </div>
+              <h3 class="text-xl font-headline italic leading-snug text-[#1C3D63] group-hover:text-[#3B5E63] transition-colors mb-3">
+                ცვლილებების შიში და მათი მიღება
+              </h3>
+              <p class="text-[#222222] text-sm leading-relaxed font-light line-clamp-3">
+                ყოველი დიდი ცვლილება იწყება იმის აღიარებით, რომ ძველი გზები აღარ მუშაობს. როგორ გადავაქციოთ შიში ზრდის მამოძრავებელ ძალად?
+              </p>
+            </div>
+            <div class="pt-5 border-t border-[#D8C4B6] mt-6">
+              <a href="blog.html" class="inline-flex items-center gap-1.5 text-[#1C3D63] hover:text-[#3B5E63] transition-colors text-xs font-label uppercase tracking-widest font-bold no-underline">
+                <span>სრულად წაკითხვა</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Article 3 -->
+          <article class="bg-white p-6 rounded-3xl border border-[#D8C4B6] shadow-sm hover:border-[#1C3D63] hover:shadow-[0_15px_30px_rgba(28,61,99,0.08)] transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-[#FAF7F2] mb-5 border border-[#D8C4B6]/60">
+                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="ბალანსი სხეულსა და გონებას შორის" src="/blog_balance.png"/>
+              </div>
+              <div class="flex items-center gap-3 text-xs font-label uppercase tracking-widest font-semibold mb-2">
+                <span class="text-[#3B5E63]">ჰარმონია</span>
+              </div>
+              <h3 class="text-xl font-headline italic leading-snug text-[#1C3D63] group-hover:text-[#3B5E63] transition-colors mb-3">
+                ბალანსი სხეულსა და გონებას შორის
+              </h3>
+              <p class="text-[#222222] text-sm leading-relaxed font-light line-clamp-3">
+                პრაქტიკული სავარჯიშოები ყოველდღიური მენტალური ჰიგიენისთვის. ისწავლეთ როგორ მოუსმინოთ თქვენი სხეულის პირველად სიგნალებს.
+              </p>
+            </div>
+            <div class="pt-5 border-t border-[#D8C4B6] mt-6">
+              <a href="blog.html" class="inline-flex items-center gap-1.5 text-[#1C3D63] hover:text-[#3B5E63] transition-colors text-xs font-label uppercase tracking-widest font-bold no-underline">
+                <span>სრულად წაკითხვა</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
