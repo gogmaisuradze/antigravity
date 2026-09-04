@@ -424,7 +424,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   };
 
   return (
-    <div id="profile-form-container" className="w-full bg-white border border-[#D8C4B6] backdrop-blur-md pt-8 px-8 pb-14 rounded-2xl shadow-sm overflow-hidden relative">
+    <div id="profile-form-container" className="w-full bg-white border border-[#D8C4B6] backdrop-blur-md pt-8 px-3 sm:px-6 md:px-8 pb-14 rounded-3xl shadow-sm overflow-hidden relative">
       <div className="absolute top-0 left-0 w-full h-[2px] bg-[#1C3D63]"></div>
 
       {/* Centered top header */}
@@ -786,8 +786,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                   }`}
                 >
                   <div className="flex items-center justify-between w-full mb-1">
-                    <span className={`text-[10px] font-headline font-black ${isSelected ? "text-[#E0AC6B]" : "text-[#1C3D63]"}`}>
-                      {theme.numeral}
+                    <span className="text-[#E0AC6B] flex items-center">
+                      <Sparkles className="w-3 h-3" />
                     </span>
                     {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#E0AC6B]" />}
                   </div>
