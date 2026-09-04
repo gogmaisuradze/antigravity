@@ -374,8 +374,8 @@ function initBookingModal() {
             </div>
 
             <!-- Right: Details Form Pane (5 cols) -->
-            <div class="md:col-span-5 flex flex-col justify-between">
-              <div>
+            <div class="md:col-span-5 flex flex-col justify-between h-full">
+              <div class="flex flex-col flex-grow">
                 <h3 class="text-lg font-headline italic font-bold text-[#1C3D63] mb-1">ვიზიტის დეტალები</h3>
                 <p class="text-xs text-[#8E8276] mb-3">აირჩიეთ მიმართულება, სერვისი და ფორმატი.</p>
 
@@ -385,46 +385,48 @@ function initBookingModal() {
                   <span class="text-xs font-bold text-[#1C3D63]" id="modal-booking-picked-summary">15 სექტემბერი · 14:30</span>
                 </div>
 
-                <form class="space-y-3" id="booking-modal-form">
-                  <input type="hidden" id="modal-booking-date-input" name="booking_date" value="2026-09-15">
-                  <input type="hidden" id="modal-booking-time-input" name="booking_time" value="14:30">
-                  <input type="hidden" id="booking-category-input" name="category" value="therapy">
-                  <input type="hidden" id="booking-price-input" name="price" value="80 ₾">
+                <form class="flex flex-col flex-grow justify-between space-y-3" id="booking-modal-form">
+                  <div class="space-y-3">
+                    <input type="hidden" id="modal-booking-date-input" name="booking_date" value="2026-09-15">
+                    <input type="hidden" id="modal-booking-time-input" name="booking_time" value="14:30">
+                    <input type="hidden" id="booking-category-input" name="category" value="therapy">
+                    <input type="hidden" id="booking-price-input" name="price" value="80 ₾">
 
-                  <!-- 1. მიმართულება: განათლება და თერაპია -->
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1.5">მიმართულება</label>
-                    <div class="grid grid-cols-2 gap-2 p-1 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl" id="booking-category-toggle">
-                      <button type="button" data-category="therapy" id="cat-btn-therapy" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-[#1C3D63] text-white shadow-sm border border-[#1C3D63] cursor-pointer">
-                        <span class="material-symbols-outlined text-sm text-[#E0AC6B]">psychology</span>
-                        <span>თერაპია</span>
-                      </button>
-                      <button type="button" data-category="education" id="cat-btn-education" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] border border-transparent cursor-pointer">
-                        <span class="material-symbols-outlined text-sm text-[#8E8276]">school</span>
-                        <span>განათლება</span>
-                      </button>
+                    <!-- 1. მიმართულება: განათლება და თერაპია -->
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1.5">მიმართულება</label>
+                      <div class="grid grid-cols-2 gap-2 p-1 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl" id="booking-category-toggle">
+                        <button type="button" data-category="therapy" id="cat-btn-therapy" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-[#1C3D63] text-white shadow-sm border border-[#1C3D63] cursor-pointer">
+                          <span class="material-symbols-outlined text-sm text-[#E0AC6B]">psychology</span>
+                          <span>თერაპია</span>
+                        </button>
+                        <button type="button" data-category="education" id="cat-btn-education" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] border border-transparent cursor-pointer">
+                          <span class="material-symbols-outlined text-sm text-[#8E8276]">school</span>
+                          <span>განათლება</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- 2. სერვისის / კურსის არჩევანი შესაბამისად -->
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1" id="booking-service-label">თერაპიული სერვისი</label>
+                      <select name="service" id="booking-service-select" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2.5 text-xs text-[#222222] font-medium shadow-sm transition-all cursor-pointer">
+                        <!-- Populated dynamically via JS -->
+                      </select>
+                    </div>
+
+                    <!-- 3. ფორმატი -->
+                    <div>
+                      <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ფორმატი</label>
+                      <select name="format" id="booking-format-select" class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] cursor-pointer">
+                        <option value="პირისპირ" selected>🏢 პირისპირ კაბინეტში (ჭავჭავაძის 2)</option>
+                        <option value="ონლაინ">💻 ონლაინ ვიდეოზარი (Google Meet / Zoom)</option>
+                      </select>
                     </div>
                   </div>
 
-                  <!-- 2. სერვისის / კურსის არჩევანი შესაბამისად -->
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1" id="booking-service-label">თერაპიული სერვისი</label>
-                    <select name="service" id="booking-service-select" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2.5 text-xs text-[#222222] font-medium shadow-sm transition-all cursor-pointer">
-                      <!-- Populated dynamically via JS -->
-                    </select>
-                  </div>
-
-                  <!-- 3. ფორმატი -->
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ფორმატი</label>
-                    <select name="format" id="booking-format-select" class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] cursor-pointer">
-                      <option value="პირისპირ" selected>🏢 პირისპირ კაბინეტში (ჭავჭავაძის 2)</option>
-                      <option value="ონლაინ">💻 ონლაინ ვიდეოზარი (Google Meet / Zoom)</option>
-                    </select>
-                  </div>
-
-                  <!-- Submit Button -->
-                  <div class="pt-2">
+                  <!-- Submit Button (Pushed down to the bottom) -->
+                  <div class="pt-4 mt-auto">
                     <button type="submit" class="w-full bg-[#1C3D63] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-[#254F7F] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98">
                       <span>რეგისტრაცია</span>
                       <span class="material-symbols-outlined text-sm">arrow_forward</span>
@@ -434,7 +436,7 @@ function initBookingModal() {
               </div>
 
               <!-- Direct Messenger Contacts -->
-              <div class="pt-3 border-t border-[#D8C4B6]/60 mt-3 flex items-center justify-between text-xs text-[#8E8276]">
+              <div class="pt-3 border-t border-[#D8C4B6]/60 mt-4 flex items-center justify-between text-xs text-[#8E8276]">
                 <span>ან პირდაპირ:</span>
                 <div class="flex items-center gap-2">
                   <a href="https://t.me/IDCPosotherapybot" target="_blank" class="text-[#1C3D63] hover:text-[#229ED9] font-bold no-underline">Telegram</a>
