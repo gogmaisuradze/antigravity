@@ -593,7 +593,7 @@
         <!-- Header inside the panel -->
         <div class="text-center max-w-3xl mx-auto mb-2 space-y-2">
           <div class="flex justify-center items-center pb-1">
-            <span class="material-symbols-outlined text-[#E0AC6B] hover:text-[#C68E45] text-5xl sm:text-6xl scale-sway-hover select-none transition-colors" title="ბალანსი">balance</span>
+            <span class="material-symbols-outlined text-[#E0AC6B] hover:text-[#C68E45] text-7xl sm:text-8xl scale-sway-hover select-none transition-colors" title="ბალანსი">balance</span>
           </div>
           <h1 class="text-3xl md:text-4xl font-headline italic font-bold text-[#1C3D63] tracking-wide">
             ბალანსის მოდელი
@@ -603,12 +603,17 @@
           </div>
         </div>
 
-        <!-- Start CTA Panel (Now placed directly under the title) -->
+        <!-- Start CTA Panel (Now placed directly under the title with shimmer glow effect) -->
         <div id="balance-start-panel" class="flex flex-col items-center justify-center mt-3 mb-2 sm:mt-4 sm:mb-2.5 py-1 text-center animate-fade-in relative z-20">
-          <button id="btn-start-screening" class="bg-[#1C3D63] text-white hover:bg-[#254F7F] font-bold py-4 sm:py-4.5 px-10 sm:px-14 rounded-full shadow-[0_12px_32px_rgba(28,61,99,0.28),0_0_25px_rgba(224,172,107,0.25)] border-2 border-[#E0AC6B]/60 hover:border-[#E0AC6B] transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-3.5 text-sm sm:text-base tracking-wide group">
-            <span class="font-headline tracking-wider">ტესტირების დაწყება</span>
-            <span class="material-symbols-outlined text-xl text-[#E0AC6B] group-hover:translate-x-1 transition-transform">play_arrow</span>
-          </button>
+          <div class="shimmer-btn-wrapper">
+            <button id="btn-start-screening" class="btn-glowing-shimmer group py-4 px-10 sm:px-14 text-sm sm:text-base cursor-pointer" type="button">
+              <span class="shimmer-sweep"></span>
+              <span class="shimmer-btn-content">
+                <span class="font-headline tracking-wider">ტესტირების დაწყება</span>
+                <span class="material-symbols-outlined text-xl text-[#E0AC6B] group-hover:translate-x-1 transition-transform">play_arrow</span>
+              </span>
+            </button>
+          </div>
         </div>
 
         <!-- Subtitle (Moved below the start button) -->
