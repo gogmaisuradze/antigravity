@@ -298,304 +298,26 @@ function initBookingModal() {
     }
   }
 
-  if (document.getElementById('booking-modal')) return;
-
-  // Inject Modal HTML into the bottom of body
-  const modalHTML = `
-    <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-[#1C3D63]/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-      <div class="bg-[#FFFFFF] rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_25px_60px_rgba(28,61,99,0.25)] border border-[#D8C4B6] max-w-4xl w-full relative transition-all duration-500 transform scale-95 max-h-[92vh] flex flex-col text-left overflow-hidden" id="booking-modal-card">
-        
-        <!-- Pinned Close Button: Fixed to top-right of modal card at all times, NEVER scrolls away -->
-        <button id="close-modal-btn" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-10 h-10 rounded-full bg-white/95 backdrop-blur-md border border-[#D8C4B6] text-[#1C3D63] hover:bg-[#1C3D63] hover:text-white hover:border-[#1C3D63] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-200 focus:outline-none z-50 cursor-pointer hover:scale-105 active:scale-95" aria-label="ფანჯრის დახურვა">
-          <span class="material-symbols-outlined text-2xl">close</span>
-        </button>
-
-        <!-- Inner Scrollable Content Area -->
-        <div class="overflow-y-auto p-5 sm:p-7 md:p-8 flex-grow">
-          <!-- STEP 1: Interactive Calendar & Booking Form (Metaphora Style) -->
-          <div id="booking-step-form">
-          <div class="mb-5 text-left">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-xs font-bold uppercase tracking-wider mb-2">
-              <span class="material-symbols-outlined text-sm text-[#E0AC6B]">calendar_month</span>
-              <span>✨ ონლაინ დაჯავშნა</span>
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-headline italic text-[#1C3D63] font-bold">აირჩიე დღე და დრო</h2>
-            <p class="text-xs sm:text-sm text-[#3B5E63]">დაჯავშნე ვიზიტი კალენდარში — დაგიდასტურებთ ტელეფონით.</p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 bg-[#FAF7F2]/60 border border-[#D8C4B6] rounded-2xl p-4 sm:p-6 mb-4">
-            
-            <!-- Left: Calendar & Time Slots Pane (7 cols) -->
-            <div class="md:col-span-7 bg-white p-4 sm:p-5 rounded-2xl border border-[#D8C4B6]/80 shadow-sm flex flex-col justify-between">
-              <div>
-                <!-- Calendar Month & Nav -->
-                <div class="flex items-center justify-between mb-4">
-                  <div class="text-base sm:text-lg font-headline italic font-bold text-[#1C3D63]" id="modal-cal-month-title">
-                    სექტემბერი 2026
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <button type="button" id="modal-cal-prev-btn" class="w-8 h-8 rounded-lg border border-[#D8C4B6] bg-white hover:bg-[#1C3D63] hover:text-white text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer">
-                      <span class="material-symbols-outlined text-sm">chevron_left</span>
-                    </button>
-                    <button type="button" id="modal-cal-next-btn" class="w-8 h-8 rounded-lg border border-[#D8C4B6] bg-white hover:bg-[#1C3D63] hover:text-white text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer">
-                      <span class="material-symbols-outlined text-sm">chevron_right</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Days of week & Grid -->
-                <div class="cal-grid grid grid-cols-7 gap-1.5 mb-4 text-center" id="modal-cal-grid-container">
-                  <!-- Populated dynamically -->
-                </div>
-              </div>
-
-              <div>
-                <!-- Scheduled Banner -->
-                <div class="p-2.5 rounded-xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-between text-xs mb-3">
-                  <span class="text-[11px] font-bold text-[#1C3D63]" id="modal-cal-event-banner">📅 პირველადი კონსულტაცია &amp; თერაპია</span>
-                  <span class="text-[9px] bg-[#E0AC6B] text-[#1C3D63] font-bold px-2 py-0.5 rounded-full font-sans">ხელმისაწვდომია</span>
-                </div>
-
-                <!-- Time slots -->
-                <div>
-                  <div class="text-[11px] font-bold uppercase tracking-wider text-[#1C3D63] mb-2">აირჩიე დრო</div>
-                  <div class="grid grid-cols-4 gap-1.5" id="modal-cal-slots-container">
-                    <!-- Populated dynamically -->
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right: Details Form Pane (5 cols) -->
-            <div class="md:col-span-5 flex flex-col justify-between">
-              <div>
-                <h3 class="text-lg font-headline italic font-bold text-[#1C3D63] mb-1">ვიზიტის დეტალები</h3>
-                <p class="text-xs text-[#8E8276] mb-3">შეავსეთ ველები და გადადით დასტურზე.</p>
-
-                <!-- Picked Summary Badge -->
-                <div class="p-2.5 rounded-xl bg-white border border-[#D8C4B6] flex items-center gap-2 mb-3 shadow-sm">
-                  <span class="material-symbols-outlined text-sm text-[#E0AC6B]">event</span>
-                  <span class="text-xs font-bold text-[#1C3D63]" id="modal-booking-picked-summary">15 სექტემბერი · 14:30</span>
-                </div>
-
-                <form class="space-y-3 contact-form" id="booking-modal-form">
-                  <input type="hidden" id="modal-booking-date-input" name="booking_date" value="2026-09-15">
-                  <input type="hidden" id="modal-booking-time-input" name="booking_time" value="14:30">
-
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">მიმართულება</label>
-                    <select name="service" id="booking-service-select" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]">
-                      <option value="კონსულტაცია" selected>🎧 კონსულტაცია (ონლაინ / პირისპირ)</option>
-                      <option value="ინდივიდუალური თერაპია">🌿 ინდივიდუალური ფსიქოთერაპია</option>
-                      <option value="წყვილთა თერაპია">👥 წყვილთა &amp; ოჯახური თერაპია</option>
-                      <option value="ჯგუფური თერაპია">🏛️ ჯგუფური თერაპია</option>
-                      <option value="ქოუჩინგი">📈 პერსონალური ქოუჩინგი</option>
-                      <option value="WAPP პროგრამა">🎓 WAPP პოზიტიური ფსიქოთერაპია</option>
-                      <option value="არტთერაპია">🎨 არტთერაპიის კურსი</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">სახელი და გვარი</label>
-                    <input type="text" id="booking-first-name" name="first_name" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]" placeholder="თქვენი სახელი და გვარი"/>
-                  </div>
-
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ტელეფონი</label>
-                    <input type="tel" id="booking-phone" name="phone" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]" placeholder="598 32 40 20"/>
-                  </div>
-
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ფორმატი</label>
-                    <select name="format" id="booking-format-select" class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]">
-                      <option value="პირისპირ" selected>🏢 პირისპირ კაბინეტში (ჭავჭავაძის 2)</option>
-                      <option value="ონლაინ">💻 ონლაინ ვიდეოზარი (Google Meet / Zoom)</option>
-                    </select>
-                  </div>
-
-                  <div class="pt-2">
-                    <button type="submit" class="w-full bg-[#1C3D63] text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-[#254F7F] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
-                      <span>ვიზიტის დაჯავშნა</span>
-                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
-
-              <!-- Direct Messenger Contacts -->
-              <div class="pt-3 border-t border-[#D8C4B6]/60 mt-3 flex items-center justify-between text-xs text-[#8E8276]">
-                <span>ან პირდაპირ:</span>
-                <div class="flex items-center gap-2">
-                  <a href="https://t.me/IDCPosotherapybot" target="_blank" class="text-[#1C3D63] hover:text-[#229ED9] font-bold no-underline">Telegram</a>
-                  <span>·</span>
-                  <a href="https://wa.me/995598324020" target="_blank" class="text-[#1C3D63] hover:text-[#25D366] font-bold no-underline">WhatsApp</a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- STEP 2: Payment Modal Content Grid -->
-        <div id="booking-step-payment" class="hidden space-y-6">
-          <div class="mb-4 text-center">
-            <div class="w-12 h-12 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] mb-2 mx-auto">
-              <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
-            </div>
-            <h3 class="text-xl sm:text-2xl font-extrabold text-[#1C3D63]">გადახდა საბანკო გადარიცხვით</h3>
-            <p class="text-xs text-[#3B5E63] mt-1">ჯავშნის დასასრულებლად გადაიხადეთ საფასური</p>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
-            
-            <!-- Left Side: QR Code Display -->
-            <div id="modal-desktop-qr-container" class="p-4 sm:p-5 bg-white rounded-2xl text-center shadow-md border border-[#D8C4B6] flex flex-col items-center justify-center h-full">
-              <div class="relative w-44 h-44 sm:w-52 sm:h-52 mx-auto bg-white p-2 rounded-xl border border-[#D8C4B6] shadow-inner flex items-center justify-center">
-                <img id="modal-qr-code-img" src="" alt="Scan with phone camera to pay" class="w-full h-full object-contain rounded-lg" />
-              </div>
-              <p class="text-xs text-[#1C3D63] font-extrabold mt-3 flex items-center justify-center gap-1.5">
-                <span class="material-symbols-outlined text-base text-[#E0AC6B]">photo_camera</span>
-                დაასკანერეთ ტელეფონის კამერით
-              </p>
-              <p class="text-[11px] text-[#3B5E63] font-medium mt-1 leading-relaxed text-center">
-                ტელეფონით დასკანერებისას ავტომატურად გაგეხსნებათ საქართველოს ბანკისა და თიბისის გადახდის აპლიკაციები 📱
-              </p>
-            </div>
-
-            <!-- Right Side: Bank Options & Recipient Details -->
-            <div class="space-y-4">
-              <!-- Mobile / Web Bank Links -->
-              <div id="modal-mobile-apps-container" class="space-y-2.5">
-                <p class="text-xs text-[#1C3D63] font-semibold text-center flex items-center justify-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-[#E0AC6B]">touch_app</span>
-                  <span id="modal-bank-buttons-header-text">აირჩიეთ ბანკი გადასასვლელად:</span>
-                </p>
-                <div class="grid grid-cols-1 gap-3">
-                  <!-- BOG Bank Button -->
-                  <button type="button" id="modal-btn-bog-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#ff6700] hover:bg-[#e65c00] border border-[#ff6700] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_4px_15px_rgba(255,103,0,0.25)] group active:scale-95 text-white w-full gap-3">
-                    <div class="flex items-center gap-3">
-                      <img src="/assets/bog-logo.png" alt="Bank of Georgia" class="w-11 h-11 rounded-xl shadow-sm bg-white object-contain p-0.5 flex-shrink-0" />
-                      <div class="text-left leading-tight">
-                        <span class="text-xs sm:text-sm font-black tracking-tight text-white block">საქართველოს ბანკი</span>
-                        <span class="text-[9px] font-bold text-white/90 tracking-wider uppercase block">BANK OF GEORGIA</span>
-                      </div>
-                    </div>
-                    <span id="modal-bog-badge-text" class="text-[10px] text-white font-extrabold bg-black/20 px-3 py-1 rounded-full border border-white/20 flex-shrink-0">BOG</span>
-                  </button>
-
-                  <!-- TBC Bank Button -->
-                  <button type="button" id="modal-btn-tbc-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#00adef] hover:bg-[#009bd7] border border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_4px_15px_rgba(0,173,239,0.25)] group active:scale-95 text-white w-full gap-3">
-                    <div class="flex items-center gap-3">
-                      <img src="/assets/tbc-logo.png" alt="TBC Bank" class="w-11 h-11 rounded-xl shadow-sm bg-white object-contain p-0.5 flex-shrink-0" />
-                      <div class="text-left leading-tight">
-                        <span class="text-xs sm:text-sm font-black tracking-tight text-white block">თიბისი ბანკი</span>
-                        <span class="text-[9px] font-bold text-white/90 tracking-widest uppercase block">T B C   B A N K</span>
-                      </div>
-                    </div>
-                    <span id="modal-tbc-badge-text" class="text-[10px] text-white font-extrabold bg-black/20 px-3 py-1 rounded-full border border-white/20 flex-shrink-0">TBC</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Bank Account Transfer Details -->
-              <div class="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-4 text-left space-y-2.5">
-                <div>
-                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">მიმღები</span>
-                  <span class="text-sm font-bold text-[#222222]">ანი მაისურაძე</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ბანკი</span>
-                  <span class="text-sm font-semibold text-[#222222]">საქართველოს ბანკი (Bank of Georgia)</span>
-                </div>
-                <div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ანგარიშის ნომერი (IBAN)</span>
-                    <button id="modal-copy-iban" class="text-[10px] text-[#1C3D63] hover:underline cursor-pointer flex items-center gap-0.5 border-none bg-transparent font-bold">
-                      <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
-                    </button>
-                  </div>
-                  <span id="modal-iban-text" class="text-xs sm:text-sm font-mono font-bold text-[#1C3D63] break-all">GE93BG0000000192399800</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">დანიშნულება</span>
-                  <span id="modal-payment-purpose" class="text-xs font-semibold text-[#222222]">რეგისტრაციის საფასური</span>
-                </div>
-              </div>
-
-              <!-- Success Notification / Confirm -->
-              <div class="pt-2 text-center space-y-2">
-                <button id="modal-btn-payment-confirm" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-3.5 px-4 rounded-xl font-extrabold text-sm sm:text-base transition-all duration-300 cursor-pointer border-none shadow-md flex items-center justify-center gap-2 active:scale-95">
-                  <span class="material-symbols-outlined text-xl">task_alt</span>
-                  გადახდა დავასრულე - რეგისტრაცია
-                </button>
-                <p class="text-[11px] text-[#3B5E63]">გადარიცხვის შემდეგ დააჭირეთ ამ ღილაკს რეგისტრაციის დასასრულებლად</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        </div>
-      </div>
-    </div>
-  `;
-
-  document.body.insertAdjacentHTML('beforeend', modalHTML);
-
-  const modal = document.getElementById('booking-modal');
-  const modalCard = document.getElementById('booking-modal-card');
-  const closeBtn = document.getElementById('close-modal-btn');
-  const stepForm = document.getElementById('booking-step-form');
-  const stepPayment = document.getElementById('booking-step-payment');
-
-  setupCalendar({
-    gridEl: document.getElementById('modal-cal-grid-container'),
-    monthTitleEl: document.getElementById('modal-cal-month-title'),
-    prevBtnEl: document.getElementById('modal-cal-prev-btn'),
-    nextBtnEl: document.getElementById('modal-cal-next-btn'),
-    slotsEl: document.getElementById('modal-cal-slots-container'),
-    summaryEl: document.getElementById('modal-booking-picked-summary'),
-    dateInputEl: document.getElementById('modal-booking-date-input'),
-    timeInputEl: document.getElementById('modal-booking-time-input'),
-    eventBannerEl: document.getElementById('modal-cal-event-banner')
-  });
-
-  function openModal() {
-    if (stepForm) stepForm.classList.remove('hidden');
-    if (stepPayment) stepPayment.classList.add('hidden');
-    modal.classList.remove('opacity-0', 'pointer-events-none');
-    modalCard.classList.remove('scale-95');
-    modalCard.classList.add('scale-100');
-  }
-
-  function closeModal() {
-    modal.classList.add('opacity-0', 'pointer-events-none');
-    modalCard.classList.remove('scale-100');
-    modalCard.classList.add('scale-95');
-    setTimeout(() => {
-      if (stepForm) stepForm.classList.remove('hidden');
-      if (stepPayment) stepPayment.classList.add('hidden');
-    }, 300);
-  }
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-  // Set up event delegation for booking buttons (supports dynamically created ones)
+  // Universal event delegation for booking buttons across all pages
   document.addEventListener('click', (e) => {
-    if (e.target && (e.target.classList.contains('booking-btn') || e.target.closest('.booking-btn'))) {
+    const btn = e.target && (e.target.classList.contains('booking-btn') ? e.target : e.target.closest('.booking-btn'));
+    if (!btn) return;
+
+    // Do not redirect if we're inside the booking form on booking.html
+    if (btn.closest('#unified-booking-form') || btn.closest('#booking-payment-modal')) return;
+
+    const pathname = window.location.pathname;
+    const href = btn.getAttribute('href');
+    if (href && (href.startsWith('booking.html') || href.includes('booking.html'))) {
       e.preventDefault();
-      openModal();
+      window.location.href = href;
+      return;
     }
-  });
 
-  // Close when clicking backdrop
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  // Esc key closes modal
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
+    e.preventDefault();
+    const service = btn.getAttribute('data-service') || '';
+    const targetUrl = service ? `booking.html?service=${encodeURIComponent(service)}` : 'booking.html';
+    window.location.href = targetUrl;
   });
 }
 
@@ -895,8 +617,7 @@ function initFormValidation() {
 
       if (typeof window.openBookingPaymentStep === 'function') {
         window.openBookingPaymentStep(bookingData);
-      } else {
-        const targetUrl = `/registration.html?pay_mobile=true&name=${encodeURIComponent(bookingData.firstName + ' ' + bookingData.lastName)}&course=${encodeURIComponent(bookingData.service)}&phone=${encodeURIComponent(bookingData.phone)}`;
+        const targetUrl = `booking.html?service=${encodeURIComponent(bookingData.service)}&name=${encodeURIComponent(bookingData.firstName + ' ' + bookingData.lastName)}&phone=${encodeURIComponent(bookingData.phone)}`;
         window.location.href = targetUrl;
       }
     }
@@ -1157,7 +878,7 @@ function initBlogQuickRead() {
             <span>15 მარტი, 2024</span>
           </div>
           
-          <h2 class="text-4xl md:text-5xl font-headline italic text-[#1C3D63] leading-tight" id="drawer-title">სტატიის სათაური</h2>
+          <h2 class="text-4xl md:text-5xl font-headline italic text-[#1C3D63] leading-tight" id="drawer-title">სიახლის სათაური</h2>
           <button type="button" onclick="if(window.openAIChat) { document.getElementById('close-drawer-btn').click(); window.openAIChat(); }" class="mt-3 flex items-center justify-center gap-2 bg-white border border-[#D8C4B6] hover:bg-[#EAE5DF] hover:border-[#1C3D63] text-[#1C3D63] px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider transition-all uppercase w-full cursor-pointer shadow-sm">
             <span class="material-symbols-outlined text-sm text-[#E0AC6B]">psychology</span>
             <span>ჰკითხეთ მეტი ინტელექტუალურ ასისტენტს</span>

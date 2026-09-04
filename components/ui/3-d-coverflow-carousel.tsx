@@ -18,7 +18,7 @@ export const defaultNewsItems: CoverFlowItem[] = [
     titleLine2: "თანამედროვე ქაოსში",
     desc: "როგორ მოვძებნოთ სიმშვიდე იქ, სადაც ხმაური არასდროს წყდება? პირველი ნაბიჯები შინაგანი დიალოგისკენ.",
     img: "/blog_silence.png",
-    ctaText: "სტატიის ნახვა",
+    ctaText: "სიახლის ნახვა",
     ctaUrl: "blog.html",
   },
   {
@@ -27,7 +27,7 @@ export const defaultNewsItems: CoverFlowItem[] = [
     titleLine2: "და მათი მიღება",
     desc: "ყოველი დიდი ცვლილება იწყება იმის აღიარებით, რომ ძველი გზები აღარ მუშაობს. შიშის ტრანსფორმაცია.",
     img: "/blog_transformation.png",
-    ctaText: "სტატიის ნახვა",
+    ctaText: "სიახლის ნახვა",
     ctaUrl: "blog.html",
   },
   {
@@ -36,7 +36,7 @@ export const defaultNewsItems: CoverFlowItem[] = [
     titleLine2: "და გონებას შორის",
     desc: "პრაქტიკული სავარჯიშოები ყოველდღიური მენტალური ჰიგიენისთვის და სხეულის პირველადი სიგნალები.",
     img: "/blog_balance.png",
-    ctaText: "სტატიის ნახვა",
+    ctaText: "სიახლის ნახვა",
     ctaUrl: "blog.html",
   },
   {
@@ -45,7 +45,7 @@ export const defaultNewsItems: CoverFlowItem[] = [
     titleLine2: "საკუთარი თავის აღმოჩენა",
     desc: "ვინ ვართ ჩვენ სოციალური როლების მიღმა? მოგზაურობა საკუთარი მე-ს ჭეშმარიტ კუთხეებში.",
     img: "/blog_discovery.png",
-    ctaText: "სტატიის ნახვა",
+    ctaText: "სიახლის ნახვა",
     ctaUrl: "blog.html",
   },
   {
@@ -54,7 +54,7 @@ export const defaultNewsItems: CoverFlowItem[] = [
     titleLine2: "თანამედროვე გამოწვევები",
     desc: "პოზიტიური ფსიქოთერაპიის (Positum) მიდგომა და შინაგანი რესურსების გააზრება ყოველდღიურობაში.",
     img: "/blog_positive_psych.png",
-    ctaText: "სტატიის ნახვა",
+    ctaText: "სიახლის ნახვა",
     ctaUrl: "blog.html",
   },
   {
@@ -63,7 +63,7 @@ export const defaultNewsItems: CoverFlowItem[] = [
     titleLine2: "ყოფიერება & სიმშვიდე",
     desc: "მედიტაცია არაა გაქცევა, ესაა დაბრუნება საკუთარ თავთან და აწმყოში დარჩენის ხელოვნება.",
     img: "/blog_mindfulness.png",
-    ctaText: "სტატიის ნახვა",
+    ctaText: "სიახლის ნახვა",
     ctaUrl: "blog.html",
   },
 ];
@@ -439,7 +439,7 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
                         transition: "transform 200ms ease, box-shadow 200ms ease",
                       }}
                     >
-                      <span>{item.ctaText || "სტატიის ნახვა"}</span>
+                      <span>{item.ctaText || "სიახლის ნახვა"}</span>
                       <svg
                         width="14"
                         height="14"

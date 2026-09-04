@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>ონლაინ დაჯავშნა & რეგისტრაცია - IDC აიდისი</title>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+Georgian:wght@100..900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/src/input.css"/>
+  <script type="module" src="/src/main.js"></script>
+  <style>
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .cal-grid .wd {
+      font-size: 11px;
+      font-weight: 700;
+      color: #8E8276;
+      text-transform: uppercase;
+      padding-bottom: 4px;
+    }
+    .cal-grid .day {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1C3D63;
+      background-color: #FAF7F2;
+      border: 1px solid #D8C4B6;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .cal-grid .day:hover:not(.disabled) {
+      background-color: #1C3D63;
+      color: #FFFFFF;
+      border-color: #1C3D63;
+      transform: scale(1.05);
+    }
+    .cal-grid .day.sel {
+      background-color: #1C3D63 !important;
+      color: #FFFFFF !important;
+      border-color: #E0AC6B !important;
+      box-shadow: 0 4px 14px rgba(28, 61, 99, 0.35);
+    }
+    .cal-grid .day.empty {
+      background: transparent;
+      border-color: transparent;
+      cursor: default;
+    }
+    .cal-grid .day.disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      background: #F4F7F7;
+    }
+    .day-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: #E0AC6B;
+      position: absolute;
+      bottom: 4px;
+    }
+  </style>
+</head>
+<body class="selection:bg-[#E0AC6B]/20 selection:text-[#1C3D63] bg-[#F6F3EC] text-[#222222] min-h-screen relative overflow-x-hidden font-sans">
+
+  <!-- Minimalist Ambient Background -->
+  <div class="beige-ambient-bg"></div>
+
+  <!-- Floating Island Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-2.5 md:px-12 pt-3 md:pt-6 pointer-events-none">
+    <nav id="main-nav" class="pointer-events-auto flex items-center justify-between px-4 md:px-12 py-1.5 md:py-2 w-full max-w-7xl mx-auto bg-white/55 border border-[#D8C4B6] backdrop-blur-2xl rounded-xl md:rounded-2xl shadow-[0px_10px_30px_rgba(28,61,99,0.06)] transition-all duration-500">
+      <div class="flex items-center gap-2 md:gap-4 pointer-events-auto pl-1 md:pl-4">
+        <!-- Desktop Logo (Goes to logic.html) -->
+        <a href="logic.html" class="hidden md:inline hover:opacity-85 transition-opacity duration-300">
+          <img alt="IDC Logo" class="h-12 w-12 object-contain transition-transform duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: normal; margin: 0; max-width: none;"/>
+        </a>
+        <!-- Mobile Logo (Goes to index.html) -->
+        <a href="index.html" class="md:hidden inline hover:opacity-85 transition-opacity duration-300">
+          <img alt="IDC Logo" class="h-10 w-10 object-contain transition-transform duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: normal; margin: 0; max-width: none;"/>
+        </a>
+        
+        <!-- Desktop Brand Name -->
+        <a href="about.html" class="hidden md:inline hover:opacity-85 transition-opacity duration-300 no-underline">
+          <span class="text-3xl font-headline font-bold text-[#1C3D63] tracking-normal italic">აიდისი</span>
+        </a>
+        <!-- Mobile Brand Name -->
+        <a href="index.html" class="md:hidden inline hover:opacity-85 transition-opacity duration-300 no-underline">
+          <span class="text-2xl font-headline font-bold text-[#1C3D63] tracking-normal italic">აიდისი</span>
+        </a>
+      </div>
+
+      <div class="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-9 font-headline italic text-base lg:text-lg tracking-wide ml-auto mr-4 lg:mr-8">
+        <a class="text-[#222222] hover:text-[#1C3D63] transition-colors duration-300" href="index.html">მთავარი</a>
+        <div class="relative group">
+          <a href="services.html" class="flex items-center gap-1 text-[#222222] hover:text-[#1C3D63] transition-colors duration-300 focus:outline-none cursor-pointer no-underline">
+            <span>სერვისები</span>
+          </a>
+          <div class="absolute left-0 mt-2 w-64 rounded-2xl bg-white/95 border border-[#D8C4B6] backdrop-blur-xl shadow-2xl p-2 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50 font-normal">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-[#E0AC6B] px-2.5 py-1 mb-1 border-b border-[#D8C4B6]/40 flex items-center justify-between">
+              <span>ყველა მიმართულება</span>
+            </div>
+            <a class="block px-2.5 py-2 rounded-xl text-xs text-[#222222] hover:bg-[#F4F7F7] hover:text-[#1C3D63] transition-all no-underline" href="service-consultation.html">კონსულტაცია</a>
+            <a class="block px-2.5 py-2 rounded-xl text-xs text-[#222222] hover:bg-[#F4F7F7] hover:text-[#1C3D63] transition-all no-underline" href="service-individual.html">ინდივიდუალური თერაპია</a>
+            <a class="block px-2.5 py-2 rounded-xl text-xs text-[#222222] hover:bg-[#F4F7F7] hover:text-[#1C3D63] transition-all no-underline" href="education-wapp.html">WAPP პროგრამა</a>
+            <a class="block px-2.5 py-2 rounded-xl text-xs text-[#222222] hover:bg-[#F4F7F7] hover:text-[#1C3D63] transition-all no-underline" href="education-erickson.html">ერიქსონის აკადემია</a>
+          </div>
+        </div>
+
+        <a class="text-[#1C3D63] font-bold pb-1 border-b-2 border-[#E0AC6B] hover:text-[#3B5E63] transition-colors duration-300 no-underline" href="booking.html">დაჯავშნა</a>
+        <a class="text-[#222222] hover:text-[#1C3D63] transition-colors duration-300 no-underline" href="balance.html">ბალანსი</a>
+        <a class="text-[#222222] hover:text-[#1C3D63] transition-colors duration-300 no-underline" href="cosmic.html">აიდი მოდელები</a>
+        <a class="text-[#222222] hover:text-[#1C3D63] transition-colors duration-300 no-underline" href="about.html">ჩვენს შესახებ</a>
+      </div>
+
+      <div class="flex items-center gap-2 pointer-events-auto">
+        <a href="tel:+995598324020" class="hidden sm:inline-flex items-center gap-2 bg-[#E0AC6B]/20 text-[#1C3D63] border border-[#E0AC6B]/50 px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#E0AC6B]/30 transition-all no-underline">
+          <span class="material-symbols-outlined text-sm text-[#E0AC6B]">call</span>
+          <span>+995 598 32 40 20</span>
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#1C3D63] focus:outline-none transition-transform active:scale-95 cursor-pointer">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Booking Page Content -->
+  <main class="relative z-10 pt-28 md:pt-36 pb-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
+    
+    <!-- Top Header Banner -->
+    <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-xs font-bold uppercase tracking-wider mb-3">
+        <span class="material-symbols-outlined text-sm text-[#E0AC6B]">calendar_month</span>
+        <span>ცენტრალიზებული დაჯავშნის სივრცე</span>
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-headline italic font-bold text-[#1C3D63] leading-tight mb-3">
+        ონლაინ დაჯავშნა & რეგისტრაცია
+      </h1>
+      <div class="h-1 w-20 bg-[#E0AC6B] mx-auto mb-4"></div>
+      <p class="text-[#222222] text-sm sm:text-base font-light leading-relaxed">
+        აირჩიეთ თქვენთვის სასურველი ფსიქოლოგიური სერვისი ან საერთაშორისო საგანმანათლებლო კურსი. გაიარეთ მარტივი რეგისტრაცია და დააფიქსირეთ ვიზიტი.
+      </p>
+    </div>
+
+    <!-- Sibling Category Switcher Tabs -->
+    <div class="flex items-center justify-center gap-2 sm:gap-3 mb-8 flex-wrap">
+      <button type="button" id="tab-all" class="cat-tab px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-[#1C3D63] text-white shadow-md border border-[#1C3D63] cursor-pointer">
+        ყველა მიმართულება (12)
+      </button>
+      <button type="button" id="tab-therapy" class="cat-tab px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] border border-[#D8C4B6] cursor-pointer">
+        🌿 ფსიქოლოგია & თერაპია (6)
+      </button>
+      <button type="button" id="tab-education" class="cat-tab px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] border border-[#D8C4B6] cursor-pointer">
+        🎓 აკადემიური კურსები (6)
+      </button>
+    </div>
+
+    <!-- Service Selection Quick Cards Grid (Carousel / Scrollable Grid) -->
+    <div class="mb-10">
+      <div class="flex items-center justify-between mb-3 px-1">
+        <label class="text-xs font-bold uppercase tracking-wider text-[#1C3D63] flex items-center gap-1.5 font-headline">
+          <span class="material-symbols-outlined text-sm text-[#E0AC6B]">grid_view</span>
+          <span>აირჩიეთ პროდუქტი ან სერვისი:</span>
+        </label>
+        <span class="text-xs text-[#8E8276] font-medium" id="services-count-text">12 სერვისი ხელმისაწვდომია</span>
+      </div>
+
+      <div id="services-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-4">
+        <!-- Dynamically populated from BOOKING_SERVICES -->
+      </div>
+    </div>
+
+    <!-- Active Booking Window (Selected Service Details + Date & Form Grid) -->
+    <div class="bg-white rounded-3xl border border-[#D8C4B6] shadow-[0_20px_50px_rgba(28,61,99,0.08)] p-6 sm:p-10 md:p-12 relative overflow-hidden" id="booking-active-window">
+      
+      <!-- Top Selected Service Banner -->
+      <div class="bg-[#FAF7F2] border border-[#D8C4B6] rounded-2xl p-5 sm:p-7 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 relative">
+        <div class="flex items-start gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-[#1C3D63]/10 border border-[#1C3D63]/25 text-[#1C3D63] flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-3xl" id="active-service-icon">support_agent</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1 flex-wrap">
+              <span class="text-[10px] font-bold text-[#E0AC6B] bg-[#1C3D63] px-3 py-0.5 rounded-full uppercase tracking-wider font-headline" id="active-service-category">
+                ფსიქოლოგიური სერვისი
+              </span>
+              <span class="text-[10px] font-bold text-[#3B5E63] bg-white border border-[#D8C4B6] px-2.5 py-0.5 rounded-full uppercase" id="active-service-badge">
+                პირისპირ / ონლაინ
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-headline italic font-bold text-[#1C3D63]" id="active-service-title">
+              პირველადი კონსულტაცია
+            </h2>
+            <p class="text-xs sm:text-sm text-[#3B5E63] font-light mt-1 max-w-xl" id="active-service-desc">
+              50-წუთიანი ინდივიდუალური სესია გამოცდილ ფსიქოთერაპევტთან.
+            </p>
+          </div>
+        </div>
+
+        <!-- Price & Timing Highlight Pill -->
+        <div class="flex md:flex-col items-center md:items-end justify-between border-t md:border-t-0 md:border-l border-[#D8C4B6]/70 pt-4 md:pt-0 md:pl-6 shrink-0">
+          <div class="text-left md:text-right">
+            <span class="text-[10px] uppercase font-bold text-[#8E8276] block">ღირებულება</span>
+            <span class="text-2xl sm:text-3xl font-headline italic font-bold text-[#1C3D63]" id="active-service-price">100 ₾</span>
+          </div>
+          <div class="text-right mt-1 md:mt-2">
+            <span class="text-xs text-[#3B5E63] font-medium flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm text-[#E0AC6B]">schedule</span>
+              <span id="active-service-duration">50 წუთი</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 Columns: Left = Calendar & Time Selection | Right = Contact & Booking Form -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Side: Calendar / Schedule (7 cols) -->
+        <div class="lg:col-span-7 bg-[#F4F7F7]/60 p-5 sm:p-7 rounded-2xl border border-[#D8C4B6] space-y-6">
+          
+          <!-- Case A: Calendar View for individual sessions -->
+          <div id="booking-calendar-pane" class="space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-headline italic font-bold text-[#1C3D63] flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#E0AC6B]">calendar_today</span>
+                <span>აირჩიეთ სასურველი დღე</span>
+              </h3>
+              <div class="flex items-center gap-1.5">
+                <button type="button" id="cal-prev-btn" class="w-8 h-8 rounded-lg border border-[#D8C4B6] bg-white hover:bg-[#1C3D63] hover:text-white text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer">
+                  <span class="material-symbols-outlined text-sm">chevron_left</span>
+                </button>
+                <span class="text-xs font-bold text-[#1C3D63] px-2 font-headline italic" id="cal-month-title">სექტემბერი 2026</span>
+                <button type="button" id="cal-next-btn" class="w-8 h-8 rounded-lg border border-[#D8C4B6] bg-white hover:bg-[#1C3D63] hover:text-white text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer">
+                  <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="cal-grid" id="booking-cal-grid">
+              <!-- Dynamically populated days -->
+            </div>
+
+            <!-- Time Slots -->
+            <div class="pt-4 border-t border-[#D8C4B6]/60">
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#1C3D63]">ხელმისაწვდომი საათები:</span>
+                <span class="text-[11px] text-[#8E8276]">აირჩიეთ დრო</span>
+              </div>
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="booking-time-slots">
+                <!-- Dynamically populated time slots -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Case B: Cohort Program Schedule (For educational courses) -->
+          <div id="booking-cohort-pane" class="hidden space-y-4">
+            <div class="p-5 rounded-2xl bg-white border border-[#D8C4B6] space-y-3">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/20 text-[#1C3D63] text-xs font-bold uppercase">
+                <span class="material-symbols-outlined text-sm text-[#E0AC6B]">event_upcoming</span>
+                <span>აკადემიური ნაკადი & გრაფიკი</span>
+              </span>
+              <h4 class="text-lg font-headline font-bold text-[#1C3D63]" id="cohort-start-title">
+                უახლოესი ნაკადის სტარტი: 15 ოქტომბერი 2026
+              </h4>
+              <p class="text-xs text-[#3B5E63] leading-relaxed" id="cohort-schedule-desc">
+                სწავლა მიმდინარეობს ჰიბრიდულ ფორმატში — თვეში 1 შაბათ-კვირა, 10:00-დან 18:00-მდე.
+              </p>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                <label class="p-3 rounded-xl border border-[#1C3D63] bg-[#FAF8F5] flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="cohort_choice" value="უახლოესი ნაკადი" checked class="accent-[#1C3D63]"/>
+                  <span class="text-xs font-bold text-[#1C3D63]">უახლოესი ნაკადი (შემოდგომა 2026)</span>
+                </label>
+                <label class="p-3 rounded-xl border border-[#D8C4B6] bg-white flex items-center gap-3 cursor-pointer hover:bg-[#FAF8F5]">
+                  <input type="radio" name="cohort_choice" value="შემდეგი ნაკადი" class="accent-[#1C3D63]"/>
+                  <span class="text-xs font-medium text-[#222222]">შემდეგი ნაკადი (ზამთარი 2027)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Date/Time Confirmation Badge -->
+          <div class="p-3.5 rounded-xl bg-white border border-[#D8C4B6] flex items-center justify-between text-xs shadow-xs">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base text-[#E0AC6B]">verified</span>
+              <span class="font-bold text-[#1C3D63]" id="booking-date-summary">15 სექტემბერი 2026 · 14:00 სთ</span>
+            </div>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">მზადაა დასაჯავშნად</span>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Client Information Form (5 cols) -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="border-b border-[#D8C4B6]/60 pb-3">
+            <h3 class="text-lg font-headline italic font-bold text-[#1C3D63]">
+              მონაცემების შევსება
+            </h3>
+            <p class="text-xs text-[#8E8276] mt-0.5">
+              შეიყვანეთ საკონტაქტო ინფორმაცია ჯავშნის დასადასტურებლად
+            </p>
+          </div>
+
+          <form id="unified-booking-form" class="space-y-4">
+            <input type="hidden" id="form-service-id" value="consultation"/>
+            <input type="hidden" id="form-selected-date" value="2026-09-15"/>
+            <input type="hidden" id="form-selected-time" value="14:00"/>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">სახელი *</label>
+                <input type="text" id="cust-first-name" required placeholder="სახელი" class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl px-3.5 py-2.5 text-xs text-[#222222] outline-none font-medium transition-colors"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">გვარი *</label>
+                <input type="text" id="cust-last-name" required placeholder="გვარი" class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl px-3.5 py-2.5 text-xs text-[#222222] outline-none font-medium transition-colors"/>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ტელეფონის ნომერი *</label>
+              <input type="tel" id="cust-phone" required placeholder="მაგ: 598 32 40 20" class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl px-3.5 py-2.5 text-xs text-[#222222] outline-none font-medium transition-colors"/>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">დაბადების თარიღი</label>
+                <input type="date" id="cust-birthdate" class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl px-3 py-2 text-xs text-[#222222] outline-none font-medium transition-colors"/>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ფორმატი *</label>
+                <select id="cust-format" class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl px-3 py-2.5 text-xs text-[#222222] outline-none font-medium transition-colors">
+                  <option value="პირისპირ" selected>🏢 პირისპირ (ჭავჭავაძის 2)</option>
+                  <option value="ონლაინ">💻 ონლაინ (Google Meet / Zoom)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">დამატებითი შენიშვნა / კომენტარი</label>
+              <textarea id="cust-notes" rows="2" placeholder="სურვილისამებრ მოგვწერეთ მოკლე კომენტარი..." class="w-full bg-[#F4F7F7] border border-[#D8C4B6] focus:border-[#1C3D63] rounded-xl p-3 text-xs text-[#222222] outline-none font-medium resize-none transition-colors"></textarea>
+            </div>
+
+            <!-- Order Total Summary & Trigger Payment Button -->
+            <div class="p-4 rounded-2xl bg-[#FAF8F5] border border-[#D8C4B6] space-y-3">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-[#8E8276]">არჩეული სერვისი:</span>
+                <span class="font-bold text-[#1C3D63]" id="summary-service-name">პირველადი კონსულტაცია</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-[#8E8276]">დრო / გრაფიკი:</span>
+                <span class="font-bold text-[#1C3D63]" id="summary-datetime">15 სექტემბერი · 14:00</span>
+              </div>
+              <div class="pt-2 border-t border-[#D8C4B6]/60 flex items-center justify-between">
+                <span class="text-xs font-bold uppercase text-[#1C3D63]">გადასახდელი თანხა:</span>
+                <span class="text-xl font-headline italic font-bold text-[#1C3D63]" id="summary-total-price">100 ₾</span>
+              </div>
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" id="btn-proceed-booking" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-4 px-6 rounded-xl font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer active:scale-98">
+                <span class="material-symbols-outlined text-lg text-[#E0AC6B]">payments</span>
+                <span>დაჯავშნა და გადახდა</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </button>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Payment & Confirmation Modal -->
+  <div id="booking-payment-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-md hidden opacity-0 transition-all duration-300">
+    <div class="bg-white rounded-3xl border border-[#D8C4B6] shadow-2xl max-w-2xl w-full p-6 sm:p-8 relative text-left transform scale-95 transition-all duration-300 max-h-[90vh] overflow-y-auto" id="booking-payment-card">
+      
+      <button id="close-payment-btn" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#F4F7F7] text-[#8E8276] hover:text-[#1C3D63] hover:bg-[#E5ECEC] flex items-center justify-center cursor-pointer transition-colors">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] mx-auto mb-2 shadow-xs">
+          <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-headline italic font-bold text-[#1C3D63]">საბანკო გადარიცხვა & ჯავშნის დასტური</h3>
+        <p class="text-xs text-[#3B5E63] mt-1">
+          გადაიხადეთ საფასური ჯავშნის ავტომატური რეგისტრაციისთვის
+        </p>
+      </div>
+
+      <!-- Payment Body -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
+        
+        <!-- Left: QR Code -->
+        <div class="bg-[#F4F7F7] p-5 rounded-2xl border border-[#D8C4B6] text-center flex flex-col items-center justify-center">
+          <div class="w-44 h-44 bg-white p-2 rounded-xl border border-[#D8C4B6] shadow-inner flex items-center justify-center">
+            <img id="booking-qr-img" src="" alt="Payment QR Code" class="w-full h-full object-contain rounded-lg"/>
+          </div>
+          <p class="text-xs font-bold text-[#1C3D63] mt-3 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm text-[#E0AC6B]">photo_camera</span>
+            <span>დაასკანერეთ მობაილ ბანკით</span>
+          </p>
+          <p class="text-[10px] text-[#8E8276] mt-1 leading-relaxed text-center">
+            საქართველოს ბანკისა და თიბისის აპლიკაციებით მომენტალური გადარიცხვა
+          </p>
+        </div>
+
+        <!-- Right: Bank Direct Links & Details -->
+        <div class="space-y-3.5">
+          <!-- Mobile Bank Buttons -->
+          <div class="space-y-2">
+            <span class="text-[10px] uppercase font-bold text-[#8E8276] block">გადადით ბანკის აპლიკაციაში:</span>
+            <div class="grid grid-cols-2 gap-2">
+              <a href="https://bankofgeorgia.ge" target="_blank" id="btn-pay-bog" class="p-2.5 rounded-xl bg-[#ff6700] hover:bg-[#e65c00] text-white flex items-center justify-center gap-2 text-xs font-bold no-underline shadow-sm transition-all active:scale-95">
+                <span>BOG ბანკი</span>
+              </a>
+              <a href="https://tbcbank.ge" target="_blank" id="btn-pay-tbc" class="p-2.5 rounded-xl bg-[#00adef] hover:bg-[#009bd7] text-white flex items-center justify-center gap-2 text-xs font-bold no-underline shadow-sm transition-all active:scale-95">
+                <span>TBC ბანკი</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Account Details -->
+          <div class="bg-[#FAF8F5] p-3.5 rounded-xl border border-[#D8C4B6] text-xs space-y-2">
+            <div>
+              <span class="text-[9px] uppercase font-bold text-[#8E8276] block">მიმღები</span>
+              <strong class="text-[#1C3D63] text-xs">ანი მაისურაძე</strong>
+            </div>
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[9px] uppercase font-bold text-[#8E8276]">ანგარიშის ნომერი (IBAN)</span>
+                <button type="button" id="btn-copy-iban" class="text-[10px] text-[#1C3D63] font-bold hover:underline cursor-pointer flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
+                </button>
+              </div>
+              <span class="font-mono font-bold text-[#1C3D63] text-[11px] break-all" id="text-iban">GE93BG0000000192399800</span>
+            </div>
+            <div>
+              <span class="text-[9px] uppercase font-bold text-[#8E8276] block">გადასახდელი თანხა</span>
+              <strong class="text-base text-[#1C3D63] font-bold font-headline italic" id="modal-pay-amount">100 ₾</strong>
+            </div>
+            <div>
+              <span class="text-[9px] uppercase font-bold text-[#8E8276] block">დანიშნულება</span>
+              <span class="text-[11px] text-[#222222]" id="modal-pay-purpose">ჯავშანი - პირველადი კონსულტაცია</span>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="button" id="btn-finish-payment" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-sm flex items-center justify-center gap-1.5 active:scale-95">
+              <span class="material-symbols-outlined text-base">check_circle</span>
+              <span>გადახდა დავასრულე - დადასტურება</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Unified Footer -->
+  <footer class="site-footer relative z-10 px-4 sm:px-6 md:px-12 pb-16 pt-8 max-w-7xl mx-auto mt-16" id="contact">
+    <div class="unified-footer-card grid grid-cols-1 lg:grid-cols-2 bg-white rounded-[32px] md:rounded-[40px] border border-[#D8C4B6] shadow-[0_25px_60px_rgba(28,61,99,0.06)] overflow-hidden">
+      
+      <div class="footer-info-panel p-8 md:p-12 lg:p-14 flex flex-col justify-between bg-white">
+        <div>
+          <div class="footer-brand-wrap flex items-center gap-3.5 mb-4">
+            <img src="/src/logo.png" alt="IDC Logo" class="h-12 w-12 object-contain hover:scale-105 transition-transform"/>
+            <div>
+              <span class="text-3xl font-headline italic font-bold text-[#1C3D63] tracking-normal">აიდისი<span class="text-[#E0AC6B]">.</span></span>
+              <span class="block text-[11px] text-[#8E8276] font-sans font-semibold uppercase tracking-wider">საგანმანათლებლო &amp; თერაპიული სივრცე</span>
+            </div>
+          </div>
+
+          <p class="text-sm sm:text-base text-[#3B5E63] font-light leading-relaxed mb-6">
+            სივრცე, სადაც პოზიტიური ფსიქოთერაპია, საერთაშორისო საგანმანათლებლო პროგრამები და პროფესიონალთა გუნდი ქმნის უსაფრთხო, ემპათიურ და განმავითარებელ გარემოს.
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] shrink-0">
+                <span class="material-symbols-outlined text-lg">location_on</span>
+              </div>
+              <div>
+                <strong class="block text-xs uppercase tracking-wider font-bold text-[#1C3D63]">მისამართი</strong>
+                <p class="text-xs sm:text-sm text-[#3B5E63] font-light">ი. ჭავჭავაძის გამზირი 2, თბილისი, საქართველო</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] shrink-0">
+                <span class="material-symbols-outlined text-lg">call</span>
+              </div>
+              <div>
+                <strong class="block text-xs uppercase tracking-wider font-bold text-[#1C3D63]">ტელეფონი</strong>
+                <p class="text-xs sm:text-sm"><a href="tel:+995598324020" class="text-[#1C3D63] hover:text-[#E0AC6B] font-medium no-underline transition-colors">+995 598 32 40 20</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-5 border-t border-[#D8C4B6]/60 text-xs text-[#8E8276] flex items-center justify-between">
+          <span>&copy; 2026 IDC აიდისი. ყველა უფლება დაცულია.</span>
+          <a href="booking.html" class="text-[#1C3D63] font-bold hover:underline">დაჯავშნის სისტემა</a>
+        </div>
+      </div>
+
+      <!-- Right 50%: Stylized Google Map -->
+      <div class="footer-map-panel relative min-h-[350px] lg:min-h-full bg-[#F4F7F7]">
+        <iframe 
+          class="w-full h-full min-h-[350px] border-0 grayscale contrast-[1.05] hover:grayscale-0 transition-all duration-700" 
+          title="IDC აიდისი Google Maps ლოკაცია" 
+          src="https://maps.google.com/maps?q=41.708170,44.774933&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+          loading="lazy">
+        </iframe>
+        <div class="absolute bottom-4 left-4 bg-white/95 border border-[#D8C4B6] backdrop-blur-md px-3.5 py-2 rounded-xl text-xs font-bold text-[#1C3D63] shadow-md flex items-center gap-1.5 pointer-events-none">
+          <span class="text-[#E0AC6B]">📍</span>
+          <span>IDC აიდისი ცენტრი (ჭავჭავაძის 2)</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Booking Interactive Engine Script -->
+  <script type="module">
+    import { BOOKING_SERVICES, findServiceByQuery } from '/src/booking-data.js';
+
+    let currentServices = [...BOOKING_SERVICES];
+    let selectedService = BOOKING_SERVICES[0];
+    let selectedCategory = 'all';
+
+    // Calendar state
+    const today = new Date();
+    let currentCalYear = today.getFullYear();
+    let currentCalMonth = today.getMonth() + 1; // 1-12
+    let pickedDay = today.getDate() + 1;
+    let pickedTime = '14:00';
+
+    const KA_MONTHS = [
+      'იანვარი', 'თებერვალი', 'მარტი', 'აპრილი', 'მაისი', 'ივნისი',
+      'ივლისი', 'აგვისტო', 'სექტემბერი', 'ოქტომბერი', 'ნოემბერი', 'დეკემბერი'
+    ];
+    const TIME_SLOTS = ['11:00', '12:30', '14:00', '15:30', '17:00', '18:30'];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Check URL parameters
+      const params = new URLSearchParams(window.location.search);
+      const requestedService = params.get('service') || params.get('course');
+      if (requestedService) {
+        selectedService = findServiceByQuery(requestedService);
+      }
+
+      // Pre-fill fields if passed from previous form
+      if (params.get('name')) {
+        const parts = params.get('name').split(' ');
+        if (parts[0]) document.getElementById('cust-first-name').value = parts[0];
+        if (parts[1]) document.getElementById('cust-last-name').value = parts.slice(1).join(' ');
+      }
+      if (params.get('phone')) {
+        document.getElementById('cust-phone').value = params.get('phone');
+      }
+
+      // 2. Render Categories and Services
+      renderServiceCards();
+      selectService(selectedService, false);
+      setupCategoryTabs();
+      setupCalendar();
+      setupTimeSlots();
+      setupForm();
+      setupPaymentModal();
+
+      // If requested via URL, scroll to active booking window smoothly
+      if (requestedService) {
+        setTimeout(() => {
+          const el = document.getElementById('booking-active-window');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      }
+    });
+
+    function setupCategoryTabs() {
+      const tabAll = document.getElementById('tab-all');
+      const tabTherapy = document.getElementById('tab-therapy');
+      const tabEducation = document.getElementById('tab-education');
+
+      function setActiveTab(activeBtn, cat) {
+        [tabAll, tabTherapy, tabEducation].forEach(b => {
+          b.className = 'cat-tab px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] hover:bg-[#F4F7F7] border border-[#D8C4B6] cursor-pointer';
+        });
+        activeBtn.className = 'cat-tab px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-[#1C3D63] text-white shadow-md border border-[#1C3D63] cursor-pointer';
+        selectedCategory = cat;
+        renderServiceCards();
+      }
+
+      tabAll.onclick = () => setActiveTab(tabAll, 'all');
+      tabTherapy.onclick = () => setActiveTab(tabTherapy, 'therapy');
+      tabEducation.onclick = () => setActiveTab(tabEducation, 'education');
+    }
+
+    function renderServiceCards() {
+      const container = document.getElementById('services-cards-grid');
+      const countText = document.getElementById('services-count-text');
+      if (!container) return;
+
+      const filtered = selectedCategory === 'all' 
+        ? BOOKING_SERVICES 
+        : BOOKING_SERVICES.filter(s => s.category === selectedCategory);
+
+      if (countText) countText.textContent = `${filtered.length} სერვისი ხელმისაწვდომია`;
+
+      container.innerHTML = filtered.map(service => {
+        const isSelected = selectedService && selectedService.id === service.id;
+        return `
+          <div 
+            data-service-id="${service.id}"
+            class="service-select-card group relative p-4 sm:p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between text-left shadow-xs hover:shadow-md ${
+              isSelected 
+                ? 'bg-[#FAF8F5] border-2 border-[#1C3D63] shadow-md ring-2 ring-[#1C3D63]/10' 
+                : 'bg-white hover:bg-[#FAF8F5] border-[#D8C4B6] hover:border-[#1C3D63]/70'
+            }"
+          >
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-9 h-9 rounded-xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#1C3D63] group-hover:bg-[#1C3D63] group-hover:text-white transition-colors">
+                  <span class="material-symbols-outlined text-lg">${service.icon}</span>
+                </span>
+                <span class="text-xs font-headline italic font-bold text-[#1C3D63] bg-[#E0AC6B]/20 border border-[#E0AC6B]/40 px-2.5 py-0.5 rounded-full">
+                  ${service.priceFormatted}
+                </span>
+              </div>
+
+              <h4 class="text-sm font-bold font-headline text-[#1C3D63] group-hover:text-[#254F7F] transition-colors leading-snug mb-1">
+                ${service.name}
+              </h4>
+              <p class="text-[10px] font-semibold text-[#E0AC6B] uppercase tracking-wider mb-2 font-headline">
+                ${service.subtitle}
+              </p>
+              <p class="text-[11px] text-[#3B5E63] font-light leading-relaxed line-clamp-2 mb-3">
+                ${service.description}
+              </p>
+            </div>
+
+            <div class="pt-2.5 border-t border-[#D8C4B6]/50 flex items-center justify-between text-[11px]">
+              <span class="text-[#8E8276] font-medium flex items-center gap-1">
+                <span class="material-symbols-outlined text-xs">schedule</span>
+                <span>${service.duration}</span>
+              </span>
+              <span class="font-bold text-[#1C3D63] group-hover:text-[#254F7F] flex items-center gap-1">
+                <span>${isSelected ? 'არჩეულია ✓' : 'არჩევა →'}</span>
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Attach click listeners to cards
+      container.querySelectorAll('.service-select-card').forEach(card => {
+        card.onclick = () => {
+          const sId = card.getAttribute('data-service-id');
+          const item = BOOKING_SERVICES.find(s => s.id === sId);
+          if (item) {
+            selectService(item, true);
+            const activeWin = document.getElementById('booking-active-window');
+            if (activeWin) activeWin.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        };
+      });
+    }
+
+    function selectService(service, rerenderGrid = true) {
+      selectedService = service;
+
+      // Update Top Active Banner
+      const iconEl = document.getElementById('active-service-icon');
+      const catEl = document.getElementById('active-service-category');
+      const badgeEl = document.getElementById('active-service-badge');
+      const titleEl = document.getElementById('active-service-title');
+      const descEl = document.getElementById('active-service-desc');
+      const priceEl = document.getElementById('active-service-price');
+      const durEl = document.getElementById('active-service-duration');
+
+      if (iconEl) iconEl.textContent = service.icon;
+      if (catEl) catEl.textContent = service.categoryLabel;
+      if (badgeEl) badgeEl.textContent = service.badge;
+      if (titleEl) titleEl.textContent = service.name;
+      if (descEl) descEl.textContent = service.description;
+      if (priceEl) priceEl.textContent = service.priceFormatted;
+      if (durEl) durEl.textContent = service.duration;
+
+      // Update Form hidden field and summary
+      const formServiceId = document.getElementById('form-service-id');
+      const sumServiceName = document.getElementById('summary-service-name');
+      const sumTotalPrice = document.getElementById('summary-total-price');
+
+      if (formServiceId) formServiceId.value = service.id;
+      if (sumServiceName) sumServiceName.textContent = service.name;
+      if (sumTotalPrice) sumTotalPrice.textContent = service.priceFormatted;
+
+      // Toggle Calendar vs Cohort panes
+      const calPane = document.getElementById('booking-calendar-pane');
+      const cohortPane = document.getElementById('booking-cohort-pane');
+      const cohortTitle = document.getElementById('cohort-start-title');
+      const cohortDesc = document.getElementById('cohort-schedule-desc');
+
+      if (service.dateType === 'cohort') {
+        if (calPane) calPane.classList.add('hidden');
+        if (cohortPane) cohortPane.classList.remove('hidden');
+        if (cohortTitle) cohortTitle.textContent = `უახლოესი ნაკადის სტარტი: ${service.nextStartDate || 'უახლოეს დღეებში'}`;
+        if (cohortDesc) cohortDesc.textContent = service.schedule || 'გრაფიკის დეტალებს დაგიზუსტებთ რეგისტრაციის შემდეგ.';
+        updateDateSummary(`ნაკადი: ${service.nextStartDate || 'შემოდგომა 2026'}`);
+      } else {
+        if (calPane) calPane.classList.remove('hidden');
+        if (cohortPane) cohortPane.classList.add('hidden');
+        updateCalendarSelection();
+      }
+
+      if (rerenderGrid) renderServiceCards();
+    }
+
+    function setupCalendar() {
+      const prevBtn = document.getElementById('cal-prev-btn');
+      const nextBtn = document.getElementById('cal-next-btn');
+
+      if (prevBtn) {
+        prevBtn.onclick = () => {
+          currentCalMonth--;
+          if (currentCalMonth < 1) {
+            currentCalMonth = 12;
+            currentCalYear--;
+          }
+          renderCalendarDays();
+        };
+      }
+      if (nextBtn) {
+        nextBtn.onclick = () => {
+          currentCalMonth++;
+          if (currentCalMonth > 12) {
+            currentCalMonth = 1;
+            currentCalYear++;
+          }
+          renderCalendarDays();
+        };
+      }
+
+      renderCalendarDays();
+    }
+
+    function renderCalendarDays() {
+      const grid = document.getElementById('booking-cal-grid');
+      const title = document.getElementById('cal-month-title');
+      if (!grid) return;
+
+      if (title) title.textContent = `${KA_MONTHS[currentCalMonth - 1]} ${currentCalYear}`;
+
+      const daysInMonth = new Date(currentCalYear, currentCalMonth, 0).getDate();
+      const firstDayIndex = new Date(currentCalYear, currentCalMonth - 1, 1).getDay();
+      const startOffset = (firstDayIndex + 6) % 7; // Monday-based
+
+      const weekdays = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვი'];
+
+      let html = weekdays.map(w => `<div class="wd">${w}</div>`).join('');
+
+      for (let i = 0; i < startOffset; i++) {
+        html += `<div class="day empty"></div>`;
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const isSelected = d === pickedDay;
+        const checkDate = new Date(currentCalYear, currentCalMonth - 1, d);
+        const isPast = checkDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+        html += `
+          <button 
+            type="button" 
+            class="day ${isSelected ? 'sel' : ''} ${isPast ? 'disabled' : ''}" 
+            data-day="${d}"
+            ${isPast ? 'disabled' : ''}
+          >
+            <span>${d}</span>
+            ${isSelected ? '<span class="day-dot"></span>' : ''}
+          </button>
+        `;
+      }
+
+      grid.innerHTML = html;
+
+      grid.querySelectorAll('.day:not(.empty):not(.disabled)').forEach(btn => {
+        btn.onclick = () => {
+          pickedDay = parseInt(btn.getAttribute('data-day'), 10);
+          renderCalendarDays();
+          updateCalendarSelection();
+        };
+      });
+    }
+
+    function setupTimeSlots() {
+      const container = document.getElementById('booking-time-slots');
+      if (!container) return;
+
+      container.innerHTML = TIME_SLOTS.map(slot => {
+        const isSel = slot === pickedTime;
+        return `
+          <button 
+            type="button" 
+            data-time="${slot}"
+            class="time-slot-btn py-2 px-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+              isSel 
+                ? 'bg-[#1C3D63] text-white border-[#1C3D63] shadow-sm' 
+                : 'bg-white text-[#1C3D63] border-[#D8C4B6] hover:bg-[#FAF8F5]'
+            }"
+          >
+            ${slot}
+          </button>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.time-slot-btn').forEach(btn => {
+        btn.onclick = () => {
+          pickedTime = btn.getAttribute('data-time');
+          setupTimeSlots();
+          updateCalendarSelection();
+        };
+      });
+    }
+
+    function updateCalendarSelection() {
+      const monthName = KA_MONTHS[currentCalMonth - 1];
+      const dateStr = `${pickedDay} ${monthName} ${currentCalYear} · ${pickedTime} სთ`;
+      updateDateSummary(dateStr);
+
+      const formDate = document.getElementById('form-selected-date');
+      const formTime = document.getElementById('form-selected-time');
+      if (formDate) formDate.value = `${currentCalYear}-${String(currentCalMonth).padStart(2, '0')}-${String(pickedDay).padStart(2, '0')}`;
+      if (formTime) formTime.value = pickedTime;
+    }
+
+    function updateDateSummary(text) {
+      const summaryBadge = document.getElementById('booking-date-summary');
+      const sumDateTime = document.getElementById('summary-datetime');
+      if (summaryBadge) summaryBadge.textContent = text;
+      if (sumDateTime) sumDateTime.textContent = text;
+    }
+
+    function setupForm() {
+      const form = document.getElementById('unified-booking-form');
+      if (!form) return;
+
+      form.onsubmit = (e) => {
+        e.preventDefault();
+
+        const firstName = document.getElementById('cust-first-name').value.trim();
+        const lastName = document.getElementById('cust-last-name').value.trim();
+        const phone = document.getElementById('cust-phone').value.trim();
+        const birthdate = document.getElementById('cust-birthdate').value;
+        const format = document.getElementById('cust-format').value;
+        const notes = document.getElementById('cust-notes').value.trim();
+        const dateVal = document.getElementById('form-selected-date').value;
+        const timeVal = document.getElementById('form-selected-time').value;
+
+        if (!firstName || !lastName || !phone) {
+          alert('გთხოვთ შეავსოთ სახელი, გვარი და ტელეფონის ნომერი');
+          return;
+        }
+
+        // Prepare payment modal payload
+        openPaymentModal({
+          service: selectedService,
+          firstName,
+          lastName,
+          phone,
+          birthdate,
+          format,
+          notes,
+          date: selectedService.dateType === 'cohort' ? (selectedService.nextStartDate || 'უახლოესი ნაკადი') : `${dateVal} ${timeVal}`,
+          price: selectedService.priceFormatted
+        });
+      };
+    }
+
+    let activeBookingPayload = null;
+
+    function openPaymentModal(payload) {
+      activeBookingPayload = payload;
+
+      const modal = document.getElementById('booking-payment-modal');
+      const card = document.getElementById('booking-payment-card');
+      const amountEl = document.getElementById('modal-pay-amount');
+      const purposeEl = document.getElementById('modal-pay-purpose');
+      const qrImg = document.getElementById('booking-qr-img');
+
+      if (amountEl) amountEl.textContent = payload.price;
+      if (purposeEl) purposeEl.textContent = `${payload.service.name} — ${payload.firstName} ${payload.lastName}`;
+
+      // Dynamic QR Code for payment
+      const paymentData = `IDC Booking: ${payload.service.name} | ${payload.price} | Name: ${payload.firstName} ${payload.lastName} | Phone: ${payload.phone} | IBAN: GE93BG0000000192399800`;
+      if (qrImg) {
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(paymentData)}`;
+      }
+
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+      }, 50);
+    }
+
+    function setupPaymentModal() {
+      const modal = document.getElementById('booking-payment-modal');
+      const card = document.getElementById('booking-payment-card');
+      const closeBtn = document.getElementById('close-payment-btn');
+      const copyBtn = document.getElementById('btn-copy-iban');
+      const finishBtn = document.getElementById('btn-finish-payment');
+
+      function closeModal() {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0');
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+        setTimeout(() => modal.classList.add('hidden'), 300);
+      }
+
+      if (closeBtn) closeBtn.onclick = closeModal;
+      if (modal) {
+        modal.onclick = (e) => {
+          if (e.target === modal) closeModal();
+        };
+      }
+
+      if (copyBtn) {
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText('GE93BG0000000192399800');
+          copyBtn.innerHTML = '<span class="material-symbols-outlined text-xs">done</span> კოპირებულია!';
+          setTimeout(() => {
+            copyBtn.innerHTML = '<span class="material-symbols-outlined text-xs">content_copy</span> კოპირება';
+          }, 2500);
+        };
+      }
+
+      if (finishBtn) {
+        finishBtn.onclick = async () => {
+          if (!activeBookingPayload) return;
+          finishBtn.disabled = true;
+          finishBtn.innerHTML = '<span class="material-symbols-outlined text-base animate-spin">refresh</span> მიმდინარეობს რეგისტრაცია...';
+
+          // Send Telegram Notification to Admin
+          const botToken = "8563426842:AAEuhg8EXmAV18NXtlAaiky0ZzWGvNXkJQU";
+          const chatId = "443575738";
+
+          const text = `🌟 *ახალი ჯავშანი & რეგისტრაცია IDC-ში!* 📅\n\n` +
+            `📌 *სერვისი:* ${activeBookingPayload.service.name}\n` +
+            `💰 *თანხა:* ${activeBookingPayload.price}\n` +
+            `👤 *კლიენტი:* ${activeBookingPayload.firstName} ${activeBookingPayload.lastName}\n` +
+            `📞 *ტელეფონი:* ${activeBookingPayload.phone}\n` +
+            `📆 *თარიღი/დრო:* ${activeBookingPayload.date}\n` +
+            `🏢 *ფორმატი:* ${activeBookingPayload.format}\n` +
+            (activeBookingPayload.birthdate ? `🎂 *დაბადების თარიღი:* ${activeBookingPayload.birthdate}\n` : '') +
+            (activeBookingPayload.notes ? `💬 *შენიშვნა:* ${activeBookingPayload.notes}\n` : '') +
+            `\n✅ *სტატუსი:* მომხმარებელმა დაადასტურა გადარიცხვა`;
+
+          try {
+            await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                chat_id: chatId,
+                text: text,
+                parse_mode: "Markdown"
+              })
+            });
+          } catch (e) {
+            console.warn('Telegram notification error:', e);
+          }
+
+          alert(`🎉 გმადლობთ, ${activeBookingPayload.firstName}! თქვენი ჯავშანი მიღებულია. ჩვენი ადმინისტრატორი დაგიკავშირდებათ ნომერზე: ${activeBookingPayload.phone}.`);
+          closeModal();
+          finishBtn.disabled = false;
+          finishBtn.innerHTML = '<span class="material-symbols-outlined text-base">check_circle</span> გადახდა დავასრულე - დადასტურება';
+          document.getElementById('unified-booking-form').reset();
+        };
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -40,7 +40,8 @@ export default defineConfig({
         cosmic: resolve(__dirname, 'cosmic.html'),
         logic: resolve(__dirname, 'logic.html'),
         balance: resolve(__dirname, 'balance.html'),
-        registration: resolve(__dirname, 'registration.html')
+        registration: resolve(__dirname, 'registration.html'),
+        booking: resolve(__dirname, 'booking.html')
       }
     }
   }
