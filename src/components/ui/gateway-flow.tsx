@@ -10,29 +10,20 @@ export interface GatewayFlowProps {
   interactive?: boolean;
 }
 
-interface PathDefinition {
-  p0: { x: number; y: number };
-  cp1: { x: number; y: number };
-  cp2: { x: number; y: number };
-  p1: { x: number; y: number };
-  length: number;
-}
-
-interface DotParticle {
-  pathIndex: number;
-  progress: number;
+interface Particle {
+  track: number; // streamline index
+  t: number;     // horizontal progress [0, 1] from left to right
   speed: number;
   size: number;
   alpha: number;
-  tailLength: number;
 }
 
 export const GatewayFlow: React.FC<GatewayFlowProps> = ({
   className = "",
   backgroundColor = "#ffffff",
-  lineColor = "rgba(0, 0, 0, 0.12)",
+  lineColor = "rgba(0, 0, 0, 0.18)",
   dotColor = "#000000",
-  speed = 1.0,
+  speed = 0.45,
   density = 1.0,
   interactive = true,
 }) => {
@@ -62,106 +53,72 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       const dpr = window.devicePixelRatio || 1;
       width = canvas.width = Math.floor(rect.width * dpr);
       height = canvas.height = Math.floor(rect.height * dpr);
-      generatePaths();
+      initParticles();
     };
 
-    let paths: PathDefinition[] = [];
-    let dots: DotParticle[] = [];
+    const streamCount = Math.floor(44 * density);
+    const particlesCount = Math.floor(65 * density);
+    let particles: Particle[] = [];
 
-    // Cubic bezier position calculation
-    const getCubicBezierPoint = (
-      p0: { x: number; y: number },
-      cp1: { x: number; y: number },
-      cp2: { x: number; y: number },
-      p1: { x: number; y: number },
-      t: number
-    ) => {
-      const u = 1 - t;
-      const tt = t * t;
-      const uu = u * u;
-      const uuu = uu * u;
-      const ttt = tt * t;
-
-      return {
-        x: uuu * p0.x + 3 * uu * t * cp1.x + 3 * u * tt * cp2.x + ttt * p1.x,
-        y: uuu * p0.y + 3 * uu * t * cp1.y + 3 * u * tt * cp2.y + ttt * p1.y,
-      };
-    };
-
-    const generatePaths = () => {
-      paths = [];
-      dots = [];
-
+    // Helper to calculate streamline Y coordinate at horizontal X for a given track s (0 to 1)
+    // Matches the exact hyperbolic bowtie / hourglass geometry of the reference visual
+    const getStreamPoint = (tX: number, s: number, dpr: number) => {
       const w = width;
       const h = height;
       const centerX = w * 0.5;
-      const centerY = h * 0.27; // Elevated focal point aligned directly with the start button
+      const centerY = h * 0.28; // Aligned directly with the elevated start screening button
 
-      // Helper to generate a 100% perfectly straight perspective ray towards the center
-      const addStraightRay = (startX: number, startY: number, endX = centerX, endY = centerY) => {
-        paths.push({
-          p0: { x: startX, y: startY },
-          cp1: { x: startX + (endX - startX) * 0.333, y: startY + (endY - startY) * 0.333 },
-          cp2: { x: startX + (endX - startX) * 0.667, y: startY + (endY - startY) * 0.667 },
-          p1: { x: endX, y: endY },
-          length: Math.hypot(endX - startX, endY - startY),
-        });
-      };
+      const waistRadius = 13 * dpr; // Tight central pinch waist
+      const edgeHeight = h * 0.48;  // Wide fanning horns at borders
+      const archHeight = 26 * dpr;  // Upward arch bridge at the throat
 
-      // 1. Straight Perspective Rays from Left Border
-      const sideRayCount = Math.floor(7 * density);
-      for (let i = 0; i <= sideRayCount; i++) {
-        const y = h * (0.02 + (i / sideRayCount) * 0.96);
-        addStraightRay(-w * 0.02, y);
-      }
+      // Normalized horizontal distance from center [-1, 1]
+      const dx = (tX - centerX) / (w * 0.5);
 
-      // 2. Straight Perspective Rays from Right Border
-      for (let i = 0; i <= sideRayCount; i++) {
-        const y = h * (0.02 + (i / sideRayCount) * 0.96);
-        addStraightRay(w * 1.02, y);
-      }
+      // Hyperbolic envelope: sqrt(waist^2 + (dx * edge)^2)
+      const halfH = Math.sqrt(waistRadius * waistRadius + (dx * edgeHeight) * (dx * edgeHeight));
 
-      // 3. Straight Perspective Rays from Top Border (ceiling grid)
-      const topRayCount = Math.floor(8 * density);
-      for (let i = 0; i <= topRayCount; i++) {
-        const x = w * (0.05 + (i / topRayCount) * 0.9);
-        addStraightRay(x, -h * 0.04);
-      }
+      // Upward parabolic arch profile (peaks at center)
+      const arch = -archHeight * Math.max(0, 1 - dx * dx * 1.5);
 
-      // 4. Straight Perspective Rays from Bottom Border (ground grid)
-      const bottomRayCount = Math.floor(10 * density);
-      for (let i = 0; i <= bottomRayCount; i++) {
-        const x = w * (0.03 + (i / bottomRayCount) * 0.94);
-        addStraightRay(x, h * 1.04);
-      }
+      // Streamline offset for track s (from -1 to 1)
+      const normS = (s - 0.5) * 2; // -1 (bottom-most) to +1 (top-most)
 
-      // 5. Corner rays
-      addStraightRay(0, 0);
-      addStraightRay(w, 0);
-      addStraightRay(0, h);
-      addStraightRay(w, h);
-
-      // Initialize moving dots along straight rays with calm, serene speed ("დინამიკა შეანელე")
-      const dotsPerPath = Math.max(1, Math.floor(2 * density));
-      paths.forEach((_, pathIdx) => {
-        for (let d = 0; d < dotsPerPath; d++) {
-          dots.push({
-            pathIndex: pathIdx,
-            progress: Math.random(),
-            // Much slower, tranquil drift speed
-            speed: (0.0003 + Math.random() * 0.0006) * speed,
-            size: (1.5 + Math.random() * 1.8) * (window.devicePixelRatio || 1),
-            alpha: 0.5 + Math.random() * 0.45,
-            tailLength: 0.025 + Math.random() * 0.035,
-          });
+      // Interactive subtle vertical response
+      let interactiveY = 0;
+      if (mouseRef.current.active) {
+        const mdx = (tX - mouseRef.current.x) / dpr;
+        const mdy = (centerY - mouseRef.current.y) / dpr;
+        const dist = Math.hypot(mdx, mdy);
+        if (dist < 180) {
+          interactiveY = (1 - dist / 180) * 8 * dpr * Math.sign(mdy);
         }
-      });
+      }
+
+      return {
+        x: tX,
+        y: centerY + arch + normS * halfH + interactiveY,
+        dx,
+      };
     };
 
-    generatePaths();
+    const initParticles = () => {
+      particles = [];
+      const dpr = window.devicePixelRatio || 1;
+      for (let i = 0; i < particlesCount; i++) {
+        particles.push({
+          track: Math.floor(Math.random() * streamCount),
+          t: Math.random(),
+          speed: (0.00035 + Math.random() * 0.00065) * speed,
+          size: (1.5 + Math.random() * 1.8) * dpr,
+          alpha: 0.65 + Math.random() * 0.35,
+        });
+      }
+    };
+
+    initParticles();
     window.addEventListener("resize", resize);
 
-    // Mouse tracking for subtle interactive deflection
     const handleMouseMove = (e: MouseEvent) => {
       if (!interactive || !canvas) return;
       const rect = canvas.getBoundingClientRect();
@@ -178,128 +135,108 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
     window.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseleave", handleMouseLeave);
 
-    // Render Animation Loop
     let lastTime = performance.now();
 
     const render = (time: number) => {
       const delta = Math.min((time - lastTime) / 16.666, 2.0);
       lastTime = time;
 
-      // Smooth mouse interpolation
+      const dpr = window.devicePixelRatio || 1;
+
       if (mouseRef.current.active) {
-        mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
-        mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
+        mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.06;
+        mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.06;
       }
 
-      // Clear & Draw Background (White / inverted)
+      // 1. Draw Background
       ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, width, height);
 
-      // Subtle ambient vignette / depth gradient in white-to-soft-cream
+      // Subtle ambient vignette in soft white/cream
       const radialGrad = ctx.createRadialGradient(
         width * 0.5,
-        height * 0.27,
+        height * 0.28,
         Math.min(width, height) * 0.08,
         width * 0.5,
-        height * 0.27,
+        height * 0.28,
         Math.max(width, height) * 0.75
       );
       radialGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
-      radialGrad.addColorStop(1, "rgba(246, 243, 236, 0.45)");
+      radialGrad.addColorStop(1, "rgba(246, 243, 236, 0.4)");
       ctx.fillStyle = radialGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // 1. Draw Flow Lines ("ზოლი" - Clean straight perspective lines)
-      ctx.lineWidth = 1.0 * (window.devicePixelRatio || 1);
-      paths.forEach((path) => {
-        ctx.beginPath();
-        ctx.moveTo(path.p0.x, path.p0.y);
-        ctx.lineTo(path.p1.x, path.p1.y);
+      // 2. Draw Streamline Tracks (Dotted Curves as in screenshot)
+      const samples = 70;
+      ctx.lineWidth = 1.0 * dpr;
+      ctx.setLineDash([1.4 * dpr, 3.8 * dpr]); // Exact dotted dash pattern from screenshot!
 
-        // Stroke gradient for graceful entry/exit
-        const lineGrad = ctx.createLinearGradient(path.p0.x, path.p0.y, path.p1.x, path.p1.y);
-        lineGrad.addColorStop(0, "rgba(0, 0, 0, 0.02)");
-        lineGrad.addColorStop(0.2, lineColor);
-        lineGrad.addColorStop(0.8, lineColor);
-        lineGrad.addColorStop(1, "rgba(0, 0, 0, 0.04)");
+      for (let i = 0; i < streamCount; i++) {
+        const s = i / (streamCount - 1);
+        ctx.beginPath();
+
+        for (let j = 0; j <= samples; j++) {
+          const tX = (j / samples) * width;
+          const pt = getStreamPoint(tX, s, dpr);
+          if (j === 0) ctx.moveTo(pt.x, pt.y);
+          else ctx.lineTo(pt.x, pt.y);
+        }
+
+        // Faint alpha for tracks, slightly denser toward center
+        const lineGrad = ctx.createLinearGradient(0, 0, width, 0);
+        lineGrad.addColorStop(0, "rgba(0, 0, 0, 0.08)");
+        lineGrad.addColorStop(0.35, "rgba(0, 0, 0, 0.16)");
+        lineGrad.addColorStop(0.5, "rgba(0, 0, 0, 0.24)");
+        lineGrad.addColorStop(0.65, "rgba(0, 0, 0, 0.16)");
+        lineGrad.addColorStop(1, "rgba(0, 0, 0, 0.08)");
 
         ctx.strokeStyle = lineGrad;
         ctx.stroke();
-      });
+      }
 
-      // 2. Draw Moving Black Dots & Motion Stream Trails ("მოძრავი წერტილები შავი")
-      dots.forEach((dot) => {
-        dot.progress += dot.speed * delta;
-        if (dot.progress > 1) {
-          dot.progress = 0;
+      // 3. Draw Moving Particles along the Streamlines ("მოძრავი წერტილები შავი")
+      ctx.setLineDash([]); // Solid circles
+
+      particles.forEach((p) => {
+        const s = p.track / (streamCount - 1);
+        const currentX = p.t * width;
+        const pt = getStreamPoint(currentX, s, dpr);
+
+        // Smooth physics-based acceleration through throat (Venturi effect)
+        const dx = pt.dx;
+        const speedBoost = 1.0 + (1 - Math.min(1, Math.abs(dx))) * 0.75;
+        p.t += p.speed * speedBoost * delta;
+
+        if (p.t > 1) {
+          p.t = 0;
+          p.track = Math.floor(Math.random() * streamCount);
         }
 
-        const path = paths[dot.pathIndex];
-        if (!path) return;
+        // Draw Motion trail
+        const prevX = Math.max(0, (p.t - 0.02) * width);
+        const prevPt = getStreamPoint(prevX, s, dpr);
 
-        // Current head position
-        const pt = getCubicBezierPoint(path.p0, path.cp1, path.cp2, path.p1, dot.progress);
-
-        // Trailing tail position
-        const tailProgress = Math.max(0, dot.progress - dot.tailLength);
-        const tailPt = getCubicBezierPoint(path.p0, path.cp1, path.cp2, path.p1, tailProgress);
-
-        // Draw Motion Stream Trail
-        const streamGrad = ctx.createLinearGradient(tailPt.x, tailPt.y, pt.x, pt.y);
-        streamGrad.addColorStop(0, "rgba(0, 0, 0, 0)");
-        streamGrad.addColorStop(1, `rgba(0, 0, 0, ${dot.alpha * 0.4})`);
+        const trailGrad = ctx.createLinearGradient(prevPt.x, prevPt.y, pt.x, pt.y);
+        trailGrad.addColorStop(0, "rgba(0, 0, 0, 0)");
+        trailGrad.addColorStop(1, `rgba(0, 0, 0, ${p.alpha * 0.4})`);
 
         ctx.beginPath();
-        ctx.moveTo(tailPt.x, tailPt.y);
+        ctx.moveTo(prevPt.x, prevPt.y);
         ctx.lineTo(pt.x, pt.y);
-        ctx.strokeStyle = streamGrad;
-        ctx.lineWidth = dot.size * 0.85;
+        ctx.strokeStyle = trailGrad;
+        ctx.lineWidth = p.size * 0.85;
         ctx.lineCap = "round";
         ctx.stroke();
 
-        // Draw Dot Particle
+        // Draw Particle Dot (Crisp black dot with subtle soft halo)
         ctx.beginPath();
-        ctx.arc(pt.x, pt.y, dot.size, 0, Math.PI * 2);
+        ctx.arc(pt.x, pt.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = dotColor;
-        ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
-        ctx.shadowBlur = 3 * (window.devicePixelRatio || 1);
+        ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+        ctx.shadowBlur = 3 * dpr;
         ctx.fill();
-        ctx.shadowBlur = 0; // reset
+        ctx.shadowBlur = 0;
       });
-
-      // 3. Central Subtle Gateway Portal Ring & Concentric Gateway Frames
-      const centerX = width * 0.5;
-      const centerY = height * 0.27;
-      const ringRadius = Math.min(width, height) * 0.12;
-
-      ctx.save();
-      // Concentric Gateway Perspective Frames
-      const frameCount = 3;
-      for (let f = 1; f <= frameCount; f++) {
-        const scale = f / frameCount;
-        const fW = Math.min(width * 0.65, 480 * (window.devicePixelRatio || 1)) * scale;
-        const fH = Math.min(height * 0.45, 260 * (window.devicePixelRatio || 1)) * scale;
-        ctx.strokeStyle = `rgba(0, 0, 0, ${0.03 + f * 0.02})`;
-        ctx.lineWidth = 0.8 * (window.devicePixelRatio || 1);
-        ctx.strokeRect(centerX - fW * 0.5, centerY - fH * 0.5, fW, fH);
-      }
-
-      // Outer dashed focal circle
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(0, 0, 0, 0.08)";
-      ctx.lineWidth = 1.0 * (window.devicePixelRatio || 1);
-      ctx.setLineDash([4 * (window.devicePixelRatio || 1), 6 * (window.devicePixelRatio || 1)]);
-      ctx.stroke();
-
-      // Inner faint focus ring
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, ringRadius * 0.55, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.lineWidth = 0.8 * (window.devicePixelRatio || 1);
-      ctx.setLineDash([]);
-      ctx.stroke();
-      ctx.restore();
 
       animFrameIdRef.current = requestAnimationFrame(render);
     };
