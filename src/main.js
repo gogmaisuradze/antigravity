@@ -309,7 +309,7 @@ function initBookingModal() {
 
   // Inject Modal HTML into the bottom of body
   const modalHTML = `
-    <div id="booking-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-[#1C3D63]/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div id="booking-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-3 sm:p-4 bg-[#1C3D63]/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
       <div class="bg-[#FFFFFF] rounded-[1.5rem] sm:rounded-[2rem] shadow-[0px_25px_60px_rgba(28,61,99,0.25)] border border-[#D8C4B6] max-w-4xl w-full relative transition-all duration-500 transform scale-95 max-h-[92vh] flex flex-col text-left overflow-hidden" id="booking-modal-card">
         
         <!-- Pinned Close Button: Fixed to top-right of modal card at all times, NEVER scrolls away -->
@@ -592,8 +592,8 @@ function initBookingModal() {
                     </button>
                   </div>
 
-                  <!-- QR Code Box for Phone (ტელეფონისთვის ქრ კოდით) -->
-                  <div class="bg-white border border-[#D8C4B6] rounded-2xl p-3 text-center shadow-inner flex flex-col items-center justify-center">
+                  <!-- QR Code Box for Phone (Desktop only, hidden on mobile) -->
+                  <div class="hidden md:flex bg-white border border-[#D8C4B6] rounded-2xl p-3 text-center shadow-inner flex-col items-center justify-center">
                     <div class="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto bg-white p-1.5 rounded-xl border border-[#D8C4B6] shadow-sm flex items-center justify-center">
                       <img id="modal-booking-qr-img" src="" alt="Scan QR code with phone" class="w-full h-full object-contain rounded-lg" />
                     </div>
@@ -857,10 +857,57 @@ function initBookingModal() {
     setModalQrCode(mobilePayUrl);
   }
 
+  function handleModalBankAction(bankKey) {
+    selectBank(bankKey);
+    const bank = banksData[bankKey] || banksData.bog;
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+
+    const curService = serviceSelect ? serviceSelect.value : 'სერვისი';
+    const curPrice = priceInput ? priceInput.value : '';
+    const fullPaymentDetails = `${bank.iban}\n${bank.recipient}\nვიზიტის საფასური - ${curService} (${curPrice})`;
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullPaymentDetails);
+      }
+    } catch (e) {}
+
+    const activeBtn = bankKey === 'bog' ? btnBog : btnTbc;
+    if (activeBtn) {
+      const badge = activeBtn.querySelector('span:last-child');
+      if (badge) {
+        const oldText = badge.textContent;
+        badge.textContent = '✓ დაკოპირდა!';
+        setTimeout(() => { badge.textContent = oldText; }, 3000);
+      }
+    }
+
+    if (isMobile) {
+      if (bankKey === 'bog') {
+        window.location.href = 'bogmbank://';
+        setTimeout(() => { window.open('https://ibank.bog.ge/', '_blank'); }, 1500);
+      } else if (bankKey === 'tbc') {
+        window.location.href = 'tbcbank://';
+        setTimeout(() => { window.open('https://tbconline.ge/', '_blank'); }, 1500);
+      }
+    }
+  }
+
   const btnBog = document.getElementById('modal-btn-bog');
   const btnTbc = document.getElementById('modal-btn-tbc');
-  if (btnBog) btnBog.addEventListener('click', () => selectBank('bog'));
-  if (btnTbc) btnTbc.addEventListener('click', () => selectBank('tbc'));
+  if (btnBog) btnBog.addEventListener('click', () => handleModalBankAction('bog'));
+  if (btnTbc) btnTbc.addEventListener('click', () => handleModalBankAction('tbc'));
+
+  const appLinkEl = document.getElementById('modal-bank-app-link');
+  if (appLinkEl) {
+    appLinkEl.addEventListener('click', (e) => {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+      if (isMobile) {
+        e.preventDefault();
+        handleModalBankAction(activeBankKey);
+      }
+    });
+  }
 
   // Form submission -> Step 2
   const modalForm = document.getElementById('booking-modal-form');
@@ -1619,23 +1666,29 @@ function initFAQAccordion() {
    10. Blog Page Quick Read Article Drawer (Modal-less Reader)
    ========================================================================== */
 function initBlogQuickRead() {
-  // Inject Drawer HTML
+  // Inject Drawer HTML with Sticky Top Control Bar and Auto-Collapsing Booking CTA
   const drawerHTML = `
-    <div id="quick-read-drawer" class="fixed inset-y-0 right-0 z-[110] w-full md:w-[650px] bg-[#F4F7F7] border-l border-[#D8C4B6] shadow-2xl transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto pointer-events-none">
-      <div class="relative p-8 md:p-12 space-y-8">
-        <button id="close-drawer-btn" class="absolute top-6 left-6 text-[#222222] hover:text-[#1C3D63] transition-colors focus:outline-none flex items-center gap-2 cursor-pointer">
-          <span class="material-symbols-outlined text-3xl">arrow_back</span>
+    <div id="quick-read-drawer" class="fixed inset-y-0 right-0 z-[110] w-full md:w-[650px] bg-[#F4F7F7] border-l border-[#D8C4B6] shadow-2xl transform translate-x-full transition-transform duration-500 ease-out overflow-y-auto pointer-events-none flex flex-col">
+      <!-- Fixed / Sticky Top Header so close button never scrolls away -->
+      <div class="sticky top-0 z-30 bg-[#F4F7F7]/95 backdrop-blur-md border-b border-[#D8C4B6]/60 px-4 sm:px-6 py-3 flex items-center justify-between shadow-xs shrink-0">
+        <button id="close-drawer-btn" class="text-[#1C3D63] hover:text-[#E0AC6B] transition-colors focus:outline-none flex items-center gap-1.5 cursor-pointer py-1.5 px-3 rounded-xl hover:bg-white/80 border border-transparent hover:border-[#D8C4B6]">
+          <span class="material-symbols-outlined text-2xl">arrow_back</span>
           <span class="text-xs uppercase tracking-widest font-label font-bold">დაბრუნება</span>
         </button>
-        
-        <div class="pt-12 space-y-6">
+        <button id="close-drawer-btn-x" class="w-9 h-9 rounded-full bg-white border border-[#D8C4B6] text-[#1C3D63] hover:bg-[#1C3D63] hover:text-white flex items-center justify-center transition-all shadow-xs cursor-pointer" title="დახურვა" aria-label="დახურვა">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <div class="relative p-5 sm:p-8 md:p-12 space-y-6 sm:space-y-8 flex-1">
+        <div class="space-y-6">
           <div class="flex items-center gap-4 text-xs font-label uppercase tracking-widest text-[#E0AC6B] font-bold" id="drawer-meta">
             <span>თვითგანვითარება</span>
             <span class="w-1.5 h-1.5 bg-[#E0AC6B] rounded-full"></span>
             <span>15 მარტი, 2024</span>
           </div>
           
-          <h2 class="text-4xl md:text-5xl font-headline italic text-[#1C3D63] leading-tight" id="drawer-title">სტატიის სათაური</h2>
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-headline italic text-[#1C3D63] leading-tight" id="drawer-title">სტატიის სათაური</h2>
           <button type="button" onclick="if(window.openAIChat) { document.getElementById('close-drawer-btn').click(); window.openAIChat(); }" class="mt-3 flex items-center justify-center gap-2 bg-white border border-[#D8C4B6] hover:bg-[#EAE5DF] hover:border-[#1C3D63] text-[#1C3D63] px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider transition-all uppercase w-full cursor-pointer shadow-sm">
             <span class="material-symbols-outlined text-sm text-[#E0AC6B]">psychology</span>
             <span>ჰკითხეთ მეტი ინტელექტუალურ ასისტენტს</span>
@@ -1645,13 +1698,14 @@ function initBlogQuickRead() {
             <img class="w-full h-full object-cover" id="drawer-image" src="" alt="article image"/>
           </div>
           
-          <div class="space-y-6 text-[#222222] font-normal leading-relaxed text-base md:text-lg pr-2" id="drawer-content">
+          <div class="space-y-6 text-[#222222] font-normal leading-relaxed text-sm sm:text-base md:text-lg pr-2" id="drawer-content">
             <!-- Article content will be dynamically loaded here -->
           </div>
           
-          <div class="border-t border-[#D8C4B6] pt-12 text-center">
-            <button class="booking-btn bg-[#1C3D63] text-white hover:bg-[#254F7F] px-8 py-3.5 rounded-xl font-medium tracking-wide active:scale-98 transition-all shadow-sm cursor-pointer">
-              დაგვიკავშირდით სესიისთვის
+          <div class="border-t border-[#D8C4B6] pt-8 pb-4 text-center">
+            <button id="drawer-booking-cta-btn" class="booking-btn bg-[#1C3D63] text-white hover:bg-[#254F7F] px-8 py-3.5 rounded-xl font-medium tracking-wide active:scale-98 transition-all shadow-sm cursor-pointer inline-flex items-center gap-2 text-xs sm:text-sm font-label">
+              <span class="material-symbols-outlined text-base text-[#E0AC6B]">calendar_month</span>
+              <span>დაგვიკავშირდით სესიისთვის</span>
             </button>
           </div>
         </div>
@@ -1795,9 +1849,26 @@ function initBlogQuickRead() {
     document.body.style.overflow = ''; // Unlock scroll
   }
 
+  const closeBtnX = document.getElementById('close-drawer-btn-x');
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  if (closeBtnX) closeBtnX.addEventListener('click', closeDrawer);
   backdrop.addEventListener('click', closeDrawer);
   
+  // Auto-collapse drawer and open booking modal when clicking booking CTA
+  const drawerBookingBtn = document.getElementById('drawer-booking-cta-btn');
+  if (drawerBookingBtn) {
+    drawerBookingBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeDrawer();
+      setTimeout(() => {
+        if (window.openBookingModal) {
+          window.openBookingModal('therapy', 'consultation');
+        }
+      }, 150);
+    });
+  }
+
   // ESC key closes drawer
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeDrawer();

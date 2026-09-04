@@ -600,7 +600,7 @@
 
     <div id="balance-app-root">
       <!-- Sunken Minimalist Window Container -->
-      <div class="bg-white p-6 md:p-12 rounded-3xl border border-[#D8C4B6] relative overflow-hidden transition-all duration-300 shadow-[inset_0_4px_30px_rgba(28,61,99,0.08),inset_0_1px_5px_rgba(0,0,0,0.07),0_14px_35px_rgba(28,61,99,0.04)]" id="balance-main-card">
+      <div class="bg-white p-3.5 sm:p-6 md:p-12 rounded-2xl sm:rounded-3xl border border-[#D8C4B6] relative overflow-hidden transition-all duration-300 shadow-[inset_0_4px_30px_rgba(28,61,99,0.08),inset_0_1px_5px_rgba(0,0,0,0.07),0_14px_35px_rgba(28,61,99,0.04)]" id="balance-main-card">
 
         <!-- Inset Inner Shadow Border Overlay for distinct recessed / sunken depth ("ჩაღრმავება") -->
         <div class="absolute inset-0 rounded-3xl pointer-events-none z-10 shadow-[inset_0_4px_24px_rgba(0,0,0,0.06),inset_0_-3px_16px_rgba(0,0,0,0.03)] border border-[#1C3D63]/10"></div>
@@ -724,17 +724,17 @@
         </div>
 
         <!-- Interactive 20-Question Screening Wizard -->
-        <div id="balance-quiz-wizard" class="hidden space-y-6 animate-fade-in">
+        <div id="balance-quiz-wizard" class="hidden space-y-4 sm:space-y-6 animate-fade-in w-full max-w-full overflow-x-hidden">
           
           <!-- Screening banner at the top of the wizard container -->
-          <div class="bg-[#F4F7F7] border border-[#D8C4B6] p-4 rounded-xl text-center">
+          <div class="bg-[#F4F7F7] border border-[#D8C4B6] p-3 sm:p-4 rounded-xl text-center">
             <p class="text-xs md:text-sm font-medium text-[#222222]">
               შეავსეთ 20-კითხვიანი სკრინინგი, რათა დაადგინოთ თქვენი ენერგიის რეალური გადანაწილება და მიიღოთ სიღრმისეული ფსიქოლოგიური ანალიზი
             </p>
           </div>
 
           <!-- Questions Container -->
-          <div id="quiz-questions-list" class="space-y-6">
+          <div id="quiz-questions-list" class="space-y-4 sm:space-y-6 w-full max-w-full overflow-x-hidden">
             <!-- Active Step Questions will be dynamically rendered here by JS -->
           </div>
 
@@ -1259,33 +1259,33 @@
         const q = questions[currentQuestionIdx];
         const selectedVal = answers[q.id];
         quizQuestionsList.innerHTML = `
-          <div class="flex flex-col space-y-6 p-6 sm:p-8 md:p-10 rounded-3xl bg-[#F4F7F7] border border-[#D8C4B6] shadow-sm relative transition-all">
+          <div class="flex flex-col space-y-4 sm:space-y-6 p-3.5 sm:p-6 md:p-10 rounded-2xl sm:rounded-3xl bg-[#F4F7F7] border border-[#D8C4B6] shadow-sm relative transition-all w-full max-w-full overflow-hidden">
             <!-- Instruction text relocated directly inside the question panel -->
-            <div class="flex items-center gap-2 text-xs md:text-sm text-[#8E8276] uppercase tracking-wider font-semibold pb-3 border-b border-[#D8C4B6] font-sans">
-              <span class="material-symbols-outlined text-[#E0AC6B] text-lg">info</span>
+            <div class="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs md:text-sm text-[#8E8276] uppercase tracking-wider font-semibold pb-2.5 sm:pb-3 border-b border-[#D8C4B6] font-sans">
+              <span class="material-symbols-outlined text-[#E0AC6B] text-base sm:text-lg shrink-0">info</span>
               <span>შეაფასეთ თითოეული დებულება თქვენი რეალური ყოველდღიურობიდან გამომდინარე:</span>
             </div>
 
             <!-- Question -->
-            <div class="text-base sm:text-lg md:text-xl font-bold text-[#1C3D63] tracking-wide pl-2 leading-relaxed min-h-[50px] flex items-center">
-              <span class="text-[#E0AC6B] font-mono font-bold text-xl sm:text-2xl mr-2.5 shrink-0">${currentQuestionIdx + 1}.</span>
+            <div class="text-sm sm:text-lg md:text-xl font-bold text-[#1C3D63] tracking-wide pl-1 sm:pl-2 leading-relaxed min-h-[44px] flex items-center">
+              <span class="text-[#E0AC6B] font-mono font-bold text-lg sm:text-2xl mr-2 shrink-0">${currentQuestionIdx + 1}.</span>
               <span>${q.text}</span>
             </div>
 
             <!-- Dials and Explanations logical row -->
-            <div class="flex flex-col items-center justify-center gap-4 pt-4 border-t border-[#D8C4B6] font-sans">
+            <div class="flex flex-col items-center justify-center gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-[#D8C4B6] font-sans w-full">
               <!-- dials container -->
-              <div class="flex items-center justify-center gap-3 sm:gap-4">
+              <div class="flex items-center justify-center gap-1.5 sm:gap-3 md:gap-4 w-full">
                 ${[1, 2, 3, 4, 5].map(num => {
                   const isActive = selectedVal === num;
                   const activeClass = isActive 
-                    ? 'bg-[#1C3D63] text-white font-bold border-[#1C3D63] shadow-md scale-110' 
+                    ? 'bg-[#1C3D63] text-white font-bold border-[#1C3D63] shadow-md scale-105 sm:scale-110' 
                     : 'bg-white hover:bg-[#F4F7F7] hover:border-[#1C3D63] text-[#222222] border-[#D8C4B6]';
                   return `
                     <button type="button" 
                       data-question-id="${q.id}" 
                       data-value="${num}" 
-                      class="rating-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full border flex items-center justify-center text-base sm:text-xl font-bold transition-all duration-200 transform active:scale-90 cursor-pointer shadow-sm ${activeClass}">
+                      class="rating-btn w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full border flex items-center justify-center text-sm sm:text-lg md:text-xl font-bold transition-all duration-200 transform active:scale-90 cursor-pointer shadow-sm shrink-0 ${activeClass}">
                       ${num}
                     </button>
                   `;
@@ -1293,21 +1293,21 @@
               </div>
 
               <!-- Logical Explanations directly underneath the dials -->
-              <div class="flex justify-between w-full max-w-lg text-[10px] sm:text-xs md:text-sm font-semibold uppercase tracking-wider px-2 mt-2">
+              <div class="flex justify-between w-full max-w-lg text-[9px] sm:text-xs md:text-sm font-semibold uppercase tracking-wider px-1 sm:px-2 mt-1 sm:mt-2">
                 <span class="text-[#8E8276] flex flex-col items-start w-1/2 text-left">
                   <span class="text-[#1C3D63] font-bold font-mono text-xs sm:text-sm">1</span>
-                  <span class="mt-1 leading-normal font-sans text-left">საერთოდ არ ვეთანხმები</span>
+                  <span class="mt-0.5 sm:mt-1 leading-normal font-sans text-left">საერთოდ არ ვეთანხმები</span>
                 </span>
                 <span class="text-[#1C3D63] flex flex-col items-end w-1/2 text-right">
                   <span class="font-bold font-mono text-xs sm:text-sm">5</span>
-                  <span class="mt-1 leading-normal font-sans text-right text-[#1C3D63]">სრულად ვეთანხმები</span>
+                  <span class="mt-0.5 sm:mt-1 leading-normal font-sans text-right text-[#1C3D63]">სრულად ვეთანხმები</span>
                 </span>
               </div>
             </div>
 
             <!-- Relocated Progress Header & Bar inside the active card at the bottom -->
-            <div class="space-y-3 pt-4 border-t border-[#D8C4B6] relative">
-              <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider pl-1 font-sans">
+            <div class="space-y-2 sm:space-y-3 pt-3 sm:pt-4 border-t border-[#D8C4B6] relative">
+              <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-1 text-[9px] sm:text-xs font-semibold uppercase tracking-wider pl-1 font-sans">
                 <span class="text-[#8E8276]">
                   <span class="text-[#1C3D63] font-bold">ბლოკი ${currentBlock + 1} / 4:</span> 
                   <span class="text-[#1C3D63]">${blockNames[currentBlock]}</span>
@@ -1318,7 +1318,7 @@
                 </span>
               </div>
               <!-- Gorgeous Custom Progress Bar with animated loading shimmer effect -->
-              <div class="w-full h-2.5 bg-white rounded-full overflow-hidden border border-[#D8C4B6] relative shadow-inner">
+              <div class="w-full h-2 sm:h-2.5 bg-white rounded-full overflow-hidden border border-[#D8C4B6] relative shadow-inner">
                 <div class="h-full progress-shimmer bg-gradient-to-r from-[#1C3D63] via-[#D8C4B6] to-[#E0AC6B] transition-all duration-500 rounded-full" style="width: ${completionRate}%;"></div>
               </div>
             </div>

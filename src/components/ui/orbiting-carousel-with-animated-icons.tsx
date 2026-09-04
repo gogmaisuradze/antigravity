@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from "lucide-react";
 
@@ -344,12 +344,54 @@ export const OrbitCarousel: React.FC<OrbitCarouselProps> = ({
   }, [selectedIndex, total]);
 
   const next = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % total);
-  }, [total]);
+    setActiveIndex((prev) => {
+      const nextIdx = (prev + 1) % total;
+      if (onSelect) onSelect(items[nextIdx], nextIdx);
+      return nextIdx;
+    });
+  }, [total, items, onSelect]);
 
   const prev = useCallback(() => {
-    setActiveIndex((prev) => (prev - 1 + total) % total);
-  }, [total]);
+    setActiveIndex((prev) => {
+      const prevIdx = (prev - 1 + total) % total;
+      if (onSelect) onSelect(items[prevIdx], prevIdx);
+      return prevIdx;
+    });
+  }, [total, items, onSelect]);
+
+  // Touch Swipe Gesture Handling for Mobile Devices
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStartRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        time: Date.now(),
+      };
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const deltaX = endX - touchStartRef.current.x;
+    const deltaY = endY - touchStartRef.current.y;
+    const duration = Date.now() - touchStartRef.current.time;
+    touchStartRef.current = null;
+
+    // Minimum swipe threshold (30px) within 800ms
+    if (duration < 800) {
+      if (Math.abs(deltaX) > 30 && Math.abs(deltaX) > Math.abs(deltaY) * 0.7) {
+        if (deltaX < 0) {
+          next(); // swipe left -> next model
+        } else {
+          prev(); // swipe right -> prev model
+        }
+      }
+    }
+  };
 
   const selectItem = useCallback(
     (idx: number) => {
@@ -394,6 +436,8 @@ export const OrbitCarousel: React.FC<OrbitCarouselProps> = ({
       className={`w-full flex flex-col items-center justify-center p-3 sm:p-6 lg:p-10 relative select-none rounded-3xl border border-[#D8C4B6] bg-[#FAF7F2] shadow-[0_15px_45px_rgba(28,61,99,0.06)] transition-all duration-300 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Background Decorative Rings & Ambient Aura */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden rounded-3xl">
@@ -418,7 +462,9 @@ export const OrbitCarousel: React.FC<OrbitCarouselProps> = ({
       {/* Orbit & Center Container */}
       <div
         className="relative flex items-center justify-center my-3 sm:my-6"
-        style={{ width: diameter, height: diameter, maxWidth: "100%" }}
+        style={{ width: diameter, height: diameter, maxWidth: "100%", touchAction: "pan-y" }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {/* CENTER ACTIVE CARD */}
         <AnimatePresence mode="wait">
