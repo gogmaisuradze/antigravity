@@ -183,6 +183,28 @@
       width: 235px !important;
     }
   </style>
+  <!-- Critical Anti-FOUC Protection -->
+  <style>
+    header img[alt="IDC Logo"] {
+      width: 48px !important;
+      height: 48px !important;
+      max-width: 48px !important;
+      max-height: 48px !important;
+      object-fit: contain !important;
+    }
+    .hidden { display: none !important; }
+    @media (max-width: 767px) {
+      .md\:hidden { display: inline-flex !important; }
+      .md\:flex, .md\:inline, .md\:block, .md\:grid { display: none !important; }
+    }
+    @media (min-width: 768px) {
+      .md\:hidden { display: none !important; }
+      .hidden.md\:inline { display: inline-flex !important; }
+      .hidden.md\:flex { display: flex !important; }
+      .hidden.md\:block { display: block !important; }
+      .hidden.md\:grid { display: grid !important; }
+    }
+  </style>
 </head>
 <body class="h-screen w-screen flex flex-col antialiased selection:bg-[#E0AC6B]/25 selection:text-[#1C3D63] bg-[#F6F3EC] relative text-[#222222]">
   <!-- Minimalist Ambient Glow Background -->
@@ -202,11 +224,11 @@
     <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto h-full z-10">
       <!-- Desktop Logo (Goes to logic.html) -->
       <a href="logic.html" id="logo-link-desktop" class="hidden md:flex hover:opacity-90 transition-opacity duration-300 items-center">
-        <img alt="IDC Logo" class="object-contain max-w-none h-16 w-16 transition-all duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: normal;"/>
+        <img alt="IDC Logo" width="64" height="64" class="object-contain max-w-none h-16 w-16 transition-all duration-300 hover:scale-105" src="/src/logo.png" style="width: 64px; height: 64px; max-width: 64px; max-height: 64px; mix-blend-mode: normal; object-fit: contain;"/>
       </a>
       <!-- Mobile Logo (Goes to index.html) -->
       <a href="index.html" id="logo-link-mobile" class="md:hidden flex hover:opacity-90 transition-opacity duration-300 items-center">
-        <img alt="IDC Logo" class="object-contain max-w-none h-12 w-12 transition-all duration-300 hover:scale-105" src="/src/logo.png" style="mix-blend-mode: normal;"/>
+        <img alt="IDC Logo" width="48" height="48" class="object-contain max-w-none h-12 w-12 transition-all duration-300 hover:scale-105" src="/src/logo.png" style="width: 48px; height: 48px; max-width: 48px; max-height: 48px; mix-blend-mode: normal; object-fit: contain;"/>
       </a>
     </div>
 
