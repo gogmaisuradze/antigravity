@@ -13,8 +13,8 @@ export function initBalanceGatewayFlow() {
         backgroundColor="#ffffff"
         lineColor="rgba(0, 0, 0, 0.12)"
         dotColor="#000000"
-        speed={1.2}
-        density={1.1}
+        speed={0.4}
+        density={1.0}
         interactive={true}
       />
     );

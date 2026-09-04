@@ -95,97 +95,64 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       const w = width;
       const h = height;
       const centerX = w * 0.5;
-      const centerY = h * 0.42;
-      const gatewayWidth = Math.min(w * 0.42, 360 * (window.devicePixelRatio || 1));
-      const gatewayHeight = Math.min(h * 0.48, 220 * (window.devicePixelRatio || 1));
+      const centerY = h * 0.32; // Elevated focal point aligned right behind start button
 
-      // 1. Horizontal / Converging Perspective Streamlines
-      const streamCount = Math.floor(18 * density);
-      for (let i = 0; i < streamCount; i++) {
-        const side = i % 2 === 0 ? -1 : 1;
-        const progressY = i / streamCount;
-        
-        // Start from left or right edge
-        const startX = side === -1 ? -w * 0.05 : w * 1.05;
-        const startY = h * 0.12 + progressY * h * 0.78;
-
-        // End directly in the central gateway hub
-        const endX = centerX + side * (gatewayWidth * 0.4 * (1 - progressY * 0.7));
-        const endY = centerY + (progressY - 0.5) * 40 * (window.devicePixelRatio || 1);
-
-        // Curved control points for dynamic graceful gateway arching
-        const cp1X = startX + (centerX - startX) * 0.4;
-        const cp1Y = startY + (side * 40 * (window.devicePixelRatio || 1));
-        const cp2X = centerX - side * (gatewayWidth * 0.25);
-        const cp2Y = endY - (20 * (window.devicePixelRatio || 1));
-
+      // Helper to generate a 100% perfectly straight perspective ray towards the center
+      const addStraightRay = (startX: number, startY: number, endX = centerX, endY = centerY) => {
         paths.push({
           p0: { x: startX, y: startY },
-          cp1: { x: cp1X, y: cp1Y },
-          cp2: { x: cp2X, y: cp2Y },
+          cp1: { x: startX + (endX - startX) * 0.333, y: startY + (endY - startY) * 0.333 },
+          cp2: { x: startX + (endX - startX) * 0.667, y: startY + (endY - startY) * 0.667 },
           p1: { x: endX, y: endY },
           length: Math.hypot(endX - startX, endY - startY),
         });
+      };
+
+      // 1. Straight Perspective Rays from Left Border
+      const sideRayCount = Math.floor(7 * density);
+      for (let i = 0; i <= sideRayCount; i++) {
+        const y = h * (0.02 + (i / sideRayCount) * 0.96);
+        addStraightRay(-w * 0.02, y);
       }
 
-      // 2. Gateway Arch Portal Curves (Center converging geometry)
-      const archCount = Math.floor(8 * density);
-      for (let i = 0; i < archCount; i++) {
-        const span = (i + 1) / archCount;
-        const archW = gatewayWidth * (0.3 + span * 0.7);
-        const archTopY = centerY - gatewayHeight * 0.5 * (0.4 + span * 0.6);
-        const bottomY = centerY + gatewayHeight * 0.55;
-
-        // Left-to-Right Arch
-        paths.push({
-          p0: { x: centerX - archW * 0.5, y: bottomY },
-          cp1: { x: centerX - archW * 0.45, y: archTopY },
-          cp2: { x: centerX + archW * 0.45, y: archTopY },
-          p1: { x: centerX + archW * 0.5, y: bottomY },
-          length: archW * 2,
-        });
-
-        // Downward Converging Gateway Funnel Streams (converging into center button)
-        paths.push({
-          p0: { x: centerX - archW * 0.6, y: -h * 0.05 },
-          cp1: { x: centerX - archW * 0.3, y: centerY * 0.5 },
-          cp2: { x: centerX - (i * 10), y: centerY - 15 },
-          p1: { x: centerX, y: centerY },
-          length: h,
-        });
-        paths.push({
-          p0: { x: centerX + archW * 0.6, y: -h * 0.05 },
-          cp1: { x: centerX + archW * 0.3, y: centerY * 0.5 },
-          cp2: { x: centerX + (i * 10), y: centerY - 15 },
-          p1: { x: centerX, y: centerY },
-          length: h,
-        });
+      // 2. Straight Perspective Rays from Right Border
+      for (let i = 0; i <= sideRayCount; i++) {
+        const y = h * (0.02 + (i / sideRayCount) * 0.96);
+        addStraightRay(w * 1.02, y);
       }
 
-      // 3. Ground Perspective Lines (flowing into the distance toward center)
-      const groundLines = Math.floor(12 * density);
-      for (let i = 0; i < groundLines; i++) {
-        const spread = (i / (groundLines - 1) - 0.5) * 2;
-        paths.push({
-          p0: { x: centerX + spread * w * 0.55, y: h * 1.05 },
-          cp1: { x: centerX + spread * w * 0.35, y: h * 0.85 },
-          cp2: { x: centerX + spread * gatewayWidth * 0.3, y: centerY + 50 },
-          p1: { x: centerX, y: centerY },
-          length: h * 0.6,
-        });
+      // 3. Straight Perspective Rays from Top Border (ceiling grid)
+      const topRayCount = Math.floor(8 * density);
+      for (let i = 0; i <= topRayCount; i++) {
+        const x = w * (0.05 + (i / topRayCount) * 0.9);
+        addStraightRay(x, -h * 0.04);
       }
 
-      // Initialize moving dots along each generated path
-      const dotsPerPath = Math.max(2, Math.floor(3 * density));
+      // 4. Straight Perspective Rays from Bottom Border (ground grid)
+      const bottomRayCount = Math.floor(10 * density);
+      for (let i = 0; i <= bottomRayCount; i++) {
+        const x = w * (0.03 + (i / bottomRayCount) * 0.94);
+        addStraightRay(x, h * 1.04);
+      }
+
+      // 5. Corner rays
+      addStraightRay(0, 0);
+      addStraightRay(w, 0);
+      addStraightRay(0, h);
+      addStraightRay(w, h);
+
+      // Initialize moving dots along straight rays with calm, serene speed ("დინამიკა შეანელე")
+      const dotsPerPath = Math.max(1, Math.floor(2 * density));
       paths.forEach((_, pathIdx) => {
         for (let d = 0; d < dotsPerPath; d++) {
           dots.push({
             pathIndex: pathIdx,
             progress: Math.random(),
-            speed: (0.0008 + Math.random() * 0.0016) * speed,
-            size: (1.6 + Math.random() * 2.2) * (window.devicePixelRatio || 1),
+            // Much slower, tranquil drift speed
+            speed: (0.0003 + Math.random() * 0.0006) * speed,
+            size: (1.5 + Math.random() * 1.8) * (window.devicePixelRatio || 1),
             alpha: 0.5 + Math.random() * 0.45,
-            tailLength: 0.03 + Math.random() * 0.04,
+            tailLength: 0.025 + Math.random() * 0.035,
           });
         }
       });
@@ -231,10 +198,10 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       // Subtle ambient vignette / depth gradient in white-to-soft-cream
       const radialGrad = ctx.createRadialGradient(
         width * 0.5,
-        height * 0.42,
-        Math.min(width, height) * 0.1,
+        height * 0.32,
+        Math.min(width, height) * 0.08,
         width * 0.5,
-        height * 0.42,
+        height * 0.32,
         Math.max(width, height) * 0.75
       );
       radialGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
@@ -242,34 +209,12 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       ctx.fillStyle = radialGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // 1. Draw Flow Lines ("ზოლი" - Black with subtle transparency)
+      // 1. Draw Flow Lines ("ზოლი" - Clean straight perspective lines)
       ctx.lineWidth = 1.0 * (window.devicePixelRatio || 1);
       paths.forEach((path) => {
         ctx.beginPath();
         ctx.moveTo(path.p0.x, path.p0.y);
-
-        // Gentle interactive warp if mouse is nearby
-        let cp1x = path.cp1.x;
-        let cp1y = path.cp1.y;
-        let cp2x = path.cp2.x;
-        let cp2y = path.cp2.y;
-
-        if (mouseRef.current.active) {
-          const midX = (path.cp1.x + path.cp2.x) * 0.5;
-          const midY = (path.cp1.y + path.cp2.y) * 0.5;
-          const dist = Math.hypot(mouseRef.current.x - midX, mouseRef.current.y - midY);
-          const maxDist = 240 * (window.devicePixelRatio || 1);
-          if (dist < maxDist) {
-            const force = (1 - dist / maxDist) * 16 * (window.devicePixelRatio || 1);
-            const angle = Math.atan2(midY - mouseRef.current.y, midX - mouseRef.current.x);
-            cp1x += Math.cos(angle) * force;
-            cp1y += Math.sin(angle) * force;
-            cp2x += Math.cos(angle) * force;
-            cp2y += Math.sin(angle) * force;
-          }
-        }
-
-        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, path.p1.x, path.p1.y);
+        ctx.lineTo(path.p1.x, path.p1.y);
 
         // Stroke gradient for graceful entry/exit
         const lineGrad = ctx.createLinearGradient(path.p0.x, path.p0.y, path.p1.x, path.p1.y);
@@ -308,7 +253,7 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
         ctx.moveTo(tailPt.x, tailPt.y);
         ctx.lineTo(pt.x, pt.y);
         ctx.strokeStyle = streamGrad;
-        ctx.lineWidth = dot.size * 0.9;
+        ctx.lineWidth = dot.size * 0.85;
         ctx.lineCap = "round";
         ctx.stroke();
 
@@ -317,21 +262,33 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
         ctx.arc(pt.x, pt.y, dot.size, 0, Math.PI * 2);
         ctx.fillStyle = dotColor;
         ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
-        ctx.shadowBlur = 4 * (window.devicePixelRatio || 1);
+        ctx.shadowBlur = 3 * (window.devicePixelRatio || 1);
         ctx.fill();
         ctx.shadowBlur = 0; // reset
       });
 
-      // 3. Central Subtle Gateway Portal Ring (Minimalist modern architectural ring)
+      // 3. Central Subtle Gateway Portal Ring & Concentric Gateway Frames
       const centerX = width * 0.5;
-      const centerY = height * 0.42;
-      const ringRadius = Math.min(width, height) * 0.15;
+      const centerY = height * 0.32;
+      const ringRadius = Math.min(width, height) * 0.12;
 
       ctx.save();
+      // Concentric Gateway Perspective Frames
+      const frameCount = 3;
+      for (let f = 1; f <= frameCount; f++) {
+        const scale = f / frameCount;
+        const fW = Math.min(width * 0.65, 480 * (window.devicePixelRatio || 1)) * scale;
+        const fH = Math.min(height * 0.45, 260 * (window.devicePixelRatio || 1)) * scale;
+        ctx.strokeStyle = `rgba(0, 0, 0, ${0.03 + f * 0.02})`;
+        ctx.lineWidth = 0.8 * (window.devicePixelRatio || 1);
+        ctx.strokeRect(centerX - fW * 0.5, centerY - fH * 0.5, fW, fH);
+      }
+
+      // Outer dashed focal circle
       ctx.beginPath();
       ctx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
       ctx.strokeStyle = "rgba(0, 0, 0, 0.08)";
-      ctx.lineWidth = 1.2 * (window.devicePixelRatio || 1);
+      ctx.lineWidth = 1.0 * (window.devicePixelRatio || 1);
       ctx.setLineDash([4 * (window.devicePixelRatio || 1), 6 * (window.devicePixelRatio || 1)]);
       ctx.stroke();
 
@@ -339,7 +296,7 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       ctx.beginPath();
       ctx.arc(centerX, centerY, ringRadius * 0.55, 0, Math.PI * 2);
       ctx.strokeStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.lineWidth = 1.0 * (window.devicePixelRatio || 1);
+      ctx.lineWidth = 0.8 * (window.devicePixelRatio || 1);
       ctx.setLineDash([]);
       ctx.stroke();
       ctx.restore();
