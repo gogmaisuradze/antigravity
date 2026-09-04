@@ -403,7 +403,10 @@ export default function App() {
     setDeliveryPhone(phone);
 
     const activeProfile = profile || userProfile;
-    const effectiveBirthTime = birthTime || activeProfile?.birthTime;
+    const effectiveBirthTime = (birthTime || activeProfile?.birthTime || localStorage.getItem("idc_user_birthtime") || "").trim() || undefined;
+    if (activeProfile && effectiveBirthTime && !activeProfile.birthTime) {
+      activeProfile.birthTime = effectiveBirthTime;
+    }
 
     // Fast initial delay (1.2s) to show loading screen first before short summary appears
     setTimeout(() => {
@@ -1316,7 +1319,7 @@ export default function App() {
             {/* 3. Models Table of Contents / Index (შესვლის სარჩევი) */}
             <ModelCatalog
               onSelect={(type) => {
-                handleSelectReading(userProfile.phone, type);
+                handleSelectReading(userProfile.phone, type, userProfile.birthTime, userProfile);
                 const el = document.getElementById("reading-display");
                 if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
               }}

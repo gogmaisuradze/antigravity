@@ -3,6 +3,7 @@ import { BirthProfile, CalculationType } from "../types";
 import { MapPin, Calendar, ShieldAlert, Sparkles, RefreshCw, ArrowLeft, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
 import { RollerPicker, playTickSound, getSharedAudioContext } from "./RollerPicker";
 import { API_URLS } from "../config";
+import { saveProfile } from "../lib/api";
 import OrbitCarousel, { defaultOrbitModels, OrbitItem } from "./ui/orbiting-carousel-with-animated-icons";
 
 const THEMES = [
@@ -380,27 +381,23 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   };
 
   const handleMonthSelect = (m: number) => {
-    setCalMonth(m);
-    const maxD = new Date(calYear, m, 0).getDate();
-    if (day > maxD) {
-      setDay(maxD);
-      setDateInputText(`${String(maxD).padStart(2, '0')} / ${String(m).padStart(2, '0')} / ${calYear}`);
-    } else {
-      setMonth(m);
-      setDateInputText(`${String(day).padStart(2, '0')} / ${String(m).padStart(2, '0')} / ${calYear}`);
-    }
+    const numM = Number(m);
+    setCalMonth(numM);
+    setMonth(numM);
+    const maxD = new Date(calYear, numM, 0).getDate();
+    const targetD = Math.min(day, maxD);
+    setDay(targetD);
+    setDateInputText(`${String(targetD).padStart(2, '0')} / ${String(numM).padStart(2, '0')} / ${calYear}`);
   };
 
   const handleYearSelect = (y: number) => {
-    setCalYear(y);
-    const maxD = new Date(y, calMonth, 0).getDate();
-    if (day > maxD) {
-      setDay(maxD);
-      setDateInputText(`${String(maxD).padStart(2, '0')} / ${String(calMonth).padStart(2, '0')} / ${y}`);
-    } else {
-      setYear(y);
-      setDateInputText(`${String(day).padStart(2, '0')} / ${String(calMonth).padStart(2, '0')} / ${y}`);
-    }
+    const numY = Number(y);
+    setCalYear(numY);
+    setYear(numY);
+    const maxD = new Date(numY, calMonth, 0).getDate();
+    const targetD = Math.min(day, maxD);
+    setDay(targetD);
+    setDateInputText(`${String(targetD).padStart(2, '0')} / ${String(calMonth).padStart(2, '0')} / ${numY}`);
   };
 
   const handleDateTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -528,10 +525,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
     const finalBirthPlace = birthPlace.trim() || "საქართველო";
 
-    // Ensure final date is strictly in sync with what user might have typed
-    let finalDay = day;
-    let finalMonth = month;
-    let finalYear = year;
+    // Ensure final date is strictly in sync with what user chose or typed
+    let finalDay = Number(day);
+    let finalMonth = Number(month);
+    let finalYear = Number(year);
+
     if (useStandardCalendar && dateInputText) {
       const digits = dateInputText.replace(/\D/g, "");
       if (digits.length >= 8) {
@@ -556,7 +554,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       month: finalMonth,
       year: finalYear,
       birthTime: birthTime.trim() || undefined,
-      phone: normalizedPhone
+      phone: normalizedPhone,
+      createdAt: new Date().toISOString()
     };
 
     // 1. Immediately store to local storage so user data is permanently safe and ready
@@ -577,20 +576,12 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       console.error("Error updating saved_profiles:", e);
     }
 
-    // 2. Dispatch background save to n8n backend without blocking user experience
-    fetch(API_URLS.saveProfile, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(profileObj),
-    })
-      .then(async (r) => {
-        if (!r.ok) {
-          console.warn("Backend saveProfile returned status:", r.status);
-        }
-      })
-      .catch((err) => {
-        console.warn("Backend saveProfile network error:", err);
-      });
+    // 2. Await saving to backend so database is guaranteed updated with the new date/time before analysis runs
+    try {
+      await saveProfile(profileObj);
+    } catch (saveErr) {
+      console.warn("Backend saveProfile error:", saveErr);
+    }
 
     // 3. Immediately launch analysis with the profile and chosen theme!
     onProfileSaved(profileObj, selectedTheme);
@@ -973,7 +964,12 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                     variant="ios-dark"
                     items={monthsItems}
                     selectedValue={month}
-                    onChange={setMonth}
+                    onChange={(m) => {
+                      const numM = Number(m);
+                      setMonth(numM);
+                      setCalMonth(numM);
+                      setDateInputText(`${String(day).padStart(2, '0')} / ${String(numM).padStart(2, '0')} / ${year}`);
+                    }}
                   />
                 </div>
 
@@ -983,7 +979,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                     variant="ios-dark"
                     items={daysItems}
                     selectedValue={day}
-                    onChange={setDay}
+                    onChange={(d) => {
+                      const numD = Number(d);
+                      setDay(numD);
+                      setDateInputText(`${String(numD).padStart(2, '0')} / ${String(month).padStart(2, '0')} / ${year}`);
+                    }}
                   />
                 </div>
 
@@ -993,7 +993,12 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                     variant="ios-dark"
                     items={yearsItems}
                     selectedValue={year}
-                    onChange={setYear}
+                    onChange={(y) => {
+                      const numY = Number(y);
+                      setYear(numY);
+                      setCalYear(numY);
+                      setDateInputText(`${String(day).padStart(2, '0')} / ${String(month).padStart(2, '0')} / ${numY}`);
+                    }}
                   />
                 </div>
               </div>

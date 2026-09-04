@@ -12,10 +12,45 @@ export async function getProfile(phone: string): Promise<{ success: boolean; exi
 }
 
 export async function saveProfile(profile: Omit<BirthProfile, 'createdAt'>): Promise<{ success: boolean; profile?: BirthProfile; error?: string }> {
+  const yyyy = Number(profile.year);
+  const mmNum = Number(profile.month);
+  const ddNum = Number(profile.day);
+  const mm = String(mmNum).padStart(2, '0');
+  const dd = String(ddNum).padStart(2, '0');
+  const effectiveTime = profile.birthTime?.trim() || "";
+
+  const payload: any = {
+    ...profile,
+    name: profile.name,
+    surname: profile.surname,
+    phone: profile.phone,
+    birthPlace: profile.birthPlace,
+    day: ddNum,
+    month: mmNum,
+    year: yyyy,
+    birthDay: ddNum,
+    birth_day: ddNum,
+    birthMonth: mmNum,
+    birth_month: mmNum,
+    birthYear: yyyy,
+    birth_year: yyyy,
+    birthDate: `${yyyy}-${mm}-${dd}`,
+    birthdate: `${yyyy}-${mm}-${dd}`,
+    birth_date: `${dd}.${mm}.${yyyy}`,
+    date: `${dd}.${mm}.${yyyy}`,
+    birthTime: effectiveTime || undefined,
+  };
+
+  if (effectiveTime) {
+    payload.time = effectiveTime;
+    payload.hour = effectiveTime;
+    payload.birth_time = effectiveTime;
+  }
+
   const r = await fetch(API_URLS.saveProfile, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(profile),
+    body: JSON.stringify(payload),
   });
   if (!r.ok) throw new Error(`saveProfile failed: ${r.status}`);
   return r.json();
@@ -37,19 +72,48 @@ export async function generateReading(
   profile?: Partial<BirthProfile>
 ): Promise<ReadingResponse> {
   const mappedType = mapCalculationTypeToN8n(type);
+  const effectiveTime = (birthTime || profile?.birthTime || "").trim();
+
   const payload: any = {
     phone,
     type: mappedType,
-    birthTime: birthTime || profile?.birthTime,
+    birthTime: effectiveTime || undefined,
   };
+
   if (profile) {
+    const yyyy = Number(profile.year);
+    const mmNum = Number(profile.month);
+    const ddNum = Number(profile.day);
+    const mm = String(mmNum).padStart(2, '0');
+    const dd = String(ddNum).padStart(2, '0');
+
     if (profile.name) payload.name = profile.name;
     if (profile.surname) payload.surname = profile.surname;
-    if (profile.day) payload.day = profile.day;
-    if (profile.month) payload.month = profile.month;
-    if (profile.year) payload.year = profile.year;
     if (profile.birthPlace) payload.birthPlace = profile.birthPlace;
+
+    if (yyyy && mmNum && ddNum) {
+      payload.day = ddNum;
+      payload.month = mmNum;
+      payload.year = yyyy;
+      payload.birthDay = ddNum;
+      payload.birth_day = ddNum;
+      payload.birthMonth = mmNum;
+      payload.birth_month = mmNum;
+      payload.birthYear = yyyy;
+      payload.birth_year = yyyy;
+      payload.birthDate = `${yyyy}-${mm}-${dd}`;
+      payload.birthdate = `${yyyy}-${mm}-${dd}`;
+      payload.birth_date = `${dd}.${mm}.${yyyy}`;
+      payload.date = `${dd}.${mm}.${yyyy}`;
+    }
   }
+
+  if (effectiveTime) {
+    payload.time = effectiveTime;
+    payload.hour = effectiveTime;
+    payload.birth_time = effectiveTime;
+  }
+
   const r = await fetch(API_URLS.generateReading, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

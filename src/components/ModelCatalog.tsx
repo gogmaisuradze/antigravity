@@ -121,8 +121,8 @@ export const ModelCatalog: React.FC<ModelCatalogProps> = ({
         </div>
       </div>
 
-      {/* Grid of Catalog Models */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+      {/* Grid of Catalog Models: 4 columns x 2 rows on desktop */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         {CATALOG_MODELS.map((model) => {
           const isSelected = selectedType === model.id;
           const isPreferred = preferredTheme === model.id;
@@ -131,7 +131,7 @@ export const ModelCatalog: React.FC<ModelCatalogProps> = ({
             <div
               key={model.id}
               onClick={() => onSelect(model.id)}
-              className={`group relative p-6 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden text-left shadow-sm hover:shadow-md ${
+              className={`group relative p-4 sm:p-4.5 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden text-left shadow-xs hover:shadow-md ${
                 isSelected
                   ? "bg-white border-2 border-[#1C3D63] shadow-md ring-2 ring-[#1C3D63]/10"
                   : "bg-white hover:bg-[#FAF8F5] border-[#D8C4B6] hover:border-[#1C3D63]/70"
@@ -144,56 +144,56 @@ export const ModelCatalog: React.FC<ModelCatalogProps> = ({
 
               <div>
                 {/* Top Row: Numeral, Badges & Icon */}
-                <div className="flex items-center justify-between mb-3.5">
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-8 h-8 rounded-xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-xs font-bold text-[#1C3D63] font-headline group-hover:bg-[#1C3D63] group-hover:text-white transition-colors">
+                <div className="flex items-center justify-between mb-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-xs font-bold text-[#1C3D63] font-headline group-hover:bg-[#1C3D63] group-hover:text-white transition-colors">
                       {model.numeral}
                     </span>
                     {isPreferred && (
-                      <span className="px-2.5 py-0.5 bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-[10px] font-bold uppercase rounded-full tracking-wider font-sans">
+                      <span className="px-2 py-0.5 bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-[9px] font-bold uppercase rounded-full tracking-wider font-sans">
                         არჩეული
                       </span>
                     )}
                   </div>
 
-                  <div className="w-9 h-9 rounded-xl bg-[#FAF8F5] border border-[#D8C4B6]/60 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-7 h-7 rounded-lg bg-[#FAF8F5] border border-[#D8C4B6]/60 flex items-center justify-center group-hover:scale-110 transition-transform text-[#E0AC6B]">
                     {model.icon}
                   </div>
                 </div>
 
                 {/* Title & Subtitle */}
-                <h4 className="text-base font-bold font-headline text-[#1C3D63] group-hover:text-[#254F7F] transition-colors mb-1 tracking-wide">
+                <h4 className="text-sm sm:text-[15px] font-bold font-headline text-[#1C3D63] group-hover:text-[#254F7F] transition-colors mb-0.5 tracking-wide leading-snug">
                   {model.title}
                 </h4>
-                <p className="text-[11px] font-semibold text-[#E0AC6B] uppercase tracking-wider mb-2.5 font-headline">
+                <p className="text-[10px] sm:text-[10.5px] font-semibold text-[#E0AC6B] uppercase tracking-wider mb-2 font-headline truncate">
                   {model.subtitle}
                 </p>
 
                 {/* Description */}
-                <p className="text-xs text-[#3B5E63] font-light leading-relaxed mb-4 line-clamp-2">
+                <p className="text-[11px] sm:text-xs text-[#3B5E63] font-light leading-relaxed mb-3 line-clamp-2">
                   {model.description}
                 </p>
               </div>
 
               {/* Bottom Footer: Tags & Start Action */}
-              <div className="pt-3 border-t border-[#D8C4B6]/50 flex items-center justify-between">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  {model.tags.map((tag) => (
+              <div className="pt-2.5 border-t border-[#D8C4B6]/50 flex items-center justify-between gap-1">
+                <div className="flex items-center gap-1 flex-wrap overflow-hidden">
+                  {model.tags.slice(0, 2).map((tag) => (
                     <span
                       key={tag}
-                      className="text-[10px] bg-[#F4F7F7] text-[#8E8276] px-2 py-0.5 rounded-md border border-[#D8C4B6]/40 font-medium"
+                      className="text-[9px] bg-[#F4F7F7] text-[#8E8276] px-1.5 py-0.5 rounded border border-[#D8C4B6]/40 font-medium whitespace-nowrap"
                     >
                       #{tag}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex items-center gap-1 text-xs font-bold text-[#1C3D63] group-hover:text-[#254F7F] uppercase tracking-wider shrink-0 font-headline pl-2">
+                <div className="flex items-center gap-1 text-[11px] font-bold text-[#1C3D63] group-hover:text-[#254F7F] uppercase tracking-wider shrink-0 font-headline pl-1">
                   <span>{isSelected ? "აქტიურია" : "შესვლა"}</span>
                   {isSelected ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   ) : (
-                    <ArrowRight className="w-4 h-4 text-[#E0AC6B] group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#E0AC6B] group-hover:translate-x-1 transition-transform" />
                   )}
                 </div>
               </div>
