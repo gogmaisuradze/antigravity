@@ -79,7 +79,7 @@ export interface CoverFlowCarouselProps {
 
 export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
   items = defaultNewsItems,
-  sectionLabel = "სიახლეები & რესურსები",
+  sectionLabel = "News",
   autoplay = true,
   autoplayDelay = 4500,
   className = "",
@@ -143,9 +143,9 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
 
   return (
     <section
-      className={`relative w-full min-h-[640px] md:min-h-[720px] rounded-3xl flex items-center justify-center overflow-hidden py-8 sm:py-12 select-none border border-[#D8C4B6] shadow-2xl ${className}`}
+      className={`relative w-full min-h-[640px] md:min-h-[720px] rounded-[32px] md:rounded-[40px] flex items-center justify-center overflow-hidden py-8 sm:py-12 select-none border-2 border-[#D8C4B6] shadow-[inset_0_4px_45px_rgba(28,61,99,0.22),0_25px_60px_rgba(28,61,99,0.08)] ${className}`}
       style={{
-        backgroundColor: "#0c0a09",
+        backgroundColor: "#FAF7F2",
         color: "#ffffff",
       }}
       onMouseEnter={() => setIsHovered(true)}
@@ -153,22 +153,44 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Ambience background blur */}
+      {/* Deepened window with ambient blur & glowing deep blue gradation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {/* Ambient blurred photo reflection */}
         <img
           src={currentItem?.img}
           alt="ambience background"
-          className="w-full h-full object-cover transition-all duration-1000"
+          className="w-full h-full object-cover transition-all duration-1000 opacity-30"
           style={{
-            filter: "brightness(0.22) blur(36px)",
-            transform: "scale(1.15)",
+            filter: "blur(40px)",
+            transform: "scale(1.2)",
           }}
         />
+
+        {/* Luminous Gradation: IDC signature Navy glowing outwards into site warm ivory */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(circle at center, rgba(12,10,9,0.3) 0%, rgba(12,10,9,0.92) 100%)",
+              "radial-gradient(ellipse 75% 65% at 50% 48%, rgba(28, 61, 99, 0.55) 0%, rgba(28, 61, 99, 0.28) 45%, rgba(250, 247, 242, 0.94) 85%, #FAF7F2 100%)",
+          }}
+        />
+
+        {/* Deep architectural recessed inner shadow (ჩაღრმავებული ფორტოჩკა) */}
+        <div
+          className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none"
+          style={{
+            boxShadow:
+              "inset 0 0 60px rgba(28, 61, 99, 0.3), inset 0 10px 30px rgba(28, 61, 99, 0.35)",
+          }}
+        />
+
+        {/* Radiant blue spotlight in center */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[500px] rounded-full pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(28, 61, 99, 0.45) 0%, rgba(59, 94, 99, 0.2) 50%, transparent 75%)",
+            filter: "blur(60px)",
           }}
         />
       </div>
@@ -179,18 +201,19 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
             <span
               style={{
                 width: "36px",
-                height: "1px",
-                background: "linear-gradient(90deg, transparent, #c5a880)",
+                height: "1.5px",
+                background: "linear-gradient(90deg, transparent, #E0AC6B)",
               }}
             />
             <h3
               style={{
-                fontSize: "0.75rem",
-                fontWeight: 700,
+                fontSize: "0.8rem",
+                fontWeight: 800,
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
-                color: "#c5a880",
+                color: "#E0AC6B",
                 margin: 0,
+                textShadow: "0 2px 8px rgba(0,0,0,0.5)",
               }}
             >
               {sectionLabel}
@@ -198,17 +221,17 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
             <span
               style={{
                 width: "36px",
-                height: "1px",
-                background: "linear-gradient(90deg, #c5a880, transparent)",
+                height: "1.5px",
+                background: "linear-gradient(90deg, #E0AC6B, transparent)",
               }}
             />
           </div>
         )}
 
-        {/* 3D Coverflow Container */}
+        {/* 3D Coverflow Container with deepened 3D perspective */}
         <div
           className="relative w-full h-[460px] sm:h-[520px] flex justify-center items-center mb-6 sm:mb-8"
-          style={{ perspective: "1400px" }}
+          style={{ perspective: "1600px" }}
         >
           {items.map((item, index) => {
             const offset = (index - currentIndex + total) % total;
@@ -439,6 +462,7 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
         </div>
 
         {/* Prev / Next Buttons */}
+        {/* Prev / Next Buttons with rich frosted navy styling */}
         <button
           onClick={prevSlide}
           aria-label="Previous slide"
@@ -447,18 +471,18 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
             left: "16px",
             top: "50%",
             transform: "translateY(-50%)",
-            width: "46px",
-            height: "46px",
+            width: "48px",
+            height: "48px",
             borderRadius: "50%",
-            backgroundColor: "rgba(0,0,0,0.6)",
-            border: "1px solid rgba(255,255,255,0.2)",
+            backgroundColor: "rgba(28, 61, 99, 0.82)",
+            border: "1px solid rgba(224, 172, 107, 0.45)",
             color: "#ffffff",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backdropFilter: "blur(8px)",
+            backdropFilter: "blur(12px)",
             cursor: "pointer",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+            boxShadow: "0 10px 25px rgba(28, 61, 99, 0.4)",
             zIndex: 40,
             transition: "all 200ms ease",
           }}
@@ -484,18 +508,18 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
             right: "16px",
             top: "50%",
             transform: "translateY(-50%)",
-            width: "46px",
-            height: "46px",
+            width: "48px",
+            height: "48px",
             borderRadius: "50%",
-            backgroundColor: "rgba(0,0,0,0.6)",
-            border: "1px solid rgba(255,255,255,0.2)",
+            backgroundColor: "rgba(28, 61, 99, 0.82)",
+            border: "1px solid rgba(224, 172, 107, 0.45)",
             color: "#ffffff",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backdropFilter: "blur(8px)",
+            backdropFilter: "blur(12px)",
             cursor: "pointer",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+            boxShadow: "0 10px 25px rgba(28, 61, 99, 0.4)",
             zIndex: 40,
             transition: "all 200ms ease",
           }}
@@ -534,11 +558,11 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
                 width: i === currentIndex ? "28px" : "8px",
                 borderRadius: "9999px",
                 backgroundColor:
-                  i === currentIndex ? "#c5a880" : "rgba(255,255,255,0.25)",
-                border: "none",
+                  i === currentIndex ? "#1C3D63" : "rgba(28, 61, 99, 0.3)",
+                border: i === currentIndex ? "1px solid #E0AC6B" : "none",
                 cursor: "pointer",
                 boxShadow:
-                  i === currentIndex ? "0 0 10px rgba(197,168,128,0.7)" : "none",
+                  i === currentIndex ? "0 0 12px rgba(28, 61, 99, 0.6)" : "none",
                 transition: "all 300ms ease",
               }}
             />
