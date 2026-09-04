@@ -134,14 +134,14 @@ function setupCalendar(config) {
   viewDate.setDate(1);
 
   let selectedDate = new Date();
-  let selectedTime = '14:30';
+  let selectedTime = '14:00';
 
   const MONTHS_KA = [
     'იანვარი', 'თებერვალი', 'მარტი', 'აპრილი', 'მაისი', 'ივნისი',
     'ივლისი', 'აგვისტო', 'სექტემბერი', 'ოქტომბერი', 'ნოემბერი', 'დეკემბერი'
   ];
   const WDS_KA = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვი'];
-  const SLOTS = ['10:00', '11:30', '13:00', '14:30', '16:00', '17:30', '19:00', '20:00'];
+  const SLOTS = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
 
   function updatePickedSummary() {
     if (summaryEl && selectedDate) {
@@ -366,7 +366,7 @@ function initBookingModal() {
                 <!-- Time slots -->
                 <div>
                   <div class="text-[11px] font-bold uppercase tracking-wider text-[#1C3D63] mb-2">აირჩიე დრო</div>
-                  <div class="grid grid-cols-4 gap-1.5" id="modal-cal-slots-container">
+                  <div class="grid grid-cols-6 gap-1.5 sm:gap-2" id="modal-cal-slots-container">
                     <!-- Populated dynamically -->
                   </div>
                 </div>
@@ -382,13 +382,13 @@ function initBookingModal() {
                 <!-- Picked Summary Badge -->
                 <div class="p-2.5 rounded-xl bg-white border border-[#D8C4B6] flex items-center gap-2 mb-3 shadow-sm">
                   <span class="material-symbols-outlined text-sm text-[#E0AC6B]">event</span>
-                  <span class="text-xs font-bold text-[#1C3D63]" id="modal-booking-picked-summary">15 სექტემბერი · 14:30</span>
+                  <span class="text-xs font-bold text-[#1C3D63]" id="modal-booking-picked-summary">15 სექტემბერი · 14:00</span>
                 </div>
 
                 <form class="flex flex-col flex-grow justify-between space-y-3" id="booking-modal-form">
                   <div class="space-y-3">
                     <input type="hidden" id="modal-booking-date-input" name="booking_date" value="2026-09-15">
-                    <input type="hidden" id="modal-booking-time-input" name="booking_time" value="14:30">
+                    <input type="hidden" id="modal-booking-time-input" name="booking_time" value="14:00">
                     <input type="hidden" id="booking-category-input" name="category" value="therapy">
                     <input type="hidden" id="booking-price-input" name="price" value="80 ₾">
 
