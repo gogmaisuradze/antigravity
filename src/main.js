@@ -370,7 +370,7 @@ function initBookingModal() {
             <div class="md:col-span-5 flex flex-col justify-between">
               <div>
                 <h3 class="text-lg font-headline italic font-bold text-[#1C3D63] mb-1">ვიზიტის დეტალები</h3>
-                <p class="text-xs text-[#8E8276] mb-3">შეავსეთ ველები და გადადით დასტურზე.</p>
+                <p class="text-xs text-[#8E8276] mb-3">აირჩიეთ მიმართულება, სერვისი და ფორმატი.</p>
 
                 <!-- Picked Summary Badge -->
                 <div class="p-2.5 rounded-xl bg-white border border-[#D8C4B6] flex items-center gap-2 mb-3 shadow-sm">
@@ -378,43 +378,61 @@ function initBookingModal() {
                   <span class="text-xs font-bold text-[#1C3D63]" id="modal-booking-picked-summary">15 სექტემბერი · 14:30</span>
                 </div>
 
-                <form class="space-y-3 contact-form" id="booking-modal-form">
+                <form class="space-y-3" id="booking-modal-form">
                   <input type="hidden" id="modal-booking-date-input" name="booking_date" value="2026-09-15">
                   <input type="hidden" id="modal-booking-time-input" name="booking_time" value="14:30">
+                  <input type="hidden" id="booking-category-input" name="category" value="therapy">
+                  <input type="hidden" id="booking-price-input" name="price" value="80 ₾">
 
+                  <!-- 1. მიმართულება: განათლება და თერაპია -->
                   <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">მიმართულება</label>
-                    <select name="service" id="booking-service-select" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]">
-                      <option value="კონსულტაცია" selected>🎧 კონსულტაცია (ონლაინ / პირისპირ)</option>
-                      <option value="ინდივიდუალური თერაპია">🌿 ინდივიდუალური ფსიქოთერაპია</option>
-                      <option value="წყვილთა თერაპია">👥 წყვილთა &amp; ოჯახური თერაპია</option>
-                      <option value="ჯგუფური თერაპია">🏛️ ჯგუფური თერაპია</option>
-                      <option value="ქოუჩინგი">📈 პერსონალური ქოუჩინგი</option>
-                      <option value="WAPP პროგრამა">🎓 WAPP პოზიტიური ფსიქოთერაპია</option>
-                      <option value="არტთერაპია">🎨 არტთერაპიის კურსი</option>
+                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1.5">მიმართულება</label>
+                    <div class="grid grid-cols-2 gap-2 p-1 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl" id="booking-category-toggle">
+                      <button type="button" data-category="therapy" id="cat-btn-therapy" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-[#1C3D63] text-white shadow-sm border border-[#1C3D63] cursor-pointer">
+                        <span class="material-symbols-outlined text-sm text-[#E0AC6B]">psychology</span>
+                        <span>თერაპია</span>
+                      </button>
+                      <button type="button" data-category="education" id="cat-btn-education" class="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] border border-transparent cursor-pointer">
+                        <span class="material-symbols-outlined text-sm text-[#8E8276]">school</span>
+                        <span>განათლება</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- 2. სერვისის / კურსის არჩევანი შესაბამისად -->
+                  <div>
+                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1" id="booking-service-label">თერაპიული სერვისი</label>
+                    <select name="service" id="booking-service-select" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2.5 text-xs text-[#222222] font-medium shadow-sm transition-all cursor-pointer">
+                      <!-- Populated dynamically via JS -->
                     </select>
                   </div>
 
+                  <!-- 3. საფასურის უჯრა -->
                   <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">სახელი და გვარი</label>
-                    <input type="text" id="booking-first-name" name="first_name" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]" placeholder="თქვენი სახელი და გვარი"/>
+                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">საფასური</label>
+                    <div class="flex items-center justify-between px-3.5 py-2.5 bg-[#FAF7F2] border border-[#D8C4B6] rounded-xl shadow-inner">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-base text-[#E0AC6B]">payments</span>
+                        <span class="text-xs text-[#3B5E63] font-medium">მომსახურების საფასური:</span>
+                      </div>
+                      <span id="booking-price-display" class="text-sm font-headline italic font-bold text-[#1C3D63] bg-white px-3 py-1 rounded-lg border border-[#D8C4B6]/60 shadow-sm">
+                        80 ₾
+                      </span>
+                    </div>
                   </div>
 
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ტელეფონი</label>
-                    <input type="tel" id="booking-phone" name="phone" required class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]" placeholder="598 32 40 20"/>
-                  </div>
-
+                  <!-- 4. ფორმატი -->
                   <div>
                     <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ფორმატი</label>
-                    <select name="format" id="booking-format-select" class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222]">
+                    <select name="format" id="booking-format-select" class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] cursor-pointer">
                       <option value="პირისპირ" selected>🏢 პირისპირ კაბინეტში (ჭავჭავაძის 2)</option>
                       <option value="ონლაინ">💻 ონლაინ ვიდეოზარი (Google Meet / Zoom)</option>
                     </select>
                   </div>
 
+                  <!-- Submit Button -->
                   <div class="pt-2">
-                    <button type="submit" class="w-full bg-[#1C3D63] text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-[#254F7F] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                    <button type="submit" class="w-full bg-[#1C3D63] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-[#254F7F] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98">
                       <span>ვიზიტის დაჯავშნა</span>
                       <span class="material-symbols-outlined text-sm">arrow_forward</span>
                     </button>
@@ -436,99 +454,97 @@ function initBookingModal() {
           </div>
         </div>
 
-        <!-- STEP 2: Payment Modal Content Grid -->
-        <div id="booking-step-payment" class="hidden space-y-6">
-          <div class="mb-4 text-center">
-            <div class="w-12 h-12 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] mb-2 mx-auto">
+        <!-- STEP 2: Payment & Confirmation Grid -->
+        <div id="booking-step-payment" class="hidden space-y-4">
+          <button type="button" id="modal-btn-payment-back" class="inline-flex items-center gap-1.5 text-xs text-[#1C3D63] font-bold hover:underline cursor-pointer border-none bg-transparent p-0">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            <span>← კალენდარზე დაბრუნება</span>
+          </button>
+
+          <div class="mb-3 text-center">
+            <div class="w-12 h-12 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] mb-2 mx-auto shadow-sm">
               <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
             </div>
-            <h3 class="text-xl sm:text-2xl font-extrabold text-[#1C3D63]">გადახდა საბანკო გადარიცხვით</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-[#1C3D63]" id="modal-payment-title">გადახდა საბანკო გადარიცხვით</h3>
             <p class="text-xs text-[#3B5E63] mt-1">ჯავშნის დასასრულებლად გადაიხადეთ საფასური</p>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
             
-            <!-- Left Side: QR Code Display -->
-            <div id="modal-desktop-qr-container" class="p-4 sm:p-5 bg-white rounded-2xl text-center shadow-md border border-[#D8C4B6] flex flex-col items-center justify-center h-full">
-              <div class="relative w-44 h-44 sm:w-52 sm:h-52 mx-auto bg-white p-2 rounded-xl border border-[#D8C4B6] shadow-inner flex items-center justify-center">
-                <img id="modal-qr-code-img" src="" alt="Scan with phone camera to pay" class="w-full h-full object-contain rounded-lg" />
+            <!-- Left Side: Summary Details -->
+            <div class="p-4 sm:p-5 bg-white rounded-2xl shadow-sm border border-[#D8C4B6] flex flex-col justify-between space-y-3">
+              <div>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-[10px] font-bold uppercase tracking-wider mb-2">
+                  შერჩეული ჯავშანი
+                </span>
+                <div class="space-y-2 text-xs">
+                  <div>
+                    <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block">სერვისი / კურსი:</span>
+                    <strong class="text-xs sm:text-sm text-[#1C3D63] font-headline italic" id="modal-summary-service">პირველადი კონსულტაცია &amp; შეფასება</strong>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block">თარიღი &amp; დრო:</span>
+                    <span class="text-xs font-semibold text-[#222222]" id="modal-summary-datetime">15 სექტემბერი · 14:30</span>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block">ფორმატი:</span>
+                    <span class="text-xs font-semibold text-[#222222]" id="modal-summary-format">პირისპირ კაბინეტში</span>
+                  </div>
+                </div>
               </div>
-              <p class="text-xs text-[#1C3D63] font-extrabold mt-3 flex items-center justify-center gap-1.5">
-                <span class="material-symbols-outlined text-base text-[#E0AC6B]">photo_camera</span>
-                დაასკანერეთ ტელეფონის კამერით
-              </p>
-              <p class="text-[11px] text-[#3B5E63] font-medium mt-1 leading-relaxed text-center">
-                ტელეფონით დასკანერებისას ავტომატურად გაგეხსნებათ საქართველოს ბანკისა და თიბისის გადახდის აპლიკაციები 📱
-              </p>
+
+              <div class="p-3 bg-[#FAF7F2] border border-[#E0AC6B]/40 rounded-xl flex items-center justify-between">
+                <span class="text-xs font-bold text-[#1C3D63]">საფასური:</span>
+                <span class="text-base sm:text-lg font-headline italic font-bold text-[#1C3D63]" id="modal-summary-price">80 ₾</span>
+              </div>
             </div>
 
-            <!-- Right Side: Bank Options & Recipient Details -->
-            <div class="space-y-4">
+            <!-- Right Side: Bank Transfer Details -->
+            <div class="space-y-3">
               <!-- Mobile / Web Bank Links -->
-              <div id="modal-mobile-apps-container" class="space-y-2.5">
-                <p class="text-xs text-[#1C3D63] font-semibold text-center flex items-center justify-center gap-1.5">
+              <div class="space-y-1.5">
+                <p class="text-xs text-[#1C3D63] font-semibold text-center flex items-center justify-center gap-1">
                   <span class="material-symbols-outlined text-sm text-[#E0AC6B]">touch_app</span>
-                  <span id="modal-bank-buttons-header-text">აირჩიეთ ბანკი გადასასვლელად:</span>
+                  <span>გადასვლა ინტერნეტ ბანკში:</span>
                 </p>
-                <div class="grid grid-cols-1 gap-3">
-                  <!-- BOG Bank Button -->
-                  <button type="button" id="modal-btn-bog-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#ff6700] hover:bg-[#e65c00] border border-[#ff6700] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_4px_15px_rgba(255,103,0,0.25)] group active:scale-95 text-white w-full gap-3">
-                    <div class="flex items-center gap-3">
-                      <img src="/assets/bog-logo.png" alt="Bank of Georgia" class="w-11 h-11 rounded-xl shadow-sm bg-white object-contain p-0.5 flex-shrink-0" />
-                      <div class="text-left leading-tight">
-                        <span class="text-xs sm:text-sm font-black tracking-tight text-white block">საქართველოს ბანკი</span>
-                        <span class="text-[9px] font-bold text-white/90 tracking-wider uppercase block">BANK OF GEORGIA</span>
-                      </div>
-                    </div>
-                    <span id="modal-bog-badge-text" class="text-[10px] text-white font-extrabold bg-black/20 px-3 py-1 rounded-full border border-white/20 flex-shrink-0">BOG</span>
-                  </button>
-
-                  <!-- TBC Bank Button -->
-                  <button type="button" id="modal-btn-tbc-app" class="relative overflow-hidden flex items-center justify-between p-3.5 bg-[#00adef] hover:bg-[#009bd7] border border-[#00adef] rounded-2xl transition-all duration-300 cursor-pointer shadow-[0_4px_15px_rgba(0,173,239,0.25)] group active:scale-95 text-white w-full gap-3">
-                    <div class="flex items-center gap-3">
-                      <img src="/assets/tbc-logo.png" alt="TBC Bank" class="w-11 h-11 rounded-xl shadow-sm bg-white object-contain p-0.5 flex-shrink-0" />
-                      <div class="text-left leading-tight">
-                        <span class="text-xs sm:text-sm font-black tracking-tight text-white block">თიბისი ბანკი</span>
-                        <span class="text-[9px] font-bold text-white/90 tracking-widest uppercase block">T B C   B A N K</span>
-                      </div>
-                    </div>
-                    <span id="modal-tbc-badge-text" class="text-[10px] text-white font-extrabold bg-black/20 px-3 py-1 rounded-full border border-white/20 flex-shrink-0">TBC</span>
-                  </button>
+                <div class="grid grid-cols-2 gap-2">
+                  <a href="https://bankofgeorgia.ge" target="_blank" rel="noopener" class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#ff6700] hover:bg-[#e65c00] rounded-xl text-white font-bold text-xs no-underline shadow-sm transition-all text-center">
+                    <span>საქართველოს ბანკი</span>
+                  </a>
+                  <a href="https://tbcbank.ge" target="_blank" rel="noopener" class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#00adef] hover:bg-[#009bd7] rounded-xl text-white font-bold text-xs no-underline shadow-sm transition-all text-center">
+                    <span>თიბისი ბანკი</span>
+                  </a>
                 </div>
               </div>
 
               <!-- Bank Account Transfer Details -->
-              <div class="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-4 text-left space-y-2.5">
+              <div class="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-3.5 text-left space-y-2 text-xs">
                 <div>
                   <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">მიმღები</span>
-                  <span class="text-sm font-bold text-[#222222]">ანი მაისურაძე</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ბანკი</span>
-                  <span class="text-sm font-semibold text-[#222222]">საქართველოს ბანკი (Bank of Georgia)</span>
+                  <span class="font-bold text-[#222222]">ანი მაისურაძე</span>
                 </div>
                 <div>
                   <div class="flex items-center justify-between">
                     <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ანგარიშის ნომერი (IBAN)</span>
-                    <button id="modal-copy-iban" class="text-[10px] text-[#1C3D63] hover:underline cursor-pointer flex items-center gap-0.5 border-none bg-transparent font-bold">
+                    <button type="button" id="modal-copy-iban" class="text-[10px] text-[#1C3D63] hover:underline cursor-pointer flex items-center gap-0.5 border-none bg-transparent font-bold">
                       <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
                     </button>
                   </div>
-                  <span id="modal-iban-text" class="text-xs sm:text-sm font-mono font-bold text-[#1C3D63] break-all">GE93BG0000000192399800</span>
+                  <span id="modal-iban-text" class="font-mono font-bold text-[#1C3D63] break-all">GE93BG0000000192399800</span>
                 </div>
                 <div>
                   <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">დანიშნულება</span>
-                  <span id="modal-payment-purpose" class="text-xs font-semibold text-[#222222]">რეგისტრაციის საფასური</span>
+                  <span id="modal-payment-purpose" class="font-semibold text-[#222222]">ჯავშნის საფასური</span>
                 </div>
               </div>
 
               <!-- Success Notification / Confirm -->
-              <div class="pt-2 text-center space-y-2">
-                <button id="modal-btn-payment-confirm" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-3.5 px-4 rounded-xl font-extrabold text-sm sm:text-base transition-all duration-300 cursor-pointer border-none shadow-md flex items-center justify-center gap-2 active:scale-95">
-                  <span class="material-symbols-outlined text-xl">task_alt</span>
-                  გადახდა დავასრულე - რეგისტრაცია
+              <div class="pt-1 text-center space-y-1.5">
+                <button type="button" id="modal-btn-payment-confirm" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-md flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-base">task_alt</span>
+                  <span>ჯავშნის დადასტურება</span>
                 </button>
-                <p class="text-[11px] text-[#3B5E63]">გადარიცხვის შემდეგ დააჭირეთ ამ ღილაკს რეგისტრაციის დასასრულებლად</p>
+                <p class="text-[10px] text-[#8E8276]">გადარიცხვის შემდეგ დააჭირეთ დადასტურებას</p>
               </div>
             </div>
 
@@ -560,12 +576,173 @@ function initBookingModal() {
     eventBannerEl: document.getElementById('modal-cal-event-banner')
   });
 
-  function openModal() {
+  const bookingServicesData = {
+    therapy: {
+      name: 'თერაპია',
+      label: 'თერაპიული სერვისი',
+      services: [
+        { id: 'consultation', name: 'პირველადი კონსულტაცია & შეფასება', price: '80 ₾' },
+        { id: 'individual', name: 'ინდივიდუალური ფსიქოთერაპია', price: '120 ₾' },
+        { id: 'couples', name: 'წყვილთა & ოჯახური თერაპია', price: '160 ₾' },
+        { id: 'group', name: 'ჯგუფური ფსიქოთერაპია', price: '60 ₾' },
+        { id: 'coaching', name: 'პერსონალური ქოუჩინგი', price: '150 ₾' },
+        { id: 'group_coaching', name: 'ჯგუფური / კორპორატიული ქოუჩინგი', price: '250 ₾' }
+      ]
+    },
+    education: {
+      name: 'განათლება',
+      label: 'საგანმანათლებლო პროგრამა / კურსი',
+      services: [
+        { id: 'wapp', name: 'WAPP საერთაშორისო საბაზისო კურსი', price: '1,500 ₾' },
+        { id: 'erickson', name: 'ერიქსონის ქოუჩინგის აკადემია', price: '2,800 ₾' },
+        { id: 'art', name: 'არტთერაპიის 1-წლიანი კურსი', price: '1,800 ₾' },
+        { id: 'practical', name: 'პრაქტიკული ფსიქოლოგიის კურსი', price: '1,200 ₾' },
+        { id: 'master', name: 'მასტერკურსი & სუპერვიზია', price: '2,200 ₾' },
+        { id: 'seminars', name: 'სემინარები & ვორქშოფები', price: '150 ₾' }
+      ]
+    }
+  };
+
+  const catBtnTherapy = document.getElementById('cat-btn-therapy');
+  const catBtnEdu = document.getElementById('cat-btn-education');
+  const catInput = document.getElementById('booking-category-input');
+  const serviceLabel = document.getElementById('booking-service-label');
+  const serviceSelect = document.getElementById('booking-service-select');
+  const priceDisplay = document.getElementById('booking-price-display');
+  const priceInput = document.getElementById('booking-price-input');
+  const calBannerEl = document.getElementById('modal-cal-event-banner');
+
+  function updateCategory(cat, preselectedService) {
+    if (!bookingServicesData[cat]) cat = 'therapy';
+    if (catInput) catInput.value = cat;
+
+    if (cat === 'therapy') {
+      if (catBtnTherapy) catBtnTherapy.className = 'flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-[#1C3D63] text-white shadow-sm border border-[#1C3D63] cursor-pointer';
+      if (catBtnEdu) catBtnEdu.className = 'flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] border border-transparent cursor-pointer';
+    } else {
+      if (catBtnEdu) catBtnEdu.className = 'flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-[#1C3D63] text-white shadow-sm border border-[#1C3D63] cursor-pointer';
+      if (catBtnTherapy) catBtnTherapy.className = 'flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-bold transition-all bg-white text-[#3B5E63] hover:text-[#1C3D63] border border-transparent cursor-pointer';
+    }
+
+    if (serviceLabel) serviceLabel.textContent = bookingServicesData[cat].label;
+
+    if (serviceSelect) {
+      serviceSelect.innerHTML = '';
+      const items = bookingServicesData[cat].services;
+      items.forEach((item, idx) => {
+        const opt = document.createElement('option');
+        opt.value = item.name;
+        opt.setAttribute('data-price', item.price);
+        opt.textContent = `${item.name} (${item.price})`;
+        if (preselectedService && (item.id === preselectedService || item.name.includes(preselectedService))) {
+          opt.selected = true;
+        } else if (!preselectedService && idx === 0) {
+          opt.selected = true;
+        }
+        serviceSelect.appendChild(opt);
+      });
+    }
+
+    updatePrice();
+  }
+
+  function updatePrice() {
+    if (!serviceSelect) return;
+    const selectedOpt = serviceSelect.options[serviceSelect.selectedIndex];
+    if (selectedOpt) {
+      const price = selectedOpt.getAttribute('data-price') || '';
+      if (priceDisplay) priceDisplay.textContent = price;
+      if (priceInput) priceInput.value = price;
+      if (calBannerEl) {
+        calBannerEl.textContent = `📅 ${selectedOpt.value}`;
+      }
+    }
+  }
+
+  if (catBtnTherapy) catBtnTherapy.addEventListener('click', () => updateCategory('therapy'));
+  if (catBtnEdu) catBtnEdu.addEventListener('click', () => updateCategory('education'));
+  if (serviceSelect) serviceSelect.addEventListener('change', updatePrice);
+
+  // Initialize with therapy
+  updateCategory('therapy');
+
+  // Form submission -> Step 2
+  const modalForm = document.getElementById('booking-modal-form');
+  if (modalForm) {
+    modalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const cat = catInput ? catInput.value : 'therapy';
+      const service = serviceSelect ? serviceSelect.value : '';
+      const price = priceInput ? priceInput.value : '';
+      const date = document.getElementById('modal-booking-date-input')?.value || '';
+      const time = document.getElementById('modal-booking-time-input')?.value || '';
+      const formatSelect = document.getElementById('booking-format-select');
+      const format = formatSelect ? formatSelect.options[formatSelect.selectedIndex].text : 'პირისპირ კაბინეტში (ჭავჭავაძის 2)';
+      const summaryDatetime = document.getElementById('modal-booking-picked-summary')?.textContent || `${date} · ${time}`;
+
+      if (stepForm) stepForm.classList.add('hidden');
+      if (stepPayment) {
+        stepPayment.classList.remove('hidden');
+
+        const sumService = document.getElementById('modal-summary-service');
+        if (sumService) sumService.textContent = service;
+
+        const sumDatetime = document.getElementById('modal-summary-datetime');
+        if (sumDatetime) sumDatetime.textContent = summaryDatetime;
+
+        const sumFormat = document.getElementById('modal-summary-format');
+        if (sumFormat) sumFormat.textContent = format;
+
+        const sumPrice = document.getElementById('modal-summary-price');
+        if (sumPrice) sumPrice.textContent = price;
+
+        const purpose = document.getElementById('modal-payment-purpose');
+        if (purpose) purpose.textContent = `ჯავშნის საფასური - ${service} (${price})`;
+      }
+    });
+  }
+
+  // Step 2 Payment Handlers
+  const backBtn = document.getElementById('modal-btn-payment-back');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      if (stepPayment) stepPayment.classList.add('hidden');
+      if (stepForm) stepForm.classList.remove('hidden');
+    });
+  }
+
+  const copyIbanBtn = document.getElementById('modal-copy-iban');
+  if (copyIbanBtn) {
+    copyIbanBtn.addEventListener('click', () => {
+      const iban = document.getElementById('modal-iban-text')?.textContent || 'GE93BG0000000192399800';
+      navigator.clipboard.writeText(iban).then(() => {
+        showToast('✓ IBAN ანგარიშის ნომერი დაკოპირდა!');
+      }).catch(() => {
+        showToast(iban);
+      });
+    });
+  }
+
+  const confirmBtn = document.getElementById('modal-btn-payment-confirm');
+  if (confirmBtn) {
+    confirmBtn.addEventListener('click', () => {
+      showToast('✓ თქვენი ვიზიტი დაჯავშნილია!');
+      setTimeout(() => {
+        closeModal();
+      }, 1500);
+    });
+  }
+
+  function openModal(initialCategory, initialService) {
     if (stepForm) stepForm.classList.remove('hidden');
     if (stepPayment) stepPayment.classList.add('hidden');
     modal.classList.remove('opacity-0', 'pointer-events-none');
     modalCard.classList.remove('scale-95');
     modalCard.classList.add('scale-100');
+    if (initialCategory) {
+      updateCategory(initialCategory, initialService);
+    }
   }
 
   function closeModal() {
@@ -582,9 +759,12 @@ function initBookingModal() {
 
   // Set up event delegation for booking buttons (supports dynamically created ones)
   document.addEventListener('click', (e) => {
-    if (e.target && (e.target.classList.contains('booking-btn') || e.target.closest('.booking-btn'))) {
+    const btn = e.target && (e.target.classList.contains('booking-btn') ? e.target : e.target.closest('.booking-btn'));
+    if (btn) {
       e.preventDefault();
-      openModal();
+      const cat = btn.getAttribute('data-category') || (window.location.pathname.includes('education') ? 'education' : 'therapy');
+      const service = btn.getAttribute('data-service');
+      openModal(cat, service);
     }
   });
 
@@ -744,9 +924,9 @@ function initFormValidation() {
   const telegramBotToken = ''; // ტოკენი ამოღებულია უსაფრთხოებისთვის — შეტყობინება n8n webhook-ით უნდა გავიდეს, არა პირდაპირ
   const telegramChatId = '443575738';   // E.g., 'YOUR_CHAT_ID'
 
-  // Capture all forms with class 'contact-form' (works on dynamic modal form too!)
+  // Capture all forms with class 'contact-form' (excluding booking modal which has specialized handler)
   document.addEventListener('submit', (e) => {
-    if (e.target && (e.target.classList.contains('contact-form') || e.target.id === 'booking-modal-form')) {
+    if (e.target && e.target.classList.contains('contact-form') && e.target.id !== 'booking-modal-form') {
       const form = e.target;
       if (form.id === 'registration-form') return; // Handled specially by registration.html
       
