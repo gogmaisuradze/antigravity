@@ -775,51 +775,51 @@
             <!-- Proportions & Stats side (5 cols on lg) -->
             <div class="lg:col-span-5 space-y-6">
               
-              <div class="bg-[#F4F7F7] p-6 md:p-8 rounded-2xl border border-[#D8C4B6] shadow-sm space-y-6">
+              <div class="bg-white p-6 md:p-8 rounded-2xl border border-[#D8C4B6] shadow-sm space-y-6">
                 <h3 class="text-sm font-bold uppercase tracking-wider text-[#1C3D63] border-b border-[#D8C4B6] pb-3">ენერგიის გადანაწილება</h3>
                 
-                <!-- Health & Body Stat -->
+                <!-- Health & Body Stat (Dark Teal #3B5E63) -->
                 <div class="space-y-2">
                   <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
-                      <span class="material-symbols-outlined text-sm">favorite</span> სხეული / ჯანმრთელობა
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#3B5E63] flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">favorite_border</span> სხეული / ჯანმრთელობა
                     </span>
                     <div class="flex items-baseline gap-2">
                       <span class="text-lg font-mono font-bold text-[#1C3D63]" id="stat-val-body">0%</span>
                       <span class="text-[10px] text-[#8E8276] font-semibold font-mono" id="raw-val-body">(0/25 ქულა)</span>
                     </div>
                   </div>
-                  <div class="w-full h-2 bg-white rounded-full overflow-hidden border border-[#D8C4B6]">
-                    <div id="bar-val-body" class="h-full bg-emerald-600 transition-all duration-1000 rounded-full" style="width: 0%;"></div>
+                  <div class="w-full h-2 bg-[#F4F7F7] rounded-full overflow-hidden border border-[#D8C4B6]">
+                    <div id="bar-val-body" class="h-full bg-[#3B5E63] transition-all duration-1000 rounded-full" style="width: 0%;"></div>
                   </div>
                   <p class="text-[11px] text-[#8E8276] leading-relaxed font-light pl-1">
                     ძილი, კვება, ფიზიკური აქტივობა, სპორტი, დასვენება და გარეგნობაზე ზრუნვა.
                   </p>
                 </div>
 
-                <!-- Achievement & Work Stat -->
+                <!-- Achievement & Work Stat (New Navy #1C3D63) -->
                 <div class="space-y-2 pt-2">
                   <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold uppercase tracking-wider text-sky-700 flex items-center gap-1.5">
-                      <span class="material-symbols-outlined text-sm">work</span> მიღწევები / სამუშაო
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#1C3D63] flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm">work_outline</span> მიღწევები / სამუშაო
                     </span>
                     <div class="flex items-baseline gap-2">
                       <span class="text-lg font-mono font-bold text-[#1C3D63]" id="stat-val-achievement">0%</span>
                       <span class="text-[10px] text-[#8E8276] font-semibold font-mono" id="raw-val-achievement">(0/25 ქულა)</span>
                     </div>
                   </div>
-                  <div class="w-full h-2 bg-white rounded-full overflow-hidden border border-[#D8C4B6]">
-                    <div id="bar-val-achievement" class="h-full bg-sky-600 transition-all duration-1000 rounded-full" style="width: 0%;"></div>
+                  <div class="w-full h-2 bg-[#F4F7F7] rounded-full overflow-hidden border border-[#D8C4B6]">
+                    <div id="bar-val-achievement" class="h-full bg-[#1C3D63] transition-all duration-1000 rounded-full" style="width: 0%;"></div>
                   </div>
                   <p class="text-[11px] text-[#8E8276] leading-relaxed font-light pl-1">
                     კარიერა, პროფესია, სწავლა, ფინანსების მართვა და საოჯახო საქმეები.
                   </p>
                 </div>
 
-                <!-- Contacts & Relationships Stat -->
+                <!-- Contacts & Relationships Stat (Terracotta #A37B73) -->
                 <div class="space-y-2 pt-2">
                   <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold uppercase tracking-wider text-rose-700 flex items-center gap-1.5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#A37B73] flex items-center gap-1.5">
                       <span class="material-symbols-outlined text-sm">group</span> კონტაქტები / ურთიერთობები
                     </span>
                     <div class="flex items-baseline gap-2">
@@ -827,27 +827,27 @@
                       <span class="text-[10px] text-[#8E8276] font-semibold font-mono" id="raw-val-contact">(0/25 ქულა)</span>
                     </div>
                   </div>
-                  <div class="w-full h-2 bg-white rounded-full overflow-hidden border border-[#D8C4B6]">
-                    <div id="bar-val-contact" class="h-full bg-rose-600 transition-all duration-1000 rounded-full" style="width: 0%;"></div>
+                  <div class="w-full h-2 bg-[#F4F7F7] rounded-full overflow-hidden border border-[#D8C4B6]">
+                    <div id="bar-val-contact" class="h-full bg-[#A37B73] transition-all duration-1000 rounded-full" style="width: 0%;"></div>
                   </div>
                   <p class="text-[11px] text-[#8E8276] leading-relaxed font-light pl-1">
                     ოჯახი, მეგობრები, პარტნიორი და სოციალურ გარემოსთან ურთიერთობის ემოციური ენერგია.
                   </p>
                 </div>
 
-                <!-- Future & Fantasy Stat -->
+                <!-- Future & Fantasy Stat (Warm Gold #E0AC6B) -->
                 <div class="space-y-2 pt-2">
                   <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
-                      <span class="material-symbols-outlined text-sm">wb_sunny</span> მომავალი / ფანტაზია
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#E0AC6B] flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm">lightbulb</span> მომავალი / ფანტაზია
                     </span>
                     <div class="flex items-baseline gap-2">
                       <span class="text-lg font-mono font-bold text-[#1C3D63]" id="stat-val-future">0%</span>
                       <span class="text-[10px] text-[#8E8276] font-semibold font-mono" id="raw-val-future">(0/25 ქულა)</span>
                     </div>
                   </div>
-                  <div class="w-full h-2 bg-white rounded-full overflow-hidden border border-[#D8C4B6]">
-                    <div id="bar-val-future" class="h-full bg-amber-600 transition-all duration-1000 rounded-full" style="width: 0%;"></div>
+                  <div class="w-full h-2 bg-[#F4F7F7] rounded-full overflow-hidden border border-[#D8C4B6]">
+                    <div id="bar-val-future" class="h-full bg-[#E0AC6B] transition-all duration-1000 rounded-full" style="width: 0%;"></div>
                   </div>
                   <p class="text-[11px] text-[#8E8276] leading-relaxed font-light pl-1">
                     გეგმები, მედიტაცია, სულიერი პრაქტიკა, შემოქმედება და ცხოვრების საზრისზე ფიქრი.
@@ -858,12 +858,12 @@
                 <div class="border-t border-[#D8C4B6] pt-4 flex items-center justify-between">
                   <div>
                     <span class="text-[10px] uppercase tracking-wider text-[#8E8276] block font-bold">ჯამური ენერგეტიკული წილი</span>
-                    <div class="text-lg font-bold font-mono mt-0.5 text-emerald-700">
+                    <div class="text-lg font-bold font-mono mt-0.5 text-[#1C3D63]">
                       <span>100%</span>
                     </div>
                   </div>
                   <div class="text-right">
-                    <span class="moodboard-badge text-emerald-800 bg-emerald-50 border-emerald-200">
+                    <span class="moodboard-badge text-[#3B5E63] bg-[#3B5E63]/10 border border-[#3B5E63]/25 px-2.5 py-1 rounded-full text-xs font-bold font-sans">
                       ✓ ალგორითმი დაცულია
                     </span>
                   </div>
@@ -874,32 +874,32 @@
             </div>
 
             <!-- Visual Diagram Preview Side (7 cols on lg) -->
-            <div class="lg:col-span-7 flex flex-col items-center justify-center bg-[#F4F7F7] p-6 lg:p-10 rounded-2xl border border-[#D8C4B6] min-h-[440px] relative shadow-sm">
+            <div class="lg:col-span-7 flex flex-col items-center justify-center bg-white p-6 lg:p-10 rounded-2xl border border-[#D8C4B6] min-h-[440px] relative shadow-sm">
               <!-- Custom Circular Wheel Visualization representing the balance -->
-              <div class="relative w-72 h-72 sm:w-88 sm:h-88 md:w-[380px] md:h-[380px] rounded-full border border-[#D8C4B6] shadow-sm flex items-center justify-center bg-white overflow-hidden" id="diagram-circle">
+              <div class="relative w-72 h-72 sm:w-88 sm:h-88 md:w-[380px] md:h-[380px] rounded-full border border-[#D8C4B6] shadow-sm flex items-center justify-center bg-[#FAF8F5] overflow-hidden" id="diagram-circle">
                 <!-- Grid lines dividing the dimensions -->
                 <div class="absolute inset-0 border-t border-[#D8C4B6] pointer-events-none top-1/2"></div>
                 <div class="absolute inset-0 border-l border-[#D8C4B6] pointer-events-none left-1/2"></div>
                 
-                <!-- 4 Colored dynamic quadrant backdrops -->
-                <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-emerald-50/50 flex items-center justify-center border-b border-l border-[#D8C4B6]">
-                  <span class="text-[10px] uppercase tracking-wider text-emerald-700 font-bold absolute top-3 right-3">სხეული</span>
+                <!-- 4 Colored dynamic quadrant backdrops (Matching mature palette) -->
+                <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-[#3B5E63]/10 flex items-center justify-center border-b border-l border-[#D8C4B6]">
+                  <span class="text-[10px] uppercase tracking-wider text-[#3B5E63] font-bold absolute top-3 right-3 font-sans">სხეული</span>
                 </div>
-                <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-sky-50/50 flex items-center justify-center border-b border-r border-[#D8C4B6]">
-                  <span class="text-[10px] uppercase tracking-wider text-sky-700 font-bold absolute top-3 left-3">საქმე</span>
+                <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-[#1C3D63]/10 flex items-center justify-center border-b border-r border-[#D8C4B6]">
+                  <span class="text-[10px] uppercase tracking-wider text-[#1C3D63] font-bold absolute top-3 left-3 font-sans">საქმე</span>
                 </div>
-                <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-rose-50/50 flex items-center justify-center border-t border-r border-[#D8C4B6]">
-                  <span class="text-[10px] uppercase tracking-wider text-rose-700 font-bold absolute bottom-3 left-3">კონტაქტი</span>
+                <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[#A37B73]/12 flex items-center justify-center border-t border-r border-[#D8C4B6]">
+                  <span class="text-[10px] uppercase tracking-wider text-[#A37B73] font-bold absolute bottom-3 left-3 font-sans">კონტაქტი</span>
                 </div>
-                <div class="absolute bottom-0 right-0 w-1/2 h-1/2 bg-amber-50/50 flex items-center justify-center border-t border-l border-[#D8C4B6]">
-                  <span class="text-[10px] uppercase tracking-wider text-amber-700 font-bold absolute bottom-3 right-3">მომავალი</span>
+                <div class="absolute bottom-0 right-0 w-1/2 h-1/2 bg-[#E0AC6B]/15 flex items-center justify-center border-t border-l border-[#D8C4B6]">
+                  <span class="text-[10px] uppercase tracking-wider text-[#E0AC6B] font-bold absolute bottom-3 right-3 font-sans">მომავალი</span>
                 </div>
 
                 <!-- Animated inner dynamic shape indicating current distribution -->
                 <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                  <polygon points="50,50 50,50 50,50 50,50" fill="rgba(224, 172, 107, 0.25)" stroke="#1C3D63" stroke-width="2" id="svg-polygon" class="transition-all duration-500"/>
+                  <polygon points="50,50 50,50 50,50 50,50" fill="rgba(224, 172, 107, 0.28)" stroke="#1C3D63" stroke-width="2.5" id="svg-polygon" class="transition-all duration-500"/>
                   <!-- Outer reference ideal 25% diamond -->
-                  <polygon points="50,25 75,50 50,75 25,50" fill="none" stroke="rgba(224, 172, 107, 0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+                  <polygon points="50,25 75,50 50,75 25,50" fill="none" stroke="#E0AC6B" stroke-width="1.5" stroke-dasharray="3,3"/>
                 </svg>
 
                 <!-- Central core anchor -->
@@ -1876,9 +1876,9 @@
             <div class="mt-8 pt-6 border-t border-[#D8C4B6] space-y-6 font-sans">
               <div class="p-6 bg-white border border-[#D8C4B6] rounded-2xl relative overflow-hidden shadow-sm text-left font-sans">
                 <div class="flex items-center space-x-2.5 mb-3">
-                  <span class="material-symbols-outlined text-[#E0AC6B]">favorite</span>
+                  <span class="material-symbols-outlined text-[#E0AC6B] text-xl" style="font-variation-settings: 'FILL' 0, 'wght' 400;">favorite_border</span>
                   <h4 class="text-sm font-bold tracking-wide uppercase text-[#1C3D63] font-headline">
-                    ნახე სხვასთან თავსებადობა ❤️
+                    ნახე სხვასთან თავსებადობა
                   </h4>
                 </div>
                 
@@ -1970,7 +1970,7 @@
                   <!-- Compatibility Result -->
                   <div id="compatibility-result-box" class="hidden mt-6 p-6 bg-[#F4F7F7] border border-[#D8C4B6] rounded-2xl relative overflow-hidden text-left font-sans space-y-4 shadow-sm">
                     <div class="flex items-center space-x-2 text-[#1C3D63]">
-                      <span class="material-symbols-outlined text-xl text-[#E0AC6B]">favorite</span>
+                      <span class="material-symbols-outlined text-xl text-[#E0AC6B]" style="font-variation-settings: 'FILL' 0, 'wght' 400;">favorite_border</span>
                       <span id="compatibility-score-text" class="text-sm font-bold uppercase tracking-wider font-headline">თავსებადობა</span>
                     </div>
                     <div id="compatibility-result-text" class="text-sm leading-relaxed text-[#222222] font-medium whitespace-pre-wrap"></div>
