@@ -407,21 +407,7 @@ function initBookingModal() {
                     </select>
                   </div>
 
-                  <!-- 3. საფასურის უჯრა -->
-                  <div>
-                    <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">საფასური</label>
-                    <div class="flex items-center justify-between px-3.5 py-2.5 bg-[#FAF7F2] border border-[#D8C4B6] rounded-xl shadow-inner">
-                      <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-base text-[#E0AC6B]">payments</span>
-                        <span class="text-xs text-[#3B5E63] font-medium">მომსახურების საფასური:</span>
-                      </div>
-                      <span id="booking-price-display" class="text-sm font-headline italic font-bold text-[#1C3D63] bg-white px-3 py-1 rounded-lg border border-[#D8C4B6]/60 shadow-sm">
-                        80 ₾
-                      </span>
-                    </div>
-                  </div>
-
-                  <!-- 4. ფორმატი -->
+                  <!-- 3. ფორმატი -->
                   <div>
                     <label class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">ფორმატი</label>
                     <select name="format" id="booking-format-select" class="w-full bg-white border border-[#D8C4B6] focus:border-[#1C3D63] focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] cursor-pointer">
@@ -468,7 +454,7 @@ function initBookingModal() {
 
           <div>
             <h3 class="text-xl sm:text-2xl font-headline italic font-bold text-[#1C3D63]">რეგისტრაცია და გადახდა</h3>
-            <p class="text-xs text-[#3B5E63] mt-0.5">შეიყვანეთ საკონტაქტო მონაცემები და აირჩიეთ სასურველი ბანკი გადარიცხვისთვის.</p>
+            <p class="text-xs text-[#3B5E63] mt-0.5">შეავსეთ საკონტაქტო მონაცემები და აირჩიეთ ბანკი ან დაასკანერეთ QR კოდი ტელეფონით.</p>
           </div>
 
           <!-- Summary Strip -->
@@ -491,115 +477,128 @@ function initBookingModal() {
             </div>
           </div>
 
-          <!-- Step 2 Form: Contact Data + Bank Choice + Final Booking Button -->
+          <!-- Step 2 Form: Contact Data + Bank Choice with Logos + Phone QR Code + Final Booking Button -->
           <form id="booking-step2-form" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
               
-              <!-- Left: Personal Data Form (მონაცემების შევსება) -->
-              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#D8C4B6] shadow-sm space-y-3 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-2 pb-2 mb-2 border-b border-[#D8C4B6]/50">
-                    <span class="material-symbols-outlined text-[#E0AC6B] text-base">person</span>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#1C3D63]">მონაცემების შევსება</h4>
+              <!-- Left: Personal Data Form (რეგისტრაციის ფორმა შესავსები - 6 cols) -->
+              <div class="lg:col-span-6 bg-white p-4 sm:p-5 rounded-2xl border border-[#D8C4B6] shadow-sm space-y-3">
+                <div class="flex items-center gap-2 pb-2 border-b border-[#D8C4B6]/50">
+                  <span class="material-symbols-outlined text-[#E0AC6B] text-base">person</span>
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-[#1C3D63]">რეგისტრაციის ფორმა</h4>
+                </div>
+
+                <div class="space-y-2.5">
+                  <div>
+                    <label for="booking-client-name" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
+                      სახელი და გვარი <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="booking-client-name" name="client_name" required placeholder="მაგ. გიორგი ბერიძე" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2.5 text-xs text-[#222222] font-medium transition-all shadow-inner">
                   </div>
 
-                  <div class="space-y-2.5">
-                    <div>
-                      <label for="booking-client-name" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
-                        სახელი და გვარი <span class="text-red-500">*</span>
-                      </label>
-                      <input type="text" id="booking-client-name" name="client_name" required placeholder="მაგ. გიორგი ბერიძე" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
-                    </div>
+                  <div>
+                    <label for="booking-client-phone" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
+                      ტელეფონის ნომერი <span class="text-red-500">*</span>
+                    </label>
+                    <input type="tel" id="booking-client-phone" name="client_phone" required placeholder="მაგ. 599 12 34 56" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2.5 text-xs text-[#222222] font-medium transition-all shadow-inner">
+                  </div>
 
-                    <div>
-                      <label for="booking-client-phone" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
-                        ტელეფონის ნომერი <span class="text-red-500">*</span>
-                      </label>
-                      <input type="tel" id="booking-client-phone" name="client_phone" required placeholder="მაგ. 599 12 34 56" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
-                    </div>
+                  <div>
+                    <label for="booking-client-email" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
+                      ელ. ფოსტა (სურვილისამებრ)
+                    </label>
+                    <input type="email" id="booking-client-email" name="client_email" placeholder="example@mail.com" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
+                  </div>
 
-                    <div>
-                      <label for="booking-client-email" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
-                        ელ. ფოსტა (სურვილისამებრ)
-                      </label>
-                      <input type="email" id="booking-client-email" name="client_email" placeholder="example@mail.com" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
-                    </div>
+                  <div>
+                    <label for="booking-client-notes" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
+                      შენიშვნა / კომენტარი (სურვილისამებრ)
+                    </label>
+                    <input type="text" id="booking-client-notes" name="client_notes" placeholder="დამატებითი დეტალები ან შეკითხვა..." class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
+                  </div>
+                </div>
 
+                <!-- Bank Account Transfer Details -->
+                <div class="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-3 space-y-1.5 text-xs mt-2">
+                  <div class="flex items-center justify-between">
                     <div>
-                      <label for="booking-client-notes" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
-                        შენიშვნა / კომენტარი (სურვილისამებრ)
-                      </label>
-                      <input type="text" id="booking-client-notes" name="client_notes" placeholder="დამატებითი დეტალები ან შეკითხვა..." class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
+                      <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">მიმღები</span>
+                      <span class="font-bold text-[#1C3D63]">ანი მაისურაძე</span>
                     </div>
+                    <div class="text-right">
+                      <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ბანკი</span>
+                      <span id="modal-bank-name" class="font-semibold text-[#222222]">საქართველოს ბანკი</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ანგარიშის ნომერი (IBAN)</span>
+                      <button type="button" id="modal-copy-iban" class="text-[10px] text-[#1C3D63] hover:text-[#E0AC6B] cursor-pointer flex items-center gap-0.5 border-none bg-transparent font-bold py-0.5 px-1.5 rounded hover:bg-white transition-all">
+                        <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
+                      </button>
+                    </div>
+                    <div class="bg-white p-1.5 rounded-lg border border-[#D8C4B6]/60 mt-0.5">
+                      <span id="modal-iban-text" class="font-mono font-bold text-[#1C3D63] text-xs sm:text-[13px] break-all">GE93BG0000000192399800</span>
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">დანიშნულება</span>
+                    <span id="modal-payment-purpose" class="font-medium text-[#222222] text-[11px] truncate block">ვიზიტის საფასური</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Right: Bank Selector & Account Details (ბანკის არჩევის ფანჯარა გაერთიანებული) -->
-              <div class="bg-[#FAF7F2]/80 p-4 sm:p-5 rounded-2xl border border-[#D8C4B6] shadow-sm flex flex-col justify-between space-y-3">
+              <!-- Right: Bank Choice with Logos & QR Code for Phone (6 cols) -->
+              <div class="lg:col-span-6 bg-[#FAF7F2]/80 p-4 sm:p-5 rounded-2xl border border-[#D8C4B6] shadow-sm space-y-3 flex flex-col justify-between">
                 <div>
                   <div class="flex items-center gap-2 pb-2 mb-2.5 border-b border-[#D8C4B6]/50">
                     <span class="material-symbols-outlined text-[#E0AC6B] text-base">account_balance</span>
                     <h4 class="text-xs font-bold uppercase tracking-wider text-[#1C3D63]">ბანკის არჩევა</h4>
                   </div>
 
-                  <!-- Bank Selection Tabs -->
-                  <div class="grid grid-cols-2 gap-2 mb-3" id="booking-bank-tabs">
-                    <button type="button" id="bank-tab-bog" data-bank="bog" class="bank-choice-btn py-2 px-2.5 rounded-xl border-2 border-[#FF6700] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all">
-                      <div class="flex items-center gap-1.5">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#FF6700]"></span>
-                        <span class="text-xs font-bold">BOG</span>
+                  <!-- Bank Selection Buttons with Official Logos -->
+                  <div class="grid grid-cols-1 gap-2.5 mb-3" id="modal-bank-buttons">
+                    <!-- BOG Button with Logo -->
+                    <button type="button" id="modal-btn-bog" data-bank="bog" class="bank-pick-btn relative overflow-hidden flex items-center justify-between p-3 bg-[#ff6700] hover:bg-[#e65c00] border-2 border-[#ff6700] ring-2 ring-[#ff6700]/30 rounded-2xl transition-all duration-200 cursor-pointer shadow-md text-white w-full gap-2.5 group">
+                      <div class="flex items-center gap-2.5">
+                        <img src="/assets/bog-logo.png" alt="Bank of Georgia" class="w-10 h-10 rounded-xl shadow-sm bg-white object-contain p-0.5 flex-shrink-0" />
+                        <div class="text-left leading-tight">
+                          <span class="text-xs sm:text-sm font-black tracking-tight text-white block">საქართველოს ბანკი</span>
+                          <span class="text-[9px] font-bold text-white/90 tracking-wider uppercase block">BANK OF GEORGIA</span>
+                        </div>
                       </div>
-                      <span class="text-[10px] text-[#8E8276] font-medium">საქართველოს ბანკი</span>
+                      <span class="text-[10px] text-white font-extrabold bg-black/20 px-2.5 py-1 rounded-full border border-white/20 flex-shrink-0">BOG</span>
                     </button>
 
-                    <button type="button" id="bank-tab-tbc" data-bank="tbc" class="bank-choice-btn py-2 px-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all hover:border-[#00ADEF] opacity-75">
-                      <div class="flex items-center gap-1.5">
-                        <span class="w-2.5 h-2.5 rounded-full bg-[#00ADEF]"></span>
-                        <span class="text-xs font-bold">TBC</span>
+                    <!-- TBC Button with Logo -->
+                    <button type="button" id="modal-btn-tbc" data-bank="tbc" class="bank-pick-btn relative overflow-hidden flex items-center justify-between p-3 bg-[#00adef] hover:bg-[#009bd7] border-2 border-transparent rounded-2xl transition-all duration-200 cursor-pointer shadow-md text-white w-full gap-2.5 opacity-75 hover:opacity-100 group">
+                      <div class="flex items-center gap-2.5">
+                        <img src="/assets/tbc-logo.png" alt="TBC Bank" class="w-10 h-10 rounded-xl shadow-sm bg-white object-contain p-0.5 flex-shrink-0" />
+                        <div class="text-left leading-tight">
+                          <span class="text-xs sm:text-sm font-black tracking-tight text-white block">თიბისი ბანკი</span>
+                          <span class="text-[9px] font-bold text-white/90 tracking-widest uppercase block">T B C   B A N K</span>
+                        </div>
                       </div>
-                      <span class="text-[10px] text-[#8E8276] font-medium">თიბისი ბანკი</span>
+                      <span class="text-[10px] text-white font-extrabold bg-black/20 px-2.5 py-1 rounded-full border border-white/20 flex-shrink-0">TBC</span>
                     </button>
                   </div>
 
-                  <!-- Active Bank Info Card -->
-                  <div class="bg-white border border-[#D8C4B6] rounded-xl p-3 space-y-2 text-xs shadow-inner">
-                    <div class="flex items-center justify-between pb-1 border-b border-[#D8C4B6]/40">
-                      <span class="text-[10px] text-[#8E8276] uppercase tracking-wider font-semibold">არჩეული ბანკი:</span>
-                      <span id="modal-bank-name" class="font-bold text-[#1C3D63]">საქართველოს ბანკი (BOG)</span>
+                  <!-- QR Code Box for Phone (ტელეფონისთვის ქრ კოდით) -->
+                  <div class="bg-white border border-[#D8C4B6] rounded-2xl p-3 text-center shadow-inner flex flex-col items-center justify-center">
+                    <div class="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto bg-white p-1.5 rounded-xl border border-[#D8C4B6] shadow-sm flex items-center justify-center">
+                      <img id="modal-booking-qr-img" src="" alt="Scan QR code with phone" class="w-full h-full object-contain rounded-lg" />
                     </div>
-
-                    <div>
-                      <div class="flex items-center justify-between">
-                        <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">IBAN ანგარიშის ნომერი</span>
-                        <button type="button" id="modal-copy-iban" class="text-[10px] text-[#1C3D63] hover:text-[#E0AC6B] cursor-pointer flex items-center gap-1 border-none bg-transparent font-bold py-0.5 px-1.5 rounded hover:bg-[#F4F7F7] transition-all">
-                          <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
-                        </button>
-                      </div>
-                      <div class="bg-[#F4F7F7] p-2 rounded-lg border border-[#D8C4B6]/60 mt-0.5">
-                        <span id="modal-iban-text" class="font-mono font-bold text-[#1C3D63] text-xs sm:text-[13px] break-all">GE93BG0000000192399800</span>
-                      </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2 pt-0.5">
-                      <div>
-                        <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">მიმღები</span>
-                        <span id="modal-bank-recipient" class="font-bold text-[#222222] text-xs">შპს „იდც“ / ანი მაისურაძე</span>
-                      </div>
-                      <div>
-                        <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">თანხა</span>
-                        <span id="modal-bank-amount" class="font-bold text-[#1C3D63] text-xs">80 ₾</span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">დანიშნულება</span>
-                      <span id="modal-payment-purpose" class="font-medium text-[#222222] text-[11px] truncate block">ჯავშნის საფასური</span>
-                    </div>
+                    <p class="text-xs text-[#1C3D63] font-bold mt-2 flex items-center justify-center gap-1">
+                      <span class="material-symbols-outlined text-sm text-[#E0AC6B]">photo_camera</span>
+                      <span>დაასკანერეთ ტელეფონის კამერით</span>
+                    </p>
+                    <p class="text-[10px] text-[#3B5E63] font-light mt-0.5 text-center">
+                      ტელეფონით დასკანერებისას გადახვალთ მობაილ ბანკში 📱
+                    </p>
                   </div>
                 </div>
 
-                <!-- Quick Web/App Link -->
+                <!-- Direct Web / App Link -->
                 <div class="pt-1">
                   <a id="modal-bank-app-link" href="https://bankofgeorgia.ge" target="_blank" rel="noopener" class="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#FF6700] hover:opacity-90 rounded-xl text-white font-bold text-xs no-underline shadow-sm transition-all text-center">
                     <span class="material-symbols-outlined text-sm">open_in_new</span>
@@ -659,24 +658,24 @@ function initBookingModal() {
       name: 'თერაპია',
       label: 'თერაპიული სერვისი',
       services: [
-        { id: 'consultation', name: 'პირველადი კონსულტაცია & შეფასება', price: '80 ₾' },
-        { id: 'individual', name: 'ინდივიდუალური ფსიქოთერაპია', price: '120 ₾' },
-        { id: 'couples', name: 'წყვილთა & ოჯახური თერაპია', price: '160 ₾' },
-        { id: 'group', name: 'ჯგუფური ფსიქოთერაპია', price: '60 ₾' },
-        { id: 'coaching', name: 'პერსონალური ქოუჩინგი', price: '150 ₾' },
-        { id: 'group_coaching', name: 'ჯგუფური / კორპორატიული ქოუჩინგი', price: '250 ₾' }
+        { id: 'consultation', icon: '🎧', name: 'კონსულტაცია & შეფასება', price: '80 ₾' },
+        { id: 'individual', icon: '🌿', name: 'ინდივიდუალური ფსიქოთერაპია', price: '120 ₾' },
+        { id: 'couples', icon: '👥', name: 'წყვილთა & ოჯახური თერაპია', price: '160 ₾' },
+        { id: 'group', icon: '🏛️', name: 'ჯგუფური ფსიქოთერაპია', price: '60 ₾' },
+        { id: 'coaching', icon: '📈', name: 'პერსონალური ქოუჩინგი', price: '150 ₾' },
+        { id: 'group_coaching', icon: '💼', name: 'კორპორატიული ქოუჩინგი', price: '250 ₾' }
       ]
     },
     education: {
       name: 'განათლება',
       label: 'საგანმანათლებლო პროგრამა / კურსი',
       services: [
-        { id: 'wapp', name: 'WAPP საერთაშორისო საბაზისო კურსი', price: '1,500 ₾' },
-        { id: 'erickson', name: 'ერიქსონის ქოუჩინგის აკადემია', price: '2,800 ₾' },
-        { id: 'art', name: 'არტთერაპიის 1-წლიანი კურსი', price: '1,800 ₾' },
-        { id: 'practical', name: 'პრაქტიკული ფსიქოლოგიის კურსი', price: '1,200 ₾' },
-        { id: 'master', name: 'მასტერკურსი & სუპერვიზია', price: '2,200 ₾' },
-        { id: 'seminars', name: 'სემინარები & ვორქშოფები', price: '150 ₾' }
+        { id: 'wapp', icon: '🎓', name: 'WAPP საერთაშორისო საბაზისო კურსი', price: '1,500 ₾' },
+        { id: 'erickson', icon: '🦅', name: 'ერიქსონის ქოუჩინგის აკადემია', price: '2,800 ₾' },
+        { id: 'art', icon: '🎨', name: 'არტთერაპიის 1-წლიანი კურსი', price: '1,800 ₾' },
+        { id: 'practical', icon: '🧠', name: 'პრაქტიკული ფსიქოლოგიის კურსი', price: '1,200 ₾' },
+        { id: 'master', icon: '📜', name: 'მასტერკურსი & სუპერვიზია', price: '2,200 ₾' },
+        { id: 'seminars', icon: '💡', name: 'სემინარები & ვორქშოფები', price: '150 ₾' }
       ]
     }
   };
@@ -686,7 +685,6 @@ function initBookingModal() {
   const catInput = document.getElementById('booking-category-input');
   const serviceLabel = document.getElementById('booking-service-label');
   const serviceSelect = document.getElementById('booking-service-select');
-  const priceDisplay = document.getElementById('booking-price-display');
   const priceInput = document.getElementById('booking-price-input');
   const calBannerEl = document.getElementById('modal-cal-event-banner');
 
@@ -711,7 +709,7 @@ function initBookingModal() {
         const opt = document.createElement('option');
         opt.value = item.name;
         opt.setAttribute('data-price', item.price);
-        opt.textContent = `${item.name} (${item.price})`;
+        opt.textContent = `${item.icon} ${item.name}`;
         if (preselectedService && (item.id === preselectedService || item.name.includes(preselectedService))) {
           opt.selected = true;
         } else if (!preselectedService && idx === 0) {
@@ -729,7 +727,6 @@ function initBookingModal() {
     const selectedOpt = serviceSelect.options[serviceSelect.selectedIndex];
     if (selectedOpt) {
       const price = selectedOpt.getAttribute('data-price') || '';
-      if (priceDisplay) priceDisplay.textContent = price;
       if (priceInput) priceInput.value = price;
       if (calBannerEl) {
         calBannerEl.textContent = `📅 ${selectedOpt.value}`;
@@ -743,6 +740,89 @@ function initBookingModal() {
 
   // Initialize with therapy
   updateCategory('therapy');
+
+  // Helper function to set scannable QR code with bulletproof providers
+  function setModalQrCode(url) {
+    const qrImg = document.getElementById('modal-booking-qr-img');
+    if (!qrImg) return;
+
+    const encoded = encodeURIComponent(url);
+    const qrProviders = [
+      `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encoded}`,
+      `https://quickchart.io/qr?size=300&text=${encoded}`,
+      `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${encoded}`
+    ];
+
+    let providerIndex = 0;
+    qrImg.onerror = () => {
+      providerIndex++;
+      if (providerIndex < qrProviders.length) {
+        qrImg.src = qrProviders[providerIndex];
+      }
+    };
+    qrImg.src = qrProviders[0];
+  }
+
+  // Step 2: Bank Selection Data & Switching with logos & direct apps
+  const banksData = {
+    bog: {
+      name: 'საქართველოს ბანკი (BOG)',
+      iban: 'GE93BG0000000192399800',
+      recipient: 'ანი მაისურაძე',
+      link: 'https://bankofgeorgia.ge',
+      linkText: 'გადასვლა საქართველოს ბანკში',
+      color: '#ff6700'
+    },
+    tbc: {
+      name: 'თიბისი ბანკი (TBC)',
+      iban: 'GE42TB7845636020100005',
+      recipient: 'ანი მაისურაძე',
+      link: 'https://tbcbank.ge',
+      linkText: 'გადასვლა თიბისი ბანკში',
+      color: '#00adef'
+    }
+  };
+  let activeBankKey = 'bog';
+
+  function selectBank(bankKey) {
+    activeBankKey = bankKey;
+    const bank = banksData[bankKey] || banksData.bog;
+    const btnBog = document.getElementById('modal-btn-bog');
+    const btnTbc = document.getElementById('modal-btn-tbc');
+    const nameEl = document.getElementById('modal-bank-name');
+    const ibanEl = document.getElementById('modal-iban-text');
+    const appLinkEl = document.getElementById('modal-bank-app-link');
+    const linkTextEl = document.getElementById('modal-bank-link-text');
+
+    if (btnBog && btnTbc) {
+      if (bankKey === 'bog') {
+        btnBog.className = 'bank-pick-btn relative overflow-hidden flex items-center justify-between p-3 bg-[#ff6700] hover:bg-[#e65c00] border-2 border-[#ff6700] ring-2 ring-[#ff6700]/30 rounded-2xl transition-all duration-200 cursor-pointer shadow-md text-white w-full gap-2.5';
+        btnTbc.className = 'bank-pick-btn relative overflow-hidden flex items-center justify-between p-3 bg-[#00adef] hover:bg-[#009bd7] border-2 border-transparent rounded-2xl transition-all duration-200 cursor-pointer shadow-md text-white w-full gap-2.5 opacity-70 hover:opacity-100';
+      } else {
+        btnTbc.className = 'bank-pick-btn relative overflow-hidden flex items-center justify-between p-3 bg-[#00adef] hover:bg-[#009bd7] border-2 border-[#00adef] ring-2 ring-[#00adef]/30 rounded-2xl transition-all duration-200 cursor-pointer shadow-md text-white w-full gap-2.5';
+        btnBog.className = 'bank-pick-btn relative overflow-hidden flex items-center justify-between p-3 bg-[#ff6700] hover:bg-[#e65c00] border-2 border-transparent rounded-2xl transition-all duration-200 cursor-pointer shadow-md text-white w-full gap-2.5 opacity-70 hover:opacity-100';
+      }
+    }
+
+    if (nameEl) nameEl.textContent = bank.name;
+    if (ibanEl) ibanEl.textContent = bank.iban;
+    if (appLinkEl) {
+      appLinkEl.href = bank.link;
+      appLinkEl.style.backgroundColor = bank.color;
+    }
+    if (linkTextEl) linkTextEl.textContent = bank.linkText;
+
+    // Update QR Code with payment deep link
+    const curService = serviceSelect ? serviceSelect.value : 'სერვისი';
+    const curPrice = priceInput ? priceInput.value : '';
+    const mobilePayUrl = `https://idc.edu.ge/registration.html?pay_mobile=true&service=${encodeURIComponent(curService)}&price=${encodeURIComponent(curPrice)}&bank=${bankKey}&iban=${encodeURIComponent(bank.iban)}`;
+    setModalQrCode(mobilePayUrl);
+  }
+
+  const btnBog = document.getElementById('modal-btn-bog');
+  const btnTbc = document.getElementById('modal-btn-tbc');
+  if (btnBog) btnBog.addEventListener('click', () => selectBank('bog'));
+  if (btnTbc) btnTbc.addEventListener('click', () => selectBank('tbc'));
 
   // Form submission -> Step 2
   const modalForm = document.getElementById('booking-modal-form');
@@ -775,71 +855,13 @@ function initBookingModal() {
         const sumPrice = document.getElementById('modal-summary-price');
         if (sumPrice) sumPrice.textContent = price;
 
-        const bankAmount = document.getElementById('modal-bank-amount');
-        if (bankAmount) bankAmount.textContent = price;
-
         const purpose = document.getElementById('modal-payment-purpose');
-        if (purpose) purpose.textContent = `ჯავშნის საფასური - ${service} (${price})`;
+        if (purpose) purpose.textContent = `ვიზიტის საფასური - ${service} (${price})`;
+
+        selectBank(activeBankKey);
       }
     });
   }
-
-  // Step 2: Bank Selection Data & Switching
-  const banksData = {
-    bog: {
-      name: 'საქართველოს ბანკი (BOG)',
-      iban: 'GE93BG0000000192399800',
-      recipient: 'შპს „იდც“ / ანი მაისურაძე',
-      link: 'https://bankofgeorgia.ge',
-      linkText: 'გადასვლა საქართველოს ბანკში',
-      color: '#FF6700'
-    },
-    tbc: {
-      name: 'თიბისი ბანკი (TBC)',
-      iban: 'GE42TB7845636020100005',
-      recipient: 'შპს „იდც“ / ანი მაისურაძე',
-      link: 'https://tbcbank.ge',
-      linkText: 'გადასვლა თიბისი ბანკში',
-      color: '#00ADEF'
-    }
-  };
-  let activeBankKey = 'bog';
-
-  function selectBank(bankKey) {
-    activeBankKey = bankKey;
-    const bank = banksData[bankKey] || banksData.bog;
-    const btnBog = document.getElementById('bank-tab-bog');
-    const btnTbc = document.getElementById('bank-tab-tbc');
-    const nameEl = document.getElementById('modal-bank-name');
-    const ibanEl = document.getElementById('modal-iban-text');
-    const recipientEl = document.getElementById('modal-bank-recipient');
-    const appLinkEl = document.getElementById('modal-bank-app-link');
-    const linkTextEl = document.getElementById('modal-bank-link-text');
-
-    if (btnBog && btnTbc) {
-      if (bankKey === 'bog') {
-        btnBog.className = 'bank-choice-btn py-2 px-2.5 rounded-xl border-2 border-[#FF6700] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all';
-        btnTbc.className = 'bank-choice-btn py-2 px-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all hover:border-[#00ADEF] opacity-75';
-      } else {
-        btnTbc.className = 'bank-choice-btn py-2 px-2.5 rounded-xl border-2 border-[#00ADEF] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all';
-        btnBog.className = 'bank-choice-btn py-2 px-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all hover:border-[#FF6700] opacity-75';
-      }
-    }
-
-    if (nameEl) nameEl.textContent = bank.name;
-    if (ibanEl) ibanEl.textContent = bank.iban;
-    if (recipientEl) recipientEl.textContent = bank.recipient;
-    if (appLinkEl) {
-      appLinkEl.href = bank.link;
-      appLinkEl.style.backgroundColor = bank.color;
-    }
-    if (linkTextEl) linkTextEl.textContent = bank.linkText;
-  }
-
-  const btnTabBog = document.getElementById('bank-tab-bog');
-  const btnTabTbc = document.getElementById('bank-tab-tbc');
-  if (btnTabBog) btnTabBog.addEventListener('click', () => selectBank('bog'));
-  if (btnTabTbc) btnTabTbc.addEventListener('click', () => selectBank('tbc'));
 
   // Step 2 Payment Handlers
   const backBtn = document.getElementById('modal-btn-payment-back');
