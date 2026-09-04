@@ -3,7 +3,7 @@ import { getProfile, generateReading, deleteProfile, saveProfile } from "./lib/a
 import { BirthProfile, CalculationType, ReadingResponse } from "./types";
 import { ProfileForm } from "./components/ProfileForm";
 import { API_URLS } from "./config";
-import { SpinWheel } from "./components/SpinWheel";
+import { ModelCatalog } from "./components/ModelCatalog";
 import { CompatibilityPanel } from "./components/CompatibilityPanel";
 import { Sparkles, RefreshCw, MessageSquare, Edit3, UserCheck, Star, ShieldAlert, ArrowLeft, Send, Facebook, Link, Share2, Smartphone, MessageCircle } from "lucide-react";
 import ReactMarkdown from "react-markdown";
@@ -734,7 +734,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative w-full text-[#c6c6ce] flex flex-col justify-between py-4 z-10 selection:bg-white/10 selection:text-white">
+    <div className="relative w-full text-[#222222] flex flex-col justify-between py-4 z-10 selection:bg-[#E0AC6B]/20 selection:text-[#1C3D63] font-sans">
       
       {/* Immersive slate background */}
       <div className="cosmic-bg"></div>
@@ -751,29 +751,27 @@ export default function App() {
           />
         ) : (
           /* Active Profile Overview Card */
-          <div className="w-full bg-[#1e2022]/60 p-7 rounded-2xl border border-[#E0AC6B]/20 hover:border-[#E0AC6B]/40 shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative backdrop-blur-md transition-all duration-300 hover:shadow-[0_15px_35px_rgba(0,0,0,0.5),0_0_20px_rgba(224,172,107,0.05)]">
-            <div className="absolute top-0 left-0 w-[2px] h-full bg-[#1C3D63] rounded-l-2xl"></div>
-            
+          <div className="w-full bg-white p-6 sm:p-7 rounded-2xl border border-[#D8C4B6] shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative text-left font-sans">
             {showDeleteConfirm ? (
               <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 py-2">
                 <div className="text-left space-y-1.5">
-                  <h4 className="text-sm uppercase tracking-widest text-red-400 font-bold flex items-center gap-1.5 font-headline">
-                    <ShieldAlert className="w-4 h-4 text-red-400" /> მონაცემების სამუდამოდ წაშლა და თავიდან დაწყება
+                  <h4 className="text-sm uppercase tracking-wide text-red-700 font-bold flex items-center gap-1.5 font-headline">
+                    <ShieldAlert className="w-4 h-4 text-red-600" /> მონაცემების სამუდამოდ წაშლა და თავიდან დაწყება
                   </h4>
-                  <p className="text-[12px] text-[#c6c6ce]/80 uppercase tracking-wider font-semibold">
+                  <p className="text-xs text-[#3B5E63] font-light">
                     დარწმუნებული ხართ ფაილების, ანალიზების და სახელი/თარიღის სრულად წაშლაზე?
                   </p>
                 </div>
                 <div className="flex items-center gap-2 w-full md:w-auto shrink-0">
                   <button
                     onClick={handleDeleteProfile}
-                    className="flex-1 md:flex-none px-5 py-3 bg-red-600 hover:bg-red-500 text-white text-[11px] font-bold tracking-widest uppercase transition-all cursor-pointer text-center rounded-xl shadow-[0_0_15px_rgba(239,68,68,0.2)]"
+                    className="flex-1 md:flex-none px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold tracking-widest uppercase transition-all cursor-pointer text-center rounded-xl shadow-xs font-headline"
                   >
                     დიახ, წაშლა
                   </button>
                   <button
                     onClick={() => setShowDeleteConfirm(false)}
-                    className="flex-1 md:flex-none px-5 py-3 bg-white/5 hover:bg-white/10 text-[#c6c6ce] hover:text-white border border-white/10 text-[11px] font-bold tracking-widest uppercase transition-all cursor-pointer text-center rounded-xl"
+                    className="flex-1 md:flex-none px-5 py-2.5 bg-[#F4F7F7] hover:bg-[#E5ECEC] text-[#1C3D63] border border-[#D8C4B6] text-[10px] font-bold tracking-widest uppercase transition-all cursor-pointer text-center rounded-xl font-headline"
                   >
                     გაუქმება
                   </button>
@@ -782,23 +780,23 @@ export default function App() {
             ) : showResetConfirm ? (
               <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 py-2">
                 <div className="text-left space-y-1.5">
-                  <h4 className="text-sm uppercase tracking-widest text-white font-bold flex items-center gap-1.5 font-headline">
-                    <Edit3 className="w-4 h-4 text-white" /> პროფილის შეცვლა
+                  <h4 className="text-sm uppercase tracking-wide text-[#1C3D63] font-bold flex items-center gap-1.5 font-headline">
+                    <Edit3 className="w-4 h-4 text-[#E0AC6B]" /> პროფილის შეცვლა
                   </h4>
-                  <p className="text-[12px] text-[#c6c6ce]/80 uppercase tracking-wider font-semibold">
+                  <p className="text-xs text-[#3B5E63] font-light">
                     ნამდვილად გსურთ მიმდინარე პროფილის დახურვა და ახლის შეყვანა?
                   </p>
                 </div>
                 <div className="flex items-center gap-2 w-full md:w-auto shrink-0">
                   <button
                     onClick={handleResetProfile}
-                    className="flex-1 md:flex-none px-5 py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[11px] font-bold tracking-widest uppercase transition-all cursor-pointer text-center rounded-xl shadow-[0_0_15px_rgba(28,61,99,0.3)]"
+                    className="flex-1 md:flex-none px-5 py-2.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-widest uppercase transition-all cursor-pointer text-center rounded-xl shadow-xs font-headline"
                   >
                     შეცვლა
                   </button>
                   <button
                     onClick={() => setShowResetConfirm(false)}
-                    className="flex-1 md:flex-none px-5 py-3 bg-white/5 hover:bg-white/10 text-[#c6c6ce] hover:text-white border border-white/10 text-[11px] font-bold tracking-widest uppercase transition-all cursor-pointer text-center rounded-xl"
+                    className="flex-1 md:flex-none px-5 py-2.5 bg-[#F4F7F7] hover:bg-[#E5ECEC] text-[#1C3D63] border border-[#D8C4B6] text-[10px] font-bold tracking-widest uppercase transition-all cursor-pointer text-center rounded-xl font-headline"
                   >
                     გაუქმება
                   </button>
@@ -807,37 +805,37 @@ export default function App() {
             ) : (
               <>
                 <div className="flex items-center space-x-4">
-                  <div className="w-13 h-13 rounded-full border border-white/20 bg-white/5 flex items-center justify-center font-bold text-lg text-[#E0AC6B] shadow-[0_0_10px_rgba(224,172,107,0.2)]" id="active-profile-avatar">
+                  <div className="w-12 h-12 rounded-xl border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center font-bold text-lg text-[#1C3D63] font-headline shadow-xs" id="active-profile-avatar">
                     {userProfile.name[0]}
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <div className="flex items-center space-x-3 flex-wrap gap-y-1">
-                      <h3 className="text-base font-bold tracking-wide text-[#E0AC6B] uppercase font-headline" id="active-profile-name">
+                      <h3 className="text-base sm:text-lg font-bold tracking-wide text-[#1C3D63] uppercase font-headline" id="active-profile-name">
                         {userProfile.name} {userProfile.surname}
                       </h3>
-                      <span className="text-[10px] bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-lg font-bold uppercase tracking-widest flex items-center gap-1" id="active-profile-status">
-                        <UserCheck className="w-3 h-3 text-emerald-400" /> აქტიური
+                      <span className="text-[10px] bg-[#3B5E63]/10 border border-[#3B5E63]/25 text-[#1C3D63] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider flex items-center gap-1 font-headline" id="active-profile-status">
+                        <UserCheck className="w-3 h-3 text-[#3B5E63]" /> აქტიური
                       </span>
                     </div>
-                    <p className="text-[12px] text-[#c6c6ce]/80 font-semibold uppercase tracking-widest leading-relaxed">
+                    <p className="text-xs text-[#3B5E63] font-light leading-relaxed">
                       დაბადებული: {userProfile.day}/{userProfile.month}/{userProfile.year}
                       {userProfile.birthTime ? (
-                        <span className="text-[#E0AC6B] font-bold"> • ⏰ {userProfile.birthTime} სთ</span>
+                        <span className="text-[#1C3D63] font-medium"> • ⏰ {userProfile.birthTime} სთ</span>
                       ) : (
-                        <span className="text-[#c6c6ce]/50"> • ⏰ საათი არ არის</span>
+                        <span className="text-[#8E8276]"> • ⏰ საათი არ არის</span>
                       )}
                       {` • ${userProfile.birthPlace || "თბილისი"}`}
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                   <button
                     onClick={() => {
                       setTempBirthTime(userProfile.birthTime || "");
                       setShowTimeModal(true);
                     }}
-                    className="px-4 py-2.5 bg-[#E0AC6B]/10 hover:bg-[#E0AC6B]/20 text-[#E0AC6B] border border-[#E0AC6B]/30 hover:border-[#E0AC6B]/60 text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer self-start sm:self-auto shadow-sm"
+                    className="px-3.5 py-2 bg-[#F4F7F7] hover:bg-[#E5ECEC] text-[#1C3D63] border border-[#D8C4B6] text-[10px] font-bold tracking-wider uppercase rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer font-headline shadow-xs"
                     id="btn-trigger-time"
                   >
                     <span>⏰ {userProfile.birthTime ? "საათის შეცვლა" : "საათის ჩამატება"}</span>
@@ -848,10 +846,10 @@ export default function App() {
                       setShowResetConfirm(true);
                       setShowDeleteConfirm(false);
                     }}
-                    className="px-5 py-2.5 bg-white/5 hover:bg-white/10 text-[#c6c6ce] hover:text-white border border-white/10 text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer self-start sm:self-auto"
+                    className="px-3.5 py-2 bg-[#F4F7F7] hover:bg-[#E5ECEC] text-[#1C3D63] border border-[#D8C4B6] text-[10px] font-bold tracking-wider uppercase rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer font-headline shadow-xs"
                     id="btn-trigger-reset"
                   >
-                    <Edit3 className="w-4 h-4 text-[#c6c6ce]" /> პროფილის შეცვლა
+                    <Edit3 className="w-3.5 h-3.5 text-[#1C3D63]" /> პროფილის შეცვლა
                   </button>
                   
                   <button
@@ -859,10 +857,10 @@ export default function App() {
                       setShowDeleteConfirm(true);
                       setShowResetConfirm(false);
                     }}
-                    className="px-5 py-2.5 bg-red-950/20 hover:bg-red-900/30 text-red-400 hover:text-red-300 border border-red-500/20 hover:border-red-500/30 text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer self-start sm:self-auto"
+                    className="px-3.5 py-2 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-[10px] font-bold tracking-wider uppercase rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer font-headline shadow-xs"
                     id="btn-trigger-delete"
                   >
-                    <RefreshCw className="w-3.5 h-3.5 text-red-450 shrink-0" /> წაშლა და თავიდან დაწყება
+                    <RefreshCw className="w-3 h-3 text-red-600 shrink-0" /> წაშლა
                   </button>
                 </div>
               </>
@@ -875,9 +873,7 @@ export default function App() {
           <div className="space-y-12">
             {/* 1. Reading Display panel */}
             {(loadingReading || reading || error) && (
-              <div id="reading-display" className="w-full bg-[#1e2022]/60 p-4 sm:p-8 rounded-2xl border border-white/5 shadow-2xl transition-all relative backdrop-blur-md">
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-[#1C3D63] rounded-t-2xl"></div>
-                
+              <div id="reading-display" className="w-full bg-white p-6 sm:p-8 rounded-2xl border border-[#D8C4B6] shadow-sm transition-all relative text-left font-sans text-[#222222]">
                 {/* Back Button */}
                 <button
                   onClick={() => {
@@ -886,7 +882,7 @@ export default function App() {
                     setError(null);
                     setReadingStage('IDLE');
                   }}
-                  className="inline-flex items-center space-x-2 text-[11px] tracking-widest text-[#c6c6ce] hover:text-[#E0AC6B] font-bold uppercase transition-all mb-4 group cursor-pointer"
+                  className="inline-flex items-center space-x-2 text-[10px] tracking-widest text-[#8E8276] hover:text-[#1C3D63] font-bold uppercase transition-all mb-4 group cursor-pointer font-headline"
                 >
                   <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
                   <span>უკან დაბრუნება</span>
@@ -894,15 +890,15 @@ export default function App() {
 
                 {/* Model Birth Time Status & Quick Add Bar */}
                 {selectedType && [CalculationType.HOROSCOPE, CalculationType.HUMAN_DESIGN, CalculationType.VEDIC, CalculationType.BAZI].includes(selectedType) && (
-                  <div className="mb-6 p-3.5 bg-[#E0AC6B]/10 border border-[#E0AC6B]/30 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-left shadow-sm">
+                  <div className="mb-6 p-4 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-left shadow-xs">
                     <div className="flex items-center space-x-2.5">
                       <span className="material-symbols-outlined text-[#E0AC6B] text-xl shrink-0">schedule</span>
-                      <p className="text-xs text-[#c6c6ce] font-medium leading-relaxed">
-                        <strong className="text-[#E0AC6B] font-bold">დაბადების საათი:</strong>{' '}
+                      <p className="text-xs text-[#3B5E63] font-light leading-relaxed">
+                        <strong className="text-[#1C3D63] font-bold">დაბადების საათი:</strong>{' '}
                         {userProfile?.birthTime ? (
-                          <span className="text-emerald-400 font-bold">მითითებულია ({userProfile.birthTime} სთ) ✓</span>
+                          <span className="text-emerald-700 font-medium">მითითებულია ({userProfile.birthTime} სთ) ✓</span>
                         ) : (
-                          <span className="text-amber-300 font-semibold">არ არის მითითებული (სასურველია ზუსტი ანალიზისთვის)</span>
+                          <span className="text-[#8E8276]">არ არის მითითებული (სასურველია ზუსტი ანალიზისთვის)</span>
                         )}
                       </p>
                     </div>
@@ -911,7 +907,7 @@ export default function App() {
                         setTempBirthTime(userProfile?.birthTime || "");
                         setShowTimeModal(true);
                       }}
-                      className="px-3.5 py-1.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-black uppercase tracking-wider rounded-lg transition-colors cursor-pointer shrink-0 shadow-sm"
+                      className="px-3.5 py-1.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer shrink-0 shadow-xs font-headline"
                     >
                       {userProfile?.birthTime ? "საათის შეცვლა" : "+ საათის ჩამატება"}
                     </button>
@@ -920,63 +916,62 @@ export default function App() {
 
                 {/* STEP 1: Fast Loading Screen immediately after selection */}
                 {(readingStage === 'LOADING_SHORT' || (readingStage === 'SHORT_READY' && !reading)) && (
-                  <div className="flex flex-col items-center justify-center py-12 space-y-6">
+                  <div className="flex flex-col items-center justify-center py-10 space-y-5 text-center">
                     {selectedType && (
                       <div className="relative flex items-center justify-center mb-2">
-                        <div className="absolute w-[180px] h-[180px] rounded-full border border-dashed border-[#E0AC6B]/30 animate-[spin_20s_linear_infinite] pointer-events-none"></div>
-                        <div className="absolute w-[150px] h-[150px] rounded-full border border-[#E0AC6B]/15 animate-[spin_10s_linear_infinite_reverse] pointer-events-none"></div>
+                        <div className="absolute w-[170px] h-[170px] rounded-full border border-dashed border-[#D8C4B6] animate-[spin_20s_linear_infinite] pointer-events-none"></div>
                         
-                        <div className="w-[120px] h-[170px] rounded-xl border-2 border-[#E0AC6B]/35 bg-[#1e2022]/95 flex flex-col items-center justify-center p-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(224,172,107,0.15)] relative overflow-hidden animate-bounce z-10">
-                          <div className="my-auto text-[#E0AC6B] scale-[1.3] drop-shadow-[0_0_12px_rgba(224,172,107,0.45)]">
+                        <div className="w-[110px] h-[155px] rounded-xl border border-[#D8C4B6] bg-white flex flex-col items-center justify-center p-3.5 shadow-sm relative overflow-hidden animate-bounce z-10 text-[#1C3D63]">
+                          <div className="my-auto scale-[1.2] text-[#E0AC6B]">
                             {getTarotIllustration(selectedType)}
                           </div>
                         </div>
                       </div>
                     )}
                     
-                    <p className="text-[17px] sm:text-[21px] font-black text-[#E0AC6B] tracking-[0.2em] text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed">
+                    <p className="text-base sm:text-lg font-bold text-[#1C3D63] tracking-wide text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed">
                       {loadingMessages[loadingMsgIdx]}
                     </p>
 
                     <div className="w-full max-w-xs space-y-2">
-                      <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
+                      <div className="w-full h-2 bg-[#F4F7F7] rounded-full overflow-hidden border border-[#D8C4B6]">
                         <div
-                          className="h-full bg-gradient-to-r from-[#1C3D63] via-[#E0AC6B] to-[#1C3D63] transition-all duration-300 rounded-full"
+                          className="h-full bg-[#1C3D63] transition-all duration-300 rounded-full"
                           style={{ width: `${progress}%` }}
                         ></div>
                       </div>
-                      <p className="text-[11px] text-[#c6c6ce]/80 text-center font-black tracking-wider uppercase font-sans">
+                      <p className="text-[10px] text-[#8E8276] text-center font-bold tracking-wider uppercase font-headline">
                         მზადდება პირველადი ანალიზი...
                       </p>
                     </div>
 
                     {/* Live Queue Position & Wait Time Badge */}
-                    <div className="w-full max-w-md bg-[#16181a]/90 border border-[#E0AC6B]/30 rounded-2xl p-4 sm:p-5 shadow-xl space-y-3 backdrop-blur-md">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                    <div className="w-full max-w-md bg-[#F4F7F7] border border-[#D8C4B6] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3 text-left">
+                      <div className="flex items-center justify-between border-b border-[#D8C4B6]/60 pb-3">
                         <div className="flex items-center space-x-2">
-                          <span className="relative flex h-3 w-3">
+                          <span className="relative flex h-2.5 w-2.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E0AC6B] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#E0AC6B]"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#E0AC6B]"></span>
                           </span>
-                          <span className="text-xs font-black uppercase tracking-wider text-[#E0AC6B] font-headline">
+                          <span className="text-xs font-bold uppercase tracking-wide text-[#1C3D63] font-headline">
                             პირდაპირი რიგი (Live Queue)
                           </span>
                         </div>
-                        <span className="text-[10px] font-extrabold bg-[#E0AC6B]/10 text-[#E0AC6B] px-2.5 py-1 rounded-md border border-[#E0AC6B]/20 uppercase">
+                        <span className="text-[10px] font-bold bg-white text-[#1C3D63] px-2.5 py-0.5 rounded-full border border-[#D8C4B6] uppercase font-headline">
                           აქტიური სესია
                         </span>
                       </div>
 
                       <div className="grid grid-cols-2 gap-3 text-center">
-                        <div className="bg-white/5 rounded-xl p-2.5 border border-white/5">
-                          <span className="text-[10px] text-[#c6c6ce]/60 uppercase tracking-widest block font-semibold">რიგში თქვენს წინ:</span>
-                          <span className="text-base sm:text-lg font-black text-[#E0AC6B] font-headline">
+                        <div className="bg-white rounded-xl p-2.5 border border-[#D8C4B6]">
+                          <span className="text-[10px] text-[#8E8276] uppercase tracking-wider block font-bold">რიგში თქვენს წინ:</span>
+                          <span className="text-base sm:text-lg font-bold text-[#1C3D63] font-headline">
                             {queueCount} მომხმარებელი
                           </span>
                         </div>
-                        <div className="bg-white/5 rounded-xl p-2.5 border border-white/5">
-                          <span className="text-[10px] text-[#c6c6ce]/60 uppercase tracking-widest block font-semibold">სავარაუდო დრო:</span>
-                          <span className="text-base sm:text-lg font-black text-emerald-400 font-headline">
+                        <div className="bg-white rounded-xl p-2.5 border border-[#D8C4B6]">
+                          <span className="text-[10px] text-[#8E8276] uppercase tracking-wider block font-bold">სავარაუდო დრო:</span>
+                          <span className="text-base sm:text-lg font-bold text-[#3B5E63] font-headline">
                             ~{estimatedWaitTime} წუთი
                           </span>
                         </div>
@@ -984,12 +979,12 @@ export default function App() {
 
                       {/* Don't want to wait? Send to WhatsApp option */}
                       {!notifySent ? (
-                        <div className="pt-2 border-t border-white/10 space-y-2.5 text-left">
-                          <p className="text-[11px] font-extrabold text-[#E0AC6B] uppercase tracking-wider flex items-center gap-1.5">
-                            <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                        <div className="pt-2 border-t border-[#D8C4B6]/60 space-y-2 text-left">
+                          <p className="text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider flex items-center gap-1.5 font-headline">
+                            <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
                             არ გსურთ ლოდინი? მიიღეთ WhatsApp-ზე!
                           </p>
-                          <p className="text-[11px] text-[#c6c6ce]/70 leading-relaxed font-medium">
+                          <p className="text-xs text-[#3B5E63] font-light leading-relaxed">
                             შეგიძლიათ დახუროთ გვერდი. ანალიზის დასრულებისთანავე ავტომატურად გამოგიგზავნით WhatsApp-ზე 📱
                           </p>
                           <div className="flex space-x-2">
@@ -998,20 +993,20 @@ export default function App() {
                               value={queuePhone}
                               onChange={(e) => setQueuePhone(e.target.value)}
                               placeholder="მაგ: 5XXXXXXXX"
-                              className="flex-1 bg-black/40 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:border-[#1C3D63] font-semibold"
+                              className="flex-1 bg-white border border-[#D8C4B6] rounded-xl px-3 py-2 text-xs text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
                             />
                             <button
                               type="button"
                               onClick={handleRegisterWhatsAppNotify}
-                              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-md shrink-0 flex items-center gap-1"
+                              className="px-4 py-2 bg-[#25D366] hover:bg-[#20ba5a] text-white text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-xs shrink-0 flex items-center gap-1 font-headline"
                             >
                               <span>გაგზავნა WA</span>
                             </button>
                           </div>
                         </div>
                       ) : (
-                        <div className="p-3 bg-emerald-950/40 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs font-bold text-center uppercase tracking-wider animate-fade-in flex items-center justify-center gap-2">
-                          <span className="material-symbols-outlined text-base">check_circle</span>
+                        <div className="p-3 bg-[#3B5E63]/10 border border-[#3B5E63]/25 rounded-xl text-[#1C3D63] text-xs font-bold text-center uppercase tracking-wider animate-fade-in flex items-center justify-center gap-2 font-headline">
+                          <span className="material-symbols-outlined text-base text-emerald-600">check_circle</span>
                           <span>ანალიზი მზადებისთანავე გამოგიგზავნებათ WhatsApp-ზე!</span>
                         </div>
                       )}
@@ -1021,23 +1016,22 @@ export default function App() {
 
                 {/* STEP 2: Short Express Preview Card (Appears after fast load) */}
                 {readingStage === 'SHORT_READY' && reading && (
-                  <div className="bg-transparent sm:bg-[#1e2022]/80 border-0 sm:border border-[#E0AC6B]/30 p-0 pl-4 sm:p-6 rounded-2xl mb-6 shadow-none sm:shadow-2xl backdrop-blur-none sm:backdrop-blur-md relative overflow-hidden animate-fade-in text-[#c6c6ce]">
-                    <div className="absolute top-0 left-0 w-1.5 h-full bg-[#1C3D63]"></div>
-                    <div className="flex items-center space-x-3 mb-4">
-                      <span className="material-symbols-outlined text-[#E0AC6B] text-2xl animate-pulse">auto_awesome</span>
-                      <h3 className="text-lg font-black tracking-widest text-[#E0AC6B] uppercase font-headline">
+                  <div className="bg-[#F4F7F7] border border-[#D8C4B6] p-6 sm:p-8 rounded-2xl mb-6 shadow-sm relative overflow-hidden animate-fade-in text-[#222222]">
+                    <div className="flex items-center space-x-2.5 mb-4">
+                      <span className="material-symbols-outlined text-[#E0AC6B] text-2xl">auto_awesome</span>
+                      <h3 className="text-base sm:text-lg font-bold tracking-wide text-[#1C3D63] uppercase font-headline">
                         {reading.title}
                       </h3>
                     </div>
                     
                     {/* Render Sliced Response (180 words) */}
-                    <div className="text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-medium mb-6 font-sans">
+                    <div className="text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-normal mb-6 font-sans">
                       <ReactMarkdown
                         components={{
-                          h1: ({node, ...props}) => <h1 className="text-lg sm:text-xl font-black text-[#E0AC6B] font-headline tracking-widest mt-4 mb-2 uppercase" {...props} />,
-                          h2: ({node, ...props}) => <h2 className="text-base sm:text-lg font-black text-[#E0AC6B] font-headline tracking-wider mt-4 mb-2 uppercase" {...props} />,
-                          p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#c6c6ce]/90 leading-relaxed my-2" {...props} />,
-                          strong: ({node, ...props}) => <strong className="text-[#E0AC6B] font-bold" {...props} />,
+                          h1: ({node, ...props}) => <h1 className="text-lg sm:text-xl font-bold text-[#1C3D63] font-headline tracking-wide mt-4 mb-2 uppercase" {...props} />,
+                          h2: ({node, ...props}) => <h2 className="text-base sm:text-lg font-bold text-[#1C3D63] font-headline tracking-wide mt-4 mb-2 uppercase" {...props} />,
+                          p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#222222] leading-relaxed my-2" {...props} />,
+                          strong: ({node, ...props}) => <strong className="text-[#1C3D63] font-bold" {...props} />,
                         }}
                       >
                         {sliceMarkdown(reading.content)}
@@ -1046,10 +1040,10 @@ export default function App() {
 
                     <button
                       onClick={() => setReadingStage('FULL_READY')}
-                      className="w-full py-4 px-6 bg-gradient-to-r from-[#1C3D63]/30 via-[#E0AC6B]/30 to-[#1C3D63]/30 hover:from-[#1C3D63]/50 hover:to-[#1C3D63]/50 border border-[#E0AC6B]/50 hover:border-[#E0AC6B] text-[#E0AC6B] hover:text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-widest transition-all cursor-pointer shadow-[0_10px_25px_rgba(224,172,107,0.2)] flex items-center justify-center gap-3 hover:scale-[1.01] active:scale-98 font-headline"
+                      className="w-full py-3.5 px-6 bg-[#1C3D63] hover:bg-[#254F7F] text-white rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer shadow-sm flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-98 font-headline"
                     >
-                      <span>✨ იხილეთ სრული სიღრმისეული ანალიზი (გაიგე მეტი)</span>
-                      <span className="material-symbols-outlined text-xl animate-bounce">expand_more</span>
+                      <span>იხილეთ სრული სიღრმისეული ანალიზი (გაიგე მეტი)</span>
+                      <span className="material-symbols-outlined text-lg">expand_more</span>
                     </button>
                   </div>
                 )}
@@ -1059,19 +1053,19 @@ export default function App() {
                   <>
                     {/* Background loading still in progress for full reading */}
                     {loadingReading && (
-                      <div className="flex flex-col items-center justify-center py-10 space-y-6 border-t border-white/10 pt-6 font-sans">
-                        <div className="w-10 h-10 border-4 border-[#E0AC6B] border-t-transparent rounded-full animate-spin"></div>
-                        <p className="text-[15px] font-black text-[#E0AC6B] tracking-[0.15em] text-center font-headline animate-pulse uppercase max-w-lg px-4 leading-relaxed">
+                      <div className="flex flex-col items-center justify-center py-10 space-y-5 border-t border-[#D8C4B6]/60 pt-6 font-sans text-center">
+                        <div className="w-9 h-9 border-3 border-[#1C3D63] border-t-transparent rounded-full animate-spin"></div>
+                        <p className="text-sm sm:text-base font-bold text-[#1C3D63] tracking-wide uppercase font-headline">
                           სრულდება სრული სიღრმისეული ანალიზი...
                         </p>
                         <div className="w-full max-w-xs space-y-2">
-                          <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/5">
+                          <div className="w-full h-2 bg-[#F4F7F7] rounded-full overflow-hidden border border-[#D8C4B6]">
                             <div
-                              className="h-full bg-gradient-to-r from-[#1C3D63] via-[#E0AC6B] to-[#1C3D63] transition-all duration-300 rounded-full"
+                              className="h-full bg-[#1C3D63] transition-all duration-300 rounded-full"
                               style={{ width: progress + '%' }}
                             ></div>
                           </div>
-                          <p className="text-[11px] text-[#c6c6ce]/80 text-center font-black tracking-wider uppercase font-sans">
+                          <p className="text-[10px] text-[#8E8276] text-center font-bold tracking-wider uppercase font-headline">
                             {progress < 100 ? 'ანალიზი მზადდება: ' + progress + '%' : 'ანალიზი მზადაა! ✨'}
                           </p>
                         </div>
@@ -1080,42 +1074,40 @@ export default function App() {
 
                     {/* Error View */}
                     {error && !loadingReading && (
-                      <div className="flex items-start space-x-3 p-4 bg-red-950/20 border border-red-500/20 rounded-xl text-red-300 text-sm font-semibold mt-4">
-                        <ShieldAlert className="w-4.5 h-4.5 text-red-400 shrink-0" />
+                      <div className="flex items-start space-x-3 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm font-semibold mt-4">
+                        <ShieldAlert className="w-4.5 h-4.5 text-red-600 shrink-0" />
                         <div className="space-y-1">
-                          <p className="font-extrabold tracking-wider uppercase text-[11px] text-[#E0AC6B] font-headline">შეცდომა ანალიზისას</p>
-                          <p className="text-[#c6c6ce]/80">{error}</p>
+                          <p className="font-bold tracking-wide uppercase text-xs text-red-700 font-headline">შეცდომა ანალიზისას</p>
+                          <p className="text-red-600 font-light">{error}</p>
                         </div>
                       </div>
                     )}
 
                     {/* Successful Reading Response */}
                     {reading && !loadingReading && (
-                      <div className="space-y-6 text-[#c6c6ce] pt-4 border-t border-white/10 animate-fade-in font-sans">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-5 gap-3">
-                          <div>
-                            <h2 className="text-2xl sm:text-3xl tracking-widest text-[#E0AC6B] uppercase font-black font-headline drop-shadow-[0_2px_12px_rgba(224,172,107,0.3)]">
-                              {reading.title}
-                            </h2>
-                            <span className="text-[11px] sm:text-xs text-[#c6c6ce]/80 font-black tracking-widest uppercase block mt-1.5 font-headline">
-                              ხელოვნური ინტელექტის უნივერსალური ანალიზი
-                            </span>
-                          </div>
+                      <div className="space-y-6 text-[#222222] pt-4 border-t border-[#D8C4B6]/60 animate-fade-in font-sans">
+                        <div className="border-b border-[#D8C4B6]/60 pb-4">
+                          <h2 className="text-2xl sm:text-3xl tracking-wide text-[#1C3D63] uppercase font-bold font-headline">
+                            {reading.title}
+                          </h2>
+                          <span className="text-xs text-[#3B5E63] font-light uppercase tracking-wider block mt-1">
+                            ხელოვნური ინტელექტის სიღრმისეული ანალიზი
+                          </span>
                         </div>
                         
                         {/* Render Markdown Response elegantly */}
-                        <div className="text-[#c6c6ce] text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-medium">
+                        <div className="text-[#222222] text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-normal">
                           <ReactMarkdown
                             components={{
-                              h1: ({node, ...props}) => <h1 className="text-xl sm:text-2xl font-black text-[#E0AC6B] font-headline tracking-widest mt-6 mb-2 border-b border-white/5 pb-2 uppercase" {...props} />,
-                              h2: ({node, ...props}) => <h2 className="text-lg sm:text-xl font-black text-[#E0AC6B] font-headline tracking-wider mt-5 mb-2 uppercase" {...props} />,
-                              h3: ({node, ...props}) => <h3 className="text-base sm:text-lg font-bold text-[#E0AC6B] font-headline mt-4 mb-1.5 uppercase" {...props} />,
-                              p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#c6c6ce]/90 leading-relaxed my-2.5 font-medium" {...props} />,
-                              ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
-                              ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
+                              h1: ({node, ...props}) => <h1 className="text-xl sm:text-2xl font-bold text-[#1C3D63] font-headline tracking-wide mt-6 mb-2 border-b border-[#D8C4B6]/60 pb-2 uppercase" {...props} />,
+                              h2: ({node, ...props}) => <h2 className="text-lg sm:text-xl font-bold text-[#1C3D63] font-headline tracking-wide mt-5 mb-2 uppercase" {...props} />,
+                              h3: ({node, ...props}) => <h3 className="text-base sm:text-lg font-bold text-[#1C3D63] font-headline mt-4 mb-1.5 uppercase" {...props} />,
+                              p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#222222] leading-relaxed my-2.5 font-normal" {...props} />,
+                              ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-1.5 text-sm sm:text-base text-[#3B5E63]" {...props} />,
+                              ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-1.5 text-sm sm:text-base text-[#3B5E63]" {...props} />,
                               li: ({node, ...props}) => <li className="marker:text-[#E0AC6B]" {...props} />,
-                              strong: ({node, ...props}) => <strong className="text-[#E0AC6B] font-black" {...props} />,
-                              hr: ({node, ...props}) => <hr className="border-white/10 my-6" {...props} />,
+                              strong: ({node, ...props}) => <strong className="text-[#1C3D63] font-bold" {...props} />,
+                              hr: ({node, ...props}) => <hr className="border-[#D8C4B6] my-6" {...props} />,
                             }}
                           >
                             {reading.content}
@@ -1123,27 +1115,25 @@ export default function App() {
                         </div>
 
                         {/* Beautiful Results Delivery & Sharing Options Card */}
-                        <div className="mt-8 pt-8 border-t border-white/10 space-y-6">
-                          <div className="p-0 pl-4 sm:p-6 bg-transparent sm:bg-[#1e2022]/40 border-0 sm:border border-white/5 rounded-2xl relative overflow-hidden shadow-none sm:shadow-2xl text-left">
-                            <div className="absolute top-0 left-0 w-[2px] h-full bg-[#1C3D63] rounded-l-2xl"></div>
-                            
-                            <div className="flex items-center space-x-2.5 mb-3">
+                        <div className="mt-8 pt-6 border-t border-[#D8C4B6] space-y-6">
+                          <div className="p-6 bg-[#F4F7F7] border border-[#D8C4B6] rounded-2xl relative shadow-sm text-left">
+                            <div className="flex items-center space-x-2.5 mb-2">
                               <Share2 className="w-5 h-5 text-[#E0AC6B]" />
-                              <h4 className="text-sm font-black tracking-widest uppercase text-[#E0AC6B] font-headline">
+                              <h4 className="text-sm font-bold tracking-wide uppercase text-[#1C3D63] font-headline">
                                 ანალიზის მიღება და შენახვა 🔮
                               </h4>
                             </div>
                             
-                            <p className="text-[12px] text-[#c6c6ce]/80 font-medium leading-relaxed mb-6 font-sans">
+                            <p className="text-xs text-[#3B5E63] font-light leading-relaxed mb-6 font-sans">
                               აირჩიეთ სასურველი არხი თქვენი სიღრმისეული ანალიზის მისაღებად და შესანახად.
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                               {/* Option 1: WhatsApp */}
-                              <div className="bg-white/3 border border-white/5 rounded-xl p-5 space-y-4">
-                                <div className="flex items-center space-x-2 text-[#E0AC6B]">
-                                  <MessageSquare className="w-4.5 h-4.5" />
-                                  <span className="text-xs font-black uppercase tracking-wider font-headline">WhatsApp-ზე გაგზავნა</span>
+                              <div className="bg-white border border-[#D8C4B6] rounded-xl p-5 space-y-3 shadow-xs">
+                                <div className="flex items-center space-x-2 text-[#1C3D63]">
+                                  <MessageSquare className="w-4.5 h-4.5 text-[#E0AC6B]" />
+                                  <span className="text-xs font-bold uppercase tracking-wider font-headline">WhatsApp-ზე გაგზავნა</span>
                                 </div>
                                 <input
                                   type="tel"
@@ -1152,22 +1142,22 @@ export default function App() {
                                     setDeliveryPhone(e.target.value);
                                     setDeliveryStatus(null);
                                   }}
-                                  placeholder="მაგ: +995555123456"
-                                  className="w-full bg-transparent border-b border-white/10 py-2.5 text-sm text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#1C3D63] transition-colors font-semibold"
+                                  placeholder="მაგ: 5XXXXXXXX"
+                                  className="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
                                 />
                                 <button
                                   onClick={handleSendWhatsApp}
-                                  className="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-black tracking-widest uppercase rounded-lg transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline"
+                                  className="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-wider uppercase rounded-xl transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline shadow-sm"
                                 >
                                   <span>გაგზავნა WhatsApp-ზე</span>
                                 </button>
                               </div>
 
                               {/* Option 2: Email */}
-                              <div className="bg-white/3 border border-white/5 rounded-xl p-5 space-y-4">
-                                <div className="flex items-center space-x-2 text-[#E0AC6B]">
-                                  <Send className="w-4.5 h-4.5" />
-                                  <span className="text-xs font-black uppercase tracking-wider font-headline font-sans">ელ. ფოსტაზე გაგზავნა</span>
+                              <div className="bg-white border border-[#D8C4B6] rounded-xl p-5 space-y-3 shadow-xs">
+                                <div className="flex items-center space-x-2 text-[#1C3D63]">
+                                  <Send className="w-4.5 h-4.5 text-[#E0AC6B]" />
+                                  <span className="text-xs font-bold uppercase tracking-wider font-headline font-sans">ელ. ფოსტაზე გაგზავნა</span>
                                 </div>
                                 <input
                                   type="email"
@@ -1177,11 +1167,11 @@ export default function App() {
                                     setDeliveryStatus(null);
                                   }}
                                   placeholder="მაგ: example@gmail.com"
-                                  className="w-full bg-transparent border-b border-white/10 py-2.5 text-sm text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#1C3D63] transition-colors font-semibold font-sans"
+                                  className="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold font-sans"
                                 />
                                 <button
                                   onClick={handleSendEmail}
-                                  className="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-black tracking-widest uppercase rounded-lg transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline"
+                                  className="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-wider uppercase rounded-xl transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline shadow-sm"
                                 >
                                   <span>გაგზავნა ელ. ფოსტაზე</span>
                                 </button>
@@ -1189,8 +1179,8 @@ export default function App() {
                             </div>
 
                              {deliveryStatus && (
-                              <div className="mt-4 p-4 bg-[#1e2022]/80 border border-emerald-500/30 rounded-2xl flex flex-col items-center justify-center space-y-3">
-                                <div className="text-emerald-400 text-xs font-bold font-headline text-center uppercase tracking-wider">
+                              <div className="mt-4 p-3 bg-white border border-[#D8C4B6] rounded-xl flex flex-col items-center justify-center space-y-2 shadow-xs">
+                                <div className="text-[#1C3D63] text-xs font-bold font-headline text-center uppercase tracking-wider">
                                   {deliveryStatus}
                                 </div>
                                 {deliveryWaLink && (
@@ -1198,7 +1188,7 @@ export default function App() {
                                     href={deliveryWaLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-[#121416] hover:text-white px-5 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md font-sans font-black"
+                                    className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-5 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-xs font-headline"
                                   >
                                     <span>საკუთარი WhatsApp-ით გადაგზავნა 📲</span>
                                   </a>
@@ -1211,8 +1201,8 @@ export default function App() {
                     )}
                   </>
                 )}
-          </div>
-        )}
+              </div>
+            )}
 
             {/* 2. Relationship Compatibility Panel */}
             <div className="space-y-6">
@@ -1223,21 +1213,20 @@ export default function App() {
               
               {/* Premium Multi-Channel Social Sharing Row */}
               {reading && !loadingReading && (
-                <div className="w-full bg-[#1e2022]/60 p-4 sm:p-6 rounded-2xl border border-white/5 shadow-2xl backdrop-blur-md relative flex flex-col items-center justify-center text-center space-y-4">
-                  <div className="absolute top-0 left-0 w-full h-[2px] bg-[#1C3D63] rounded-t-2xl"></div>
-                  <h4 className="text-[11px] font-black uppercase tracking-widest text-[#E0AC6B] font-headline">
+                <div className="w-full bg-white p-6 rounded-2xl border border-[#D8C4B6] shadow-sm relative flex flex-col items-center justify-center text-center space-y-3 font-sans">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#1C3D63] font-headline">
                     ანალიზის გაზიარება სოციალურ ქსელებში 🔮
                   </h4>
-                  <div className="flex flex-wrap items-center justify-center gap-2.5 p-1.5 bg-white/3 border border-white/5 rounded-2xl backdrop-blur-md shadow-2xl relative self-start sm:self-auto">
+                  <div className="flex flex-wrap items-center justify-center gap-2.5">
                     {/* WhatsApp sharing */}
                     <a
                       href={getWhatsAppShareURL()}
                       target="_blank"
                       referrerPolicy="no-referrer"
                       title="გააზიარე WhatsApp-ზე"
-                      className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#E0AC6B]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#E0AC6B]/40 text-[#c6c6ce] hover:text-[#E0AC6B] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
+                      className="inline-flex items-center justify-center bg-[#F4F7F7] hover:bg-[#E5ECEC] border border-[#D8C4B6] text-[#1C3D63] px-4 py-2.5 rounded-xl transition-all cursor-pointer text-xs font-bold uppercase tracking-wider font-headline shadow-xs"
                     >
-                      <MessageSquare className="w-3.5 h-3.5 mr-2 text-[#E0AC6B]" />
+                      <MessageSquare className="w-4 h-4 mr-1.5 text-[#E0AC6B]" />
                       <span>WhatsApp</span>
                     </a>
 
@@ -1247,9 +1236,9 @@ export default function App() {
                       target="_blank"
                       referrerPolicy="no-referrer"
                       title="გააზიარე Telegram-ზე"
-                      className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#E0AC6B]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#E0AC6B]/40 text-[#c6c6ce] hover:text-[#E0AC6B] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
+                      className="inline-flex items-center justify-center bg-[#F4F7F7] hover:bg-[#E5ECEC] border border-[#D8C4B6] text-[#1C3D63] px-4 py-2.5 rounded-xl transition-all cursor-pointer text-xs font-bold uppercase tracking-wider font-headline shadow-xs"
                     >
-                      <Send className="w-3.5 h-3.5 mr-2 text-[#E0AC6B]" />
+                      <Send className="w-4 h-4 mr-1.5 text-[#E0AC6B]" />
                       <span>Telegram</span>
                     </a>
 
@@ -1259,9 +1248,9 @@ export default function App() {
                       target="_blank"
                       referrerPolicy="no-referrer"
                       title="გააზიარე Facebook-ზე"
-                      className="inline-flex items-center justify-center bg-gradient-to-b from-white/8 to-white/2 hover:from-[#E0AC6B]/20 hover:to-[#b8860b]/10 border border-white/10 hover:border-[#E0AC6B]/40 text-[#c6c6ce] hover:text-[#E0AC6B] px-4 py-3 rounded-xl transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] text-[10px] font-black uppercase tracking-widest"
+                      className="inline-flex items-center justify-center bg-[#F4F7F7] hover:bg-[#E5ECEC] border border-[#D8C4B6] text-[#1C3D63] px-4 py-2.5 rounded-xl transition-all cursor-pointer text-xs font-bold uppercase tracking-wider font-headline shadow-xs"
                     >
-                      <Facebook className="w-3.5 h-3.5 mr-2 text-[#E0AC6B]" />
+                      <Facebook className="w-4 h-4 mr-1.5 text-[#E0AC6B]" />
                       <span>Facebook</span>
                     </a>
 
@@ -1269,20 +1258,20 @@ export default function App() {
                     <button
                       onClick={handleCopyLink}
                       title="ბმულის კოპირება"
-                      className={`inline-flex items-center justify-center px-4 py-3 rounded-xl border transition-all cursor-pointer hover:scale-[1.03] active:scale-95 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),0_4px_12px_rgba(0,0,0,0.5)] relative text-[10px] font-black uppercase tracking-widest ${
+                      className={`inline-flex items-center justify-center px-4 py-2.5 rounded-xl border transition-all cursor-pointer text-xs font-bold uppercase tracking-wider font-headline shadow-xs relative ${
                         copiedLink 
-                          ? "bg-[#E0AC6B]/15 border-[#E0AC6B] text-[#E0AC6B] shadow-[0_0_15px_rgba(224,172,107,0.2)]" 
-                          : "bg-gradient-to-b from-white/8 to-white/2 border-white/10 text-white hover:border-[#E0AC6B] hover:text-[#E0AC6B]"
+                          ? "bg-[#3B5E63]/10 border-[#3B5E63] text-[#3B5E63]" 
+                          : "bg-[#F4F7F7] hover:bg-[#E5ECEC] border-[#D8C4B6] text-[#1C3D63]"
                       }`}
                     >
-                      <Link className="w-3.5 h-3.5 mr-2 text-[#E0AC6B]" />
+                      <Link className="w-4 h-4 mr-1.5 text-[#E0AC6B]" />
                       <span>
                         {copiedLink ? "ლინკი კოპირებულია" : "კოპირება"}
                       </span>
                       
                       {/* Success Tooltip */}
                       {copiedLink && (
-                        <span className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-[#1C3D63] text-white text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-md shadow-lg pointer-events-none animate-bounce z-50 whitespace-nowrap border border-white/10">
+                        <span className="absolute -top-9 left-1/2 transform -translate-x-1/2 bg-[#1C3D63] text-white text-[10px] font-bold uppercase tracking-wider py-1 px-2.5 rounded-md shadow-md pointer-events-none whitespace-nowrap font-headline">
                           ბმული კოპირებულია!
                         </span>
                       )}
@@ -1292,50 +1281,51 @@ export default function App() {
               )}
             </div>
 
-            {/* 3. Spinner (ბზრიალა) container */}
-            <div className="bg-[#1e2022]/60 p-4 sm:p-6 rounded-2xl border border-white/5 shadow-2xl overflow-hidden relative backdrop-blur-md">
-              <SpinWheel
-                onSelect={(type) => handleSelectReading(userProfile.phone, type)}
-                selectedType={selectedType}
-                disabled={false}
-              />
-            </div>
+            {/* 3. Models Table of Contents / Index (შესვლის სარჩევი) */}
+            <ModelCatalog
+              onSelect={(type) => {
+                handleSelectReading(userProfile.phone, type);
+                const el = document.getElementById("reading-display");
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              selectedType={selectedType}
+              preferredTheme={userProfile.theme || null}
+            />
           </div>
         )}
       </div>
 
       {/* Birth Time Inline Quick Edit Modal */}
       {showTimeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="bg-[#1e2022] border border-[#E0AC6B]/30 p-6 sm:p-8 rounded-2xl max-w-md w-full shadow-2xl relative space-y-6 text-left">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <h3 className="text-base font-extrabold text-[#E0AC6B] uppercase tracking-wider flex items-center gap-2 font-headline">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in font-sans">
+          <div className="bg-white border border-[#D8C4B6] p-6 sm:p-8 rounded-2xl max-w-md w-full shadow-2xl relative space-y-5 text-left text-[#222222]">
+            <div className="flex items-center justify-between border-b border-[#D8C4B6]/60 pb-3">
+              <h3 className="text-base font-bold text-[#1C3D63] uppercase tracking-wide flex items-center gap-2 font-headline">
                 <span className="material-symbols-outlined text-[#E0AC6B] text-xl">schedule</span>
                 <span>დაბადების საათის ჩამატება</span>
               </h3>
               <button
                 onClick={() => setShowTimeModal(false)}
-                className="text-[#c6c6ce]/60 hover:text-white text-lg font-bold cursor-pointer"
+                className="text-[#8E8276] hover:text-[#1C3D63] text-lg font-bold cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <p className="text-xs text-[#c6c6ce]/80 leading-relaxed font-medium">
+            <p className="text-xs text-[#3B5E63] leading-relaxed font-light">
               ადამიანის დიზაინის, ჰოროსკოპის, ვედური ასტროლოგიისა და ბაზის მოდელებისთვის ზუსტი საათი (მაგ: 14:30) უზრუნველყოფს მაქსიმალურ სიზუსტეს.
             </p>
 
-            <div className="space-y-2">
-              <label className="block text-[11px] font-bold uppercase tracking-widest text-[#E0AC6B]">
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-[#1C3D63] font-headline">
                 მიუთითეთ დაბადების საათი:
               </label>
-              <div className="relative bg-[#121416] border border-white/20 rounded-xl p-2.5">
+              <div className="relative bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-2.5">
                 <input
                   type="time"
                   value={tempBirthTime}
                   onChange={(e) => setTempBirthTime(e.target.value)}
-                  className="w-full bg-transparent border-0 text-lg text-white font-bold text-center tracking-widest focus:outline-none focus:border-[#1C3D63] [color-scheme:dark]"
-                  style={{ colorScheme: 'dark' }}
+                  className="w-full bg-transparent border-0 text-lg text-[#1C3D63] font-bold text-center tracking-widest focus:outline-none"
                 />
               </div>
             </div>
@@ -1344,7 +1334,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setShowTimeModal(false)}
-                className="px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-[#c6c6ce] rounded-xl uppercase tracking-wider cursor-pointer"
+                className="px-4 py-2 bg-[#F4F7F7] hover:bg-[#E5ECEC] border border-[#D8C4B6] text-xs font-bold text-[#1C3D63] rounded-xl uppercase tracking-wider cursor-pointer font-headline"
               >
                 გაუქმება
               </button>
@@ -1383,7 +1373,7 @@ export default function App() {
                     }
                   }
                 }}
-                className="px-6 py-2.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-xs font-black rounded-xl uppercase tracking-widest cursor-pointer shadow-[0_0_15px_rgba(28,61,99,0.3)] flex items-center gap-1.5"
+                className="px-6 py-2.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-xs font-bold rounded-xl uppercase tracking-wider cursor-pointer shadow-sm flex items-center gap-1.5 font-headline"
               >
                 {savingTime ? (
                   <RefreshCw className="w-4 h-4 animate-spin text-white" />
@@ -1397,8 +1387,8 @@ export default function App() {
       )}
 
       {/* Footer copyright */}
-      <footer className="w-full text-center border-t border-white/10 mt-24 pt-6 text-[10px] text-[#c6c6ce]/40 font-bold tracking-[0.2em] uppercase">
-        კოსმო-ანალიტიკა აეთერია &copy; {new Date().getFullYear()} / ყველა ანალიტიკური გამოთვლა მუშავდება ხელოვნური ინტელექტის ალგორითმით.
+      <footer className="w-full text-center border-t border-[#D8C4B6]/60 mt-16 pt-6 text-[10px] text-[#8E8276] font-medium tracking-wider uppercase font-headline">
+        აიდისი &copy; {new Date().getFullYear()} / ყველა ანალიტიკური გამოთვლა მუშავდება ხელოვნური ინტელექტის ალგორითმით.
       </footer>
     </div>
   );

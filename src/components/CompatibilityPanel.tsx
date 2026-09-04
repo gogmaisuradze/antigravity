@@ -199,35 +199,33 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
   };
 
   return (
-    <div id="compatibility-panel-container" className="w-full max-w-2xl mx-auto bg-[#1e2022]/60 border border-white/5 backdrop-blur-md p-4 sm:p-8 rounded-2xl shadow-2xl overflow-hidden relative">
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-[#1C3D63]"></div>
-
-      <div className="flex flex-col items-center justify-center text-center space-y-3 mb-8">
-        <div className="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-[#E0AC6B]">
-          <Heart className="w-5 h-5 fill-red-500/10 text-red-400" />
+    <div id="compatibility-panel-container" className="w-full max-w-2xl mx-auto bg-white border border-[#D8C4B6] p-6 sm:p-8 rounded-2xl shadow-sm overflow-hidden relative text-left font-sans">
+      <div className="flex flex-col items-center justify-center text-center space-y-2 mb-8">
+        <div className="w-12 h-12 rounded-full border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center text-[#E0AC6B]">
+          <Heart className="w-6 h-6 text-[#E0AC6B]" strokeWidth={1.8} />
         </div>
         <div className="flex flex-col items-center">
-          <h2 className="text-lg font-bold tracking-[0.15em] text-[#E0AC6B] uppercase font-headline">
+          <h2 className="text-base sm:text-lg font-bold tracking-wide text-[#1C3D63] uppercase font-headline">
             ნახე სხვასთან თავსებადობა
           </h2>
-          <p className="text-[12px] tracking-wider text-[#c6c6ce]/70 font-semibold uppercase mt-1 max-w-md mx-auto">
+          <p className="text-xs text-[#3B5E63] font-light mt-1 max-w-md mx-auto">
             გამოთვალეთ თქვენი და სასურველი ადამიანის ასტრო-ფსიქოლოგიური კავშირის რეზონანსი
           </p>
         </div>
       </div>
 
       {invitedPhone && partnerStatus === "found" && (
-        <div className="mb-6 p-4 bg-emerald-950/20 border border-emerald-500/20 text-emerald-350 text-xs rounded-xl flex items-start space-x-3 font-semibold">
-          <Sparkles className="w-4.5 h-4.5 shrink-0 text-emerald-400 animate-pulse" />
+        <div className="mb-6 p-4 bg-[#3B5E63]/10 border border-[#3B5E63]/25 text-[#1C3D63] text-xs rounded-xl flex items-start space-x-3 font-medium">
+          <Sparkles className="w-4.5 h-4.5 shrink-0 text-[#E0AC6B] animate-pulse" />
           <span className="leading-relaxed">
-            თქვენ მოწვეული ხართ თავსებადობის შესამოწმებლად მომხმარებელთან: <strong className="text-white font-bold">{partnerName} {partnerSurname}</strong>. მონაცემები შევსებულია, შეგიძლიათ დაიწყოთ სინქრონიზაცია!
+            თქვენ მოწვეული ხართ თავსებადობის შესამოწმებლად მომხმარებელთან: <strong className="text-[#1C3D63] font-bold">{partnerName} {partnerSurname}</strong>. მონაცემები შევსებულია, შეგიძლიათ დაიწყოთ სინქრონიზაცია!
           </span>
         </div>
       )}
 
       {error && (
-        <div className="mb-6 p-4 bg-red-950/20 border border-red-500/20 text-red-300 text-xs rounded-xl flex items-start space-x-2 font-semibold">
-          <AlertTriangle className="w-4.5 h-4.5 shrink-0 text-red-400" />
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-start space-x-2 font-medium">
+          <AlertTriangle className="w-4.5 h-4.5 shrink-0 text-red-500" />
           <span>{error}</span>
         </div>
       )}
@@ -235,7 +233,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
       {/* Inputs Section */}
       <div className="space-y-6 max-w-[480px] mx-auto w-full">
         <div>
-          <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
+          <label className="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-2 font-bold font-headline">
             ტელეფონი:
           </label>
           <div className="flex space-x-3">
@@ -247,16 +245,16 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                 setPartnerStatus("unchecked");
                 setResult(null);
               }}
-              placeholder="მაგ: +995555123456"
-              className="flex-1 bg-transparent border-b border-white/10 py-3 text-base text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#E0AC6B] font-medium transition-colors"
+              placeholder="მაგ: 5XXXXXXXX"
+              className="flex-1 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
             />
             <button
               onClick={() => checkPartnerStatus(partnerPhone)}
               disabled={checking || !partnerPhone.trim()}
-              className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
+              className="px-5 py-2.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center space-x-1.5 transition-colors cursor-pointer font-headline shadow-sm disabled:opacity-50"
             >
               {checking ? (
-                <RefreshCw className="w-4.5 h-4.5 animate-spin text-white" />
+                <RefreshCw className="w-4 h-4 animate-spin text-white" />
               ) : (
                 <span>მოძიება</span>
               )}
@@ -264,9 +262,9 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
+            <label className="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
               სახელი:
             </label>
             <input
@@ -277,12 +275,12 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                 setResult(null);
               }}
               placeholder="მაგ: მარიამი"
-              className="w-full bg-transparent border-b border-white/10 py-3 text-base text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#E0AC6B] font-medium transition-colors"
+              className="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
             />
           </div>
 
           <div>
-            <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
+            <label className="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
               გვარი:
             </label>
             <input
@@ -293,16 +291,16 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                 setResult(null);
               }}
               placeholder="მაგ: კობახიძე"
-              className="w-full bg-transparent border-b border-white/10 py-3 text-base text-white placeholder-[#c6c6ce]/40 focus:outline-none focus:border-[#E0AC6B] font-medium transition-colors"
+              className="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-[12px] uppercase tracking-widest text-[#c6c6ce]/80 mb-2 font-bold">
+          <label className="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
             დაბადების თარიღი:
           </label>
-          <div className="relative bg-[#1e2022]/40 rounded-2xl py-4 px-6 shadow-2xl border border-white/10 max-w-[280px] overflow-hidden">
+          <div className="relative bg-[#F4F7F7] rounded-xl py-2 px-4 border border-[#D8C4B6]">
             <input
               type="date"
               value={partnerBirthDate}
@@ -310,30 +308,29 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                 setPartnerBirthDate(e.target.value);
                 setResult(null);
               }}
-              className="w-full bg-transparent border-0 py-1 text-base text-white focus:outline-none font-bold text-center tracking-widest cursor-pointer [color-scheme:dark]"
-              style={{ colorScheme: 'dark' }}
+              className="w-full bg-transparent border-0 text-sm text-[#222222] focus:outline-none font-bold text-center tracking-widest cursor-pointer"
             />
           </div>
         </div>
 
         {/* Dynamic Status UI */}
         {partnerStatus === "found" && (
-          <div className="p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-xl space-y-2 shadow-xs">
-            <div className="flex items-center space-x-2 text-emerald-350 text-xs font-semibold">
-              <CheckCircle2 className="w-4.5 h-4.5 shrink-0 text-emerald-400" />
-              <span className="tracking-wide text-[12px]">
-                სისტემამ მოძებნა დარეგისტრირებული მომხმარებელი: <strong className="text-white font-bold">{partnerName} {partnerSurname}</strong> (მზადყოფნა აქტიურია)
+          <div className="p-3 bg-[#3B5E63]/10 border border-[#3B5E63]/25 rounded-xl space-y-1">
+            <div className="flex items-center space-x-2 text-[#1C3D63] text-xs font-semibold">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+              <span>
+                მოძებნილია მომხმარებელი: <strong className="text-[#1C3D63] font-bold">{partnerName} {partnerSurname}</strong>
               </span>
             </div>
           </div>
         )}
 
         {partnerStatus === "not_found" && (
-          <div className="p-4 bg-[#1e2022]/45 border border-white/5 rounded-xl space-y-3 shadow-xs">
-            <div className="flex items-start space-x-2 text-[#c6c6ce] text-xs font-semibold">
-              <Sparkles className="w-4.5 h-4.5 shrink-0 text-[#E0AC6B]" />
-              <span className="tracking-wide text-[12px] leading-relaxed">
-                ნომერი არ არის ბაზაში, მაგრამ შეგიძლიათ ხელით შეიყვანოთ მონაცემები და სისტემა მაინც გამოთვლის თავსებადობას!
+          <div className="p-3 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl space-y-2">
+            <div className="flex items-start space-x-2 text-[#3B5E63] text-xs">
+              <Sparkles className="w-4 h-4 shrink-0 text-[#E0AC6B]" />
+              <span>
+                ნომერი არ არის ბაზაში, თუმცა შეგიძლიათ ხელით შეიყვანოთ მონაცემები და სისტემა მაინც გამოთვლის თავსებადობას!
               </span>
             </div>
             <div>
@@ -341,9 +338,9 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                 href={getWhatsAppInviteLink()}
                 target="_blank"
                 referrerPolicy="no-referrer"
-                className="inline-flex bg-white/5 hover:bg-white/10 text-white font-bold text-[10px] tracking-widest uppercase py-2 px-3 rounded-lg border border-white/10 items-center space-x-1.5 transition-all"
+                className="inline-flex bg-white hover:bg-[#FAF8F5] text-[#1C3D63] font-bold text-[10px] tracking-widest uppercase py-1.5 px-3 rounded-lg border border-[#D8C4B6] items-center space-x-1.5 transition-all shadow-sm"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-white" />
+                <MessageSquare className="w-3.5 h-3.5 text-[#E0AC6B]" />
                 <span>გაუგზავნე მოწვევა WhatsApp-ზე</span>
               </a>
             </div>
@@ -354,17 +351,17 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
           <button
             onClick={handleCalculate}
             disabled={calculating}
-            className="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white font-bold text-[11px] tracking-widest uppercase py-4 px-6 rounded-xl shadow-[0_0_15px_rgba(28,61,99,0.3)] transition-all active:scale-98 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
+            className="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white font-bold text-[10px] tracking-widest uppercase py-3.5 px-6 rounded-xl shadow-sm transition-all active:scale-98 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 font-headline"
           >
             {calculating ? (
               <>
-                <RefreshCw className="w-4.5 h-4.5 animate-spin text-white" />
-                <span>მიმდინარეობს კოსმიური სინქრონიზაცია AI-ით...</span>
+                <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                <span>მიმდინარეობს თავსებადობის გამოთვლა...</span>
               </>
             ) : (
               <>
-                <Sparkles className="w-4.5 h-4.5 text-white animate-pulse" />
-                <span>თავსებადობის ანალიზის გააქტიურება</span>
+                <Sparkles className="w-4 h-4 text-[#E0AC6B]" />
+                <span>თავსებადობის გამოთვლა</span>
               </>
             )}
           </button>
@@ -375,66 +372,64 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
           <div className="mt-8 space-y-6">
             <button
               onClick={() => setResult(null)}
-              className="inline-flex items-center space-x-2 text-[11px] tracking-widest text-[#c6c6ce] hover:text-[#E0AC6B] font-bold uppercase transition-all mb-2 group cursor-pointer"
+              className="inline-flex items-center space-x-2 text-[10px] tracking-widest text-[#8E8276] hover:text-[#1C3D63] font-bold uppercase transition-all mb-2 group cursor-pointer font-headline"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
               <span>უკან დაბრუნება (თავსებადობა)</span>
             </button>
 
             {/* Main Score Radial/Card */}
-            <div className="p-4 sm:p-8 bg-[#1e2022]/40 border border-white/5 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden shadow-2xl">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#E0AC6B]/5 rounded-full blur-3xl"></div>
-              
-              <span className="text-[12px] uppercase tracking-[0.25em] text-[#c6c6ce]/70 font-bold mb-3">
+            <div className="p-6 sm:p-8 bg-[#F4F7F7] border border-[#D8C4B6] rounded-2xl flex flex-col items-center justify-center relative overflow-hidden shadow-sm">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#8E8276] font-bold mb-2">
                 თავსებადობის კოეფიციენტი
               </span>
 
               {/* Big Score text */}
-              <div className="text-7xl font-bold text-[#E0AC6B] mb-2 font-headline tracking-tighter glow-text-gold">
+              <div className="text-6xl sm:text-7xl font-bold text-[#1C3D63] mb-2 font-headline tracking-tighter">
                 %{result.compatibilityScore}
               </div>
 
               {/* Match description word */}
-              <span className="text-[11px] font-black tracking-widest text-[#E0AC6B] px-4 py-2 border border-white/10 bg-[#1e2022]/90 uppercase rounded-xl shadow-2xl">
-                {result.compatibilityScore >= 90 ? "იდეალური კავშირი 🌌" : 
-                 result.compatibilityScore >= 75 ? "მაღალი ჰარმონია ✨" : 
-                 result.compatibilityScore >= 50 ? "კარგი თავსებადობა ⚖️" : "კარმული გაკვეთილი 🌀"}
+              <span className="text-[11px] font-bold tracking-widest text-[#E0AC6B] px-4 py-1.5 border border-[#D8C4B6] bg-white uppercase rounded-xl shadow-xs font-headline">
+                {result.compatibilityScore >= 90 ? "იდეალური კავშირი" : 
+                 result.compatibilityScore >= 75 ? "მაღალი ჰარმონია" : 
+                 result.compatibilityScore >= 50 ? "კარგი თავსებადობა" : "კარმული გაკვეთილი"}
               </span>
 
               {/* Individual Dimensions Grid */}
-              <div className="grid grid-cols-2 gap-4 w-full mt-8">
+              <div className="grid grid-cols-2 gap-3.5 w-full mt-6">
                 {/* 1. Astrological */}
-                <div className="p-4 bg-[#1e2022]/60 border border-white/5 rounded-xl flex flex-col items-center shadow-xl">
-                  <span className="text-[10px] uppercase tracking-widest text-[#c6c6ce]/75 font-bold">ასტროლოგიური</span>
-                  <span className="text-lg font-mono text-[#E0AC6B] font-extrabold mt-1">%{result.dimensions.astrological}</span>
-                  <div className="w-full bg-white/10 h-[4px] rounded-full mt-3.5 overflow-hidden">
-                    <div className="bg-[#E0AC6B] h-full rounded-full" style={{ width: `${result.dimensions.astrological}%` }}></div>
+                <div className="p-3.5 bg-white border border-[#D8C4B6] rounded-xl flex flex-col items-center shadow-xs">
+                  <span className="text-[10px] uppercase tracking-widest text-[#8E8276] font-bold">ასტროლოგიური</span>
+                  <span className="text-base font-mono text-[#1C3D63] font-bold mt-1">%{result.dimensions.astrological}</span>
+                  <div className="w-full bg-[#F4F7F7] h-[4px] rounded-full mt-2.5 overflow-hidden border border-[#D8C4B6]/40">
+                    <div className="bg-[#1C3D63] h-full rounded-full" style={{ width: `${result.dimensions.astrological}%` }}></div>
                   </div>
                 </div>
 
                 {/* 2. Psychological */}
-                <div className="p-4 bg-[#1e2022]/60 border border-white/5 rounded-xl flex flex-col items-center shadow-xl">
-                  <span className="text-[10px] uppercase tracking-widest text-[#c6c6ce]/75 font-bold">ფსიქოლოგიური</span>
-                  <span className="text-lg font-mono text-[#E0AC6B] font-extrabold mt-1">%{result.dimensions.psychological}</span>
-                  <div className="w-full bg-white/10 h-[4px] rounded-full mt-3.5 overflow-hidden">
-                    <div className="bg-[#E0AC6B] h-full rounded-full" style={{ width: `${result.dimensions.psychological}%` }}></div>
+                <div className="p-3.5 bg-white border border-[#D8C4B6] rounded-xl flex flex-col items-center shadow-xs">
+                  <span className="text-[10px] uppercase tracking-widest text-[#8E8276] font-bold">ფსიქოლოგიური</span>
+                  <span className="text-base font-mono text-[#3B5E63] font-bold mt-1">%{result.dimensions.psychological}</span>
+                  <div className="w-full bg-[#F4F7F7] h-[4px] rounded-full mt-2.5 overflow-hidden border border-[#D8C4B6]/40">
+                    <div className="bg-[#3B5E63] h-full rounded-full" style={{ width: `${result.dimensions.psychological}%` }}></div>
                   </div>
                 </div>
 
                 {/* 3. Vibrational */}
-                <div className="p-4 bg-[#1e2022]/60 border border-white/5 rounded-xl flex flex-col items-center shadow-xl">
-                  <span className="text-[10px] uppercase tracking-widest text-[#c6c6ce]/75 font-bold">ნუმეროლოგიური</span>
-                  <span className="text-lg font-mono text-[#E0AC6B] font-extrabold mt-1">%{result.dimensions.vibrational}</span>
-                  <div className="w-full bg-white/10 h-[4px] rounded-full mt-3.5 overflow-hidden">
-                    <div className="bg-[#E0AC6B] h-full rounded-full" style={{ width: `${result.dimensions.vibrational}%` }}></div>
+                <div className="p-3.5 bg-white border border-[#D8C4B6] rounded-xl flex flex-col items-center shadow-xs">
+                  <span className="text-[10px] uppercase tracking-widest text-[#8E8276] font-bold">ნუმეროლოგიური</span>
+                  <span className="text-base font-mono text-[#A37B73] font-bold mt-1">%{result.dimensions.vibrational}</span>
+                  <div className="w-full bg-[#F4F7F7] h-[4px] rounded-full mt-2.5 overflow-hidden border border-[#D8C4B6]/40">
+                    <div className="bg-[#A37B73] h-full rounded-full" style={{ width: `${result.dimensions.vibrational}%` }}></div>
                   </div>
                 </div>
 
                 {/* 4. Karmic */}
-                <div className="p-4 bg-[#1e2022]/60 border border-white/5 rounded-xl flex flex-col items-center shadow-xl">
-                  <span className="text-[10px] uppercase tracking-widest text-[#c6c6ce]/75 font-bold">კარმული რეზონანსი</span>
-                  <span className="text-lg font-mono text-[#E0AC6B] font-extrabold mt-1">%{result.dimensions.karmic}</span>
-                  <div className="w-full bg-white/10 h-[4px] rounded-full mt-3.5 overflow-hidden">
+                <div className="p-3.5 bg-white border border-[#D8C4B6] rounded-xl flex flex-col items-center shadow-xs">
+                  <span className="text-[10px] uppercase tracking-widest text-[#8E8276] font-bold">კარმული რეზონანსი</span>
+                  <span className="text-base font-mono text-[#E0AC6B] font-bold mt-1">%{result.dimensions.karmic}</span>
+                  <div className="w-full bg-[#F4F7F7] h-[4px] rounded-full mt-2.5 overflow-hidden border border-[#D8C4B6]/40">
                     <div className="bg-[#E0AC6B] h-full rounded-full" style={{ width: `${result.dimensions.karmic}%` }}></div>
                   </div>
                 </div>
@@ -442,24 +437,24 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
             </div>
 
             {/* Narrative Explanation in Georgian */}
-            <div className="p-0 pt-4 sm:p-6 bg-transparent sm:bg-[#1e2022]/60 border-0 sm:border border-white/5 rounded-2xl space-y-4 shadow-none sm:shadow-2xl text-[#c6c6ce]">
-              <h4 className="text-sm font-black tracking-wider uppercase text-[#E0AC6B] border-b border-white/10 pb-3 flex items-center font-headline">
+            <div className="p-6 bg-white border border-[#D8C4B6] rounded-2xl space-y-4 shadow-sm text-[#222222]">
+              <h4 className="text-sm font-bold tracking-wider uppercase text-[#1C3D63] border-b border-[#D8C4B6]/60 pb-3 flex items-center font-headline">
                 <Sparkles className="w-4.5 h-4.5 mr-2 text-[#E0AC6B] shrink-0" />
-                ამომწურავი კოსმიური და ფსიქოლოგიური ანალიზი:
+                თავსებადობის სიღრმისეული ანალიზი:
               </h4>
               
-              <div className="text-sm md:text-base text-[#c6c6ce] leading-relaxed max-w-none overflow-hidden font-medium">
+              <div className="text-sm md:text-base text-[#222222] leading-relaxed max-w-none overflow-hidden font-normal">
                 <ReactMarkdown
                   components={{
-                    h1: ({node, ...props}) => <h1 className="text-xl sm:text-2xl font-black text-[#E0AC6B] font-headline tracking-widest mt-6 mb-2 border-b border-white/5 pb-2 uppercase" {...props} />,
-                    h2: ({node, ...props}) => <h2 className="text-lg sm:text-xl font-black text-[#E0AC6B] font-headline tracking-wider mt-5 mb-2 uppercase" {...props} />,
-                    h3: ({node, ...props}) => <h3 className="text-base sm:text-lg font-bold text-[#E0AC6B] font-headline mt-4 mb-1.5 uppercase" {...props} />,
-                    p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#c6c6ce]/90 leading-relaxed my-2.5 font-medium" {...props} />,
-                    ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
-                    ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-2 text-sm sm:text-base text-[#c6c6ce]/80 font-medium" {...props} />,
+                    h1: ({node, ...props}) => <h1 className="text-lg sm:text-xl font-bold text-[#1C3D63] font-headline tracking-wide mt-4 mb-2 uppercase" {...props} />,
+                    h2: ({node, ...props}) => <h2 className="text-base sm:text-lg font-bold text-[#1C3D63] font-headline tracking-wide mt-4 mb-2 uppercase" {...props} />,
+                    h3: ({node, ...props}) => <h3 className="text-sm sm:text-base font-bold text-[#1C3D63] font-headline mt-3 mb-1.5 uppercase" {...props} />,
+                    p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#222222] leading-relaxed my-2" {...props} />,
+                    ul: ({node, ...props}) => <ul className="list-disc pl-6 my-2.5 space-y-1.5 text-sm sm:text-base text-[#3B5E63]" {...props} />,
+                    ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-2.5 space-y-1.5 text-sm sm:text-base text-[#3B5E63]" {...props} />,
                     li: ({node, ...props}) => <li className="marker:text-[#E0AC6B]" {...props} />,
-                    strong: ({node, ...props}) => <strong className="text-[#E0AC6B] font-black" {...props} />,
-                    hr: ({node, ...props}) => <hr className="border-white/10 my-6" {...props} />,
+                    strong: ({node, ...props}) => <strong className="text-[#1C3D63] font-bold" {...props} />,
+                    hr: ({node, ...props}) => <hr className="border-[#D8C4B6] my-4" {...props} />,
                   }}
                 >
                   {result.narrative}
@@ -474,9 +469,9 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                     href={result.waLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-[#121416] hover:text-white font-black text-xs sm:text-sm tracking-widest uppercase py-4 px-4 rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.4)] flex items-center justify-center space-x-2 transition-all cursor-pointer border border-[#25D366]/40"
+                    className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs sm:text-sm tracking-widest uppercase py-3.5 px-4 rounded-xl shadow-sm flex items-center justify-center space-x-2 transition-all cursor-pointer font-headline"
                   >
-                    <MessageSquare className="w-5 h-5 text-[#121416] shrink-0" />
+                    <MessageSquare className="w-4.5 h-4.5 text-white shrink-0" />
                     <span>💬 მიიღე შედეგი WhatsApp-ზე</span>
                   </a>
                 )}
@@ -485,9 +480,9 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                   href={getWhatsAppResultLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white/5 hover:bg-white/10 text-white/90 font-bold text-[11px] tracking-widest uppercase py-3 px-4 rounded-xl border border-white/10 flex items-center justify-center space-x-2 transition-colors active:scale-98"
+                  className="w-full bg-[#F4F7F7] hover:bg-[#E5ECEC] text-[#1C3D63] font-bold text-[10px] tracking-widest uppercase py-3 px-4 rounded-xl border border-[#D8C4B6] flex items-center justify-center space-x-2 transition-colors font-headline shadow-xs"
                 >
-                  <MessageSquare className="w-4 h-4 text-[#E0AC6B] shrink-0" />
+                  <MessageSquare className="w-3.5 h-3.5 text-[#E0AC6B] shrink-0" />
                   <span>ანალიზის გაზიარება პარტნიორთან</span>
                 </a>
               </div>

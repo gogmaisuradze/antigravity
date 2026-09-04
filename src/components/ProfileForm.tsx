@@ -1071,28 +1071,33 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </div>
 
         {/* Action Button Container */}
-        <div className="flex justify-center w-full mt-14 mb-4">
-          <button
-            type="submit"
-            disabled={loading}
-            onClick={playExitCapSound}
-            className={`transition-all duration-700 ease-in-out cursor-pointer active:scale-95 flex items-center justify-center border font-bold uppercase tracking-widest disabled:opacity-80 text-[12px] shadow-sm ${
-              loading 
-                ? "w-14 h-14 rounded-full bg-transparent border-[#1C3D63] text-[#1C3D63]" 
-                : "w-full max-w-[480px] h-14 rounded-xl bg-[#1C3D63] border-[#1C3D63] text-white hover:bg-[#254F7F]"
-            }`}
-          >
-            {loading ? (
-              <RefreshCw className="w-5 h-5 animate-spin text-[#1C3D63]" />
-            ) : (
-              <>
-                <Sparkles className="w-4.5 h-4.5 fill-white flex-shrink-0 text-white mr-2" />
-                <span>
-                  {savedProfile ? "მონაცემების განახლება" : "დაწყება"}
-                </span>
-              </>
-            )}
-          </button>
+        <div className="flex justify-center w-full mt-12 mb-4">
+          <div className="shimmer-btn-wrapper w-full max-w-[480px]">
+            <button
+              type="submit"
+              disabled={loading}
+              onClick={playExitCapSound}
+              className={`btn-glowing-shimmer group w-full py-4 px-8 text-sm sm:text-base cursor-pointer ${
+                loading ? "opacity-75 cursor-not-allowed" : ""
+              }`}
+            >
+              <span className="shimmer-sweep"></span>
+              <span className="shimmer-btn-content font-headline tracking-wider flex items-center justify-center gap-2">
+                {loading ? (
+                  <>
+                    <RefreshCw className="w-5 h-5 animate-spin text-[#E0AC6B]" />
+                    <span>მიმდინარეობს დამუშავება...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-5 h-5 text-[#E0AC6B]" />
+                    <span>{savedProfile ? "მონაცემების განახლება" : "ტესტირების დაწყება"}</span>
+                    <span className="material-symbols-outlined text-xl text-[#E0AC6B] group-hover:translate-x-1 transition-transform">play_arrow</span>
+                  </>
+                )}
+              </span>
+            </button>
+          </div>
         </div>
       </form>
     </div>
