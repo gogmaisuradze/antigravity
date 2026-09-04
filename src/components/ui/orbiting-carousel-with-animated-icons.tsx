@@ -470,7 +470,7 @@ export const OrbitCarousel: React.FC<OrbitCarouselProps> = ({
                 <ChevronLeft size={16} />
               </button>
 
-              <div className="shimmer-btn-wrapper flex-1">
+              <div className="shimmer-btn-wrapper shrink-0">
                 <button
                   type="button"
                   onClick={() => {
@@ -480,12 +480,12 @@ export const OrbitCarousel: React.FC<OrbitCarouselProps> = ({
                       onSelect(currentItem, activeIndex);
                     }
                   }}
-                  className="btn-glowing-shimmer group w-full py-3.5 sm:py-4 px-6 sm:px-8 text-xs sm:text-sm cursor-pointer"
+                  className="btn-glowing-shimmer group py-2 sm:py-2.5 px-4 sm:px-5 text-xs sm:text-[13px] cursor-pointer whitespace-nowrap"
                 >
                   <span className="shimmer-sweep"></span>
-                  <span className="shimmer-btn-content font-headline tracking-wider flex items-center justify-center gap-2">
-                    <span>არჩევა & შევსება</span>
-                    <ArrowRight size={15} className="text-[#E0AC6B] group-hover:translate-x-1 transition-transform" />
+                  <span className="shimmer-btn-content font-headline tracking-wider flex items-center justify-center gap-1.5 whitespace-nowrap">
+                    <span className="whitespace-nowrap font-bold">არჩევა & შევსება</span>
+                    <ArrowRight size={13} className="text-[#E0AC6B] group-hover:translate-x-1 transition-transform shrink-0" />
                   </span>
                 </button>
               </div>
