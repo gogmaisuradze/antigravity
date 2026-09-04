@@ -11,11 +11,12 @@ export function initBalanceGatewayFlow() {
       <GatewayFlow
         className="w-full h-full"
         backgroundColor="#ffffff"
-        lineColor="rgba(0, 0, 0, 0.12)"
+        lineColor="rgba(0, 0, 0, 0.14)"
         dotColor="#000000"
         speed={0.4}
         density={1.0}
         interactive={true}
+        targetElementId="btn-start-screening"
       />
     );
   }

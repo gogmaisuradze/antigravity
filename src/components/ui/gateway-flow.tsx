@@ -8,6 +8,7 @@ export interface GatewayFlowProps {
   speed?: number;
   density?: number;
   interactive?: boolean;
+  targetElementId?: string;
 }
 
 interface Particle {
@@ -26,6 +27,7 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
   speed = 0.45,
   density = 1.0,
   interactive = true,
+  targetElementId,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animFrameIdRef = useRef<number | null>(null);
@@ -47,12 +49,36 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
     let width = (canvas.width = canvas.offsetWidth * window.devicePixelRatio || 800);
     let height = (canvas.height = canvas.offsetHeight * window.devicePixelRatio || 500);
 
+    let currentCenterY = height * 0.4;
+    let targetCenterY = height * 0.4;
+
+    const updateTargetCenter = () => {
+      if (!canvas) return;
+      const dpr = window.devicePixelRatio || 1;
+      if (targetElementId) {
+        const el = document.getElementById(targetElementId);
+        if (el) {
+          const btnRect = el.getBoundingClientRect();
+          const canvasRect = canvas.getBoundingClientRect();
+          if (btnRect.height > 0 && canvasRect.height > 0) {
+            targetCenterY = (btnRect.top + btnRect.height * 0.5 - canvasRect.top) * dpr;
+            return;
+          }
+        }
+      }
+    };
+
+    updateTargetCenter();
+    currentCenterY = targetCenterY;
+
     const resize = () => {
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
       width = canvas.width = Math.floor(rect.width * dpr);
       height = canvas.height = Math.floor(rect.height * dpr);
+      updateTargetCenter();
+      currentCenterY = targetCenterY;
       initParticles();
     };
 
@@ -61,16 +87,16 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
     let particles: Particle[] = [];
 
     // Helper to calculate streamline Y coordinate at horizontal X for a given track s (0 to 1)
-    // Matches the exact hyperbolic bowtie / hourglass geometry of the reference visual
+    // Matches the exact hyperbolic bowtie / hourglass geometry of the reference visual,
+    // with the narrow waist sitting directly behind the start button.
     const getStreamPoint = (tX: number, s: number, dpr: number) => {
       const w = width;
       const h = height;
       const centerX = w * 0.5;
-      const centerY = h * 0.28; // Aligned directly with the elevated start screening button
+      const centerY = currentCenterY; // Centered precisely behind the start button
 
       const waistRadius = 13 * dpr; // Tight central pinch waist
       const edgeHeight = h * 0.48;  // Wide fanning horns at borders
-      const archHeight = 26 * dpr;  // Upward arch bridge at the throat
 
       // Normalized horizontal distance from center [-1, 1]
       const dx = (tX - centerX) / (w * 0.5);
@@ -78,11 +104,8 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       // Hyperbolic envelope: sqrt(waist^2 + (dx * edge)^2)
       const halfH = Math.sqrt(waistRadius * waistRadius + (dx * edgeHeight) * (dx * edgeHeight));
 
-      // Upward parabolic arch profile (peaks at center)
-      const arch = -archHeight * Math.max(0, 1 - dx * dx * 1.5);
-
       // Streamline offset for track s (from -1 to 1)
-      const normS = (s - 0.5) * 2; // -1 (bottom-most) to +1 (top-most)
+      const normS = (s - 0.5) * 2; // -1 (top-most) to +1 (bottom-most)
 
       // Interactive subtle vertical response
       let interactiveY = 0;
@@ -97,7 +120,7 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
 
       return {
         x: tX,
-        y: centerY + arch + normS * halfH + interactiveY,
+        y: centerY + normS * halfH + interactiveY,
         dx,
       };
     };
@@ -136,10 +159,17 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
     document.addEventListener("mouseleave", handleMouseLeave);
 
     let lastTime = performance.now();
+    let frameCount = 0;
 
     const render = (time: number) => {
       const delta = Math.min((time - lastTime) / 16.666, 2.0);
       lastTime = time;
+
+      frameCount++;
+      if (frameCount % 20 === 0) {
+        updateTargetCenter();
+      }
+      currentCenterY += (targetCenterY - currentCenterY) * 0.12;
 
       const dpr = window.devicePixelRatio || 1;
 
@@ -155,10 +185,10 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       // Subtle ambient vignette in soft white/cream
       const radialGrad = ctx.createRadialGradient(
         width * 0.5,
-        height * 0.28,
+        currentCenterY,
         Math.min(width, height) * 0.08,
         width * 0.5,
-        height * 0.28,
+        currentCenterY,
         Math.max(width, height) * 0.75
       );
       radialGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
