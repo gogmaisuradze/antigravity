@@ -189,7 +189,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [calYear, setCalYear] = useState(1995);
   const [dateInputText, setDateInputText] = useState("01 / 01 / 1995");
   const [birthTime, setBirthTime] = useState(() => {
-    return savedProfile?.birthTime || "";
+    return savedProfile?.birthTime || localStorage.getItem("idc_user_birthtime") || "";
   });
   const [phone, setPhone] = useState(() => {
     return savedProfile?.phone || "";
@@ -202,7 +202,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [error, setError] = useState<string | null>(null);
   const [useStandardCalendar, setUseStandardCalendar] = useState(true);
   const [windowWidth, setWindowWidth] = useState(1024);
-  const [savedProfiles, setSavedProfiles] = useState<{ name: string; surname: string; phone: string; day: number; month: number; year: number; birthPlace: string }[]>([]);
+  const [savedProfiles, setSavedProfiles] = useState<{ name: string; surname: string; phone: string; day: number; month: number; year: number; birthPlace: string; birthTime?: string }[]>([]);
 
   useEffect(() => {
     try {
@@ -230,6 +230,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     setCalYear(y);
     setDateInputText(`${String(d).padStart(2, '0')} / ${String(m).padStart(2, '0')} / ${y}`);
     setBirthPlace(p.birthPlace || "საქართველო");
+    const t = p.birthTime || "";
+    setBirthTime(t);
+    if (t) {
+      localStorage.setItem("idc_user_birthtime", t);
+    } else {
+      localStorage.removeItem("idc_user_birthtime");
+    }
   };
 
   const handleDeleteSavedProfile = (e: React.MouseEvent, phoneToDelete: string) => {
@@ -313,6 +320,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       setCalYear(y);
       setDateInputText(`${String(d).padStart(2, '0')} / ${String(m).padStart(2, '0')} / ${y}`);
       setPhone(savedProfile.phone);
+      if (savedProfile.birthTime) {
+        setBirthTime(savedProfile.birthTime);
+        localStorage.setItem("idc_user_birthtime", savedProfile.birthTime);
+      }
     }
   }, [savedProfile]);
 
@@ -557,6 +568,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       list.unshift(profileObj);
       localStorage.setItem("saved_profiles", JSON.stringify(list));
       localStorage.setItem("user_phone", normalizedPhone);
+      if (birthTime.trim()) {
+        localStorage.setItem("idc_user_birthtime", birthTime.trim());
+      } else {
+        localStorage.removeItem("idc_user_birthtime");
+      }
     } catch (e) {
       console.error("Error updating saved_profiles:", e);
     }
@@ -714,6 +730,12 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
                 <span className="font-bold truncate max-w-[120px]">
                   {p.name} {p.surname}
                 </span>
+                {p.birthTime && (
+                  <span className="text-[9px] text-[#1C3D63] font-mono font-bold bg-[#E0AC6B]/25 border border-[#E0AC6B]/40 px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    <span>⏰</span>
+                    <span>{p.birthTime}</span>
+                  </span>
+                )}
                 <span className="text-[9px] text-[#8E8276] group-hover:text-[#1C3D63] font-semibold font-mono">
                   {p.phone}
                 </span>
@@ -1003,13 +1025,24 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
             <input
               type="time"
               value={birthTime}
-              onChange={(e) => setBirthTime(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setBirthTime(val);
+                if (val.trim()) {
+                  localStorage.setItem("idc_user_birthtime", val.trim());
+                } else {
+                  localStorage.removeItem("idc_user_birthtime");
+                }
+              }}
               className="w-full bg-transparent border-0 text-base text-[#1C3D63] focus:outline-none font-bold text-center tracking-widest cursor-pointer"
             />
             {birthTime && (
               <button
                 type="button"
-                onClick={() => setBirthTime("")}
+                onClick={() => {
+                  setBirthTime("");
+                  localStorage.removeItem("idc_user_birthtime");
+                }}
                 className="text-xs text-[#8E8276] hover:text-[#1C3D63] ml-2 cursor-pointer font-bold"
                 title="წაშლა"
               >

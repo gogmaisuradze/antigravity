@@ -1747,7 +1747,12 @@ function initFormPersistence() {
     'last-name': 'idc_user_lastname',
     'phone': 'idc_user_phone',
     'birthdate': 'idc_user_birthdate',
-    'date': 'idc_user_birthdate'
+    'date': 'idc_user_birthdate',
+    'birthtime': 'idc_user_birthtime',
+    'birth-time': 'idc_user_birthtime',
+    'birth_time': 'idc_user_birthtime',
+    'time': 'idc_user_birthtime',
+    'hour': 'idc_user_birthtime'
   };
 
   const populateFields = () => {

@@ -480,7 +480,7 @@ export const OrbitCarousel: React.FC<OrbitCarouselProps> = ({
                       onSelect(currentItem, activeIndex);
                     }
                   }}
-                  className="btn-glowing-shimmer group w-full py-3 sm:py-3.5 px-4 sm:px-6 text-xs sm:text-sm cursor-pointer shadow-md rounded-2xl"
+                  className="btn-glowing-shimmer group w-full py-3.5 sm:py-4 px-6 sm:px-8 text-xs sm:text-sm cursor-pointer"
                 >
                   <span className="shimmer-sweep"></span>
                   <span className="shimmer-btn-content font-headline tracking-wider flex items-center justify-center gap-2">

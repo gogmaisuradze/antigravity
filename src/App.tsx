@@ -338,7 +338,11 @@ export default function App() {
           if (Array.isArray(list)) {
             const found = list.find((p: any) => p.phone === savedPhone);
             if (found) {
-              setUserProfile(found);
+              const timeFromStorage = found.birthTime || localStorage.getItem("idc_user_birthtime") || undefined;
+              setUserProfile({
+                ...found,
+                birthTime: timeFromStorage
+              });
             }
           }
         }
@@ -360,7 +364,14 @@ export default function App() {
     try {
       const data = await getProfile(phone.trim().replace(/\s+/g, ""));
       if (data.success && data.exists && data.profile) {
-        setUserProfile(data.profile);
+        const profile = data.profile;
+        if (!profile.birthTime) {
+          const localTime = localStorage.getItem("idc_user_birthtime");
+          if (localTime) profile.birthTime = localTime;
+        } else {
+          localStorage.setItem("idc_user_birthtime", profile.birthTime);
+        }
+        setUserProfile(profile);
       }
     } catch (err) {
       console.error("Error autoloading profile:", err);
@@ -370,6 +381,9 @@ export default function App() {
   const handleProfileSaved = (profile: BirthProfile, initialTheme?: CalculationType) => {
     setUserProfile(profile);
     localStorage.setItem("user_phone", profile.phone);
+    if (profile.birthTime) {
+      localStorage.setItem("idc_user_birthtime", profile.birthTime);
+    }
     if (initialTheme) {
       handleSelectReading(profile.phone, initialTheme, profile.birthTime, profile);
     }
@@ -705,6 +719,7 @@ export default function App() {
         day: userProfile.day,
         month: userProfile.month,
         year: userProfile.year,
+        birthTime: userProfile.birthTime,
         phone: normalizedPhone
       });
 
@@ -718,10 +733,27 @@ export default function App() {
           }
         }
 
-        // 3. Update local states
-        const updatedProfile = saveData.profile;
+        // 3. Update local states & localStorage
+        const updatedProfile = {
+          ...saveData.profile,
+          birthTime: saveData.profile.birthTime || userProfile.birthTime
+        };
         setUserProfile(updatedProfile);
         localStorage.setItem("user_phone", cleanPhone);
+        if (updatedProfile.birthTime) {
+          localStorage.setItem("idc_user_birthtime", updatedProfile.birthTime);
+        }
+        try {
+          const stored = localStorage.getItem("saved_profiles");
+          let list = stored ? JSON.parse(stored) : [];
+          if (Array.isArray(list)) {
+            list = list.filter((p: any) => p.phone !== userProfile.phone && p.phone !== normalizedPhone);
+            list.unshift(updatedProfile);
+            localStorage.setItem("saved_profiles", JSON.stringify(list));
+          }
+        } catch (e) {
+          console.error("Error updating saved_profiles in linkPhone:", e);
+        }
         setLinkedSuccessfully(true);
       } else {
         setLinkError(saveData.error || "შეცდომა ნომრის დაკავშირებისას");
@@ -1351,6 +1383,30 @@ export default function App() {
                   };
 
                   setUserProfile(updatedProfile);
+
+                  // Permanently store to localStorage
+                  if (updatedTime) {
+                    localStorage.setItem("idc_user_birthtime", updatedTime);
+                  } else {
+                    localStorage.removeItem("idc_user_birthtime");
+                  }
+                  try {
+                    const stored = localStorage.getItem("saved_profiles");
+                    if (stored) {
+                      let list = JSON.parse(stored);
+                      if (Array.isArray(list)) {
+                        list = list.map((p: any) => {
+                          if (p.phone === userProfile.phone) {
+                            return { ...p, birthTime: updatedTime };
+                          }
+                          return p;
+                        });
+                        localStorage.setItem("saved_profiles", JSON.stringify(list));
+                      }
+                    }
+                  } catch (e) {
+                    console.error("Error updating saved_profiles with birthTime:", e);
+                  }
 
                   try {
                     await saveProfile({
