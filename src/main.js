@@ -474,7 +474,7 @@ function initBookingModal() {
             </div>
             <div>
               <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block font-semibold">თარიღი &amp; დრო:</span>
-              <span id="modal-summary-datetime" class="font-bold text-[#222222] text-xs truncate block">15 სექტემბერი · 14:30</span>
+              <span id="modal-summary-datetime" class="font-bold text-[#222222] text-xs truncate block">15 სექტემბერი · 14:00</span>
             </div>
             <div>
               <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block font-semibold">ფორმატი:</span>
