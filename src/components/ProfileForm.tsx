@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BirthProfile, CalculationType } from "../types";
-import { MapPin, Calendar, ShieldAlert, Sparkles, RefreshCw } from "lucide-react";
+import { MapPin, Calendar, ShieldAlert, Sparkles, RefreshCw, ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { RollerPicker, playTickSound, getSharedAudioContext } from "./RollerPicker";
 import { API_URLS } from "../config";
+import OrbitCarousel, { defaultOrbitModels, OrbitItem } from "./ui/orbiting-carousel-with-animated-icons";
 
 const THEMES = [
   { value: CalculationType.HOROSCOPE, label: "დასავლური ჰოროსკოპი", description: "ზოდიაქოს ნიშანი, ხასიათი, სტიქიები და კოსმოსური ტრენდები.", numeral: "I", requiresTime: true },
@@ -190,7 +191,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [phone, setPhone] = useState(() => {
     return savedProfile?.phone || "";
   });
-  const [selectedTheme, setSelectedTheme] = useState<CalculationType | null>(null);
+  const [selectedTheme, setSelectedTheme] = useState<CalculationType | null>(() => {
+    return CalculationType.HOROSCOPE;
+  });
+  const [viewMode, setViewMode] = useState<'ORBIT' | 'FORM'>('ORBIT');
   const [hoveredTheme, setHoveredTheme] = useState<CalculationType | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [useStandardCalendar, setUseStandardCalendar] = useState(false);
@@ -424,34 +428,119 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       <div className="absolute top-0 left-0 w-full h-[2px] bg-[#1C3D63]"></div>
 
       {/* Centered top header */}
-      <div className="flex flex-col items-center justify-center text-center space-y-3 mb-8">
-        <button 
-          type="button"
-          onClick={() => {
-            setUseStandardCalendar(!useStandardCalendar);
-            playExitCapSound();
-          }}
-          className={`hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all cursor-pointer ${
-            useStandardCalendar 
-              ? 'bg-[#1C3D63] text-white border-[#1C3D63] shadow-sm scale-105' 
-              : 'bg-[#F4F7F7] text-[#1C3D63] border-[#D8C4B6] hover:bg-[#E5ECEC] hover:scale-105'
-          }`}
-        >
-          <Calendar className="w-4 h-4" />
-          <span className="text-xs font-bold uppercase tracking-widest font-label">კალენდარი</span>
-        </button>
+      <div className="flex flex-col items-center justify-center text-center space-y-3 mb-6">
         <div>
-          <h2 className="text-xl font-bold tracking-[0.2em] text-[#1C3D63] uppercase font-headline">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-[0.2em] text-[#1C3D63] uppercase font-headline">
             აიდი მოდელები
           </h2>
           <p className="text-sm sm:text-base text-[#3B5E63] tracking-widest uppercase font-bold mt-1">
-            იდენტობის მატრიცა
+            იდენტობის მატრიცა & 8 მოდელი
           </p>
-          <p className="text-[11px] sm:text-[12px] tracking-wider text-[#8E8276] font-semibold uppercase mt-2">
-            შეიყვანეთ თქვენი მონაცემები სინქრონიზაციისთვის
+          <p className="text-[11px] sm:text-[12px] tracking-wider text-[#8E8276] font-semibold uppercase mt-1">
+            {viewMode === 'ORBIT'
+              ? "გაეცანით 8 მოდელს ორბიტაზე და აირჩიეთ სასურველი მიმართულება"
+              : "შეიყვანეთ თქვენი მონაცემები სინქრონიზაციისა და ანალიზისთვის"}
           </p>
         </div>
       </div>
+
+      {/* 2-Step Navigation Tab Bar */}
+      <div className="flex items-center justify-center gap-2 sm:gap-4 mb-8">
+        <button
+          type="button"
+          onClick={() => {
+            setViewMode('ORBIT');
+            playExitCapSound();
+          }}
+          className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+            viewMode === 'ORBIT'
+              ? 'bg-[#1C3D63] text-white shadow-md scale-[1.02]'
+              : 'bg-[#F4F7F7] text-[#1C3D63] border border-[#D8C4B6] hover:bg-[#E5ECEC]'
+          }`}
+        >
+          <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
+            viewMode === 'ORBIT' ? 'bg-[#E0AC6B] text-[#1C3D63]' : 'bg-[#D8C4B6] text-white'
+          }`}>1</span>
+          <span>მოდელების ორბიტა</span>
+        </button>
+
+        <div className="w-4 sm:w-8 h-[2px] bg-[#D8C4B6]" />
+
+        <button
+          type="button"
+          onClick={() => {
+            setViewMode('FORM');
+            playExitCapSound();
+          }}
+          className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+            viewMode === 'FORM'
+              ? 'bg-[#1C3D63] text-white shadow-md scale-[1.02]'
+              : 'bg-[#F4F7F7] text-[#1C3D63] border border-[#D8C4B6] hover:bg-[#E5ECEC]'
+          }`}
+        >
+          <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
+            viewMode === 'FORM' ? 'bg-[#E0AC6B] text-[#1C3D63]' : 'bg-[#D8C4B6] text-white'
+          }`}>2</span>
+          <span>მონაცემების შევსება</span>
+        </button>
+      </div>
+
+      {viewMode === 'ORBIT' ? (
+        <div className="w-full flex flex-col items-center space-y-6">
+          <OrbitCarousel
+            selectedIndex={THEMES.findIndex(t => t.value === selectedTheme)}
+            onSelect={(item) => {
+              const matched = THEMES.find(t => t.value === item.id);
+              if (matched) setSelectedTheme(matched.value);
+            }}
+            onProceed={(item) => {
+              const matched = THEMES.find(t => t.value === item.id);
+              if (matched) setSelectedTheme(matched.value);
+              setViewMode('FORM');
+              setTimeout(() => {
+                const el = document.getElementById("profile-form-container");
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }, 50);
+            }}
+          />
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => {
+                setViewMode('FORM');
+                playExitCapSound();
+              }}
+              className="px-6 py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer hover:scale-[1.02] active:scale-98"
+            >
+              <span>მონაცემების შევსებაზე გადასვლა</span>
+              <ArrowRight className="w-4 h-4 text-[#E0AC6B]" />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="w-full">
+          {/* Active Model Indicator Banner */}
+          <div className="mb-6 p-4 bg-[#F4F7F7] border-2 border-[#1C3D63] rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 max-w-[480px] mx-auto w-full shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-[#1C3D63] text-[#E0AC6B] font-headline font-black text-xs flex items-center justify-center shrink-0">
+                {THEMES.find(t => t.value === selectedTheme)?.numeral || "I"}
+              </div>
+              <div className="text-left">
+                <span className="text-[10px] uppercase font-bold text-[#E0AC6B] tracking-wider block">არჩეული მოდელი:</span>
+                <strong className="text-xs sm:text-sm text-[#1C3D63] font-headline italic">
+                  {THEMES.find(t => t.value === selectedTheme)?.label || "დასავლური ჰოროსკოპი"}
+                </strong>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setViewMode('ORBIT')}
+              className="px-3 py-1.5 bg-white hover:bg-[#E5ECEC] border border-[#D8C4B6] text-[#1C3D63] text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all cursor-pointer shrink-0 shadow-sm flex items-center gap-1"
+            >
+              <span>🔄 ორბიტაზე შეცვლა</span>
+            </button>
+          </div>
 
       {savedProfiles.length > 0 && (
         <div className="mb-6 max-w-[480px] mx-auto w-full space-y-2 font-sans text-left">
@@ -663,274 +752,52 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           </p>
         </div>
 
-        {/* Active / Hovered Card detailed description box */}
-        {(() => {
-          const activeDisplayTheme = THEMES.find(t => t.value === (hoveredTheme || selectedTheme));
-          return (
-            <div className="p-6 md:p-8 rounded-2xl bg-[#F4F7F7] border-2 border-[#1C3D63] shadow-sm max-w-2xl mx-auto text-center space-y-3 transform transition-all duration-500 hover:scale-[1.02] my-6">
-              {activeDisplayTheme ? (
-                <>
-                  <h4 className="text-lg md:text-xl font-extrabold text-[#1C3D63] uppercase tracking-[0.15em] flex items-center justify-center gap-2.5 font-headline">
-                    <Sparkles className="w-5 h-5 text-[#E0AC6B] animate-pulse" />
-                    {activeDisplayTheme.label}
-                  </h4>
-                  <p className="text-sm md:text-base text-[#3B5E63] font-medium leading-relaxed min-h-[50px] font-sans">
-                    {activeDisplayTheme.description}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <h4 className="text-lg md:text-xl font-extrabold text-[#1C3D63] uppercase tracking-[0.15em] flex items-center justify-center gap-2.5 font-headline animate-pulse">
-                    <Sparkles className="w-5 h-5 text-[#E0AC6B] animate-spin" style={{ animationDuration: '4s' }} />
-                    აირჩიეთ ანალიზის თემა
-                  </h4>
-                  <p className="text-sm md:text-base text-[#3B5E63] font-medium leading-relaxed min-h-[50px] font-sans">
-                    მიიტანეთ მაუსი ან დააწკაპუნეთ სასურველ ბარათზე დეტალური აღწერის სანახავად და სინქრონიზაციისთვის
-                  </p>
-                </>
-              )}
-            </div>
-          );
-        })()}
-
-        {/* Mystical Tarot Card Deck Theme Selector */}
-        <div className="py-2">
-          {windowWidth < 640 ? (
-            /* MOBILE VERSION: Separate 2-Column Button Menu + Single Active Card Preview */
-            <div className="space-y-6">
-              {/* Separate Mobile Menu */}
-              <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto px-2">
-                {THEMES.map((theme) => {
-                  const isSelected = selectedTheme === theme.value;
-                  return (
-                    <button
-                      key={theme.value}
-                      type="button"
-                      onClick={() => {
-                        if (selectedTheme === theme.value) {
-                          setSelectedTheme(null);
-                          playExitCapSound();
-                        } else {
-                          setSelectedTheme(theme.value);
-                          playExitCapSound();
-                        }
-                      }}
-                      onDoubleClick={() => {
-                        setSelectedTheme(theme.value);
-                        playExitCapSound();
-                        setTimeout(() => {
-                          const formEl = document.getElementById("profile-form") as HTMLFormElement;
-                          if (formEl) formEl.requestSubmit();
-                        }, 10);
-                      }}
-                      className={`flex items-center justify-between px-3.5 py-3 rounded-xl border text-[11px] font-black uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer ${
-                        isSelected
-                          ? "bg-[#1C3D63] text-white border-[#1C3D63] shadow-sm scale-[1.02]"
-                          : "bg-[#F4F7F7] text-[#222222] border-[#D8C4B6] hover:bg-[#E5ECEC]"
-                      }`}
-                    >
-                      <span className="truncate mr-1">{theme.label.split(" (")[0]}</span>
-                      <span className={`text-[10px] font-extrabold font-headline shrink-0 ${isSelected ? "text-white/80" : "text-[#E0AC6B]"}`}>
-                        {theme.numeral}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Single Active Card Preview or Ornate Card Back */}
-              <div 
-                style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
-                className="flex items-center justify-center h-[240px] relative mt-4 select-none overflow-visible"
-              >
-                {selectedTheme ? (
-                  /* FRONT OF SELECTED CARD */
-                  (() => {
-                    const theme = THEMES.find(t => t.value === selectedTheme)!;
-                    return (
-                      <div
-                        style={{
-                          transform: "rotateY(0deg) translate3d(0, 0, 30px) scale(1.1)",
-                          transformStyle: "preserve-3d",
-                        }}
-                        className="w-[130px] aspect-[2/3.1] rounded-2xl p-3 bg-white border-2 border-[#1C3D63] shadow-md flex flex-col items-center justify-between animate-pulse"
-                      >
-                        <div className="absolute inset-1 rounded-[12px] border border-[#E0AC6B]/35 pointer-events-none">
-                          <div className="absolute top-1 left-1 text-[7px] text-[#E0AC6B]/40">✦</div>
-                          <div className="absolute top-1 right-1 text-[7px] text-[#E0AC6B]/40">✦</div>
-                          <div className="absolute bottom-1 left-1 text-[7px] text-[#E0AC6B]/40">✦</div>
-                          <div className="absolute bottom-1 right-1 text-[7px] text-[#E0AC6B]/40">✦</div>
-                        </div>
-
-                        <span className="text-[10px] font-serif font-extrabold tracking-widest text-[#E0AC6B] mt-1 z-10 uppercase">
-                          {theme.numeral}
-                        </span>
-
-                        <div className="flex-grow flex items-center justify-center py-2 z-10 w-full scale-105">
-                          {getTarotIllustration(theme.value)}
-                        </div>
-
-                        <span className="text-[10px] font-extrabold text-center tracking-wider leading-tight text-[#1C3D63] z-10 pb-1.5 uppercase">
-                          {theme.label.split(" (")[0]}
-                        </span>
-                      </div>
-                    );
-                  })()
-                ) : (
-                  /* ORNATE MYSTICAL CARD BACK */
-                  <div
-                    style={{
-                      transform: "rotateY(0deg) translate3d(0, 0, 0px)",
-                      transformStyle: "preserve-3d",
-                    }}
-                    className="w-[130px] aspect-[2/3.1] rounded-2xl p-3 bg-[#F4F7F7] border border-[#D8C4B6] shadow-sm flex flex-col items-center justify-between opacity-90"
-                  >
-                    <div className="absolute inset-1 rounded-[12px] border border-[#D8C4B6] pointer-events-none">
-                      <div className="absolute top-1 left-1 text-[7px] text-[#8E8276]/30">✦</div>
-                      <div className="absolute top-1 right-1 text-[7px] text-[#8E8276]/30">✦</div>
-                      <div className="absolute bottom-1 left-1 text-[7px] text-[#8E8276]/30">✦</div>
-                      <div className="absolute bottom-1 right-1 text-[7px] text-[#8E8276]/30">✦</div>
-                    </div>
-
-                    <span className="text-[8px] font-black tracking-[0.25em] text-[#8E8276] uppercase mt-1 z-10">
-                      🔮
-                    </span>
-
-                    {/* Ornate mystical mandala pattern */}
-                    <div className="flex-grow flex items-center justify-center py-2 z-10 w-full text-[#E0AC6B]/30">
-                      <svg className="w-10 h-10 animate-[spin_30s_linear_infinite]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
-                        <circle cx="50" cy="50" r="40" strokeDasharray="3 3" />
-                        <circle cx="50" cy="50" r="28" />
-                        <circle cx="50" cy="50" r="16" strokeDasharray="1 2" />
-                        <path d="M50 10 L50 90 M10 50 L90 50 M22 22 L78 78 M22 78 L78 22" />
-                      </svg>
-                    </div>
-
-                    <span className="text-[8px] font-black text-center tracking-[0.15em] leading-tight text-[#8E8276] z-10 pb-1.5 uppercase font-headline">
-                      კოდი
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            /* DESKTOP/TABLET VERSION: Original 3D Tarot card deck */
-            <div 
-              style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
-              className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] flex items-center justify-center overflow-visible mt-2 mb-4 select-none px-4"
+        {/* Modern Model Selector Bar */}
+        <div className="py-4 max-w-2xl mx-auto w-full">
+          <div className="flex items-center justify-between mb-3 px-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#1C3D63] flex items-center gap-1.5 font-headline">
+              <Sparkles className="w-3.5 h-3.5 text-[#E0AC6B]" />
+              <span>აიდი მოდელები (8 მიმართულება):</span>
+            </span>
+            <button
+              type="button"
+              onClick={() => setViewMode('ORBIT')}
+              className="text-[11px] font-bold text-[#1C3D63] hover:text-[#254F7F] underline cursor-pointer flex items-center gap-1"
             >
-              {THEMES.map((theme, index) => {
-                const isSelected = selectedTheme === theme.value;
-                const isHovered = hoveredTheme === theme.value;
-                
-                const handleCardClick = () => {
-                  if (selectedTheme === theme.value) {
-                    setSelectedTheme(null);
-                    playExitCapSound();
-                  } else {
+              <span>✦ ორბიტაზე ნახვა</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            {THEMES.map((theme) => {
+              const isSelected = selectedTheme === theme.value;
+              return (
+                <button
+                  key={theme.value}
+                  type="button"
+                  onClick={() => {
                     setSelectedTheme(theme.value);
                     playExitCapSound();
-                    
-                    const cleanName = firstName.trim();
-                    const cleanSurname = lastName.trim();
-                    const cleanPhone = phone.trim().replace(/\s+/g, "");
-                    let normalizedPhone = cleanPhone;
-                    if (normalizedPhone.startsWith("+995")) normalizedPhone = normalizedPhone.slice(4);
-                    else if (normalizedPhone.startsWith("995")) normalizedPhone = normalizedPhone.slice(3);
-
-                    const isNameValid = cleanName.length >= 2 && !/\d/.test(cleanName);
-                    const isSurnameValid = cleanSurname.length >= 2 && !/\d/.test(cleanSurname);
-                    const isPhoneValid = /^5\d{8}$/.test(normalizedPhone) && !/^(.)\1+$/.test(normalizedPhone) && !/(.)\1{5,}/.test(normalizedPhone);
-
-                    if (isNameValid && isSurnameValid && isPhoneValid) {
-                      setTimeout(() => {
-                        const formEl = document.getElementById("profile-form") as HTMLFormElement;
-                        if (formEl) {
-                          formEl.requestSubmit();
-                        }
-                      }, 50);
-                    }
-                  }
-                };
-
-                const handleCardDoubleClick = () => {
-                  setSelectedTheme(theme.value);
-                  playExitCapSound();
-                  setTimeout(() => {
-                    const formEl = document.getElementById("profile-form") as HTMLFormElement;
-                    if (formEl) {
-                      formEl.requestSubmit();
-                    }
-                  }, 10);
-                };
-
-                const distanceFromCenter = index - 3.5;
-                const dx = distanceFromCenter * cardSpacing;
-                const dy = 0;
-                const rotY = 0;
-                const rotZ = 0;
-
-                let transformStr = `translate3d(calc(-50% + ${dx}px), ${dy}px, 0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${cardScale * 0.95})`;
-                let zIndexVal = 20 + index;
-
-                if (isHovered) {
-                  transformStr = `translate3d(calc(-50% + ${dx}px), -55px, 120px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.35})`;
-                  zIndexVal = 100;
-                } else if (isSelected) {
-                  transformStr = `translate3d(calc(-50% + ${dx}px), -25px, 60px) rotateY(0deg) rotateZ(0deg) scale(${cardScale * 1.2})`;
-                  zIndexVal = 80;
-                }
-
-                return (
-                  <div
-                    key={theme.value}
-                    onClick={handleCardClick}
-                    onDoubleClick={handleCardDoubleClick}
-                    onMouseEnter={() => setHoveredTheme(theme.value)}
-                    onMouseLeave={() => setHoveredTheme(null)}
-                    style={{
-                      transform: transformStr,
-                      zIndex: zIndexVal,
-                      transformOrigin: "bottom center",
-                      transformStyle: "preserve-3d",
-                    }}
-                    className={`absolute left-1/2 bottom-10 w-[105px] sm:w-[125px] md:w-[140px] aspect-[2/3.1] rounded-2xl p-2.5 sm:p-3 bg-white border transition-all duration-500 cursor-pointer flex flex-col items-center justify-between select-none group shadow-sm ${
-                      isHovered 
-                        ? "border-[#1C3D63] shadow-md"
-                        : isSelected
-                        ? "border-[#1C3D63] shadow-md bg-[#F4F7F7]"
-                        : "border-[#D8C4B6] hover:border-[#1C3D63]"
-                    }`}
-                  >
-                    <div className={`absolute inset-1 sm:inset-1.5 rounded-[10px] sm:rounded-[12px] border pointer-events-none transition-colors duration-500 ${
-                      isSelected || isHovered ? "border-[#E0AC6B]/35" : "border-[#D8C4B6]"
-                    }`}>
-                      <div className="absolute top-1 left-1 text-[7px] text-[#E0AC6B]/40 font-serif">✦</div>
-                      <div className="absolute top-1 right-1 text-[7px] text-[#E0AC6B]/40 font-serif">✦</div>
-                      <div className="absolute bottom-1 left-1 text-[7px] text-[#E0AC6B]/40 font-serif">✦</div>
-                      <div className="absolute bottom-1 right-1 text-[7px] text-[#E0AC6B]/40 font-serif">✦</div>
-                    </div>
-
-                    <span className={`text-[8.5px] sm:text-[9.5px] font-serif font-extrabold tracking-widest text-center mt-1 z-10 transition-colors uppercase ${
-                      isSelected || isHovered ? "text-[#E0AC6B]" : "text-[#8E8276]"
-                    }`}>
+                  }}
+                  className={`p-3 rounded-xl border text-left transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                    isSelected
+                      ? "bg-[#1C3D63] text-white border-[#1C3D63] shadow-md scale-[1.02]"
+                      : "bg-[#F4F7F7] text-[#222222] border-[#D8C4B6] hover:bg-[#E5ECEC] hover:border-[#1C3D63]"
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full mb-1">
+                    <span className={`text-[10px] font-headline font-black ${isSelected ? "text-[#E0AC6B]" : "text-[#1C3D63]"}`}>
                       {theme.numeral}
                     </span>
-
-                    <div className="flex-grow flex items-center justify-center py-2 z-10 w-full">
-                      {getTarotIllustration(theme.value)}
-                    </div>
-
-                    <span className={`text-[8px] sm:text-[9.5px] font-extrabold text-center tracking-wider leading-tight z-10 pb-1.5 transition-colors uppercase ${
-                      isSelected || isHovered ? "text-[#1C3D63]" : "text-[#3B5E63] group-hover:text-[#1C3D63]"
-                    }`}>
-                      {theme.label.split(" (")[0]}
-                    </span>
+                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#E0AC6B]" />}
                   </div>
-                );
-              })}
-            </div>
-          )}
+                  <strong className="text-xs font-headline italic leading-tight truncate">
+                    {theme.label.split(" (")[0]}
+                  </strong>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Action Button Container */}
@@ -959,5 +826,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
         </div>
       </form>
     </div>
+  )}
+</div>
   );
 };
