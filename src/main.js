@@ -1,7 +1,6 @@
 // IDC Psychotherapy Web Application - Client-Side Interactive Logic & Premium Upgrades
 import { initTeamCircularSlider } from './team-circular-mount';
 import { initNewsCoverFlow } from './news-coverflow-mount';
-import { initBalanceGatewayFlow } from './balance-gateway-mount';
 
 const initAll = () => {
   initMobileMenu();
@@ -24,7 +23,6 @@ const initAll = () => {
   initHorizontalSwitcher();
   initTeamCircularSlider();
   initNewsCoverFlow();
-  initBalanceGatewayFlow();
 };
 
 window.initAll = initAll;
