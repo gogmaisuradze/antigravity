@@ -278,12 +278,12 @@ const useResponsiveRadius = () => {
   switch (screen) {
     case "xs":
       return {
-        containerRadius: 140,
-        profileSize: 64,
-        cardWidth: "w-[230px]",
-        svgSize: "w-7 h-7",
+        containerRadius: 130,
+        profileSize: 56,
+        cardWidth: "w-[215px]",
+        svgSize: "w-6 h-6",
         textSize: "text-[7.5px]",
-        diameter: 360,
+        diameter: 320,
       };
     case "sm":
       return {

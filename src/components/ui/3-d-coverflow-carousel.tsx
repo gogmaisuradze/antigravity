@@ -143,7 +143,7 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
 
   return (
     <section
-      className={`relative w-full min-h-[640px] md:min-h-[720px] rounded-[32px] md:rounded-[40px] flex items-center justify-center overflow-hidden py-8 sm:py-12 select-none border-2 border-[#D8C4B6] shadow-[inset_0_4px_45px_rgba(28,61,99,0.22),0_25px_60px_rgba(28,61,99,0.08)] ${className}`}
+      className={`relative w-full min-h-[580px] sm:min-h-[640px] md:min-h-[720px] rounded-[30px] sm:rounded-[36px] md:rounded-[40px] flex items-center justify-center overflow-hidden py-6 sm:py-8 md:py-12 select-none border-2 border-[#D8C4B6] shadow-[inset_0_4px_45px_rgba(28,61,99,0.22),0_25px_60px_rgba(28,61,99,0.08)] ${className}`}
       style={{
         backgroundColor: "#FAF7F2",
         color: "#ffffff",
@@ -275,8 +275,8 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
                 onClick={() => !isActive && goToSlide(index)}
                 style={{
                   position: "absolute",
-                  width: "min(330px, 85vw)",
-                  height: "min(490px, 75vh)",
+                  width: "min(320px, 84vw)",
+                  height: "min(470px, 70vh)",
                   borderRadius: "20px",
                   overflow: "hidden",
                   backgroundColor: "#171311",
@@ -363,7 +363,7 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
                   >
                     <h2
                       style={{
-                        fontSize: "1.5rem",
+                        fontSize: "clamp(1.22rem, 5vw, 1.5rem)",
                         fontWeight: 900,
                         letterSpacing: "0.02em",
                         color: "#ffffff",
@@ -377,7 +377,7 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
                     {item.titleLine2 && (
                       <span
                         style={{
-                          fontSize: "1.05rem",
+                          fontSize: "clamp(0.92rem, 3.8vw, 1.05rem)",
                           fontWeight: 700,
                           letterSpacing: "0.04em",
                           color: "#f3f0ea",
@@ -401,7 +401,7 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
                     {item.desc && (
                       <p
                         style={{
-                          fontSize: "0.82rem",
+                          fontSize: "clamp(0.74rem, 3vw, 0.82rem)",
                           fontStyle: "italic",
                           color: "rgba(255,255,255,0.9)",
                           maxWidth: "280px",
@@ -461,30 +461,25 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
           })}
         </div>
 
-        {/* Prev / Next Buttons */}
-        {/* Prev / Next Buttons with rich frosted navy styling */}
+        {/* Desktop / Tablet Side Prev / Next Buttons */}
         <button
           onClick={prevSlide}
           aria-label="Previous slide"
+          className="hidden md:flex items-center justify-center cursor-pointer transition-all active:scale-95"
           style={{
             position: "absolute",
-            left: "16px",
+            left: "18px",
             top: "50%",
             transform: "translateY(-50%)",
             width: "48px",
             height: "48px",
             borderRadius: "50%",
-            backgroundColor: "rgba(28, 61, 99, 0.82)",
+            backgroundColor: "rgba(28, 61, 99, 0.85)",
             border: "1px solid rgba(224, 172, 107, 0.45)",
             color: "#ffffff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
             backdropFilter: "blur(12px)",
-            cursor: "pointer",
             boxShadow: "0 10px 25px rgba(28, 61, 99, 0.4)",
             zIndex: 40,
-            transition: "all 200ms ease",
           }}
         >
           <svg
@@ -503,25 +498,21 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
         <button
           onClick={nextSlide}
           aria-label="Next slide"
+          className="hidden md:flex items-center justify-center cursor-pointer transition-all active:scale-95"
           style={{
             position: "absolute",
-            right: "16px",
+            right: "18px",
             top: "50%",
             transform: "translateY(-50%)",
             width: "48px",
             height: "48px",
             borderRadius: "50%",
-            backgroundColor: "rgba(28, 61, 99, 0.82)",
+            backgroundColor: "rgba(28, 61, 99, 0.85)",
             border: "1px solid rgba(224, 172, 107, 0.45)",
             color: "#ffffff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
             backdropFilter: "blur(12px)",
-            cursor: "pointer",
             boxShadow: "0 10px 25px rgba(28, 61, 99, 0.4)",
             zIndex: 40,
-            transition: "all 200ms ease",
           }}
         >
           <svg
@@ -538,35 +529,59 @@ export const CoverFlowCarousel: React.FC<CoverFlowCarouselProps> = ({
           </svg>
         </button>
 
-        {/* Dots Navigation */}
+        {/* Dots & Mobile Arrow Controls Bar */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: "8px",
+            gap: "10px",
             zIndex: 30,
+            marginTop: "4px",
           }}
         >
-          {items.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goToSlide(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              style={{
-                height: "8px",
-                width: i === currentIndex ? "28px" : "8px",
-                borderRadius: "9999px",
-                backgroundColor:
-                  i === currentIndex ? "#1C3D63" : "rgba(28, 61, 99, 0.3)",
-                border: i === currentIndex ? "1px solid #E0AC6B" : "none",
-                cursor: "pointer",
-                boxShadow:
-                  i === currentIndex ? "0 0 12px rgba(28, 61, 99, 0.6)" : "none",
-                transition: "all 300ms ease",
-              }}
-            />
-          ))}
+          {/* Mobile Prev Arrow */}
+          <button
+            type="button"
+            onClick={prevSlide}
+            aria-label="Previous slide"
+            className="flex md:hidden items-center justify-center w-8 h-8 rounded-full bg-[#1C3D63]/90 text-[#E0AC6B] border border-[#E0AC6B]/50 shadow-md active:scale-90 transition-transform cursor-pointer"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+          </button>
+
+          {/* Dots Indicator */}
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            {items.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goToSlide(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                style={{
+                  height: "8px",
+                  width: i === currentIndex ? "26px" : "8px",
+                  borderRadius: "9999px",
+                  backgroundColor:
+                    i === currentIndex ? "#1C3D63" : "rgba(28, 61, 99, 0.3)",
+                  border: i === currentIndex ? "1px solid #E0AC6B" : "none",
+                  cursor: "pointer",
+                  boxShadow:
+                    i === currentIndex ? "0 0 12px rgba(28, 61, 99, 0.6)" : "none",
+                  transition: "all 300ms ease",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Mobile Next Arrow */}
+          <button
+            type="button"
+            onClick={nextSlide}
+            aria-label="Next slide"
+            className="flex md:hidden items-center justify-center w-8 h-8 rounded-full bg-[#1C3D63]/90 text-[#E0AC6B] border border-[#E0AC6B]/50 shadow-md active:scale-90 transition-transform cursor-pointer"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+          </button>
         </div>
       </div>
     </section>
