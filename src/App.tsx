@@ -331,6 +331,20 @@ export default function App() {
   useEffect(() => {
     const savedPhone = localStorage.getItem("user_phone");
     if (savedPhone) {
+      try {
+        const stored = localStorage.getItem("saved_profiles");
+        if (stored) {
+          const list = JSON.parse(stored);
+          if (Array.isArray(list)) {
+            const found = list.find((p: any) => p.phone === savedPhone);
+            if (found) {
+              setUserProfile(found);
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Error reading saved_profiles from localStorage:", e);
+      }
       fetchUserProfile(savedPhone);
     }
 
@@ -345,7 +359,7 @@ export default function App() {
   const fetchUserProfile = async (phone: string) => {
     try {
       const data = await getProfile(phone.trim().replace(/\s+/g, ""));
-      if (data.success && data.exists) {
+      if (data.success && data.exists && data.profile) {
         setUserProfile(data.profile);
       }
     } catch (err) {
@@ -357,11 +371,16 @@ export default function App() {
     setUserProfile(profile);
     localStorage.setItem("user_phone", profile.phone);
     if (initialTheme) {
-      handleSelectReading(profile.phone, initialTheme);
+      handleSelectReading(profile.phone, initialTheme, profile.birthTime, profile);
     }
   };
 
-  const handleSelectReading = async (phone: string, type: CalculationType) => {
+  const handleSelectReading = async (
+    phone: string,
+    type: CalculationType,
+    birthTime?: string,
+    profile?: BirthProfile
+  ) => {
     setSelectedType(type);
     setReadingStage('LOADING_SHORT');
     setLoadingReading(true);
@@ -369,13 +388,16 @@ export default function App() {
     setReading(null);
     setDeliveryPhone(phone);
 
+    const activeProfile = profile || userProfile;
+    const effectiveBirthTime = birthTime || activeProfile?.birthTime;
+
     // Fast initial delay (1.2s) to show loading screen first before short summary appears
     setTimeout(() => {
       setReadingStage((prev) => (prev === 'LOADING_SHORT' ? 'SHORT_READY' : prev));
     }, 1200);
 
     try {
-      const data = await generateReading(phone, type, userProfile?.birthTime);
+      const data = await generateReading(phone, type, effectiveBirthTime, activeProfile || undefined);
       if (data.success) {
         setReading(data);
       } else {
@@ -1357,7 +1379,7 @@ export default function App() {
                     setSavingTime(false);
                     setShowTimeModal(false);
                     if (selectedType) {
-                      handleSelectReading(userProfile.phone, selectedType);
+                      handleSelectReading(userProfile.phone, selectedType, updatedTime, updatedProfile);
                     }
                   }
                 }}

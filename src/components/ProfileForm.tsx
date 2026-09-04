@@ -537,57 +537,47 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       }
     }
 
+    const profileObj: BirthProfile = {
+      name: cleanName,
+      surname: cleanSurname,
+      birthPlace: finalBirthPlace,
+      day: finalDay,
+      month: finalMonth,
+      year: finalYear,
+      birthTime: birthTime.trim() || undefined,
+      phone: normalizedPhone
+    };
+
+    // 1. Immediately store to local storage so user data is permanently safe and ready
     try {
-      const response = await fetch(API_URLS.saveProfile, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: cleanName,
-          surname: cleanSurname,
-          birthPlace: finalBirthPlace,
-          day: finalDay,
-          month: finalMonth,
-          year: finalYear,
-          birthTime: birthTime.trim() || undefined,
-          phone: normalizedPhone
-        }),
+      const stored = localStorage.getItem("saved_profiles");
+      let list = stored ? JSON.parse(stored) : [];
+      if (!Array.isArray(list)) list = [];
+      list = list.filter((p: any) => p.phone !== normalizedPhone);
+      list.unshift(profileObj);
+      localStorage.setItem("saved_profiles", JSON.stringify(list));
+      localStorage.setItem("user_phone", normalizedPhone);
+    } catch (e) {
+      console.error("Error updating saved_profiles:", e);
+    }
+
+    // 2. Dispatch background save to n8n backend without blocking user experience
+    fetch(API_URLS.saveProfile, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(profileObj),
+    })
+      .then(async (r) => {
+        if (!r.ok) {
+          console.warn("Backend saveProfile returned status:", r.status);
+        }
+      })
+      .catch((err) => {
+        console.warn("Backend saveProfile network error:", err);
       });
 
-      const data = await response.json();
-      if (data.success) {
-        try {
-          const stored = localStorage.getItem("saved_profiles");
-          let list = stored ? JSON.parse(stored) : [];
-          if (!Array.isArray(list)) list = [];
-          const newProfile = {
-            name: cleanName,
-            surname: cleanSurname,
-            phone: normalizedPhone,
-            day: finalDay,
-            month: finalMonth,
-            year: finalYear,
-            birthTime: birthTime.trim() || undefined,
-            birthPlace: finalBirthPlace
-          };
-          list = list.filter((p: any) => p.phone !== normalizedPhone);
-          list.unshift(newProfile);
-          localStorage.setItem("saved_profiles", JSON.stringify(list));
-        } catch (e) {
-          console.error("Error updating saved_profiles:", e);
-        }
-        const profileObj = {
-          ...data.profile,
-          birthTime: birthTime.trim() || undefined
-        };
-        onProfileSaved(profileObj, selectedTheme);
-      } else {
-        playErrorSound();
-        setError(data.error || "შეცდომა შენახვისას");
-      }
-    } catch (err: any) {
-      playErrorSound();
-      setError("ვერ დაუკავშირდა სერვერს. სცადეთ მოგვიანებით.");
-    }
+    // 3. Immediately launch analysis with the profile and chosen theme!
+    onProfileSaved(profileObj, selectedTheme);
   };
 
   return (

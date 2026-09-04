@@ -30,12 +30,30 @@ export async function deleteProfile(phone: string): Promise<{ success: boolean }
 }
 
 // ─── 2. Cosmic ID Reader (8 ანალიზი) ───────────────────────
-export async function generateReading(phone: string, type: CalculationType, birthTime?: string): Promise<ReadingResponse> {
+export async function generateReading(
+  phone: string,
+  type: CalculationType,
+  birthTime?: string,
+  profile?: Partial<BirthProfile>
+): Promise<ReadingResponse> {
   const mappedType = mapCalculationTypeToN8n(type);
+  const payload: any = {
+    phone,
+    type: mappedType,
+    birthTime: birthTime || profile?.birthTime,
+  };
+  if (profile) {
+    if (profile.name) payload.name = profile.name;
+    if (profile.surname) payload.surname = profile.surname;
+    if (profile.day) payload.day = profile.day;
+    if (profile.month) payload.month = profile.month;
+    if (profile.year) payload.year = profile.year;
+    if (profile.birthPlace) payload.birthPlace = profile.birthPlace;
+  }
   const r = await fetch(API_URLS.generateReading, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phone, type: mappedType, birthTime }),
+    body: JSON.stringify(payload),
   });
   if (!r.ok) throw new Error(`generateReading failed: ${r.status}`);
   return r.json();
