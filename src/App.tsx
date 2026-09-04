@@ -458,6 +458,162 @@ export default function App() {
     return tokens.slice(0, wordCount).join(" ") + "...";
   };
 
+  const formatAnalysisHtml = (content: string): string => {
+    if (!content) return '';
+
+    const text = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+    const lines = text.split('\n');
+    const blocks: { type: 'greeting' | 'heading' | 'list_item' | 'num_item' | 'p'; content: string; num?: string }[] = [];
+    let currentParagraph: string[] = [];
+
+    const flushParagraph = () => {
+      if (currentParagraph.length > 0) {
+        const pText = currentParagraph.join(' ').trim();
+        if (pText) {
+          blocks.push({ type: 'p', content: pText });
+        }
+        currentParagraph = [];
+      }
+    };
+
+    for (let i = 0; i < lines.length; i++) {
+      const rawLine = lines[i].trim();
+      if (!rawLine) {
+        flushParagraph();
+        continue;
+      }
+
+      // Markdown headings (#, ##, ###, ####)
+      const hMatch = rawLine.match(/^#{1,4}\s+(.*?)$/);
+      if (hMatch) {
+        flushParagraph();
+        blocks.push({ type: 'heading', content: hMatch[1].trim() });
+        continue;
+      }
+
+      // Bold standalone title lines (e.g. **1. სათაური** or **სათაური**)
+      const boldHeaderMatch = rawLine.match(/^\*\*([0-9\.\s]*[^\*]+?)\*\*:?$/);
+      if (boldHeaderMatch && boldHeaderMatch[1].length < 85) {
+        flushParagraph();
+        blocks.push({ type: 'heading', content: boldHeaderMatch[1].trim() });
+        continue;
+      }
+
+      // Numbered section headings e.g. 1. სათაური
+      const numHeaderMatch = rawLine.match(/^(\d+)\.\s+\*?\*?([^\*]+?)\*?\*?:?$/);
+      if (numHeaderMatch && numHeaderMatch[2].length < 65 && !numHeaderMatch[2].includes('.')) {
+        flushParagraph();
+        blocks.push({ type: 'heading', content: `${numHeaderMatch[1]}. ${numHeaderMatch[2].trim()}` });
+        continue;
+      }
+
+      // Greeting lines
+      if (
+        rawLine === 'ძვირფასო მეგობარო,' ||
+        rawLine === 'ძვირფასო მეგობარო' ||
+        rawLine.startsWith('ძვირფასო') ||
+        rawLine.startsWith('მოგესალმებით') ||
+        rawLine.startsWith('გამარჯობა')
+      ) {
+        flushParagraph();
+        blocks.push({ type: 'greeting', content: rawLine });
+        continue;
+      }
+
+      // Bullet list items
+      const listMatch = rawLine.match(/^[-*•]\s+(.*?)$/);
+      if (listMatch) {
+        flushParagraph();
+        blocks.push({ type: 'list_item', content: listMatch[1].trim() });
+        continue;
+      }
+
+      // Numbered item
+      const numItemMatch = rawLine.match(/^(\d+)\.\s+(.*?)$/);
+      if (numItemMatch) {
+        flushParagraph();
+        blocks.push({ type: 'num_item', num: numItemMatch[1], content: numItemMatch[2].trim() });
+        continue;
+      }
+
+      currentParagraph.push(rawLine);
+    }
+    flushParagraph();
+
+    const formatInline = (str: string) => {
+      return str
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-[#1C3D63]">$1</strong>')
+        .replace(/(\d{1,3}%)/g, '<span class="inline-block px-1.5 py-0.5 rounded bg-[#E0AC6B]/15 text-[#1C3D63] font-bold text-xs sm:text-sm font-sans border border-[#E0AC6B]/30">$1</span>');
+    };
+
+    let html = '';
+    for (const b of blocks) {
+      if (b.type === 'greeting') {
+        html += `
+          <div class="p-4 sm:p-5 rounded-2xl bg-[#FAF8F5] border border-[#D8C4B6] mb-6 flex items-center gap-3.5 shadow-xs">
+            <div class="w-10 h-10 rounded-xl bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#E0AC6B]/40">
+              <span class="material-symbols-outlined text-xl">person_heart</span>
+            </div>
+            <div>
+              <h4 class="font-headline italic font-bold text-base sm:text-lg text-[#1C3D63] leading-none mb-1">
+                ${formatInline(b.content)}
+              </h4>
+              <p class="text-xs text-[#8E8276] font-light">პერსონალური ფსიქო-ტრანსფორმაციული ანალიზი</p>
+            </div>
+          </div>`;
+      } else if (b.type === 'heading') {
+        html += `
+          <div class="mt-8 mb-4 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-[#1C3D63]/8 via-[#E0AC6B]/10 to-transparent border-l-4 border-l-[#1C3D63] border border-[#D8C4B6]/60 flex items-center justify-between shadow-xs">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[#E0AC6B] text-2xl">auto_stories</span>
+              <h3 class="font-headline font-bold text-base sm:text-lg text-[#1C3D63] tracking-wide m-0">
+                ${formatInline(b.content)}
+              </h3>
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-[#E0AC6B] font-sans px-2 py-0.5 rounded bg-white border border-[#E0AC6B]/40 hidden sm:inline-block">სფერო / ანალიზი</span>
+          </div>`;
+      } else if (b.type === 'list_item') {
+        html += `
+          <div class="flex items-start gap-3 my-2.5 pl-2 sm:pl-3">
+            <span class="w-5 h-5 rounded-full bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 border border-[#E0AC6B]/40 font-sans">✓</span>
+            <div class="text-sm sm:text-base text-[#222222] leading-relaxed font-sans font-normal">
+              ${formatInline(b.content)}
+            </div>
+          </div>`;
+      } else if (b.type === 'num_item') {
+        html += `
+          <div class="flex items-start gap-3 my-2.5 pl-2 sm:pl-3">
+            <span class="w-6 h-6 rounded-lg bg-[#1C3D63] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 font-sans">${b.num}</span>
+            <div class="text-sm sm:text-base text-[#222222] leading-relaxed font-sans font-normal">
+              ${formatInline(b.content)}
+            </div>
+          </div>`;
+      } else {
+        html += `<p class="text-sm sm:text-base text-[#222222] leading-[1.85] font-normal mb-4 font-sans text-left">${formatInline(b.content)}</p>`;
+      }
+    }
+
+    return html;
+  };
+
+  const formatShortPreviewHtml = (content: string): string => {
+    if (!content) return '';
+    const text = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+    const lines = text.split('\n');
+    const previewLines: string[] = [];
+    let wordsCount = 0;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      previewLines.push(trimmed);
+      wordsCount += trimmed.split(/\s+/).length;
+      if (wordsCount >= 90) break;
+    }
+
+    return formatAnalysisHtml(previewLines.join('\n'));
+  };
+
   const handleSendWhatsApp = async () => {
     if (!reading || !userProfile) return;
     setDeliveryStatus(null);
@@ -1051,34 +1207,26 @@ export default function App() {
 
                 {/* STEP 2: Short Express Preview Card (Appears after fast load) */}
                 {readingStage === 'SHORT_READY' && reading && (
-                  <div className="bg-[#F4F7F7] border border-[#D8C4B6] p-6 sm:p-8 rounded-2xl mb-6 shadow-sm relative overflow-hidden animate-fade-in text-[#222222]">
+                  <div className="bg-white border border-[#D8C4B6] p-6 sm:p-7 rounded-2xl mb-6 shadow-sm relative overflow-hidden font-sans animate-fade-in text-[#222222] text-left">
                     <div className="flex items-center space-x-2.5 mb-4">
                       <span className="material-symbols-outlined text-[#E0AC6B] text-2xl">auto_awesome</span>
                       <h3 className="text-base sm:text-lg font-bold tracking-wide text-[#1C3D63] uppercase font-headline">
-                        {reading.title}
+                        {reading.title} - მოკლე ანალიზი
                       </h3>
                     </div>
                     
-                    {/* Render Sliced Response (180 words) */}
-                    <div className="text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-normal mb-6 font-sans">
-                      <ReactMarkdown
-                        components={{
-                          h1: ({node, ...props}) => <h1 className="text-lg sm:text-xl font-bold text-[#1C3D63] font-headline tracking-wide mt-4 mb-2 uppercase" {...props} />,
-                          h2: ({node, ...props}) => <h2 className="text-base sm:text-lg font-bold text-[#1C3D63] font-headline tracking-wide mt-4 mb-2 uppercase" {...props} />,
-                          p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#222222] leading-relaxed my-2" {...props} />,
-                          strong: ({node, ...props}) => <strong className="text-[#1C3D63] font-bold" {...props} />,
-                        }}
-                      >
-                        {sliceMarkdown(reading.content)}
-                      </ReactMarkdown>
-                    </div>
+                    {/* Render Formatted Express Preview */}
+                    <div
+                      className="text-sm md:text-base leading-relaxed mb-6 font-light font-sans space-y-3 text-left"
+                      dangerouslySetInnerHTML={{ __html: formatShortPreviewHtml(reading.content) }}
+                    />
 
                     <button
                       onClick={() => setReadingStage('FULL_READY')}
-                      className="w-full py-3.5 px-6 bg-[#1C3D63] hover:bg-[#254F7F] text-white rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer shadow-sm flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-98 font-headline"
+                      className="w-full py-3.5 px-6 bg-[#1C3D63] hover:bg-[#254F7F] text-white rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-3 font-headline shadow-sm hover:scale-[1.01] active:scale-98"
                     >
-                      <span>იხილეთ სრული სიღრმისეული ანალიზი (გაიგე მეტი)</span>
-                      <span className="material-symbols-outlined text-lg">expand_more</span>
+                      <span>✨ იხილეთ სრული სიღრმისეული ანალიზი (გაიგე მეტი)</span>
+                      <span className="material-symbols-outlined text-xl">expand_more</span>
                     </button>
                   </div>
                 )}
@@ -1121,7 +1269,7 @@ export default function App() {
                     {/* Successful Reading Response */}
                     {reading && !loadingReading && (
                       <div className="space-y-6 text-[#222222] pt-4 border-t border-[#D8C4B6]/60 animate-fade-in font-sans">
-                        <div className="border-b border-[#D8C4B6]/60 pb-4">
+                        <div className="border-b border-[#D8C4B6]/60 pb-4 text-left">
                           <h2 className="text-2xl sm:text-3xl tracking-wide text-[#1C3D63] uppercase font-bold font-headline">
                             {reading.title}
                           </h2>
@@ -1130,29 +1278,18 @@ export default function App() {
                           </span>
                         </div>
                         
-                        {/* Render Markdown Response elegantly */}
-                        <div className="text-[#222222] text-sm md:text-base leading-relaxed max-w-none overflow-hidden font-normal">
-                          <ReactMarkdown
-                            components={{
-                              h1: ({node, ...props}) => <h1 className="text-xl sm:text-2xl font-bold text-[#1C3D63] font-headline tracking-wide mt-6 mb-2 border-b border-[#D8C4B6]/60 pb-2 uppercase" {...props} />,
-                              h2: ({node, ...props}) => <h2 className="text-lg sm:text-xl font-bold text-[#1C3D63] font-headline tracking-wide mt-5 mb-2 uppercase" {...props} />,
-                              h3: ({node, ...props}) => <h3 className="text-base sm:text-lg font-bold text-[#1C3D63] font-headline mt-4 mb-1.5 uppercase" {...props} />,
-                              p: ({node, ...props}) => <p className="text-sm sm:text-base text-[#222222] leading-relaxed my-2.5 font-normal" {...props} />,
-                              ul: ({node, ...props}) => <ul className="list-disc pl-6 my-3 space-y-1.5 text-sm sm:text-base text-[#3B5E63]" {...props} />,
-                              ol: ({node, ...props}) => <ol className="list-decimal pl-6 my-3 space-y-1.5 text-sm sm:text-base text-[#3B5E63]" {...props} />,
-                              li: ({node, ...props}) => <li className="marker:text-[#E0AC6B]" {...props} />,
-                              strong: ({node, ...props}) => <strong className="text-[#1C3D63] font-bold" {...props} />,
-                              hr: ({node, ...props}) => <hr className="border-[#D8C4B6] my-6" {...props} />,
-                            }}
-                          >
-                            {reading.content}
-                          </ReactMarkdown>
+                        {/* Render Full Formatted Analysis matching Balance Model */}
+                        <div className="p-6 sm:p-8 bg-white border border-[#D8C4B6] rounded-2xl shadow-sm text-base text-[#222222] leading-relaxed font-normal animate-fade-in font-sans text-left mt-4">
+                          <div
+                            className="space-y-1 text-left"
+                            dangerouslySetInnerHTML={{ __html: formatAnalysisHtml(reading.content) }}
+                          />
                         </div>
 
                         {/* Beautiful Results Delivery & Sharing Options Card */}
-                        <div className="mt-8 pt-6 border-t border-[#D8C4B6] space-y-6">
-                          <div className="p-6 bg-[#F4F7F7] border border-[#D8C4B6] rounded-2xl relative shadow-sm text-left">
-                            <div className="flex items-center space-x-2.5 mb-2">
+                        <div className="mt-8 pt-6 border-t border-[#D8C4B6] space-y-6 font-sans">
+                          <div className="p-6 bg-white border border-[#D8C4B6] rounded-2xl relative overflow-hidden shadow-sm text-left font-sans">
+                            <div className="flex items-center space-x-2.5 mb-3">
                               <Share2 className="w-5 h-5 text-[#E0AC6B]" />
                               <h4 className="text-sm font-bold tracking-wide uppercase text-[#1C3D63] font-headline">
                                 ანალიზის მიღება და შენახვა 🔮
@@ -1165,7 +1302,7 @@ export default function App() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                               {/* Option 1: WhatsApp */}
-                              <div className="bg-white border border-[#D8C4B6] rounded-xl p-5 space-y-3 shadow-xs">
+                              <div className="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-5 space-y-4">
                                 <div className="flex items-center space-x-2 text-[#1C3D63]">
                                   <MessageSquare className="w-4.5 h-4.5 text-[#E0AC6B]" />
                                   <span className="text-xs font-bold uppercase tracking-wider font-headline">WhatsApp-ზე გაგზავნა</span>
@@ -1178,18 +1315,18 @@ export default function App() {
                                     setDeliveryStatus(null);
                                   }}
                                   placeholder="მაგ: 5XXXXXXXX"
-                                  className="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
+                                  className="w-full bg-white border border-[#D8C4B6] rounded-lg py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
                                 />
                                 <button
                                   onClick={handleSendWhatsApp}
-                                  className="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-wider uppercase rounded-xl transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline shadow-sm"
+                                  className="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-wider uppercase rounded-lg transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline shadow-sm"
                                 >
                                   <span>გაგზავნა WhatsApp-ზე</span>
                                 </button>
                               </div>
 
                               {/* Option 2: Email */}
-                              <div className="bg-white border border-[#D8C4B6] rounded-xl p-5 space-y-3 shadow-xs">
+                              <div className="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-5 space-y-4">
                                 <div className="flex items-center space-x-2 text-[#1C3D63]">
                                   <Send className="w-4.5 h-4.5 text-[#E0AC6B]" />
                                   <span className="text-xs font-bold uppercase tracking-wider font-headline font-sans">ელ. ფოსტაზე გაგზავნა</span>
@@ -1202,18 +1339,18 @@ export default function App() {
                                     setDeliveryStatus(null);
                                   }}
                                   placeholder="მაგ: example@gmail.com"
-                                  className="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold font-sans"
+                                  className="w-full bg-white border border-[#D8C4B6] rounded-lg py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold font-sans"
                                 />
                                 <button
                                   onClick={handleSendEmail}
-                                  className="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-wider uppercase rounded-xl transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline shadow-sm"
+                                  className="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-wider uppercase rounded-lg transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline shadow-sm"
                                 >
                                   <span>გაგზავნა ელ. ფოსტაზე</span>
                                 </button>
                               </div>
                             </div>
 
-                             {deliveryStatus && (
+                            {deliveryStatus && (
                               <div className="mt-4 p-3 bg-white border border-[#D8C4B6] rounded-xl flex flex-col items-center justify-center space-y-2 shadow-xs">
                                 <div className="text-[#1C3D63] text-xs font-bold font-headline text-center uppercase tracking-wider">
                                   {deliveryStatus}
