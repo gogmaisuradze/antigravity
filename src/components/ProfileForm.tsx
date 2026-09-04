@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BirthProfile, CalculationType } from "../types";
-import { MapPin, Calendar, ShieldAlert, Sparkles, RefreshCw, ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { MapPin, Calendar, ShieldAlert, Sparkles, RefreshCw, ArrowLeft, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
 import { RollerPicker, playTickSound, getSharedAudioContext } from "./RollerPicker";
 import { API_URLS } from "../config";
 import OrbitCarousel, { defaultOrbitModels, OrbitItem } from "./ui/orbiting-carousel-with-animated-icons";
@@ -185,6 +185,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [day, setDay] = useState(1);
   const [month, setMonth] = useState(1);
   const [year, setYear] = useState(1995);
+  const [calMonth, setCalMonth] = useState(1);
+  const [calYear, setCalYear] = useState(1995);
+  const [dateInputText, setDateInputText] = useState("01 / 01 / 1995");
   const [birthTime, setBirthTime] = useState(() => {
     return savedProfile?.birthTime || "";
   });
@@ -197,7 +200,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const [viewMode, setViewMode] = useState<'ORBIT' | 'FORM'>('ORBIT');
   const [hoveredTheme, setHoveredTheme] = useState<CalculationType | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [useStandardCalendar, setUseStandardCalendar] = useState(false);
+  const [useStandardCalendar, setUseStandardCalendar] = useState(true);
   const [windowWidth, setWindowWidth] = useState(1024);
   const [savedProfiles, setSavedProfiles] = useState<{ name: string; surname: string; phone: string; day: number; month: number; year: number; birthPlace: string }[]>([]);
 
@@ -217,9 +220,15 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
     setFirstName(p.name);
     setLastName(p.surname);
     setPhone(p.phone);
-    setDay(p.day);
-    setMonth(p.month);
-    setYear(p.year);
+    const d = p.day || 1;
+    const m = p.month || 1;
+    const y = p.year || 1995;
+    setDay(d);
+    setMonth(m);
+    setYear(y);
+    setCalMonth(m);
+    setCalYear(y);
+    setDateInputText(`${String(d).padStart(2, '0')} / ${String(m).padStart(2, '0')} / ${y}`);
     setBirthPlace(p.birthPlace || "საქართველო");
   };
 
@@ -294,9 +303,15 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
       setFirstName(savedProfile.name || "");
       setLastName(savedProfile.surname || "");
       setBirthPlace(savedProfile.birthPlace || "საქართველო");
-      setDay(savedProfile.day);
-      setMonth(savedProfile.month);
-      setYear(savedProfile.year);
+      const d = savedProfile.day || 1;
+      const m = savedProfile.month || 1;
+      const y = savedProfile.year || 1995;
+      setDay(d);
+      setMonth(m);
+      setYear(y);
+      setCalMonth(m);
+      setCalYear(y);
+      setDateInputText(`${String(d).padStart(2, '0')} / ${String(m).padStart(2, '0')} / ${y}`);
       setPhone(savedProfile.phone);
     }
   }, [savedProfile]);
@@ -323,7 +338,139 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
   const daysItems = days.map((d) => ({ value: d, label: String(d) }));
   const monthsItems = months.map((m) => ({ value: m.value, label: m.label }));
   const yearsItems = years.map((y) => ({ value: y, label: String(y) }));
-  const themeItems = THEMES.map((t) => ({ value: t.value, label: t.label }));
+  const WDS_KA = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვი'];
+
+  const handleDaySelect = (d: number) => {
+    setDay(d);
+    setMonth(calMonth);
+    setYear(calYear);
+    setDateInputText(`${String(d).padStart(2, '0')} / ${String(calMonth).padStart(2, '0')} / ${calYear}`);
+    playTickSound();
+  };
+
+  const handlePrevMonth = () => {
+    playTickSound();
+    if (calMonth === 1) {
+      setCalMonth(12);
+      setCalYear((prev) => Math.max(1920, prev - 1));
+    } else {
+      setCalMonth((prev) => prev - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    playTickSound();
+    if (calMonth === 12) {
+      setCalMonth(1);
+      setCalYear((prev) => Math.min(2026, prev + 1));
+    } else {
+      setCalMonth((prev) => prev + 1);
+    }
+  };
+
+  const handleMonthSelect = (m: number) => {
+    setCalMonth(m);
+    const maxD = new Date(calYear, m, 0).getDate();
+    if (day > maxD) {
+      setDay(maxD);
+      setDateInputText(`${String(maxD).padStart(2, '0')} / ${String(m).padStart(2, '0')} / ${calYear}`);
+    } else {
+      setMonth(m);
+      setDateInputText(`${String(day).padStart(2, '0')} / ${String(m).padStart(2, '0')} / ${calYear}`);
+    }
+  };
+
+  const handleYearSelect = (y: number) => {
+    setCalYear(y);
+    const maxD = new Date(y, calMonth, 0).getDate();
+    if (day > maxD) {
+      setDay(maxD);
+      setDateInputText(`${String(maxD).padStart(2, '0')} / ${String(calMonth).padStart(2, '0')} / ${y}`);
+    } else {
+      setYear(y);
+      setDateInputText(`${String(day).padStart(2, '0')} / ${String(calMonth).padStart(2, '0')} / ${y}`);
+    }
+  };
+
+  const handleDateTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let val = e.target.value;
+    val = val.replace(/[^\d/.\-\s]/g, "");
+
+    const digits = val.replace(/\D/g, "");
+    let formatted = val;
+
+    if (!val.includes("/") && !val.includes(".") && !val.includes("-")) {
+      if (digits.length > 4) {
+        formatted = `${digits.slice(0, 2)} / ${digits.slice(2, 4)} / ${digits.slice(4, 8)}`;
+      } else if (digits.length > 2) {
+        formatted = `${digits.slice(0, 2)} / ${digits.slice(2, 4)}`;
+      } else {
+        formatted = digits;
+      }
+    }
+
+    setDateInputText(formatted);
+
+    let d = 0, m = 0, y = 0;
+    if (digits.length >= 8) {
+      d = parseInt(digits.slice(0, 2), 10);
+      m = parseInt(digits.slice(2, 4), 10);
+      y = parseInt(digits.slice(4, 8), 10);
+    } else {
+      const parts = formatted.split(/[/\-.\s]+/).filter(Boolean);
+      if (parts.length === 3) {
+        d = parseInt(parts[0], 10);
+        m = parseInt(parts[1], 10);
+        y = parseInt(parts[2], 10);
+      }
+    }
+
+    if (d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2026) {
+      const maxD = new Date(y, m, 0).getDate();
+      const clampedD = Math.min(maxD, d);
+      setDay(clampedD);
+      setMonth(m);
+      setYear(y);
+      setCalMonth(m);
+      setCalYear(y);
+    }
+  };
+
+  const handleDateTextBlur = () => {
+    const digits = dateInputText.replace(/\D/g, "");
+    let d = day;
+    let m = month;
+    let y = year;
+
+    if (digits.length >= 8) {
+      d = parseInt(digits.slice(0, 2), 10);
+      m = parseInt(digits.slice(2, 4), 10);
+      y = parseInt(digits.slice(4, 8), 10);
+    } else {
+      const parts = dateInputText.split(/[/\-.\s]+/).filter(Boolean);
+      if (parts.length >= 3) {
+        d = parseInt(parts[0], 10) || day;
+        m = parseInt(parts[1], 10) || month;
+        y = parseInt(parts[2], 10) || year;
+      }
+    }
+
+    if (y < 100) {
+      y = y > 26 ? 1900 + y : 2000 + y;
+    }
+
+    const validYear = Math.max(1920, Math.min(2026, y || 1995));
+    const validMonth = Math.max(1, Math.min(12, m || 1));
+    const maxD = new Date(validYear, validMonth, 0).getDate();
+    const validDay = Math.max(1, Math.min(maxD, d || 1));
+
+    setDay(validDay);
+    setMonth(validMonth);
+    setYear(validYear);
+    setCalMonth(validMonth);
+    setCalYear(validYear);
+    setDateInputText(`${String(validDay).padStart(2, '0')} / ${String(validMonth).padStart(2, '0')} / ${validYear}`);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -370,6 +517,26 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
 
     const finalBirthPlace = birthPlace.trim() || "საქართველო";
 
+    // Ensure final date is strictly in sync with what user might have typed
+    let finalDay = day;
+    let finalMonth = month;
+    let finalYear = year;
+    if (useStandardCalendar && dateInputText) {
+      const digits = dateInputText.replace(/\D/g, "");
+      if (digits.length >= 8) {
+        const d = parseInt(digits.slice(0, 2), 10);
+        const m = parseInt(digits.slice(2, 4), 10);
+        let y = parseInt(digits.slice(4, 8), 10);
+        if (y < 100) y = y > 26 ? 1900 + y : 2000 + y;
+        if (y >= 1920 && y <= 2026 && m >= 1 && m <= 12) {
+          const maxD = new Date(y, m, 0).getDate();
+          finalDay = Math.min(maxD, Math.max(1, d));
+          finalMonth = m;
+          finalYear = y;
+        }
+      }
+    }
+
     try {
       const response = await fetch(API_URLS.saveProfile, {
         method: "POST",
@@ -378,9 +545,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           name: cleanName,
           surname: cleanSurname,
           birthPlace: finalBirthPlace,
-          day,
-          month,
-          year,
+          day: finalDay,
+          month: finalMonth,
+          year: finalYear,
           birthTime: birthTime.trim() || undefined,
           phone: normalizedPhone
         }),
@@ -396,9 +563,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
             name: cleanName,
             surname: cleanSurname,
             phone: normalizedPhone,
-            day,
-            month,
-            year,
+            day: finalDay,
+            month: finalMonth,
+            year: finalYear,
             birthTime: birthTime.trim() || undefined,
             birthPlace: finalBirthPlace
           };
@@ -644,29 +811,142 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileSaved, savedP
           </div>
           
           {useStandardCalendar ? (
-            <div className="relative bg-[#F4F7F7] rounded-2xl py-3 px-5 shadow-sm border border-[#D8C4B6] max-w-[480px] mx-auto overflow-hidden">
-              <input
-                type="date"
-                value={`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val) {
-                    const parts = val.split('-');
-                    if (parts.length === 3) {
-                      const y = parseInt(parts[0], 10);
-                      const m = parseInt(parts[1], 10);
-                      const d = parseInt(parts[2], 10);
-                      if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
-                        setYear(y);
-                        setMonth(m);
-                        setDay(d);
-                      }
-                    }
-                  }
-                }}
-                className="w-full bg-transparent border-0 py-2 text-lg text-[#1C3D63] focus:outline-none font-bold text-center tracking-widest cursor-pointer"
-                required
-              />
+            <div className="bg-white border border-[#D8C4B6] rounded-2xl p-4 sm:p-5 shadow-sm max-w-[480px] mx-auto w-full select-none">
+              {/* Direct Keyboard Typing Field */}
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-[11px] font-extrabold uppercase tracking-wider text-[#1C3D63] flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#E0AC6B]" />
+                    <span>თარიღის პირდაპირი აკრეფა:</span>
+                  </label>
+                  <span className="text-[10px] text-[#8E8276] font-semibold">დღე / თვე / წელი</span>
+                </div>
+                <div className="relative bg-[#FAF7F2] rounded-xl border border-[#D8C4B6] focus-within:border-[#1C3D63] focus-within:bg-white shadow-inner flex items-center overflow-hidden px-3 py-1 transition-all">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={dateInputText}
+                    onChange={handleDateTextChange}
+                    onBlur={handleDateTextBlur}
+                    placeholder="დღე / თვე / წელი (მაგ: 15/05/1995)"
+                    className="w-full bg-transparent border-0 py-1.5 text-base sm:text-lg font-bold text-[#1C3D63] tracking-widest text-center focus:outline-none font-sans"
+                  />
+                  {dateInputText && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDateInputText("");
+                      }}
+                      className="text-[#8E8276] hover:text-[#1C3D63] p-1 text-xs cursor-pointer"
+                      title="გასუფთავება"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Month / Year Switcher Bar (Booking Calendar Style) */}
+              {(() => {
+                const daysInCalMonth = new Date(calYear, calMonth, 0).getDate();
+                const firstDayInCalMonth = new Date(calYear, calMonth - 1, 1).getDay();
+                const calStartOffset = (firstDayInCalMonth + 6) % 7;
+
+                return (
+                  <div>
+                    {/* Calendar Month & Year Selector with Navigation Arrows */}
+                    <div className="flex items-center justify-between mb-3.5 pb-2 border-b border-[#D8C4B6]/40">
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={calMonth}
+                          onChange={(e) => handleMonthSelect(Number(e.target.value))}
+                          className="bg-[#FAF7F2] border border-[#D8C4B6] text-[#1C3D63] font-bold text-xs sm:text-sm rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-[#1C3D63] cursor-pointer hover:bg-[#E5ECEC] transition-all"
+                        >
+                          {months.map((m) => (
+                            <option key={m.value} value={m.value}>
+                              {m.label}
+                            </option>
+                          ))}
+                        </select>
+
+                        <select
+                          value={calYear}
+                          onChange={(e) => handleYearSelect(Number(e.target.value))}
+                          className="bg-[#FAF7F2] border border-[#D8C4B6] text-[#1C3D63] font-bold text-xs sm:text-sm rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-[#1C3D63] cursor-pointer hover:bg-[#E5ECEC] transition-all"
+                        >
+                          {years.map((y) => (
+                            <option key={y} value={y}>
+                              {y}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={handlePrevMonth}
+                          className="w-8 h-8 rounded-lg border border-[#D8C4B6] bg-white hover:bg-[#1C3D63] hover:text-white text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95"
+                          title="წინა თვე"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleNextMonth}
+                          className="w-8 h-8 rounded-lg border border-[#D8C4B6] bg-white hover:bg-[#1C3D63] hover:text-white text-[#1C3D63] flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95"
+                          title="შემდეგი თვე"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Days of week & Grid (.cal-grid from booking modal) */}
+                    <div className="cal-grid grid grid-cols-7 gap-1.5 mb-3 text-center">
+                      {WDS_KA.map((wd) => (
+                        <div key={wd} className="wd">
+                          {wd}
+                        </div>
+                      ))}
+
+                      {/* Empty padding cells */}
+                      {Array.from({ length: calStartOffset }).map((_, i) => (
+                        <div key={`empty-${i}`} className="day empty" />
+                      ))}
+
+                      {/* Month Days */}
+                      {Array.from({ length: daysInCalMonth }, (_, i) => i + 1).map((d) => {
+                        const isSelected = d === day && calMonth === month && calYear === year;
+                        return (
+                          <button
+                            key={d}
+                            type="button"
+                            onClick={() => handleDaySelect(d)}
+                            className={`day ${isSelected ? "sel" : ""}`}
+                          >
+                            <span>{d}</span>
+                            {isSelected && <span className="day-dot" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Verified Date Notification Badge */}
+                    <div className="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#D8C4B6] flex items-center justify-between text-xs mt-3">
+                      <span className="text-[11px] sm:text-xs font-bold text-[#1C3D63] flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-[#E0AC6B]" />
+                        <span>
+                          არჩეულია: {day} {months.find((m) => m.value === month)?.label}, {year}
+                        </span>
+                      </span>
+                      <span className="text-[9px] bg-[#E0AC6B] text-[#1C3D63] font-black px-2 py-0.5 rounded-full uppercase">
+                        მზადაა
+                      </span>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           ) : (
             <div className="relative bg-[#F4F7F7] rounded-2xl py-4 px-6 shadow-sm border border-[#D8C4B6] max-w-[480px] mx-auto overflow-hidden select-none">
