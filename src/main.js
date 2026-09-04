@@ -433,7 +433,7 @@ function initBookingModal() {
                   <!-- Submit Button -->
                   <div class="pt-2">
                     <button type="submit" class="w-full bg-[#1C3D63] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-[#254F7F] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98">
-                      <span>ვიზიტის დაჯავშნა</span>
+                      <span>რეგისტრაცია</span>
                       <span class="material-symbols-outlined text-sm">arrow_forward</span>
                     </button>
                   </div>
@@ -454,101 +454,179 @@ function initBookingModal() {
           </div>
         </div>
 
-        <!-- STEP 2: Payment & Confirmation Grid -->
+        <!-- STEP 2: Registration & Combined Bank Selection / Booking -->
         <div id="booking-step-payment" class="hidden space-y-4">
-          <button type="button" id="modal-btn-payment-back" class="inline-flex items-center gap-1.5 text-xs text-[#1C3D63] font-bold hover:underline cursor-pointer border-none bg-transparent p-0">
-            <span class="material-symbols-outlined text-sm">arrow_back</span>
-            <span>← კალენდარზე დაბრუნება</span>
-          </button>
-
-          <div class="mb-3 text-center">
-            <div class="w-12 h-12 rounded-full bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#E0AC6B] mb-2 mx-auto shadow-sm">
-              <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
-            </div>
-            <h3 class="text-xl sm:text-2xl font-extrabold text-[#1C3D63]" id="modal-payment-title">გადახდა საბანკო გადარიცხვით</h3>
-            <p class="text-xs text-[#3B5E63] mt-1">ჯავშნის დასასრულებლად გადაიხადეთ საფასური</p>
+          <div class="flex items-center justify-between">
+            <button type="button" id="modal-btn-payment-back" class="inline-flex items-center gap-1.5 text-xs text-[#1C3D63] font-bold hover:underline cursor-pointer border-none bg-transparent p-0">
+              <span class="material-symbols-outlined text-sm">arrow_back</span>
+              <span>← კალენდარზე დაბრუნება</span>
+            </button>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-[10px] font-bold uppercase tracking-wider">
+              ნაბიჯი 2/2
+            </span>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
-            
-            <!-- Left Side: Summary Details -->
-            <div class="p-4 sm:p-5 bg-white rounded-2xl shadow-sm border border-[#D8C4B6] flex flex-col justify-between space-y-3">
-              <div>
-                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E0AC6B]/15 border border-[#E0AC6B]/40 text-[#1C3D63] text-[10px] font-bold uppercase tracking-wider mb-2">
-                  შერჩეული ჯავშანი
-                </span>
-                <div class="space-y-2 text-xs">
-                  <div>
-                    <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block">სერვისი / კურსი:</span>
-                    <strong class="text-xs sm:text-sm text-[#1C3D63] font-headline italic" id="modal-summary-service">პირველადი კონსულტაცია &amp; შეფასება</strong>
-                  </div>
-                  <div>
-                    <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block">თარიღი &amp; დრო:</span>
-                    <span class="text-xs font-semibold text-[#222222]" id="modal-summary-datetime">15 სექტემბერი · 14:30</span>
-                  </div>
-                  <div>
-                    <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block">ფორმატი:</span>
-                    <span class="text-xs font-semibold text-[#222222]" id="modal-summary-format">პირისპირ კაბინეტში</span>
-                  </div>
-                </div>
-              </div>
+          <div>
+            <h3 class="text-xl sm:text-2xl font-headline italic font-bold text-[#1C3D63]">რეგისტრაცია და გადახდა</h3>
+            <p class="text-xs text-[#3B5E63] mt-0.5">შეიყვანეთ საკონტაქტო მონაცემები და აირჩიეთ სასურველი ბანკი გადარიცხვისთვის.</p>
+          </div>
 
-              <div class="p-3 bg-[#FAF7F2] border border-[#E0AC6B]/40 rounded-xl flex items-center justify-between">
-                <span class="text-xs font-bold text-[#1C3D63]">საფასური:</span>
-                <span class="text-base sm:text-lg font-headline italic font-bold text-[#1C3D63]" id="modal-summary-price">80 ₾</span>
-              </div>
+          <!-- Summary Strip -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3 sm:p-3.5 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl text-xs">
+            <div>
+              <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block font-semibold">სერვისი / კურსი:</span>
+              <span id="modal-summary-service" class="font-bold text-[#1C3D63] text-xs truncate block">პირველადი კონსულტაცია</span>
             </div>
+            <div>
+              <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block font-semibold">თარიღი &amp; დრო:</span>
+              <span id="modal-summary-datetime" class="font-bold text-[#222222] text-xs truncate block">15 სექტემბერი · 14:30</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block font-semibold">ფორმატი:</span>
+              <span id="modal-summary-format" class="font-bold text-[#222222] text-xs truncate block">პირისპირ</span>
+            </div>
+            <div class="flex flex-col sm:items-end justify-center">
+              <span class="text-[10px] text-[#8E8276] uppercase tracking-wider block font-semibold">საფასური:</span>
+              <span id="modal-summary-price" class="text-sm font-headline italic font-bold text-[#1C3D63]">80 ₾</span>
+            </div>
+          </div>
 
-            <!-- Right Side: Bank Transfer Details -->
-            <div class="space-y-3">
-              <!-- Mobile / Web Bank Links -->
-              <div class="space-y-1.5">
-                <p class="text-xs text-[#1C3D63] font-semibold text-center flex items-center justify-center gap-1">
-                  <span class="material-symbols-outlined text-sm text-[#E0AC6B]">touch_app</span>
-                  <span>გადასვლა ინტერნეტ ბანკში:</span>
-                </p>
-                <div class="grid grid-cols-2 gap-2">
-                  <a href="https://bankofgeorgia.ge" target="_blank" rel="noopener" class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#ff6700] hover:bg-[#e65c00] rounded-xl text-white font-bold text-xs no-underline shadow-sm transition-all text-center">
-                    <span>საქართველოს ბანკი</span>
-                  </a>
-                  <a href="https://tbcbank.ge" target="_blank" rel="noopener" class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#00adef] hover:bg-[#009bd7] rounded-xl text-white font-bold text-xs no-underline shadow-sm transition-all text-center">
-                    <span>თიბისი ბანკი</span>
-                  </a>
+          <!-- Step 2 Form: Contact Data + Bank Choice + Final Booking Button -->
+          <form id="booking-step2-form" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+              
+              <!-- Left: Personal Data Form (მონაცემების შევსება) -->
+              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#D8C4B6] shadow-sm space-y-3 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 pb-2 mb-2 border-b border-[#D8C4B6]/50">
+                    <span class="material-symbols-outlined text-[#E0AC6B] text-base">person</span>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#1C3D63]">მონაცემების შევსება</h4>
+                  </div>
+
+                  <div class="space-y-2.5">
+                    <div>
+                      <label for="booking-client-name" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
+                        სახელი და გვარი <span class="text-red-500">*</span>
+                      </label>
+                      <input type="text" id="booking-client-name" name="client_name" required placeholder="მაგ. გიორგი ბერიძე" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
+                    </div>
+
+                    <div>
+                      <label for="booking-client-phone" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
+                        ტელეფონის ნომერი <span class="text-red-500">*</span>
+                      </label>
+                      <input type="tel" id="booking-client-phone" name="client_phone" required placeholder="მაგ. 599 12 34 56" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
+                    </div>
+
+                    <div>
+                      <label for="booking-client-email" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
+                        ელ. ფოსტა (სურვილისამებრ)
+                      </label>
+                      <input type="email" id="booking-client-email" name="client_email" placeholder="example@mail.com" class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
+                    </div>
+
+                    <div>
+                      <label for="booking-client-notes" class="block text-[11px] font-bold text-[#1C3D63] uppercase tracking-wider mb-1">
+                        შენიშვნა / კომენტარი (სურვილისამებრ)
+                      </label>
+                      <input type="text" id="booking-client-notes" name="client_notes" placeholder="დამატებითი დეტალები ან შეკითხვა..." class="w-full bg-[#FAF7F2] border border-[#D8C4B6] focus:border-[#1C3D63] focus:bg-white focus:outline-none rounded-xl px-3 py-2 text-xs text-[#222222] font-medium transition-all shadow-inner">
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Bank Account Transfer Details -->
-              <div class="bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl p-3.5 text-left space-y-2 text-xs">
+              <!-- Right: Bank Selector & Account Details (ბანკის არჩევის ფანჯარა გაერთიანებული) -->
+              <div class="bg-[#FAF7F2]/80 p-4 sm:p-5 rounded-2xl border border-[#D8C4B6] shadow-sm flex flex-col justify-between space-y-3">
                 <div>
-                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">მიმღები</span>
-                  <span class="font-bold text-[#222222]">ანი მაისურაძე</span>
-                </div>
-                <div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">ანგარიშის ნომერი (IBAN)</span>
-                    <button type="button" id="modal-copy-iban" class="text-[10px] text-[#1C3D63] hover:underline cursor-pointer flex items-center gap-0.5 border-none bg-transparent font-bold">
-                      <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
+                  <div class="flex items-center gap-2 pb-2 mb-2.5 border-b border-[#D8C4B6]/50">
+                    <span class="material-symbols-outlined text-[#E0AC6B] text-base">account_balance</span>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-[#1C3D63]">ბანკის არჩევა</h4>
+                  </div>
+
+                  <!-- Bank Selection Tabs -->
+                  <div class="grid grid-cols-2 gap-2 mb-3" id="booking-bank-tabs">
+                    <button type="button" id="bank-tab-bog" data-bank="bog" class="bank-choice-btn py-2 px-2.5 rounded-xl border-2 border-[#FF6700] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#FF6700]"></span>
+                        <span class="text-xs font-bold">BOG</span>
+                      </div>
+                      <span class="text-[10px] text-[#8E8276] font-medium">საქართველოს ბანკი</span>
+                    </button>
+
+                    <button type="button" id="bank-tab-tbc" data-bank="tbc" class="bank-choice-btn py-2 px-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all hover:border-[#00ADEF] opacity-75">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#00ADEF]"></span>
+                        <span class="text-xs font-bold">TBC</span>
+                      </div>
+                      <span class="text-[10px] text-[#8E8276] font-medium">თიბისი ბანკი</span>
                     </button>
                   </div>
-                  <span id="modal-iban-text" class="font-mono font-bold text-[#1C3D63] break-all">GE93BG0000000192399800</span>
+
+                  <!-- Active Bank Info Card -->
+                  <div class="bg-white border border-[#D8C4B6] rounded-xl p-3 space-y-2 text-xs shadow-inner">
+                    <div class="flex items-center justify-between pb-1 border-b border-[#D8C4B6]/40">
+                      <span class="text-[10px] text-[#8E8276] uppercase tracking-wider font-semibold">არჩეული ბანკი:</span>
+                      <span id="modal-bank-name" class="font-bold text-[#1C3D63]">საქართველოს ბანკი (BOG)</span>
+                    </div>
+
+                    <div>
+                      <div class="flex items-center justify-between">
+                        <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">IBAN ანგარიშის ნომერი</span>
+                        <button type="button" id="modal-copy-iban" class="text-[10px] text-[#1C3D63] hover:text-[#E0AC6B] cursor-pointer flex items-center gap-1 border-none bg-transparent font-bold py-0.5 px-1.5 rounded hover:bg-[#F4F7F7] transition-all">
+                          <span class="material-symbols-outlined text-xs">content_copy</span> კოპირება
+                        </button>
+                      </div>
+                      <div class="bg-[#F4F7F7] p-2 rounded-lg border border-[#D8C4B6]/60 mt-0.5">
+                        <span id="modal-iban-text" class="font-mono font-bold text-[#1C3D63] text-xs sm:text-[13px] break-all">GE93BG0000000192399800</span>
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 pt-0.5">
+                      <div>
+                        <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">მიმღები</span>
+                        <span id="modal-bank-recipient" class="font-bold text-[#222222] text-xs">შპს „იდც“ / ანი მაისურაძე</span>
+                      </div>
+                      <div>
+                        <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">თანხა</span>
+                        <span id="modal-bank-amount" class="font-bold text-[#1C3D63] text-xs">80 ₾</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">დანიშნულება</span>
+                      <span id="modal-payment-purpose" class="font-medium text-[#222222] text-[11px] truncate block">ჯავშნის საფასური</span>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <span class="text-[10px] text-[#8E8276] block uppercase tracking-wider font-semibold">დანიშნულება</span>
-                  <span id="modal-payment-purpose" class="font-semibold text-[#222222]">ჯავშნის საფასური</span>
+
+                <!-- Quick Web/App Link -->
+                <div class="pt-1">
+                  <a id="modal-bank-app-link" href="https://bankofgeorgia.ge" target="_blank" rel="noopener" class="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 bg-[#FF6700] hover:opacity-90 rounded-xl text-white font-bold text-xs no-underline shadow-sm transition-all text-center">
+                    <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    <span id="modal-bank-link-text">გადასვლა საქართველოს ბანკში</span>
+                  </a>
                 </div>
               </div>
 
-              <!-- Success Notification / Confirm -->
-              <div class="pt-1 text-center space-y-1.5">
-                <button type="button" id="modal-btn-payment-confirm" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-md flex items-center justify-center gap-2">
-                  <span class="material-symbols-outlined text-base">task_alt</span>
-                  <span>ჯავშნის დადასტურება</span>
-                </button>
-                <p class="text-[10px] text-[#8E8276]">გადარიცხვის შემდეგ დააჭირეთ დადასტურებას</p>
-              </div>
             </div>
 
-          </div>
+            <!-- Final Booking Button (აქ ჯავშნის ღილაკი) -->
+            <div class="pt-2">
+              <button type="submit" id="booking-final-submit-btn" class="w-full bg-[#1C3D63] hover:bg-[#254F7F] text-white py-3.5 px-6 rounded-xl font-bold text-sm uppercase tracking-wider transition-all cursor-pointer shadow-lg flex items-center justify-center gap-2 active:scale-98">
+                <span class="material-symbols-outlined text-lg">check_circle</span>
+                <span>ვიზიტის დაჯავშნა</span>
+              </button>
+              <div class="flex items-center justify-center gap-3 mt-2 text-[11px] text-[#8E8276]">
+                <span class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs text-[#25D366]">verified</span> დასტური SMS / WhatsApp-ით
+                </span>
+                <span>·</span>
+                <span class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs text-[#25D366]">lock</span> უსაფრთხო გადახდა
+                </span>
+              </div>
+            </div>
+          </form>
         </div>
 
         </div>
@@ -697,11 +775,71 @@ function initBookingModal() {
         const sumPrice = document.getElementById('modal-summary-price');
         if (sumPrice) sumPrice.textContent = price;
 
+        const bankAmount = document.getElementById('modal-bank-amount');
+        if (bankAmount) bankAmount.textContent = price;
+
         const purpose = document.getElementById('modal-payment-purpose');
         if (purpose) purpose.textContent = `ჯავშნის საფასური - ${service} (${price})`;
       }
     });
   }
+
+  // Step 2: Bank Selection Data & Switching
+  const banksData = {
+    bog: {
+      name: 'საქართველოს ბანკი (BOG)',
+      iban: 'GE93BG0000000192399800',
+      recipient: 'შპს „იდც“ / ანი მაისურაძე',
+      link: 'https://bankofgeorgia.ge',
+      linkText: 'გადასვლა საქართველოს ბანკში',
+      color: '#FF6700'
+    },
+    tbc: {
+      name: 'თიბისი ბანკი (TBC)',
+      iban: 'GE42TB7845636020100005',
+      recipient: 'შპს „იდც“ / ანი მაისურაძე',
+      link: 'https://tbcbank.ge',
+      linkText: 'გადასვლა თიბისი ბანკში',
+      color: '#00ADEF'
+    }
+  };
+  let activeBankKey = 'bog';
+
+  function selectBank(bankKey) {
+    activeBankKey = bankKey;
+    const bank = banksData[bankKey] || banksData.bog;
+    const btnBog = document.getElementById('bank-tab-bog');
+    const btnTbc = document.getElementById('bank-tab-tbc');
+    const nameEl = document.getElementById('modal-bank-name');
+    const ibanEl = document.getElementById('modal-iban-text');
+    const recipientEl = document.getElementById('modal-bank-recipient');
+    const appLinkEl = document.getElementById('modal-bank-app-link');
+    const linkTextEl = document.getElementById('modal-bank-link-text');
+
+    if (btnBog && btnTbc) {
+      if (bankKey === 'bog') {
+        btnBog.className = 'bank-choice-btn py-2 px-2.5 rounded-xl border-2 border-[#FF6700] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all';
+        btnTbc.className = 'bank-choice-btn py-2 px-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all hover:border-[#00ADEF] opacity-75';
+      } else {
+        btnTbc.className = 'bank-choice-btn py-2 px-2.5 rounded-xl border-2 border-[#00ADEF] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all';
+        btnBog.className = 'bank-choice-btn py-2 px-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#1C3D63] flex flex-col items-center justify-center gap-0.5 shadow-sm cursor-pointer transition-all hover:border-[#FF6700] opacity-75';
+      }
+    }
+
+    if (nameEl) nameEl.textContent = bank.name;
+    if (ibanEl) ibanEl.textContent = bank.iban;
+    if (recipientEl) recipientEl.textContent = bank.recipient;
+    if (appLinkEl) {
+      appLinkEl.href = bank.link;
+      appLinkEl.style.backgroundColor = bank.color;
+    }
+    if (linkTextEl) linkTextEl.textContent = bank.linkText;
+  }
+
+  const btnTabBog = document.getElementById('bank-tab-bog');
+  const btnTabTbc = document.getElementById('bank-tab-tbc');
+  if (btnTabBog) btnTabBog.addEventListener('click', () => selectBank('bog'));
+  if (btnTabTbc) btnTabTbc.addEventListener('click', () => selectBank('tbc'));
 
   // Step 2 Payment Handlers
   const backBtn = document.getElementById('modal-btn-payment-back');
@@ -724,19 +862,41 @@ function initBookingModal() {
     });
   }
 
-  const confirmBtn = document.getElementById('modal-btn-payment-confirm');
-  if (confirmBtn) {
-    confirmBtn.addEventListener('click', () => {
-      showToast('✓ თქვენი ვიზიტი დაჯავშნილია!');
+  // Step 2 Form submission (Final Booking Button)
+  const step2Form = document.getElementById('booking-step2-form');
+  if (step2Form) {
+    step2Form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('booking-client-name');
+      const phoneInput = document.getElementById('booking-client-phone');
+      const clientName = nameInput ? nameInput.value.trim() : '';
+      const clientPhone = phoneInput ? phoneInput.value.trim() : '';
+
+      if (!clientName) {
+        showToast('⚠️ გთხოვთ მიუთითოთ სახელი და გვარი');
+        nameInput?.focus();
+        return;
+      }
+
+      if (!clientPhone || clientPhone.replace(/\D/g, '').length < 8) {
+        showToast('⚠️ გთხოვთ მიუთითოთ ვალიდური ტელეფონის ნომერი');
+        phoneInput?.focus();
+        return;
+      }
+
+      showToast(`✓ გმადლობთ, ${clientName}! ვიზიტი წარმატებით დაჯავშნილია.`);
       setTimeout(() => {
         closeModal();
-      }, 1500);
+        step2Form.reset();
+      }, 1600);
     });
   }
 
   function openModal(initialCategory, initialService) {
     if (stepForm) stepForm.classList.remove('hidden');
     if (stepPayment) stepPayment.classList.add('hidden');
+    selectBank('bog');
     modal.classList.remove('opacity-0', 'pointer-events-none');
     modalCard.classList.remove('scale-95');
     modalCard.classList.add('scale-100');
@@ -752,6 +912,8 @@ function initBookingModal() {
     setTimeout(() => {
       if (stepForm) stepForm.classList.remove('hidden');
       if (stepPayment) stepPayment.classList.add('hidden');
+      const s2Form = document.getElementById('booking-step2-form');
+      if (s2Form) s2Form.reset();
     }, 300);
   }
 
@@ -926,7 +1088,7 @@ function initFormValidation() {
 
   // Capture all forms with class 'contact-form' (excluding booking modal which has specialized handler)
   document.addEventListener('submit', (e) => {
-    if (e.target && e.target.classList.contains('contact-form') && e.target.id !== 'booking-modal-form') {
+    if (e.target && e.target.classList.contains('contact-form') && e.target.id !== 'booking-modal-form' && e.target.id !== 'booking-step2-form') {
       const form = e.target;
       if (form.id === 'registration-form') return; // Handled specially by registration.html
       
