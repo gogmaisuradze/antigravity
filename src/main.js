@@ -1896,6 +1896,20 @@ function initHeroSlider() {
   slider.addEventListener('mouseenter', stopAutoPlay);
   slider.addEventListener('mouseleave', startAutoPlay);
 
+  // Keyboard Arrow Keys Navigation (ArrowLeft / ArrowRight)
+  window.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName) || document.activeElement?.isContentEditable) {
+      return;
+    }
+    if (e.key === 'ArrowRight') {
+      nextSlide();
+      startAutoPlay();
+    } else if (e.key === 'ArrowLeft') {
+      prevSlide();
+      startAutoPlay();
+    }
+  });
+
   showSlide(0);
   startAutoPlay();
 }
