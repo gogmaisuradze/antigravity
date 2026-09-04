@@ -641,7 +641,6 @@
 
         <!-- Startup Profile Form Card (Hidden initially) -->
         <div id="balance-profile-panel" class="hidden w-full max-w-xl mx-auto bg-[#F4F7F7] border border-[#D8C4B6] p-6 sm:p-8 rounded-2xl shadow-sm relative overflow-hidden animate-fade-in mb-8">
-          <div class="absolute top-0 left-0 w-full h-[2px] bg-[#1C3D63]"></div>
           
           <div class="text-center space-y-1.5 mb-6">
             <h2 class="text-lg font-headline italic font-bold text-[#1C3D63]">პროფილის დაფიქსირება</h2>
@@ -917,8 +916,6 @@
           <!-- AI Evaluation section (automatic trigger) -->
           <div id="balance-results-panel" class="pt-6 border-t border-[#D8C4B6]">
             <div class="bg-[#F4F7F7] p-6 sm:p-8 rounded-2xl border border-[#D8C4B6] relative overflow-hidden shadow-sm">
-              <div class="absolute top-0 left-0 w-[3px] h-full bg-[#1C3D63] rounded-l-2xl"></div>
-              
               <div class="flex items-center space-x-3 mb-6">
                 <span class="material-symbols-outlined text-[#E0AC6B] text-3xl">insights</span>
                 <h3 class="text-xl font-headline italic font-bold text-[#1C3D63]">სიღრმისეული ფსიქო-ტრანსფორმაციული ანალიზი</h3>
@@ -947,32 +944,32 @@
                 
                 <div class="flex flex-wrap items-center justify-center gap-3">
                   <!-- WhatsApp -->
-                  <a id="share-wa" href="#" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#25D366] hover:bg-[#25D366]/10 transition-all font-sans font-bold text-xs shadow-sm">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <a id="share-wa" href="#" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#555555] hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 font-sans font-medium text-xs shadow-xs hover:shadow-md hover:scale-105 group no-underline">
+                    <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
                       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.249 8.477 3.517 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.458L0 24zm6.59-4.846c1.6.95 3.197 1.45 4.817 1.451 5.4 0 9.794-4.394 9.798-9.794.002-2.617-1.018-5.077-2.873-6.932-1.854-1.854-4.312-2.873-6.924-2.874-5.405 0-9.799 4.393-9.802 9.794-.001 1.705.454 3.371 1.316 4.856l-.993 3.63 3.731-.979zm11.238-6.84c-.266-.134-1.582-.78-1.83-.87-.247-.089-.427-.134-.607.135-.18.267-.697.87-.852 1.047-.157.178-.314.2-.58.067-.266-.134-1.127-.415-2.147-1.325-.793-.706-1.33-1.579-1.485-1.846-.157-.267-.017-.411.117-.544.12-.12.267-.312.4-.467.133-.156.177-.267.266-.445.09-.178.044-.334-.022-.467-.067-.134-.607-1.464-.83-2.005-.218-.524-.458-.453-.628-.461-.163-.008-.349-.01-.536-.01-.186 0-.49.07-.747.347-.257.278-.98.957-.98 2.335s1.002 2.703 1.142 2.89c.14.188 1.972 3.012 4.778 4.221.668.288 1.19.46 1.597.59.67.213 1.28.183 1.761.111.537-.08 1.582-.647 1.805-1.272.223-.624.223-1.157.157-1.272-.067-.116-.247-.183-.514-.316z"/>
                     </svg>
                     <span>WhatsApp</span>
                   </a>
                   
                   <!-- Telegram -->
-                  <a id="share-tg" href="#" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#229ED9] hover:bg-[#229ED9]/10 transition-all font-sans font-bold text-xs shadow-sm">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <a id="share-tg" href="#" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#555555] hover:bg-[#229ED9] hover:text-white hover:border-[#229ED9] transition-all duration-300 font-sans font-medium text-xs shadow-xs hover:shadow-md hover:scale-105 group no-underline">
+                    <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.89 1.2-5.33 3.52-.5.35-.96.52-1.37.51-.45-.01-1.32-.26-1.97-.47-.8-.26-1.43-.4-1.38-.85.03-.24.36-.49.99-.75 3.86-1.68 6.43-2.78 7.72-3.3 3.67-1.49 4.43-1.75 4.93-1.76.11 0 .36.03.52.16.13.11.17.26.19.37z"/>
                     </svg>
                     <span>Telegram</span>
                   </a>
                   
                   <!-- Facebook -->
-                  <a id="share-fb" href="#" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#1877F2] hover:bg-[#1877F2]/10 transition-all font-sans font-bold text-xs shadow-sm">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <a id="share-fb" href="#" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#555555] hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-all duration-300 font-sans font-medium text-xs shadow-xs hover:shadow-md hover:scale-105 group no-underline">
+                    <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                     </svg>
                     <span>Facebook</span>
                   </a>
                   
                   <!-- Copy Link / Share -->
-                  <button id="share-native" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#1C3D63] hover:bg-[#F4F7F7] transition-all font-sans font-bold text-xs cursor-pointer shadow-sm">
-                    <span class="material-symbols-outlined text-base text-[#E0AC6B]">share</span>
+                  <button id="share-native" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-white text-[#555555] hover:bg-[#1C3D63] hover:text-white hover:border-[#1C3D63] transition-all duration-300 font-sans font-medium text-xs cursor-pointer shadow-xs hover:shadow-md hover:scale-105 group">
+                    <span class="material-symbols-outlined text-base text-[#E0AC6B] group-hover:text-white transition-colors">share</span>
                     <span id="share-native-text">ლინკის კოპირება</span>
                   </button>
                 </div>
@@ -1502,9 +1499,9 @@
         const dominant = spheres[0];
         const weakest = spheres[3];
 
-        return `თქვენი ცხოვრების ენერგიის ყველაზე დიდი წილი მიმართულია სფეროზე: <strong class="text-[#f1bf62] font-bold">${dominant.name} (${dominant.score}%)</strong>. ` +
+        return `თქვენი ცხოვრების ენერგიის ყველაზე დიდი წილი მიმართულია სფეროზე: <strong class="text-[#1C3D63] font-bold">${dominant.name} (${dominant.score}%)</strong>. ` +
           `ეს მიუთითებს იმაზე, რომ თქვენი ყურადღება და ძალისხმევა ამ ეტაპზე აქტიურად არის ფოკუსირებული ამ მიმართულებით, რაც თქვენი თვითრეალიზაციის მთავარი საყრდენია. ` +
-          `ამავდროულად, შედარებით ნაკლები ყურადღება ეთმობა სფეროს: <strong class="text-[#f1bf62] font-bold">${weakest.name} (${weakest.score}%)</strong>. ` +
+          `ამავდროულად, შედარებით ნაკლები ყურადღება ეთმობა სფეროს: <strong class="text-[#1C3D63] font-bold">${weakest.name} (${weakest.score}%)</strong>. ` +
           `ცხოვრების ოთხივე განზომილების ჰარმონიული თანაარსებობისთვის მნიშვნელოვანია ამ დისბალანსის გაცნობიერება და ენერგიის გადანაწილება. ` +
           `<br/><br/>სრულ სიღრმისეულ ფსიქოთერაპიულ ანალიზში დეტალურად განვიხილავთ თითოეულ სფეროს და მიიღებთ ინდივიდუალურ რეკომენდაციებს ჰარმონიის აღსადგენად.`;
       }
@@ -1612,8 +1609,7 @@
             const formattedShort = generateExpressPreview(percentages);
 
             aiContainer.innerHTML = `
-              <div class="bg-white border border-[#D8C4B6] p-6 rounded-2xl mb-6 shadow-sm relative overflow-hidden font-sans animate-fade-in text-[#222222] text-left">
-                <div class="absolute top-0 left-0 w-1.5 h-full bg-[#1C3D63]"></div>
+              <div class="bg-white border border-[#D8C4B6] p-6 sm:p-7 rounded-2xl mb-6 shadow-sm relative overflow-hidden font-sans animate-fade-in text-[#222222] text-left">
                 <div class="flex items-center space-x-2.5 mb-4">
                   <span class="material-symbols-outlined text-[#E0AC6B] text-2xl">auto_awesome</span>
                   <h3 class="text-lg font-headline italic font-bold text-[#1C3D63]">
@@ -1676,24 +1672,148 @@
           }, 300);
         }, 3000);
 
+        function formatAnalysisHtml(content) {
+          if (!content) return '';
+
+          const text = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+          const lines = text.split('\n');
+          const blocks = [];
+          let currentParagraph = [];
+
+          const flushParagraph = () => {
+            if (currentParagraph.length > 0) {
+              const pText = currentParagraph.join(' ').trim();
+              if (pText) {
+                blocks.push({ type: 'p', content: pText });
+              }
+              currentParagraph = [];
+            }
+          };
+
+          for (let i = 0; i < lines.length; i++) {
+            const rawLine = lines[i].trim();
+            if (!rawLine) {
+              flushParagraph();
+              continue;
+            }
+
+            // Markdown headings
+            const hMatch = rawLine.match(/^#{1,4}\s+(.*?)$/);
+            if (hMatch) {
+              flushParagraph();
+              blocks.push({ type: 'heading', content: hMatch[1].trim() });
+              continue;
+            }
+
+            // Bold standalone title lines
+            const boldHeaderMatch = rawLine.match(/^\*\*([0-9\.\s]*[^\*]+?)\*\*:?$/);
+            if (boldHeaderMatch && boldHeaderMatch[1].length < 85) {
+              flushParagraph();
+              blocks.push({ type: 'heading', content: boldHeaderMatch[1].trim() });
+              continue;
+            }
+
+            // Numbered section headings e.g. 1. სხეული და ჯანმრთელობა
+            const numHeaderMatch = rawLine.match(/^(\d+)\.\s+\*?\*?([^\*]+?)\*?\*?:?$/);
+            if (numHeaderMatch && numHeaderMatch[2].length < 65 && !numHeaderMatch[2].includes('.')) {
+              flushParagraph();
+              blocks.push({ type: 'heading', content: `${numHeaderMatch[1]}. ${numHeaderMatch[2].trim()}` });
+              continue;
+            }
+
+            // Greeting
+            if (rawLine === 'ძვირფასო მეგობარო,' || rawLine === 'ძვირფასო მეგობარო' || rawLine.startsWith('ძვირფასო') || rawLine.startsWith('მოგესალმებით')) {
+              flushParagraph();
+              blocks.push({ type: 'greeting', content: rawLine });
+              continue;
+            }
+
+            // Bullet list item
+            const listMatch = rawLine.match(/^[-*•]\s+(.*?)$/);
+            if (listMatch) {
+              flushParagraph();
+              blocks.push({ type: 'list_item', content: listMatch[1].trim() });
+              continue;
+            }
+
+            // Numbered item
+            const numItemMatch = rawLine.match(/^(\d+)\.\s+(.*?)$/);
+            if (numItemMatch) {
+              flushParagraph();
+              blocks.push({ type: 'num_item', num: numItemMatch[1], content: numItemMatch[2].trim() });
+              continue;
+            }
+
+            currentParagraph.push(rawLine);
+          }
+          flushParagraph();
+
+          const formatInline = (str) => {
+            return str
+              .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-[#1C3D63]">$1</strong>')
+              .replace(/(\d{1,3}%)/g, '<span class="inline-block px-1.5 py-0.5 rounded bg-[#E0AC6B]/15 text-[#1C3D63] font-bold text-xs sm:text-sm font-sans border border-[#E0AC6B]/30">$1</span>');
+          };
+
+          let html = '';
+          for (let b of blocks) {
+            if (b.type === 'greeting') {
+              html += `
+                <div class="p-4 sm:p-5 rounded-2xl bg-[#FAF8F5] border border-[#D8C4B6] mb-6 flex items-center gap-3.5 shadow-xs">
+                  <div class="w-10 h-10 rounded-xl bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#E0AC6B]/40">
+                    <span class="material-symbols-outlined text-xl">person_heart</span>
+                  </div>
+                  <div>
+                    <h4 class="font-headline italic font-bold text-base sm:text-lg text-[#1C3D63] leading-none mb-1">
+                      ${formatInline(b.content)}
+                    </h4>
+                    <p class="text-xs text-[#8E8276] font-light">პერსონალური ფსიქო-ტრანსფორმაციული ანალიზი</p>
+                  </div>
+                </div>`;
+            } else if (b.type === 'heading') {
+              html += `
+                <div class="mt-8 mb-4 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-[#1C3D63]/8 via-[#E0AC6B]/10 to-transparent border-l-4 border-l-[#1C3D63] border border-[#D8C4B6]/60 flex items-center justify-between shadow-xs">
+                  <div class="flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-[#E0AC6B] text-2xl">auto_stories</span>
+                    <h3 class="font-headline font-bold text-base sm:text-lg text-[#1C3D63] tracking-wide m-0">
+                      ${formatInline(b.content)}
+                    </h3>
+                  </div>
+                  <span class="text-[10px] uppercase font-bold tracking-widest text-[#E0AC6B] font-sans px-2 py-0.5 rounded bg-white border border-[#E0AC6B]/40 hidden sm:inline-block">სფერო / ანალიზი</span>
+                </div>`;
+            } else if (b.type === 'list_item') {
+              html += `
+                <div class="flex items-start gap-3 my-2.5 pl-2 sm:pl-3">
+                  <span class="w-5 h-5 rounded-full bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 border border-[#E0AC6B]/40 font-sans">✓</span>
+                  <div class="text-sm sm:text-base text-[#222222] leading-relaxed font-sans font-normal">
+                    ${formatInline(b.content)}
+                  </div>
+                </div>`;
+            } else if (b.type === 'num_item') {
+              html += `
+                <div class="flex items-start gap-3 my-2.5 pl-2 sm:pl-3">
+                  <span class="w-6 h-6 rounded-lg bg-[#1C3D63] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 font-sans">${b.num}</span>
+                  <div class="text-sm sm:text-base text-[#222222] leading-relaxed font-sans font-normal">
+                    ${formatInline(b.content)}
+                  </div>
+                </div>`;
+            } else {
+              html += `<p class="text-sm sm:text-base text-[#222222] leading-[1.85] font-normal mb-4 font-sans text-left">${formatInline(b.content)}</p>`;
+            }
+          }
+
+          return html;
+        }
+
         function renderFullAnalysis(data) {
           const fullContainer = document.getElementById('balance-full-analysis-container');
           if (!fullContainer) return;
 
-          let formattedContent = data.content
-            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#1C3D63] font-bold">$1</strong>')
-            .replace(/### (.*?)\n/g, '<h4 class="text-sm font-bold uppercase tracking-wider text-[#1C3D63] mt-6 border-b border-[#D8C4B6] pb-2 font-sans">$1</h4>')
-            .replace(/## (.*?)\n/g, '<h3 class="text-lg font-headline font-bold text-[#1C3D63] mt-8">$1</h3>')
-            .replace(/\n\n/g, '</p><p class="mt-4">')
-            .replace(/- (.*?)\n/g, '<li class="ml-4 list-disc text-sm text-[#222222]">$1</li>');
-
+          const formattedContent = formatAnalysisHtml(data.content);
           const userPhone = localStorage.getItem("user_phone") || "";
 
           const deliveryCardHtml = `
             <div class="mt-8 pt-6 border-t border-[#D8C4B6] space-y-6 font-sans">
               <div class="p-6 bg-white border border-[#D8C4B6] rounded-2xl relative overflow-hidden shadow-sm text-left font-sans">
-                <div class="absolute top-0 left-0 w-[2px] h-full bg-[#1C3D63] rounded-l-2xl"></div>
-                
                 <div class="flex items-center space-x-2.5 mb-3">
                   <span class="material-symbols-outlined text-[#E0AC6B]">share</span>
                   <h4 class="text-sm font-bold tracking-wide uppercase text-[#1C3D63] font-headline">
@@ -1755,8 +1875,6 @@
             <!-- Relationship Compatibility Panel -->
             <div class="mt-8 pt-6 border-t border-[#D8C4B6] space-y-6 font-sans">
               <div class="p-6 bg-white border border-[#D8C4B6] rounded-2xl relative overflow-hidden shadow-sm text-left font-sans">
-                <div class="absolute top-0 left-0 w-[2px] h-full bg-[#1C3D63] rounded-l-2xl"></div>
-                
                 <div class="flex items-center space-x-2.5 mb-3">
                   <span class="material-symbols-outlined text-[#E0AC6B]">favorite</span>
                   <h4 class="text-sm font-bold tracking-wide uppercase text-[#1C3D63] font-headline">
@@ -1863,9 +1981,12 @@
                 </div>
               </div>
             </div>
+          fullContainer.innerHTML = `
+            <div class="p-6 sm:p-8 bg-white border border-[#D8C4B6] rounded-2xl shadow-sm text-base text-[#222222] leading-relaxed font-normal animate-fade-in font-sans text-left mt-4">
+              ${formattedContent}
+            </div>
+            ${deliveryCardHtml}
           `;
-
-          fullContainer.innerHTML = '<div class="text-base text-[#222222] leading-relaxed font-normal pt-4 border-t border-[#D8C4B6] animate-fade-in font-sans text-left">' + formattedContent + '</div>' + deliveryCardHtml;
 
           setTimeout(() => {
             const btnWA = document.getElementById('btn-balance-send-wa');
