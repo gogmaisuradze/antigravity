@@ -95,7 +95,7 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       const w = width;
       const h = height;
       const centerX = w * 0.5;
-      const centerY = h * 0.32; // Elevated focal point aligned right behind start button
+      const centerY = h * 0.27; // Elevated focal point aligned directly with the start button
 
       // Helper to generate a 100% perfectly straight perspective ray towards the center
       const addStraightRay = (startX: number, startY: number, endX = centerX, endY = centerY) => {
@@ -198,10 +198,10 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       // Subtle ambient vignette / depth gradient in white-to-soft-cream
       const radialGrad = ctx.createRadialGradient(
         width * 0.5,
-        height * 0.32,
+        height * 0.27,
         Math.min(width, height) * 0.08,
         width * 0.5,
-        height * 0.32,
+        height * 0.27,
         Math.max(width, height) * 0.75
       );
       radialGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
@@ -269,7 +269,7 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
 
       // 3. Central Subtle Gateway Portal Ring & Concentric Gateway Frames
       const centerX = width * 0.5;
-      const centerY = height * 0.32;
+      const centerY = height * 0.27;
       const ringRadius = Math.min(width, height) * 0.12;
 
       ctx.save();

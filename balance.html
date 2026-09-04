@@ -579,7 +579,7 @@
         <div class="relative z-10">
         
         <!-- Header inside the panel -->
-        <div class="text-center max-w-3xl mx-auto mb-4 sm:mb-5 space-y-2">
+        <div class="text-center max-w-3xl mx-auto mb-2 space-y-2">
           <span class="material-symbols-outlined text-[#E0AC6B] text-4xl sm:text-5xl block">balance</span>
           <h1 class="text-3xl md:text-4xl font-headline italic font-bold text-[#1C3D63] tracking-wide">
             ბალანსის მოდელი
@@ -587,21 +587,23 @@
           <div class="flex flex-col items-center justify-center pt-0.5">
             <span class="text-lg sm:text-2xl font-headline font-bold text-[#E0AC6B] border-b border-[#E0AC6B]/40 px-6 pb-0.5 italic">ცხოვრების ოთხი განზომილება</span>
           </div>
-          <p class="text-xs sm:text-sm text-[#3B5E63] leading-relaxed font-light pt-1">
-            პოზიტიური ფსიქოთერაპიის (Nossrat Peseschkian) ინტერაქტიული მოდული
-          </p>
         </div>
 
-        <!-- Start CTA Panel (Moved higher up, centered over gateway convergence point) -->
-        <div id="balance-start-panel" class="flex flex-col items-center justify-center mt-2 mb-8 sm:mt-3 sm:mb-10 py-1 text-center animate-fade-in relative z-20">
+        <!-- Start CTA Panel (Now placed directly under the title) -->
+        <div id="balance-start-panel" class="flex flex-col items-center justify-center mt-3 mb-2 sm:mt-4 sm:mb-2.5 py-1 text-center animate-fade-in relative z-20">
           <button id="btn-start-screening" class="bg-[#1C3D63] text-white hover:bg-[#254F7F] font-bold py-4 sm:py-4.5 px-10 sm:px-14 rounded-full shadow-[0_12px_32px_rgba(28,61,99,0.28),0_0_25px_rgba(224,172,107,0.25)] border-2 border-[#E0AC6B]/60 hover:border-[#E0AC6B] transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-3.5 text-sm sm:text-base tracking-wide group">
             <span class="font-headline tracking-wider">ტესტირების დაწყება</span>
             <span class="material-symbols-outlined text-xl text-[#E0AC6B] group-hover:translate-x-1 transition-transform">play_arrow</span>
           </button>
         </div>
 
+        <!-- Subtitle (Moved below the start button) -->
+        <p id="balance-subtitle" class="text-xs sm:text-sm text-[#3B5E63] text-center leading-relaxed font-light pt-0 mb-8 sm:mb-10 relative z-10">
+          პოზიტიური ფსიქოთერაპიის (Nossrat Peseschkian) ინტერაქტიული მოდული
+        </p>
+
         <!-- Informative text panel (The two translucent "ფორტოჩკა" boxes moved below) -->
-        <div id="balance-intro-panel" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 mb-8 text-[#222222] leading-relaxed relative z-10">
+        <div id="balance-intro-panel" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 mb-8 text-[#222222] leading-relaxed relative z-10">
           <!-- Left box: energy (Translucent with backdrop blur) -->
           <div class="bg-white/65 backdrop-blur-md border border-[#D8C4B6]/80 p-6 rounded-2xl flex flex-col justify-center items-center text-center shadow-[0_4px_20px_rgba(28,61,99,0.03)] hover:bg-white/80 transition-all">
             <span class="material-symbols-outlined text-[#E0AC6B] text-4xl mb-3">battery_charging_full</span>
@@ -1445,6 +1447,8 @@
 
         // Transition screens
         document.getElementById('balance-intro-panel').classList.add('hidden');
+        const subTitleEl = document.getElementById('balance-subtitle');
+        if (subTitleEl) subTitleEl.classList.add('hidden');
         if (balanceStartPanel) balanceStartPanel.classList.add('hidden');
         if (balanceProfilePanel) balanceProfilePanel.classList.add('hidden');
         quizWizard.classList.add('hidden');
@@ -2176,6 +2180,8 @@
 
         // Show intro & start buttons, hide results/form
         document.getElementById('balance-intro-panel').classList.remove('hidden');
+        const subTitleEl = document.getElementById('balance-subtitle');
+        if (subTitleEl) subTitleEl.classList.remove('hidden');
         if (balanceStartPanel) balanceStartPanel.classList.remove('hidden');
         if (balanceProfilePanel) balanceProfilePanel.classList.add('hidden');
         quizWizard.classList.add('hidden');
@@ -2255,6 +2261,8 @@
           const total = pBody + pAchievement + pContact + pFuture;
           if (total === 100) {
             document.getElementById('balance-intro-panel').classList.add('hidden');
+            const subTitleEl = document.getElementById('balance-subtitle');
+            if (subTitleEl) subTitleEl.classList.add('hidden');
             if (balanceStartPanel) balanceStartPanel.classList.add('hidden');
             if (balanceProfilePanel) balanceProfilePanel.classList.add('hidden');
             quizWizard.classList.add('hidden');
@@ -2374,6 +2382,8 @@
         btnStartScreening.addEventListener('click', () => {
           playTickSound();
           document.getElementById('balance-intro-panel').classList.add('hidden');
+          const subTitleEl = document.getElementById('balance-subtitle');
+          if (subTitleEl) subTitleEl.classList.add('hidden');
           balanceStartPanel.classList.add('hidden');
           balanceProfilePanel.classList.remove('hidden');
           balanceProfilePanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
