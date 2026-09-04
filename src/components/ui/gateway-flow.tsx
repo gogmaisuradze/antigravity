@@ -95,9 +95,9 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       const w = width;
       const h = height;
       const centerX = w * 0.5;
-      const centerY = h * 0.52;
+      const centerY = h * 0.42;
       const gatewayWidth = Math.min(w * 0.42, 360 * (window.devicePixelRatio || 1));
-      const gatewayHeight = Math.min(h * 0.5, 240 * (window.devicePixelRatio || 1));
+      const gatewayHeight = Math.min(h * 0.48, 220 * (window.devicePixelRatio || 1));
 
       // 1. Horizontal / Converging Perspective Streamlines
       const streamCount = Math.floor(18 * density);
@@ -107,17 +107,17 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
         
         // Start from left or right edge
         const startX = side === -1 ? -w * 0.05 : w * 1.05;
-        const startY = h * 0.15 + progressY * h * 0.75;
+        const startY = h * 0.12 + progressY * h * 0.78;
 
-        // End in gateway focal center or opposite flow
-        const endX = centerX + side * (gatewayWidth * 0.5 * (1 - progressY * 0.6));
-        const endY = centerY + (progressY - 0.5) * gatewayHeight * 0.85;
+        // End directly in the central gateway hub
+        const endX = centerX + side * (gatewayWidth * 0.4 * (1 - progressY * 0.7));
+        const endY = centerY + (progressY - 0.5) * 40 * (window.devicePixelRatio || 1);
 
         // Curved control points for dynamic graceful gateway arching
         const cp1X = startX + (centerX - startX) * 0.4;
         const cp1Y = startY + (side * 40 * (window.devicePixelRatio || 1));
-        const cp2X = centerX - side * (gatewayWidth * 0.3);
-        const cp2Y = endY - (40 * (window.devicePixelRatio || 1));
+        const cp2X = centerX - side * (gatewayWidth * 0.25);
+        const cp2Y = endY - (20 * (window.devicePixelRatio || 1));
 
         paths.push({
           p0: { x: startX, y: startY },
@@ -145,32 +145,32 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
           length: archW * 2,
         });
 
-        // Downward Converging Gateway Funnel Streams
+        // Downward Converging Gateway Funnel Streams (converging into center button)
         paths.push({
           p0: { x: centerX - archW * 0.6, y: -h * 0.05 },
-          cp1: { x: centerX - archW * 0.3, y: centerY * 0.6 },
-          cp2: { x: centerX - (i * 12), y: centerY },
-          p1: { x: centerX, y: centerY + (i * 8) },
+          cp1: { x: centerX - archW * 0.3, y: centerY * 0.5 },
+          cp2: { x: centerX - (i * 10), y: centerY - 15 },
+          p1: { x: centerX, y: centerY },
           length: h,
         });
         paths.push({
           p0: { x: centerX + archW * 0.6, y: -h * 0.05 },
-          cp1: { x: centerX + archW * 0.3, y: centerY * 0.6 },
-          cp2: { x: centerX + (i * 12), y: centerY },
-          p1: { x: centerX, y: centerY + (i * 8) },
+          cp1: { x: centerX + archW * 0.3, y: centerY * 0.5 },
+          cp2: { x: centerX + (i * 10), y: centerY - 15 },
+          p1: { x: centerX, y: centerY },
           length: h,
         });
       }
 
-      // 3. Ground Perspective Lines (flowing into the distance)
-      const groundLines = Math.floor(10 * density);
+      // 3. Ground Perspective Lines (flowing into the distance toward center)
+      const groundLines = Math.floor(12 * density);
       for (let i = 0; i < groundLines; i++) {
         const spread = (i / (groundLines - 1) - 0.5) * 2;
         paths.push({
           p0: { x: centerX + spread * w * 0.55, y: h * 1.05 },
           cp1: { x: centerX + spread * w * 0.35, y: h * 0.85 },
-          cp2: { x: centerX + spread * gatewayWidth * 0.4, y: centerY + gatewayHeight * 0.4 },
-          p1: { x: centerX + spread * gatewayWidth * 0.15, y: centerY + gatewayHeight * 0.1 },
+          cp2: { x: centerX + spread * gatewayWidth * 0.3, y: centerY + 50 },
+          p1: { x: centerX, y: centerY },
           length: h * 0.6,
         });
       }
@@ -231,10 +231,10 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
       // Subtle ambient vignette / depth gradient in white-to-soft-cream
       const radialGrad = ctx.createRadialGradient(
         width * 0.5,
-        height * 0.52,
+        height * 0.42,
         Math.min(width, height) * 0.1,
         width * 0.5,
-        height * 0.52,
+        height * 0.42,
         Math.max(width, height) * 0.75
       );
       radialGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
@@ -324,8 +324,8 @@ export const GatewayFlow: React.FC<GatewayFlowProps> = ({
 
       // 3. Central Subtle Gateway Portal Ring (Minimalist modern architectural ring)
       const centerX = width * 0.5;
-      const centerY = height * 0.52;
-      const ringRadius = Math.min(width, height) * 0.16;
+      const centerY = height * 0.42;
+      const ringRadius = Math.min(width, height) * 0.15;
 
       ctx.save();
       ctx.beginPath();
