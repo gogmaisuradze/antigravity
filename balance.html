@@ -1874,19 +1874,23 @@
 
             <!-- Relationship Compatibility Panel -->
             <div class="mt-8 pt-6 border-t border-[#D8C4B6] space-y-6 font-sans">
-              <div class="p-6 bg-white border border-[#D8C4B6] rounded-2xl relative overflow-hidden shadow-sm text-left font-sans">
-                <div class="flex items-center space-x-2.5 mb-3">
-                  <span class="material-symbols-outlined text-[#E0AC6B] text-xl" style="font-variation-settings: 'FILL' 0, 'wght' 400;">favorite_border</span>
-                  <h4 class="text-sm font-bold tracking-wide uppercase text-[#1C3D63] font-headline">
-                    ნახე სხვასთან თავსებადობა
-                  </h4>
+              <div id="compatibility-panel-container" class="w-full max-w-2xl mx-auto bg-white border border-[#D8C4B6] p-6 sm:p-8 rounded-2xl shadow-sm overflow-hidden relative text-left font-sans">
+                <div class="flex flex-col items-center justify-center text-center space-y-2 mb-8">
+                  <div class="w-12 h-12 rounded-full border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center text-[#E0AC6B]">
+                    <span class="material-symbols-outlined text-2xl text-[#E0AC6B]" style="font-variation-settings: 'FILL' 0, 'wght' 400;">favorite_border</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <h2 class="text-base sm:text-lg font-bold tracking-wide text-[#1C3D63] font-headline">
+                      ნახე სხვასთან თავსებადობა
+                    </h2>
+                    <p class="text-xs text-[#3B5E63] font-light mt-1 max-w-md mx-auto">
+                      გამოთვალეთ თქვენი და სასურველი ადამიანის ასტრო-ფსიქოლოგიური კავშირის რეზონანსი
+                    </p>
+                  </div>
                 </div>
-                
-                <p class="text-[12px] text-[#3B5E63] font-light leading-relaxed mb-6">
-                  გამოთვალეთ თქვენი და სასურველი ადამიანის ასტრო-ფსიქოლოგიური კავშირის რეზონანსი
-                </p>
 
-                <div class="space-y-6 max-w-[480px]">
+                <!-- Inputs Section -->
+                <div class="space-y-6 max-w-[480px] mx-auto w-full">
                   <div>
                     <label class="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-2 font-bold font-headline">
                       ტელეფონი:
@@ -1896,72 +1900,81 @@
                         type="tel"
                         id="partner-phone"
                         placeholder="მაგ: 5XXXXXXXX"
-                        class="flex-1 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
+                        class="flex-1 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
                       />
                       <button
                         id="btn-partner-search"
-                        class="px-5 py-2.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center space-x-1.5 transition-colors cursor-pointer font-headline shadow-sm"
+                        class="px-5 py-2.5 bg-[#8E9CA8] hover:bg-[#778896] text-white text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center space-x-1.5 transition-colors cursor-pointer font-headline shadow-sm"
                       >
                         <span>მოძიება</span>
                       </button>
                     </div>
                   </div>
 
-                  <!-- Partner details (shown if phone not found in DB) -->
-                  <div id="partner-details-form" class="hidden space-y-4 pt-2">
-                    <div class="grid grid-cols-2 gap-4">
-                      <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
-                          სახელი:
-                        </label>
-                        <input
-                          type="text"
-                          id="partner-name"
-                          placeholder="მაგ: მარიამი"
-                          class="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
-                        />
-                      </div>
-                      <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
-                          გვარი:
-                        </label>
-                        <input
-                          type="text"
-                          id="partner-surname"
-                          placeholder="მაგ: კობახიძე"
-                          class="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
-                        />
-                      </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
+                        სახელი:
+                      </label>
+                      <input
+                        type="text"
+                        id="partner-name"
+                        placeholder="მაგ: მარიამი"
+                        class="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
+                      />
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
-                          დაბადების თარიღი:
-                        </label>
-                        <input
-                          type="date"
-                          id="partner-birthdate"
-                          class="w-full bg-[#F4F7F7] rounded-xl py-2 px-4 border border-[#D8C4B6] text-sm text-[#222222] focus:outline-none font-bold text-center tracking-widest cursor-pointer"
-                        />
-                      </div>
-                      <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline flex items-center justify-between">
-                          <span>⏰ დაბადების საათი:</span>
-                          <span class="text-[9px] text-[#8E8276] font-normal lowercase">(არასავალდებულო)</span>
-                        </label>
-                        <input
-                          type="time"
-                          id="partner-birthtime"
-                          class="w-full bg-[#F4F7F7] rounded-xl py-2 px-4 border border-[#D8C4B6] text-sm text-[#222222] focus:outline-none font-bold text-center tracking-widest cursor-pointer"
-                        />
-                      </div>
+                    <div>
+                      <label class="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
+                        გვარი:
+                      </label>
+                      <input
+                        type="text"
+                        id="partner-surname"
+                        placeholder="მაგ: კობახიძე"
+                        class="w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-1.5 font-bold font-headline">
+                      დაბადების თარიღი:
+                    </label>
+                    <div class="relative bg-[#F4F7F7] rounded-xl py-2 px-4 border border-[#D8C4B6]">
+                      <input
+                        type="date"
+                        id="partner-birthdate"
+                        class="w-full bg-transparent border-0 text-sm text-[#222222] focus:outline-none font-bold text-center tracking-widest cursor-pointer"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Dynamic Statuses -->
+                  <div id="partner-status-found" class="hidden p-3 bg-[#3B5E63]/10 border border-[#3B5E63]/25 rounded-xl space-y-1">
+                    <div class="flex items-center space-x-2 text-[#1C3D63] text-xs font-semibold">
+                      <span class="material-symbols-outlined text-base text-emerald-600">check_circle</span>
+                      <span id="partner-status-found-text"></span>
+                    </div>
+                  </div>
+
+                  <div id="partner-status-notfound" class="hidden p-3 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl space-y-2">
+                    <div class="flex items-start space-x-2 text-[#3B5E63] text-xs">
+                      <span class="material-symbols-outlined text-base text-[#E0AC6B]">auto_awesome</span>
+                      <span>ნომერი არ არის ბაზაში, თუმცა შეგიძლიათ ხელით შეიყვანოთ მონაცემები და სისტემა მაინც გამოთვლის თავსებადობას!</span>
+                    </div>
+                    <div>
+                      <a id="partner-wa-invite-link" href="#" target="_blank" class="inline-flex bg-white hover:bg-[#FAF8F5] text-[#1C3D63] font-bold text-[10px] tracking-widest uppercase py-1.5 px-3 rounded-lg border border-[#D8C4B6] items-center space-x-1.5 transition-all shadow-sm">
+                        <span class="material-symbols-outlined text-sm text-[#E0AC6B]">chat</span>
+                        <span>გაუგზავნე მოწვევა WhatsApp-ზე</span>
+                      </a>
                     </div>
                   </div>
 
                   <button
                     id="btn-calculate-compatibility"
-                    class="w-full py-3 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-widest uppercase rounded-xl transition-colors cursor-pointer flex items-center justify-center space-x-1.5 font-headline shadow-sm"
+                    class="w-full py-3.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-xs font-bold tracking-widest uppercase rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 font-headline shadow-sm hover:scale-[1.01] active:scale-98"
                   >
+                    <span class="material-symbols-outlined text-lg text-[#E0AC6B]">auto_awesome</span>
                     <span>თავსებადობის გამოთვლა</span>
                   </button>
 
@@ -2112,7 +2125,6 @@
             // Compatibility Panel Listeners
             const partnerPhoneInput = document.getElementById('partner-phone');
             const btnPartnerSearch = document.getElementById('btn-partner-search');
-            const partnerDetailsForm = document.getElementById('partner-details-form');
             const partnerNameInput = document.getElementById('partner-name');
             const partnerSurnameInput = document.getElementById('partner-surname');
             const partnerBirthdateInput = document.getElementById('partner-birthdate');
@@ -2121,17 +2133,33 @@
             const compResultBox = document.getElementById('compatibility-result-box');
             const compScoreText = document.getElementById('compatibility-score-text');
             const compResultText = document.getElementById('compatibility-result-text');
+            const partnerStatusFound = document.getElementById('partner-status-found');
+            const partnerStatusFoundText = document.getElementById('partner-status-found-text');
+            const partnerStatusNotFound = document.getElementById('partner-status-notfound');
+            const partnerWaInviteLink = document.getElementById('partner-wa-invite-link');
 
             let partnerStatus = "unchecked"; // unchecked, found, not_found
             let partnerProfile = null;
+
+            const resetPartnerStatuses = () => {
+              partnerStatusFound?.classList.add('hidden');
+              partnerStatusNotFound?.classList.add('hidden');
+              compStatusDiv?.classList.add('hidden');
+              compResultBox?.classList.add('hidden');
+            };
+
+            partnerPhoneInput?.addEventListener('input', resetPartnerStatuses);
+            partnerNameInput?.addEventListener('input', resetPartnerStatuses);
+            partnerSurnameInput?.addEventListener('input', resetPartnerStatuses);
+            partnerBirthdateInput?.addEventListener('input', resetPartnerStatuses);
 
             const setCompStatus = (msg, isError = false) => {
               compStatusDiv.textContent = msg;
               compStatusDiv.className = "mt-4 p-3 rounded-xl text-xs font-bold font-headline text-center uppercase tracking-wider border";
               if (isError) {
-                compStatusDiv.classList.add('bg-red-950/20', 'border-red-500/20', 'text-red-300');
+                compStatusDiv.classList.add('bg-red-50', 'border-red-200', 'text-red-700');
               } else {
-                compStatusDiv.classList.add('bg-emerald-950/20', 'border-emerald-500/20', 'text-emerald-400');
+                compStatusDiv.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
               }
               compStatusDiv.classList.remove('hidden');
             };
@@ -2143,7 +2171,7 @@
               else if (normPhone.startsWith("995")) normPhone = normPhone.slice(3);
 
               if (!/^5\d{8}$/.test(normPhone)) {
-                setCompStatus("შეცდომა: ტელეფონის ნომერი არასწორია.", true);
+                setCompStatus("შეცდომა: ტელეფონის ნომერი არასწორია (უნდა იყოს 9 ციფრი, მაგ: 5XXXXXXXX).", true);
                 return;
               }
 
@@ -2165,13 +2193,26 @@
                       const d = String(resData.profile.day).padStart(2, '0');
                       partnerBirthdateInput.value = `${y}-${m}-${d}`;
                     }
-                    partnerDetailsForm.classList.add('hidden');
-                    setCompStatus(`მომხმარებელი მოიძებნა: ${resData.profile.name} ${resData.profile.surname} 🎉`);
+                    if (partnerStatusFound && partnerStatusFoundText) {
+                      partnerStatusFoundText.innerHTML = `მოძებნილია მომხმარებელი: <strong class="text-[#1C3D63] font-bold">${resData.profile.name || ''} ${resData.profile.surname || ''}</strong>`;
+                      partnerStatusFound.classList.remove('hidden');
+                    }
+                    partnerStatusNotFound?.classList.add('hidden');
+                    compStatusDiv.classList.add('hidden');
                   } else {
                     partnerStatus = "not_found";
                     partnerProfile = null;
-                    partnerDetailsForm.classList.remove('hidden');
-                    setCompStatus("მომხმარებელი ვერ მოიძებნა. გთხოვთ შეიყვანოთ მონაცემები ხელით.");
+                    partnerStatusFound?.classList.add('hidden');
+                    if (partnerStatusNotFound) {
+                      partnerStatusNotFound.classList.remove('hidden');
+                      if (partnerWaInviteLink) {
+                        const myPhone = localStorage.getItem("user_phone") || "";
+                        const inviteUrl = `${window.location.origin}/balance.html?invited_by=${myPhone}`;
+                        const inviteMsg = `გამარჯობა! გიწვევთ IDC-ის ბალანსისა და თავსებადობის ტესტის გასავლელად: ${inviteUrl}`;
+                        partnerWaInviteLink.href = `https://wa.me/${normPhone.startsWith("5") ? "995" + normPhone : normPhone}?text=${encodeURIComponent(inviteMsg)}`;
+                      }
+                    }
+                    compStatusDiv.classList.add('hidden');
                   }
                 } else {
                   setCompStatus(resData.error || "მოძიების შეცდომა", true);
@@ -2190,7 +2231,7 @@
               else if (normPhone.startsWith("995")) normPhone = normPhone.slice(3);
 
               if (!/^5\d{8}$/.test(normPhone)) {
-                setCompStatus("შეცდომა: ტელეფონის ნომერი არასწორია.", true);
+                setCompStatus("შეცდომა: შეიყვანეთ პარტნიორის სწორი ტელეფონის ნომერი.", true);
                 return;
               }
 
@@ -2198,11 +2239,17 @@
               const partnerSurname = partnerSurnameInput.value.trim();
               const partnerBirthdate = partnerBirthdateInput.value;
 
-              if (partnerStatus === "not_found" || !partnerProfile) {
-                if (!partnerName || !partnerSurname || !partnerBirthdate) {
-                  setCompStatus("გთხოვთ შეავსოთ ყველა ველი.", true);
-                  return;
-                }
+              if (!partnerName) {
+                setCompStatus("გთხოვთ შეიყვანოთ პარტნიორის სახელი.", true);
+                return;
+              }
+              if (!partnerSurname) {
+                setCompStatus("გთხოვთ შეიყვანოთ პარტნიორის გვარი.", true);
+                return;
+              }
+              if (!partnerBirthdate) {
+                setCompStatus("გთხოვთ აირჩიოთ პარტნიორის დაბადების თარიღი.", true);
+                return;
               }
 
               setCompStatus("მიმდინარეობს თავსებადობის გამოთვლა (დაახლ. 30-45 წამი)...");
