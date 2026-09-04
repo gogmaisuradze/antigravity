@@ -8,6 +8,11 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src')
+    }
+  },
   server: {
     watch: {
       ignored: ['**/data/**']

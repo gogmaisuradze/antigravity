@@ -563,9 +563,20 @@
     </div>
 
     <div id="balance-app-root">
-      <!-- Minimalist Moodboard Container -->
-      <div class="bg-white p-6 md:p-12 rounded-3xl shadow-sm border border-[#D8C4B6] relative overflow-hidden transition-all duration-300">
-        <div class="absolute top-0 left-0 w-full h-[3px] bg-[#1C3D63]"></div>
+      <!-- Sunken Minimalist Window Container with GatewayFlow Background -->
+      <div class="bg-white p-6 md:p-12 rounded-3xl border border-[#D8C4B6] relative overflow-hidden transition-all duration-300 shadow-[inset_0_4px_30px_rgba(28,61,99,0.08),inset_0_1px_5px_rgba(0,0,0,0.07),0_14px_35px_rgba(28,61,99,0.04)]" id="balance-main-card">
+        
+        <!-- Sunken Top Inset Accent Line -->
+        <div class="absolute top-0 left-0 w-full h-[3px] bg-[#1C3D63] z-20"></div>
+
+        <!-- Inset Inner Shadow Border Overlay for distinct recessed / sunken depth ("ჩაღრმავება") -->
+        <div class="absolute inset-0 rounded-3xl pointer-events-none z-10 shadow-[inset_0_4px_24px_rgba(0,0,0,0.06),inset_0_-3px_16px_rgba(0,0,0,0.03)] border border-[#1C3D63]/10"></div>
+
+        <!-- GatewayFlow Background Container (Inverted: White background, black lines, black moving dots) -->
+        <div id="gateway-flow-root" class="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden"></div>
+
+        <!-- Relative content container so all text, buttons, sliders remain crisp & fully interactive -->
+        <div class="relative z-10">
         
         <!-- Header inside the panel -->
         <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
@@ -952,6 +963,7 @@
 
       </div>
     </div>
+  </div>
   </main>
 
   <!-- Footer -->
