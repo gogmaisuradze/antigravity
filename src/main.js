@@ -100,7 +100,7 @@ function initMobileMenu() {
     document.addEventListener('click', (e) => {
       const curMobileMenu = document.getElementById('mobile-menu');
       const curBtn = document.getElementById('mobile-menu-btn');
-      if (curMobileMenu && !curMobileMenu.contains(e.target) && e.target !== curBtn) {
+      if (curMobileMenu && !curMobileMenu.contains(e.target) && !curBtn?.contains(e.target)) {
         curMobileMenu.classList.add('hidden');
         const icon = curBtn ? curBtn.querySelector('span') : null;
         if (icon) icon.textContent = 'menu';

@@ -47,7 +47,7 @@
 
   <!-- Floating Island Header -->
   <header class="fixed top-0 left-0 right-0 z-50 px-2.5 md:px-12 pt-3 md:pt-6 pointer-events-none">
-    <nav id="main-nav" class="pointer-events-auto flex items-center justify-between px-4 md:px-12 py-1.5 md:py-2 w-full max-w-7xl mx-auto bg-white/55 border border-[#D8C4B6] backdrop-blur-2xl rounded-xl md:rounded-2xl shadow-[0px_10px_30px_rgba(28,61,99,0.06)] transition-all duration-500">
+    <nav id="main-nav" class="pointer-events-auto flex items-center justify-between px-3 sm:px-4 md:px-12 py-1.5 md:py-2 w-full max-w-7xl mx-auto bg-white/55 border border-[#D8C4B6] backdrop-blur-2xl rounded-xl md:rounded-2xl shadow-[0px_10px_30px_rgba(28,61,99,0.06)] transition-all duration-500">
       <div class="flex items-center gap-2 md:gap-4 pointer-events-auto pl-1 md:pl-4">
         <!-- Desktop Logo (Goes to logic.html) -->
         <a href="logic.html" class="hidden md:inline hover:opacity-85 transition-opacity duration-300">
@@ -274,16 +274,16 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-2 md:gap-4">
+      <div class="flex items-center gap-1.5 sm:gap-2 md:gap-4">
         <!-- Search Toggle Button -->
-        <button id="nav-search-btn" class="h-9 w-9 md:h-10 md:w-10 flex items-center justify-center text-[#222222] hover:text-[#1C3D63] transition-colors focus:outline-none cursor-pointer pointer-events-auto">
-          <span class="material-symbols-outlined text-2xl">search</span>
+        <button id="nav-search-btn" class="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 flex items-center justify-center text-[#222222] hover:text-[#1C3D63] transition-colors focus:outline-none cursor-pointer pointer-events-auto">
+          <span class="material-symbols-outlined text-xl sm:text-2xl">search</span>
         </button>
 
-        <button class="booking-btn bg-[#1C3D63] text-white px-4 py-2 md:px-6 md:py-2.5 rounded-lg md:rounded-xl font-medium text-xs md:text-sm transition-all hover:bg-[#254F7F] shadow-sm font-label cursor-pointer">
+        <button class="booking-btn bg-[#1C3D63] text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 rounded-lg md:rounded-xl font-medium text-xs md:text-sm transition-all hover:bg-[#254F7F] shadow-sm font-label cursor-pointer whitespace-nowrap">
           ჯავშანი
         </button>
-        <button id="mobile-menu-btn" class="md:hidden text-[#1C3D63] hover:text-[#3B5E63] focus:outline-none pointer-events-auto">
+        <button id="mobile-menu-btn" class="md:hidden text-[#1C3D63] hover:text-[#3B5E63] focus:outline-none pointer-events-auto p-1">
           <span class="material-symbols-outlined text-2xl md:text-3xl">menu</span>
         </button>
       </div>
@@ -546,10 +546,10 @@
          ========================================================================= -->
     <section class="slider-section relative px-3 sm:px-6 md:px-8 lg:px-10 pt-20 sm:pt-24 md:pt-28 pb-4 md:pb-6 w-full max-w-[1400px] mx-auto">
       <!-- Outer White Frame Bevel ("თეთრი კანტი" with #D8C4B6 Border) -->
-      <div class="relative w-full h-[450px] sm:h-[480px] md:h-[510px] rounded-[30px] sm:rounded-[36px] md:rounded-[42px] border border-[#D8C4B6] shadow-[0_20px_50px_rgba(28,61,99,0.12)] bg-white p-2.5 sm:p-3 md:p-3.5 group select-none" id="hero-slider-frame">
+      <div class="relative w-full h-[320px] sm:h-[400px] md:h-[510px] rounded-[24px] sm:rounded-[36px] md:rounded-[42px] border border-[#D8C4B6] shadow-[0_20px_50px_rgba(28,61,99,0.12)] bg-white p-2 sm:p-3 md:p-3.5 group select-none" id="hero-slider-frame">
         
         <!-- Inner Slider Viewport -->
-        <div class="relative w-full h-full rounded-[22px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden bg-[#1C3D63]" id="hero-slider">
+        <div class="relative w-full h-full rounded-[20px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden bg-[#1C3D63]" id="hero-slider">
           
           <!-- Slides Track (Each slide with background image, gradient, unique text & centered bottom buttons) -->
           <div class="relative w-full h-full" id="slider-track">
@@ -559,20 +559,20 @@
               <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="პოზიტიური ფსიქოთერაპია - სიმშვიდე და წონასწორობა" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1eoJmQicEl2W4nkEvD8EXgY-H3jNybGNk5ccwn30AmUCkykavp2oT-y7Ya-tJSGpaM_JQ4VWwS_31DmayAd3cStS-0lPNohVRe8p2aTmCNaPd7ewfrO8aqwRGByAKBWhQ7-GQqg0l2QxXpRidhUTa72ufp9S_Sdi8P6sGlH96dd8tX-NyLw0RSEU1XzlPHEwyuPimb4aT2EV2Z16kGH-4SRk2C4TkNJDwj6GRo_LxNCgg-J66SJLnr9_hfkAu3SP0ZOqORRlvQtS"/>
               <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
               
-              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-4 sm:px-10 py-4 sm:py-8">
                 <!-- Top / Center Content -->
-                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-1 sm:pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1.5 sm:mb-3 backdrop-blur-md">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
                     ფილოსოფიური მოგზაურობა
                   </span>
-                  <h1 class="text-white font-headline italic text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.2rem] font-bold leading-none tracking-tight drop-shadow-md">
+                  <h1 class="text-white font-headline italic text-4xl sm:text-7xl md:text-8xl lg:text-[6.5rem] xl:text-[7.2rem] font-bold leading-none tracking-tight drop-shadow-md">
                     გააცნობიერე
                   </h1>
-                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                  <p class="text-[#E0AC6B] font-headline text-xs sm:text-xl mt-1 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
                     პოზიტიური ფსიქოთერაპიის ცენტრი
                   </p>
-                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                  <div class="hidden md:block w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
                     <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
                       „ადამიანი ფასდაუდებელი, ძვირფასი ქვებით სავსე საბადოა.“
                     </p>
@@ -599,20 +599,20 @@
               <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="პოზიტიური ფსიქოთერაპიის საერთაშორისო კონფერენცია საქართველოში - IDC & WAPP" src="/conference_wapp_idc.jpg"/>
               <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/60 to-[#1C3D63]/30"></div>
               
-              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-4 sm:px-10 py-4 sm:py-8">
                 <!-- Top / Center Content -->
-                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-1 sm:pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1.5 sm:mb-3 backdrop-blur-md">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
                     საერთაშორისო კონფერენცია
                   </span>
-                  <h2 class="text-white font-headline italic text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight drop-shadow-md">
+                  <h2 class="text-white font-headline italic text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight drop-shadow-md">
                     პოზიტიური ფსიქოთერაპია
                   </h2>
-                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                  <p class="text-[#E0AC6B] font-headline text-xs sm:text-xl mt-1 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
                     IDC & WAPP • საქართველო
                   </p>
-                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                  <div class="hidden md:block w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
                     <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
                       „საერთაშორისო მასშტაბის კონფერენცია, პროფესიული ცოდნის გაცვლა და განვითარება საქართველოში.“
                     </p>
@@ -639,20 +639,20 @@
               <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="WAPP საერთაშორისო საგანმანათლებლო პროგრამები" src="/education_hero.png"/>
               <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
               
-              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-4 sm:px-10 py-4 sm:py-8">
                 <!-- Top / Center Content -->
-                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-1 sm:pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1.5 sm:mb-3 backdrop-blur-md">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
                     WAPP & ICF აკრედიტაცია
                   </span>
-                  <h2 class="text-white font-headline italic text-4xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
+                  <h2 class="text-white font-headline italic text-3xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
                     დაეუფლე პროფესიას
                   </h2>
-                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                  <p class="text-[#E0AC6B] font-headline text-xs sm:text-xl mt-1 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
                     საერთაშორისო განათლება & სერტიფიცირება
                   </p>
-                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                  <div class="hidden md:block w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
                     <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
                       „ვისბადენის აკადემიის მიერ აკრედიტირებული საერთაშორისო პროგრამები და კურსები.“
                     </p>
@@ -679,20 +679,20 @@
               <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="თვითშემეცნება და ტრანსფორმაცია" src="/about_hero_abstract.png"/>
               <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
               
-              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-4 sm:px-10 py-4 sm:py-8">
                 <!-- Top / Center Content -->
-                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-1 sm:pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1.5 sm:mb-3 backdrop-blur-md">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
                     გაცნობიერება & ზრდა
                   </span>
-                  <h2 class="text-white font-headline italic text-4xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
+                  <h2 class="text-white font-headline italic text-3xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
                     შეიცანი საკუთარი თავი
                   </h2>
-                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                  <p class="text-[#E0AC6B] font-headline text-xs sm:text-xl mt-1 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
                     ტრანსფორმაციული ფსიქოლოგია
                   </p>
-                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                  <div class="hidden md:block w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
                     <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
                       „სანამ ქვეცნობიერს გააცნობიერებდე, ის მართავს შენს ცხოვრებას.“
                     </p>
@@ -719,20 +719,20 @@
               <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="ბალანსის მოდელი - 4 განზომილება" src="/idc_hands_orb.png"/>
               <div class="absolute inset-0 bg-gradient-to-t from-[#1C3D63]/95 via-[#1C3D63]/75 to-[#1C3D63]/40"></div>
               
-              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-5 sm:px-10 py-6 sm:py-8">
+              <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center px-4 sm:px-10 py-4 sm:py-8">
                 <!-- Top / Center Content -->
-                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-2">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2 sm:mb-3 backdrop-blur-md">
+                <div class="flex flex-col items-center max-w-xl mx-auto my-auto pt-1 sm:pt-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E0AC6B]/25 border border-[#E0AC6B]/50 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1.5 sm:mb-3 backdrop-blur-md">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#E0AC6B] animate-pulse"></span>
                     ცხოვრების 4 სფერო
                   </span>
-                  <h2 class="text-white font-headline italic text-4xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
+                  <h2 class="text-white font-headline italic text-3xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tight drop-shadow-md">
                     აღადგინე ბალანსი
                   </h2>
-                  <p class="text-[#E0AC6B] font-headline text-sm sm:text-xl mt-1.5 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
+                  <p class="text-[#E0AC6B] font-headline text-xs sm:text-xl mt-1 sm:mt-2 italic tracking-wide font-medium drop-shadow-sm">
                     სხეული • მიღწევა • კონტაქტი • მომავალი
                   </p>
-                  <div class="w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
+                  <div class="hidden md:block w-full my-3 sm:my-4 p-3 sm:p-4 bg-white/15 backdrop-blur-md border border-white/25 border-l-4 border-l-[#E0AC6B] rounded-xl sm:rounded-2xl shadow-lg">
                     <p class="text-white/95 text-xs sm:text-sm font-light leading-relaxed italic">
                       „ცხოვრება არის ხელოვნება — იპოვო წონასწორობა ყოველდღიურ ქაოსსა და შინაგან სამყაროს შორის.“
                     </p>
@@ -795,35 +795,36 @@
           </p>
         </div>
 
-        <!-- Two Pillars Cards Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-stretch">
+        <!-- Two Pillars Cards Grid (Side-by-side on mobile too) -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-6 lg:gap-10 items-stretch">
           <!-- Pillar 1: Education & Academic Programs (VIP / Recommended Gold Border Style - FIRST) -->
-          <div class="bg-white rounded-3xl p-6 sm:p-10 md:p-12 border-2 border-[#E0AC6B] shadow-[0_15px_35px_rgba(224,172,107,0.18)] hover:shadow-[0_20px_45px_rgba(224,172,107,0.25)] transition-all duration-500 flex flex-col justify-between group relative">
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-8 md:p-12 border-2 border-[#E0AC6B] shadow-[0_15px_35px_rgba(224,172,107,0.18)] hover:shadow-[0_20px_45px_rgba(224,172,107,0.25)] transition-all duration-500 flex flex-col justify-between group relative">
             <div class="flex-1 flex flex-col">
-              <div class="flex items-center justify-between gap-4 mb-6">
-                <div class="w-14 h-14 rounded-2xl bg-[#E0AC6B]/20 border border-[#E0AC6B] flex items-center justify-center text-[#1C3D63] shadow-sm">
-                  <span class="material-symbols-outlined text-3xl">school</span>
+              <div class="flex items-center justify-between gap-2 sm:gap-4 mb-3 sm:mb-6">
+                <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-[#E0AC6B]/20 border border-[#E0AC6B] flex items-center justify-center text-[#1C3D63] shadow-sm">
+                  <span class="material-symbols-outlined text-xl sm:text-3xl">school</span>
                 </div>
-                <span class="text-xs font-bold uppercase tracking-widest text-[#1C3D63] bg-[#E0AC6B] px-3.5 py-1.5 rounded-xl shadow-sm">
-                  WAPP ACCREDITED
+                <span class="text-[9px] sm:text-xs font-bold uppercase tracking-wider text-[#1C3D63] bg-[#E0AC6B] px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl shadow-sm">
+                  <span class="hidden sm:inline">WAPP ACCREDITED</span>
+                  <span class="sm:hidden">WAPP</span>
                 </span>
               </div>
 
               <!-- Pillar Image Preview -->
-              <div class="aspect-[16/9] rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#D8C4B6] mb-6">
+              <div class="aspect-[16/9] rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#D8C4B6] mb-3 sm:mb-6">
                 <img src="/education_hero.png" alt="საგანმანათლებლო პროგრამები" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
               </div>
 
-              <h3 class="text-2xl sm:text-3xl font-headline italic text-[#1C3D63] mb-4 lg:min-h-[4.5rem] flex items-start group-hover:text-[#3B5E63] transition-colors">
+              <h3 class="text-xs sm:text-2xl md:text-3xl font-headline italic text-[#1C3D63] mb-2 sm:mb-4 lg:min-h-[4.5rem] flex items-start group-hover:text-[#3B5E63] transition-colors leading-snug sm:leading-normal">
                 განათლება და აკადემიური კურსები
               </h3>
               
-              <p class="text-[#222222] text-sm sm:text-base font-light leading-relaxed mb-6 lg:min-h-[5rem] flex items-start">
+              <p class="text-[#222222] text-xs sm:text-base font-light leading-relaxed mb-3 sm:mb-6 hidden sm:flex lg:min-h-[5rem] items-start">
                 პოზიტიური და ტრანსკულტურალური ფსიქოთერაპიის მსოფლიო ასოციაციის (WAPP, Wiesbaden, Germany) აკრედიტირებული საერთაშორისო სასერტიფიკატო პროგრამები.
               </p>
 
-              <!-- Course list pills -->
-              <div class="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8">
+              <!-- Course list pills (Hidden on mobile to avoid vertical stretch) -->
+              <div class="mt-auto hidden md:grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8">
                 <a href="education-wapp.html" class="flex items-center justify-between gap-2 px-3 py-2 min-h-[42px] rounded-xl bg-[#F4F7F7] border border-[#D8C4B6]/60 text-xs text-[#222222] hover:bg-[#E0AC6B]/20 hover:border-[#E0AC6B] hover:text-[#1C3D63] hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 no-underline group/pill cursor-pointer" title="WAPP საერთაშორისო კურსი">
                   <div class="flex items-center gap-2 min-w-0">
                     <span class="material-symbols-outlined text-base text-[#E0AC6B] group-hover/pill:scale-110 transition-transform shrink-0">verified</span>
@@ -855,42 +856,43 @@
               </div>
             </div>
 
-            <div class="pt-6 border-t border-[#D8C4B6] flex items-center justify-between">
-              <a href="education.html" class="inline-flex items-center gap-2 bg-[#E0AC6B] text-[#1C3D63] hover:brightness-105 px-6 py-3.5 rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-[0_4px_14px_rgba(224,172,107,0.35)] no-underline">
-                <span>კურსების სრულად ნახვა</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            <div class="pt-3 sm:pt-6 border-t border-[#D8C4B6] flex items-center justify-between">
+              <a href="education.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-[#E0AC6B] text-[#1C3D63] hover:brightness-105 px-2.5 py-2 sm:px-6 sm:py-3.5 rounded-xl text-[11px] sm:text-sm font-bold tracking-wider uppercase transition-all shadow-[0_4px_14px_rgba(224,172,107,0.35)] no-underline text-center">
+                <span>კურსები</span>
+                <span class="material-symbols-outlined text-xs sm:text-sm">arrow_forward</span>
               </a>
               <span class="text-xs text-[#3B5E63] font-headline italic hidden sm:inline">Wiesbaden, Germany</span>
             </div>
           </div>
 
           <!-- Pillar 2: Psychology & Therapy (SECOND) -->
-          <div class="bg-white rounded-3xl p-6 sm:p-10 md:p-12 border border-[#D8C4B6] hover:border-[#1C3D63] shadow-sm hover:shadow-[0_20px_45px_rgba(28,61,99,0.12)] transition-all duration-500 flex flex-col justify-between group">
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-8 md:p-12 border border-[#D8C4B6] hover:border-[#1C3D63] shadow-sm hover:shadow-[0_20px_45px_rgba(28,61,99,0.12)] transition-all duration-500 flex flex-col justify-between group">
             <div class="flex-1 flex flex-col">
-              <div class="flex items-center justify-between gap-4 mb-6">
-                <div class="w-14 h-14 rounded-2xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#1C3D63] shadow-sm">
-                  <span class="material-symbols-outlined text-3xl">psychology</span>
+              <div class="flex items-center justify-between gap-2 sm:gap-4 mb-3 sm:mb-6">
+                <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-[#F4F7F7] border border-[#D8C4B6] flex items-center justify-center text-[#1C3D63] shadow-sm">
+                  <span class="material-symbols-outlined text-xl sm:text-3xl">psychology</span>
                 </div>
-                <span class="text-xs font-bold uppercase tracking-widest text-[#3B5E63] bg-[#F4F7F7] px-3.5 py-1.5 rounded-xl border border-[#D8C4B6]">
-                  თერაპიული სივრცე
+                <span class="text-[9px] sm:text-xs font-bold uppercase tracking-wider text-[#3B5E63] bg-[#F4F7F7] px-2 py-1 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl border border-[#D8C4B6]">
+                  <span class="hidden sm:inline">თერაპიული სივრცე</span>
+                  <span class="sm:hidden">თერაპია</span>
                 </span>
               </div>
 
               <!-- Pillar Image Preview -->
-              <div class="aspect-[16/9] rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#D8C4B6] mb-6">
+              <div class="aspect-[16/9] rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#D8C4B6] mb-3 sm:mb-6">
                 <img src="/services_hero.png" alt="ფსიქოლოგიური თერაპია" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
               </div>
 
-              <h3 class="text-2xl sm:text-3xl font-headline italic text-[#1C3D63] mb-4 lg:min-h-[4.5rem] flex items-start group-hover:text-[#3B5E63] transition-colors">
+              <h3 class="text-xs sm:text-2xl md:text-3xl font-headline italic text-[#1C3D63] mb-2 sm:mb-4 lg:min-h-[4.5rem] flex items-start group-hover:text-[#3B5E63] transition-colors leading-snug sm:leading-normal">
                 ფსიქოლოგია და თერაპია
               </h3>
               
-              <p class="text-[#222222] text-sm sm:text-base font-light leading-relaxed mb-6 lg:min-h-[5rem] flex items-start">
+              <p class="text-[#222222] text-xs sm:text-base font-light leading-relaxed mb-3 sm:mb-6 hidden sm:flex lg:min-h-[5rem] items-start">
                 სიღრმისეული ფსიქოთერაპიული დახმარება პოზიტიური ფსიქოთერაპიის (Positum) მიდგომით, რომელიც ორიენტირებულია ადამიანის შინაგან რესურსებსა და შესაძლებლობებზე.
               </p>
 
-              <!-- Services list pills -->
-              <div class="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8">
+              <!-- Services list pills (Hidden on mobile to avoid vertical stretch) -->
+              <div class="mt-auto hidden md:grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8">
                 <a href="service-individual.html" class="flex items-center justify-between gap-2 px-3 py-2 min-h-[42px] rounded-xl bg-[#F4F7F7] border border-[#D8C4B6]/60 text-xs text-[#222222] hover:bg-[#1C3D63]/10 hover:border-[#1C3D63] hover:text-[#1C3D63] hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 no-underline group/pill cursor-pointer" title="ინდივიდუალური თერაპია">
                   <div class="flex items-center gap-2 min-w-0">
                     <span class="material-symbols-outlined text-base text-[#1C3D63] group-hover/pill:scale-110 transition-transform shrink-0">check_circle</span>
@@ -922,10 +924,10 @@
               </div>
             </div>
 
-            <div class="pt-6 border-t border-[#D8C4B6] flex items-center justify-between">
-              <a href="services.html" class="inline-flex items-center gap-2 bg-[#1C3D63] text-white hover:bg-[#254F7F] px-6 py-3.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all shadow-[0_4px_14px_rgba(28,61,99,0.25)] no-underline">
-                <span>სერვისების სრულად ნახვა</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            <div class="pt-3 sm:pt-6 border-t border-[#D8C4B6] flex items-center justify-between">
+              <a href="services.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-[#1C3D63] text-white hover:bg-[#254F7F] px-2.5 py-2 sm:px-6 sm:py-3.5 rounded-xl text-[11px] sm:text-sm font-semibold tracking-wider uppercase transition-all shadow-[0_4px_14px_rgba(28,61,99,0.25)] no-underline text-center">
+                <span>სერვისები</span>
+                <span class="material-symbols-outlined text-xs sm:text-sm">arrow_forward</span>
               </a>
               <span class="text-xs text-[#3B5E63] font-headline italic hidden sm:inline">ინდივიდუალური & ონლაინ</span>
             </div>
@@ -1118,31 +1120,31 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
           <!-- Card 1: Balance Model -->
-          <div class="bg-white border border-[#D8C4B6] rounded-3xl p-8 shadow-sm hover:border-[#1C3D63] hover:shadow-xl transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+          <div class="bg-white border border-[#D8C4B6] rounded-2xl sm:rounded-3xl p-3.5 sm:p-8 shadow-sm hover:border-[#1C3D63] hover:shadow-xl transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
                onclick="window.location.href='balance.html'">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-2xl border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center text-[#1C3D63] transition-transform duration-500 group-hover:scale-110">
-                <span class="material-symbols-outlined text-2xl">scale</span>
+            <div class="space-y-3 sm:space-y-4">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center text-[#1C3D63] transition-transform duration-500 group-hover:scale-110">
+                <span class="material-symbols-outlined text-xl sm:text-2xl">scale</span>
               </div>
               <div>
-                <h3 class="text-2xl font-headline text-[#1C3D63] mb-1">ბალანსის მოდელი</h3>
-                <span class="text-xs font-semibold tracking-wider text-[#E0AC6B] uppercase block">ცხოვრების 4 განზომილება</span>
+                <h3 class="text-xs sm:text-2xl font-headline text-[#1C3D63] mb-0.5 sm:mb-1">ბალანსის მოდელი</h3>
+                <span class="text-[9px] sm:text-xs font-semibold tracking-wider text-[#E0AC6B] uppercase block">ცხოვრების 4 განზომილება</span>
               </div>
-              <p class="text-[#222222] text-xs sm:text-sm leading-relaxed font-light">
+              <p class="text-[#222222] text-xs sm:text-sm leading-relaxed font-light hidden sm:block">
                 სხეული, მიღწევა, კონტაქტი და მომავალი. გაიარეთ 20-კითხვიანი ტესტი და მიიღეთ ვიზუალური ანალიტიკა.
               </p>
 
               <!-- Balanced bar preview -->
-              <div class="space-y-2 pt-2">
-                <div class="h-2 w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-full overflow-hidden flex gap-1 p-0.5">
+              <div class="space-y-1.5 sm:space-y-2 pt-1 sm:pt-2">
+                <div class="h-1.5 sm:h-2 w-full bg-[#F4F7F7] border border-[#D8C4B6] rounded-full overflow-hidden flex gap-1 p-0.5">
                   <div class="h-full bg-[#1C3D63] rounded-full w-[35%]"></div>
                   <div class="h-full bg-[#3B5E63] rounded-full w-[30%]"></div>
                   <div class="h-full bg-[#E0AC6B] rounded-full w-[20%]"></div>
                   <div class="h-full bg-[#A37B73] rounded-full w-[15%]"></div>
                 </div>
-                <div class="flex justify-between text-[9px] text-[#3B5E63] font-label font-semibold">
+                <div class="flex justify-between text-[8px] sm:text-[9px] text-[#3B5E63] font-label font-semibold">
                   <span>სხეული</span>
                   <span>მიღწევა</span>
                   <span>კონტაქტი</span>
@@ -1151,14 +1153,14 @@
               </div>
             </div>
 
-            <div class="pt-6 border-t border-[#D8C4B6] mt-6 flex justify-between items-center">
-              <span class="inline-flex items-center gap-2 text-[#1C3D63] group-hover:text-[#3B5E63] font-label font-bold text-xs tracking-widest uppercase transition-colors">
-                ტესტის შევსება
-                <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
+            <div class="pt-3 sm:pt-6 border-t border-[#D8C4B6] mt-4 sm:mt-6 flex justify-between items-center">
+              <span class="inline-flex items-center gap-1 sm:gap-2 text-[#1C3D63] group-hover:text-[#3B5E63] font-label font-bold text-[11px] sm:text-xs tracking-wider sm:tracking-widest uppercase transition-colors">
+                <span>ტესტი</span>
+                <span class="material-symbols-outlined text-xs sm:text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
               </span>
               <!-- Swaying scale animation -->
               <div class="pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity">
-                <svg class="w-8 h-8 text-[#1C3D63]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="w-6 h-6 sm:w-8 sm:h-8 text-[#1C3D63]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 22h14M12 22V8" opacity="0.5"/>
                   <g class="animate-sway" style="transform-origin: 12px 8px;">
                     <path d="M4 8h16"/>
@@ -1173,34 +1175,34 @@
           </div>
 
           <!-- Card 2: Cosmic Models -->
-          <div class="bg-white border border-[#D8C4B6] rounded-3xl p-8 shadow-sm hover:border-[#1C3D63] hover:shadow-xl transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+          <div class="bg-white border border-[#D8C4B6] rounded-2xl sm:rounded-3xl p-3.5 sm:p-8 shadow-sm hover:border-[#1C3D63] hover:shadow-xl transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
                onclick="window.location.href='cosmic.html'">
-            <div class="space-y-4">
-              <div class="w-12 h-12 rounded-2xl border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center text-[#1C3D63] transition-transform duration-500 group-hover:scale-110">
-                <span class="material-symbols-outlined text-2xl">auto_awesome</span>
+            <div class="space-y-3 sm:space-y-4">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center text-[#1C3D63] transition-transform duration-500 group-hover:scale-110">
+                <span class="material-symbols-outlined text-xl sm:text-2xl">auto_awesome</span>
               </div>
               <div>
-                <h3 class="text-2xl font-headline text-[#1C3D63] mb-1">აიდი მოდელები</h3>
-                <span class="text-xs font-semibold tracking-wider text-[#E0AC6B] uppercase block">იდენტობის მატრიცა</span>
+                <h3 class="text-xs sm:text-2xl font-headline text-[#1C3D63] mb-0.5 sm:mb-1">აიდი მოდელები</h3>
+                <span class="text-[9px] sm:text-xs font-semibold tracking-wider text-[#E0AC6B] uppercase block">იდენტობის მატრიცა</span>
               </div>
-              <p class="text-[#222222] text-xs sm:text-sm leading-relaxed font-light">
+              <p class="text-[#222222] text-xs sm:text-sm leading-relaxed font-light hidden sm:block">
                 გააერთიანეთ თქვენი ასტროლოგიური და ფსიქოლოგიური პორტრეტი: ენიაგრამა, პითაგორას მატრიცა და ბა-ძი.
               </p>
 
-              <div class="flex items-center justify-between pt-2 pb-0.5 opacity-85">
-                <span class="text-[10px] text-[#3B5E63] tracking-wider font-label font-medium">TYPE 5 • NUMEROLOGY • BAZI</span>
-                <span class="text-[9px] text-[#1C3D63] bg-[#E0AC6B]/20 border border-[#E0AC6B]/40 px-2 py-0.5 rounded-full font-bold uppercase">Cosmic ID</span>
+              <div class="flex items-center justify-between pt-1 sm:pt-2 pb-0.5 opacity-85">
+                <span class="text-[8px] sm:text-[10px] text-[#3B5E63] tracking-wider font-label font-medium truncate">TYPE 5 • BAZI</span>
+                <span class="text-[8px] sm:text-[9px] text-[#1C3D63] bg-[#E0AC6B]/20 border border-[#E0AC6B]/40 px-1.5 sm:px-2 py-0.5 rounded-full font-bold uppercase shrink-0">Cosmic ID</span>
               </div>
             </div>
 
-            <div class="pt-6 border-t border-[#D8C4B6] mt-6 flex justify-between items-center">
-              <span class="inline-flex items-center gap-2 text-[#1C3D63] group-hover:text-[#3B5E63] font-label font-bold text-xs tracking-widest uppercase transition-colors">
-                პროფილის შექმნა
-                <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
+            <div class="pt-3 sm:pt-6 border-t border-[#D8C4B6] mt-4 sm:mt-6 flex justify-between items-center">
+              <span class="inline-flex items-center gap-1 sm:gap-2 text-[#1C3D63] group-hover:text-[#3B5E63] font-label font-bold text-[11px] sm:text-xs tracking-wider sm:tracking-widest uppercase transition-colors">
+                <span>პროფილი</span>
+                <span class="material-symbols-outlined text-xs sm:text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
               </span>
               <!-- Constellation animation -->
               <div class="pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity">
-                <svg class="w-8 h-8 text-[#1C3D63] animate-[spin_16s_linear_infinite]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="w-6 h-6 sm:w-8 sm:h-8 text-[#1C3D63] animate-[spin_16s_linear_infinite]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                   <polygon points="12,2 22,12 12,22 2,12" stroke-dasharray="2 2" opacity="0.4" />
                   <polygon points="12,5 19,12 12,19 5,12" opacity="0.6" />
                   <circle cx="12" cy="12" r="2.5" fill="currentColor" class="animate-pulse" />
@@ -1209,8 +1211,8 @@
             </div>
           </div>
 
-          <!-- Card 3: Logic Tree (Mind Map) -->
-          <div class="bg-white border border-[#D8C4B6] rounded-3xl p-8 shadow-sm hover:border-[#1C3D63] hover:shadow-xl transition-all duration-500 flex flex-col justify-between group cursor-pointer relative overflow-hidden"
+          <!-- Card 3: Logic Tree (Mind Map) - HIDDEN ON MOBILE -->
+          <div class="hidden md:flex bg-white border border-[#D8C4B6] rounded-3xl p-8 shadow-sm hover:border-[#1C3D63] hover:shadow-xl transition-all duration-500 flex-col justify-between group cursor-pointer relative overflow-hidden"
                onclick="window.location.href='logic.html'">
             <div class="space-y-4">
               <div class="w-12 h-12 rounded-2xl border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center text-[#1C3D63] transition-transform duration-500 group-hover:scale-110">
