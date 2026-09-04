@@ -298,7 +298,14 @@ function initBookingModal() {
     }
   }
 
-  if (document.getElementById('booking-modal')) return;
+  const existingModal = document.getElementById('booking-modal');
+  if (existingModal) {
+    if (!document.getElementById('booking-modal-form')) {
+      existingModal.remove();
+    } else {
+      return;
+    }
+  }
 
   // Inject Modal HTML into the bottom of body
   const modalHTML = `
@@ -705,18 +712,47 @@ function initBookingModal() {
     if (serviceSelect) {
       serviceSelect.innerHTML = '';
       const items = bookingServicesData[cat].services;
+      const cleanPresel = (preselectedService || '').toLowerCase().replace(/[-_\s]/g, '');
+      let selectedIndex = 0;
+
       items.forEach((item, idx) => {
         const opt = document.createElement('option');
         opt.value = item.name;
+        opt.setAttribute('data-id', item.id);
         opt.setAttribute('data-price', item.price);
         opt.textContent = `${item.icon} ${item.name}`;
-        if (preselectedService && (item.id === preselectedService || item.name.includes(preselectedService))) {
-          opt.selected = true;
-        } else if (!preselectedService && idx === 0) {
-          opt.selected = true;
+
+        const cleanItemId = item.id.toLowerCase().replace(/[-_\s]/g, '');
+        const cleanItemName = item.name.toLowerCase().replace(/[-_\s]/g, '');
+
+        if (cleanPresel) {
+          if (
+            cleanItemId === cleanPresel ||
+            cleanItemId.includes(cleanPresel) ||
+            cleanPresel.includes(cleanItemId) ||
+            cleanItemName.includes(cleanPresel) ||
+            (cleanPresel.includes('erick') && cleanItemId.includes('erick')) ||
+            (cleanPresel.includes('practic') && cleanItemId.includes('practic')) ||
+            (cleanPresel.includes('wapp') && cleanItemId.includes('wapp')) ||
+            (cleanPresel.includes('art') && cleanItemId.includes('art')) ||
+            (cleanPresel.includes('master') && cleanItemId.includes('master')) ||
+            (cleanPresel.includes('seminar') && cleanItemId.includes('seminar')) ||
+            (cleanPresel.includes('consult') && cleanItemId.includes('consult')) ||
+            (cleanPresel.includes('indiv') && cleanItemId.includes('indiv')) ||
+            (cleanPresel.includes('couple') && cleanItemId.includes('couple')) ||
+            (cleanPresel.includes('groupcoach') && cleanItemId === 'group_coaching') ||
+            (cleanPresel === 'coaching' && cleanItemId === 'coaching') ||
+            (cleanPresel === 'group' && cleanItemId === 'group')
+          ) {
+            selectedIndex = idx;
+          }
         }
         serviceSelect.appendChild(opt);
       });
+
+      if (serviceSelect.options.length > 0) {
+        serviceSelect.selectedIndex = selectedIndex;
+      }
     }
 
     updatePrice();
@@ -941,16 +977,92 @@ function initBookingModal() {
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
-  // Set up event delegation for booking buttons (supports dynamically created ones)
+  function resolveBookingTarget(targetEl) {
+    let cat = targetEl?.getAttribute('data-category');
+    let service = targetEl?.getAttribute('data-service');
+
+    if (!service && targetEl) {
+      const card = targetEl.closest('[data-course-card], [data-service-card], .course-card, .service-card');
+      if (card) {
+        if (card.hasAttribute('data-course-card')) {
+          service = card.getAttribute('data-course-card');
+          cat = 'education';
+        } else if (card.hasAttribute('data-service-card')) {
+          service = card.getAttribute('data-service-card');
+          cat = 'therapy';
+        } else if (card.id) {
+          service = card.id.replace('course-', '').replace('service-', '');
+          cat = card.id.startsWith('course') ? 'education' : 'therapy';
+        }
+      }
+    }
+
+    const path = window.location.pathname.toLowerCase();
+    if (!cat) {
+      if (path.includes('education') || path.includes('wapp') || path.includes('erickson') || path.includes('art') || path.includes('practical') || path.includes('master') || path.includes('seminar')) {
+        cat = 'education';
+      } else {
+        cat = 'therapy';
+      }
+    }
+
+    if (!service) {
+      if (path.includes('wapp')) service = 'wapp';
+      else if (path.includes('erickson')) service = 'erickson';
+      else if (path.includes('art')) service = 'art';
+      else if (path.includes('practical')) service = 'practical';
+      else if (path.includes('master')) service = 'master';
+      else if (path.includes('seminar')) service = 'seminars';
+      else if (path.includes('consultation')) service = 'consultation';
+      else if (path.includes('individual')) service = 'individual';
+      else if (path.includes('group-coaching') || path.includes('group_coaching')) service = 'group_coaching';
+      else if (path.includes('coaching')) service = 'coaching';
+      else if (path.includes('couples') || path.includes('couple')) service = 'couples';
+      else if (path.includes('group')) service = 'group';
+    }
+
+    const eduKeywords = ['wapp', 'erickson', 'art', 'practical', 'master', 'seminar'];
+    const cleanServ = (service || '').toLowerCase();
+    if (eduKeywords.some(kw => cleanServ.includes(kw))) {
+      cat = 'education';
+    }
+
+    return { cat: cat || 'therapy', service: service || '' };
+  }
+
+  // Set up universal event delegation for booking & registration triggers across the entire site
   document.addEventListener('click', (e) => {
-    const btn = e.target && (e.target.classList.contains('booking-btn') ? e.target : e.target.closest('.booking-btn'));
+    const btn = e.target && (
+      e.target.closest('.booking-btn') ||
+      e.target.closest('[data-booking-trigger]') ||
+      e.target.closest('a[href*="registration.html"]')
+    );
     if (btn) {
+      if (btn.closest('#booking-modal')) return;
       e.preventDefault();
-      const cat = btn.getAttribute('data-category') || (window.location.pathname.includes('education') ? 'education' : 'therapy');
-      const service = btn.getAttribute('data-service');
-      openModal(cat, service);
+      const target = resolveBookingTarget(btn);
+      openModal(target.cat, target.service);
     }
   });
+
+  window.openBookingModal = openModal;
+
+  // Auto-open modal if URL has booking intent or directly visiting registration.html
+  const urlParams = new URLSearchParams(window.location.search);
+  const isRegPage = window.location.pathname.endsWith('registration.html') || window.location.pathname.endsWith('/registration');
+  const bookParam = urlParams.get('book') || urlParams.get('booking');
+  const courseParam = urlParams.get('course') || urlParams.get('service') || urlParams.get('cat');
+
+  if (bookParam || window.location.hash === '#book' || window.location.hash === '#booking' || (isRegPage && !urlParams.get('pay_mobile'))) {
+    const target = resolveBookingTarget();
+    if (courseParam) {
+      const eduKeywords = ['wapp', 'erickson', 'art', 'practical', 'master', 'seminar'];
+      const isEdu = eduKeywords.some(kw => courseParam.toLowerCase().includes(kw));
+      openModal(isEdu ? 'education' : target.cat, courseParam);
+    } else {
+      openModal(target.cat, target.service);
+    }
+  }
 
   // Close when clicking backdrop
   modal.addEventListener('click', (e) => {

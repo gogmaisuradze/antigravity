@@ -605,10 +605,10 @@
           </p>
           
           <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-[#D8C4B6]">
-            <a href="registration.html" class="inline-flex items-center gap-2 bg-[#1C3D63] text-white hover:bg-[#254F7F] px-8 py-3.5 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-md no-underline">
+            <button class="booking-btn inline-flex items-center gap-2 bg-[#1C3D63] text-white hover:bg-[#254F7F] px-8 py-3.5 rounded-xl text-sm font-bold tracking-wider uppercase transition-all shadow-md cursor-pointer" data-category="education" data-service="master">
               <span>რეგისტრაცია კურსზე</span>
               <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
+            </button>
             <button onclick="if(window.openAIChat) window.openAIChat();" class="inline-flex items-center gap-2 bg-[#F4F7F7] text-[#1C3D63] hover:bg-[#EAE5DF] px-6 py-3.5 rounded-xl text-sm font-semibold tracking-wider transition-all border border-[#D8C4B6] cursor-pointer">
               <span class="material-symbols-outlined text-base text-[#E0AC6B]">psychology</span>
               <span>ჰკითხეთ AI ასისტენტს</span>
@@ -741,29 +741,7 @@
     </div>
   </footer>
 
-  <!-- Booking Modal -->
-  <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
-    <div class="bg-white border border-[#D8C4B6] rounded-3xl p-6 md:p-8 max-w-lg w-full mx-4 shadow-2xl relative transform scale-95 transition-transform duration-300">
-      <button id="close-booking-modal" class="absolute top-5 right-5 text-[#8E8276] hover:text-[#1C3D63] transition-colors cursor-pointer">
-        <span class="material-symbols-outlined text-2xl">close</span>
-      </button>
-      <div class="space-y-4">
-        <div class="w-12 h-12 rounded-2xl bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center">
-          <span class="material-symbols-outlined text-2xl">calendar_month</span>
-        </div>
-        <h3 class="text-2xl font-headline italic text-[#1C3D63]">სესიის / კურსის დაჯავშნა</h3>
-        <p class="text-xs text-[#3B5E63] font-light">გთხოვთ შეავსოთ მოკლე ინფორმაცია და ჩვენი მენეჯერი უმოკლეს დროში დაგიკავშირდებათ.</p>
-        <form class="space-y-3 pt-2" onsubmit="event.preventDefault(); alert('თქვენი განაცხადი მიღებულია!'); document.getElementById('booking-modal').classList.add('hidden');">
-          <input type="text" placeholder="თქვენი სახელი და გვარი" required class="w-full px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-[#F4F7F7] text-xs text-[#222222] focus:outline-none focus:border-[#1C3D63]"/>
-          <input type="tel" placeholder="ტელეფონის ნომერი" required class="w-full px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-[#F4F7F7] text-xs text-[#222222] focus:outline-none focus:border-[#1C3D63]"/>
-          <input type="email" placeholder="ელ-ფოსტა" class="w-full px-4 py-2.5 rounded-xl border border-[#D8C4B6] bg-[#F4F7F7] text-xs text-[#222222] focus:outline-none focus:border-[#1C3D63]"/>
-          <button type="submit" class="w-full py-3 rounded-xl bg-[#1C3D63] hover:bg-[#254F7F] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer">
-            განაცხადის გაგზავნა
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Search & UI Scripts -->
   <script>
@@ -777,26 +755,7 @@
         });
       }
 
-      // Booking modal
-      const bookingBtns = document.querySelectorAll('.booking-btn');
-      const bookingModal = document.getElementById('booking-modal');
-      const closeBookingBtn = document.getElementById('close-booking-modal');
-      if (bookingModal) {
-        bookingBtns.forEach(btn => btn.addEventListener('click', () => {
-          bookingModal.classList.remove('hidden');
-          setTimeout(() => {
-            bookingModal.classList.remove('opacity-0');
-            bookingModal.querySelector('div').classList.remove('scale-95');
-          }, 10);
-        }));
-        if (closeBookingBtn) {
-          closeBookingBtn.addEventListener('click', () => {
-            bookingModal.classList.add('opacity-0');
-            bookingModal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => bookingModal.classList.add('hidden'), 200);
-          });
-        }
-      }
+
 
       // Search bar
       const searchBtn = document.getElementById('nav-search-btn');
