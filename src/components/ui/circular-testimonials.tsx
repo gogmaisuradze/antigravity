@@ -122,6 +122,30 @@ export const CircularTestimonials = ({
     if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
   }, [testimonialsLength]);
 
+  // Touch swipe support
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null) return;
+    const diffX = touchStartXRef.current - e.changedTouches[0].clientX;
+    const diffY = touchStartYRef.current !== null ? touchStartYRef.current - e.changedTouches[0].clientY : 0;
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+  };
+
   // Compute transforms for each image (always show 3: left, center, right)
   function getImageStyle(index: number): React.CSSProperties {
     const gap = calculateGap(containerWidth);
@@ -172,8 +196,14 @@ export const CircularTestimonials = ({
     exit: { opacity: 0, y: -20 },
   };
 
+  const isAlreadyOnTeamPage = typeof window !== "undefined" && (window.location.pathname.includes("about") || window.location.pathname.includes("team"));
+
   return (
-    <div className="testimonial-container w-full max-w-5xl mx-auto p-4 sm:p-8">
+    <div
+      className="testimonial-container w-full max-w-5xl mx-auto p-4 sm:p-8"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="testimonial-grid grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
         {/* Images */}
         <div className="image-container relative w-full h-[22rem] sm:h-[26rem]" style={{ perspective: "1000px" }} ref={imageContainerRef}>
@@ -187,12 +217,14 @@ export const CircularTestimonials = ({
               style={getImageStyle(index)}
               onClick={() => {
                 if (index === activeIndex) {
-                  window.location.href = "about.html#team";
+                  if (!isAlreadyOnTeamPage) {
+                    window.location.href = "about.html#team";
+                  }
                 } else {
                   setActiveIndex(index);
                 }
               }}
-              title="დააჭირეთ გუნდის სექციაზე გადასასვლელად"
+              title={isAlreadyOnTeamPage ? testimonial.name : "დააჭირეთ გუნდის სექციაზე გადასასვლელად"}
             />
           ))}
         </div>
@@ -206,9 +238,13 @@ export const CircularTestimonials = ({
               animate="animate"
               exit="exit"
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="cursor-pointer group/card"
-              onClick={() => { window.location.href = "about.html#team"; }}
-              title="დააჭირეთ გუნდის სექციაზე გადასასვლელად"
+              className={isAlreadyOnTeamPage ? "" : "cursor-pointer group/card"}
+              onClick={() => {
+                if (!isAlreadyOnTeamPage) {
+                  window.location.href = "about.html#team";
+                }
+              }}
+              title={isAlreadyOnTeamPage ? undefined : "დააჭირეთ გუნდის სექციაზე გადასასვლელად"}
             >
               <h3
                 className="name font-headline italic font-bold mb-1 group-hover/card:text-[#E0AC6B] transition-colors"
@@ -280,14 +316,25 @@ export const CircularTestimonials = ({
               </button>
             </div>
 
-            <a
-              href="about.html#team"
-              className="inline-flex items-center gap-2 bg-[#1C3D63] hover:bg-[#254F7F] text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md transition-all no-underline"
-              title="გუნდის სრული შემადგენლობის გაცნობა"
-            >
-              <span>გუნდის გაცნობა</span>
-              <span className="material-symbols-outlined text-sm text-[#E0AC6B]">arrow_forward</span>
-            </a>
+            {isAlreadyOnTeamPage ? (
+              <button
+                className="booking-btn inline-flex items-center gap-2 bg-[#1C3D63] hover:bg-[#254F7F] text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer font-label"
+                data-category="therapy"
+                data-service="consultation"
+              >
+                <span>ჯავშანი</span>
+                <span className="material-symbols-outlined text-sm text-[#E0AC6B]">arrow_forward</span>
+              </button>
+            ) : (
+              <a
+                href="about.html#team"
+                className="inline-flex items-center gap-2 bg-[#1C3D63] hover:bg-[#254F7F] text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md transition-all no-underline"
+                title="გუნდის სრული შემადგენლობის გაცნობა"
+              >
+                <span>გუნდის გაცნობა</span>
+                <span className="material-symbols-outlined text-sm text-[#E0AC6B]">arrow_forward</span>
+              </a>
+            )}
           </div>
         </div>
       </div>
