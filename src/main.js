@@ -60,16 +60,17 @@ function initMobileMenu() {
       toggleBtn.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const content = toggleBtn.nextElementSibling;
-        const arrow = toggleBtn.querySelector('.accordion-arrow');
+        const card = toggleBtn.closest('.border');
+        const content = card ? card.querySelector('.mobile-accordion-content') : toggleBtn.nextElementSibling;
+        const arrow = card ? card.querySelector('.accordion-arrow') : toggleBtn.querySelector('.accordion-arrow');
         if (content) {
           const isHidden = content.classList.contains('hidden');
           // Optional: close other accordions in the same menu for clean accordion behavior
           mobileMenu.querySelectorAll('.mobile-accordion-content').forEach(otherContent => {
-            if (otherContent !== content) {
+            if (otherContent !== content && !content.contains(otherContent) && !otherContent.contains(content)) {
               otherContent.classList.add('hidden');
-              const parent = otherContent.previousElementSibling;
-              const otherArrow = parent ? parent.querySelector('.accordion-arrow') : null;
+              const otherCard = otherContent.closest('.border');
+              const otherArrow = otherCard ? otherCard.querySelector('.accordion-arrow') : null;
               if (otherArrow) {
                 otherArrow.textContent = 'expand_more';
                 otherArrow.classList.remove('rotate-180', 'text-[#1C3D63]');
@@ -99,8 +100,9 @@ function initMobileMenu() {
       toggleBtn.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const content = toggleBtn.nextElementSibling;
-        const arrow = toggleBtn.querySelector('.sub-accordion-arrow');
+        const card = toggleBtn.closest('.rounded-xl') || toggleBtn.closest('.border');
+        const content = card ? card.querySelector('.mobile-sub-accordion-content') : toggleBtn.nextElementSibling;
+        const arrow = card ? card.querySelector('.sub-accordion-arrow') : toggleBtn.querySelector('.sub-accordion-arrow');
         if (content) {
           const isHidden = content.classList.contains('hidden');
           if (isHidden) {

@@ -390,8 +390,8 @@
         <div class="mobile-accordion-content hidden p-2 pt-2 space-y-2 border-t border-[#D8C4B6]/40 bg-white">
           <!-- Sub-Accordion 1: განათლება -->
           <div class="border border-[#D8C4B6]/60 rounded-xl overflow-hidden bg-[#FAF7F2]/50">
-            <button type="button" class="mobile-sub-accordion-toggle w-full flex items-center justify-between p-2.5 text-left text-[#1C3D63] font-bold hover:bg-[#F4F7F7] transition-all cursor-pointer focus:outline-none">
-              <div class="flex items-center gap-2.5">
+            <div class="w-full flex items-center justify-between p-2.5 bg-[#FAF7F2]/50 hover:bg-[#F4F7F7] transition-all">
+              <button type="button" class="mobile-sub-accordion-toggle flex items-center gap-2.5 flex-1 text-left cursor-pointer focus:outline-none bg-transparent border-0 p-0">
                 <div class="w-7 h-7 rounded-lg bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#E0AC6B]/30">
                   <span class="material-symbols-outlined text-sm">school</span>
                 </div>
@@ -399,12 +399,14 @@
                   <div class="text-xs sm:text-sm font-bold font-headline italic text-[#1C3D63]">განათლება</div>
                   <div class="text-[10px] text-[#8E8276] font-sans">აკადემიური კურსები (6)</div>
                 </div>
+              </button>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <a href="education.html" class="text-[10px] text-[#1C3D63] font-bold underline px-1 py-0.5 hover:text-[#E0AC6B]">ყველა →</a>
+                <button type="button" class="mobile-sub-accordion-toggle p-0.5 text-[#8E8276] hover:text-[#1C3D63] focus:outline-none flex items-center justify-center cursor-pointer bg-transparent border-0">
+                  <span class="material-symbols-outlined text-base transition-transform duration-200 sub-accordion-arrow">expand_more</span>
+                </button>
               </div>
-              <div class="flex items-center gap-1.5">
-                <a href="education.html" class="text-[10px] text-[#1C3D63] font-semibold underline px-1 py-0.5 hover:text-[#E0AC6B]" onclick="event.stopPropagation()">ყველა →</a>
-                <span class="material-symbols-outlined text-base text-[#8E8276] transition-transform duration-200 sub-accordion-arrow">expand_more</span>
-              </div>
-            </button>
+            </div>
 
             <!-- 6 Education Courses (Initially Hidden) -->
             <div class="mobile-sub-accordion-content hidden p-2 pt-1 space-y-1 border-t border-[#D8C4B6]/30 bg-white">
@@ -455,8 +457,8 @@
 
           <!-- Sub-Accordion 2: ფსიქოლოგია & თერაპია -->
           <div class="border border-[#D8C4B6]/60 rounded-xl overflow-hidden bg-[#FAF7F2]/50">
-            <button type="button" class="mobile-sub-accordion-toggle w-full flex items-center justify-between p-2.5 text-left text-[#1C3D63] font-bold hover:bg-[#F4F7F7] transition-all cursor-pointer focus:outline-none">
-              <div class="flex items-center gap-2.5">
+            <div class="w-full flex items-center justify-between p-2.5 bg-[#FAF7F2]/50 hover:bg-[#F4F7F7] transition-all">
+              <button type="button" class="mobile-sub-accordion-toggle flex items-center gap-2.5 flex-1 text-left cursor-pointer focus:outline-none bg-transparent border-0 p-0">
                 <div class="w-7 h-7 rounded-lg bg-[#1C3D63]/10 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#1C3D63]/20">
                   <span class="material-symbols-outlined text-sm">psychology</span>
                 </div>
@@ -464,12 +466,14 @@
                   <div class="text-xs sm:text-sm font-bold font-headline italic text-[#1C3D63]">ფსიქოლოგია & თერაპია</div>
                   <div class="text-[10px] text-[#8E8276] font-sans">თერაპია & ქოუჩინგი (5)</div>
                 </div>
+              </button>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <a href="services.html" class="text-[10px] text-[#1C3D63] font-bold underline px-1 py-0.5 hover:text-[#E0AC6B]">ყველა →</a>
+                <button type="button" class="mobile-sub-accordion-toggle p-0.5 text-[#8E8276] hover:text-[#1C3D63] focus:outline-none flex items-center justify-center cursor-pointer bg-transparent border-0">
+                  <span class="material-symbols-outlined text-base transition-transform duration-200 sub-accordion-arrow">expand_more</span>
+                </button>
               </div>
-              <div class="flex items-center gap-1.5">
-                <a href="services.html" class="text-[10px] text-[#1C3D63] font-semibold underline px-1 py-0.5 hover:text-[#E0AC6B]" onclick="event.stopPropagation()">ყველა →</a>
-                <span class="material-symbols-outlined text-base text-[#8E8276] transition-transform duration-200 sub-accordion-arrow">expand_more</span>
-              </div>
-            </button>
+            </div>
 
             <!-- 5 Psychology Services (Initially Hidden) -->
             <div class="mobile-sub-accordion-content hidden p-2 pt-1 space-y-1 border-t border-[#D8C4B6]/30 bg-white">
@@ -564,21 +568,23 @@
 
       <!-- 4. Accordion: ჩვენს შესახებ -->
       <div class="border border-[#D8C4B6]/70 rounded-xl overflow-hidden bg-[#FAF7F2]/40">
-        <button type="button" class="mobile-accordion-toggle w-full flex items-center justify-between p-2.5 text-left text-[#1C3D63] font-bold text-sm hover:bg-[#F4F7F7] transition-all cursor-pointer focus:outline-none">
-          <div class="flex items-center gap-2.5">
+        <div class="w-full flex items-center justify-between p-2.5 bg-[#FAF7F2]/40 hover:bg-[#F4F7F7] transition-all">
+          <button type="button" class="mobile-accordion-toggle flex items-center gap-2.5 flex-1 text-left cursor-pointer focus:outline-none bg-transparent border-0 p-0">
             <div class="w-8 h-8 rounded-lg bg-[#E0AC6B]/20 text-[#1C3D63] flex items-center justify-center shrink-0 border border-[#E0AC6B]/40">
               <span class="material-symbols-outlined text-base">groups</span>
             </div>
             <div>
-              <div class="text-xs sm:text-sm font-bold font-headline italic">ჩვენს შესახებ</div>
+              <div class="text-xs sm:text-sm font-bold font-headline italic text-[#1C3D63]">ჩვენს შესახებ</div>
               <div class="text-[10px] text-[#8E8276] font-sans">გუნდი, გალერეა, კონტაქტი</div>
             </div>
+          </button>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <a href="about.html" class="text-[10px] text-[#1C3D63] font-bold underline px-1 py-0.5 hover:text-[#E0AC6B]">ყველა →</a>
+            <button type="button" class="mobile-accordion-toggle p-0.5 text-[#8E8276] hover:text-[#1C3D63] focus:outline-none flex items-center justify-center cursor-pointer bg-transparent border-0">
+              <span class="material-symbols-outlined text-lg transition-transform duration-300 accordion-arrow">expand_more</span>
+            </button>
           </div>
-          <div class="flex items-center gap-1.5">
-            <a href="about.html" class="text-[10px] text-[#1C3D63] font-semibold underline px-1 py-0.5 hover:text-[#E0AC6B]" onclick="event.stopPropagation()">ყველა →</a>
-            <span class="material-symbols-outlined text-lg text-[#8E8276] transition-transform duration-300 accordion-arrow">expand_more</span>
-          </div>
-        </button>
+        </div>
 
         <div class="mobile-accordion-content hidden p-2 pt-0 space-y-1 border-t border-[#D8C4B6]/40 bg-white">
           <a class="flex items-center justify-between p-2 rounded-lg hover:bg-[#F4F7F7] text-xs text-[#222222] no-underline mt-2" href="about.html#team">

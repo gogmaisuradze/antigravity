@@ -16,7 +16,7 @@ export const galleryItems: TestimonialItem[] = [
     role: "შემოქმედებითი თავისუფლების კუთხე",
     category: "შემოქმედება",
     text: "პროფესიული სამუშაო მასალები, თიხა, ფერები და თავისუფალი თვითგამოხატვის სივრცე არტთერაპიული ჯგუფებისთვის.",
-    image: "/about_hero_abstract.png",
+    image: "/images/education-art.jpg",
     url: "gallery.html",
   },
   {
