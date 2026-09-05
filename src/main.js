@@ -921,6 +921,8 @@ function initBookingModal() {
     selectBank(bankKey);
     const bank = banksData[bankKey] || banksData.bog;
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(navigator.userAgent);
 
     const curService = serviceSelect ? serviceSelect.value : 'სერვისი';
     const curPrice = priceInput ? priceInput.value : '';
@@ -944,11 +946,41 @@ function initBookingModal() {
 
     if (isMobile) {
       if (bankKey === 'bog') {
-        window.location.href = 'bogmbank://';
-        setTimeout(() => { window.open('https://ibank.bog.ge/', '_blank'); }, 1500);
+        if (isAndroid) {
+          window.location.href = 'intent://#Intent;package=ge.bog.mobilebank;scheme=bogmbank;S.browser_fallback_url=https%3A%2F%2Fibank.bog.ge%2F;end';
+        } else if (isIOS) {
+          const start = Date.now();
+          window.location.href = 'bogmbank://';
+          setTimeout(() => {
+            if (document.hidden || document.webkitHidden) return;
+            if (Date.now() - start < 3000) {
+              window.location.href = 'https://ibank.bog.ge/';
+            }
+          }, 1800);
+        } else {
+          window.location.href = 'bogmbank://';
+          setTimeout(() => {
+            if (!document.hidden) window.location.href = 'https://ibank.bog.ge/';
+          }, 1500);
+        }
       } else if (bankKey === 'tbc') {
-        window.location.href = 'tbcbank://';
-        setTimeout(() => { window.open('https://tbconline.ge/', '_blank'); }, 1500);
+        if (isAndroid) {
+          window.location.href = 'intent://#Intent;package=com.tbc.mobile.bank;scheme=tbcmobilebank;S.browser_fallback_url=https%3A%2F%2Ftbconline.ge%2Ftbcrd%2Flogin%3F;end';
+        } else if (isIOS) {
+          const start = Date.now();
+          window.location.href = 'tbcmobilebank://';
+          setTimeout(() => {
+            if (document.hidden || document.webkitHidden) return;
+            if (Date.now() - start < 3000) {
+              window.location.href = 'https://tbconline.ge/tbcrd/login?';
+            }
+          }, 1800);
+        } else {
+          window.location.href = 'tbcmobilebank://';
+          setTimeout(() => {
+            if (!document.hidden) window.location.href = 'https://tbconline.ge/tbcrd/login?';
+          }, 1500);
+        }
       }
     }
   }
