@@ -37,7 +37,7 @@ export const teamMembers = [
     name: "თამარ გიორგაძე",
     designation: "ბავშვთა და მოზარდთა ფსიქოლოგი",
     quote: "მუშაობს მოზარდების ემოციურ და ქცევით სირთულეებზე, მშობლებთან კომუნიკაციისა და ასაკობრივი კრიზისების გადალახვაზე.",
-    src: "/images/team_tamar_new.jpg",
+    src: "/images/team_tamar_v3.jpg?v=3",
   },
 ];
 
