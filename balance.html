@@ -305,16 +305,16 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center gap-2 md:gap-4">
+      <div class="flex items-center gap-1.5 sm:gap-2 md:gap-4">
         <!-- Search Toggle Button -->
-        <button id="nav-search-btn" class="h-9 w-9 md:h-10 md:w-10 flex items-center justify-center text-[#222222] hover:text-[#1C3D63] transition-colors focus:outline-none cursor-pointer pointer-events-auto">
-          <span class="material-symbols-outlined text-2xl">search</span>
+        <button id="nav-search-btn" class="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 flex items-center justify-center text-[#222222] hover:text-[#1C3D63] transition-colors focus:outline-none cursor-pointer pointer-events-auto">
+          <span class="material-symbols-outlined text-xl sm:text-2xl">search</span>
         </button>
 
-        <button class="booking-btn bg-[#1C3D63] text-white px-4 py-2 md:px-6 md:py-2.5 rounded-lg md:rounded-xl font-medium text-xs md:text-sm transition-all hover:bg-[#254F7F] shadow-sm font-label cursor-pointer">
+        <button class="booking-btn bg-[#1C3D63] text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 rounded-lg md:rounded-xl font-medium text-xs md:text-sm transition-all hover:bg-[#254F7F] shadow-sm font-label cursor-pointer whitespace-nowrap">
           ჯავშანი
         </button>
-        <button id="mobile-menu-btn" class="md:hidden text-[#1C3D63] hover:text-[#3B5E63] focus:outline-none pointer-events-auto">
+        <button id="mobile-menu-btn" class="md:hidden text-[#1C3D63] hover:text-[#3B5E63] focus:outline-none pointer-events-auto p-1">
           <span class="material-symbols-outlined text-2xl md:text-3xl">menu</span>
         </button>
       </div>
@@ -552,7 +552,10 @@
               <div class="text-[10px] text-[#8E8276] font-sans">გუნდი, გალერეა, კონტაქტი</div>
             </div>
           </div>
-          <span class="material-symbols-outlined text-lg text-[#8E8276] transition-transform duration-300 accordion-arrow">expand_more</span>
+          <div class="flex items-center gap-1.5">
+            <a href="about.html" class="text-[10px] text-[#1C3D63] font-semibold underline px-1 py-0.5 hover:text-[#E0AC6B]" onclick="event.stopPropagation()">ყველა →</a>
+            <span class="material-symbols-outlined text-lg text-[#8E8276] transition-transform duration-300 accordion-arrow">expand_more</span>
+          </div>
         </button>
 
         <div class="mobile-accordion-content hidden p-2 pt-0 space-y-1 border-t border-[#D8C4B6]/40 bg-white">
