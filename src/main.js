@@ -93,6 +93,64 @@ function initMobileMenu() {
         }
       };
     });
+
+    // Attach click listeners to sub-accordion triggers (განათლება, ფსიქოლოგია & თერაპია)
+    mobileMenu.querySelectorAll('.mobile-sub-accordion-toggle').forEach((toggleBtn) => {
+      toggleBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const content = toggleBtn.nextElementSibling;
+        const arrow = toggleBtn.querySelector('.sub-accordion-arrow');
+        if (content) {
+          const isHidden = content.classList.contains('hidden');
+          if (isHidden) {
+            content.classList.remove('hidden');
+            if (arrow) {
+              arrow.textContent = 'expand_less';
+              arrow.classList.add('text-[#1C3D63]');
+            }
+          } else {
+            content.classList.add('hidden');
+            if (arrow) {
+              arrow.textContent = 'expand_more';
+              arrow.classList.remove('text-[#1C3D63]');
+            }
+          }
+        }
+      };
+    });
+
+    // Close mobile menu when ANY navigation link is clicked so the user navigates smoothly
+    mobileMenu.querySelectorAll('a').forEach((navLink) => {
+      navLink.addEventListener('click', (e) => {
+        const href = navLink.getAttribute('href');
+        // Close the mobile menu so destination page or section is seen immediately
+        mobileMenu.classList.add('hidden');
+        const icon = mobileMenuBtn ? mobileMenuBtn.querySelector('span') : null;
+        if (icon) icon.textContent = 'menu';
+
+        // In-page hash jump support
+        if (href && href.startsWith('#')) {
+          const targetEl = document.querySelector(href);
+          if (targetEl) {
+            e.preventDefault();
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.pushState(null, '', href);
+          }
+        } else if (href && href.includes('#')) {
+          const [pagePath, hash] = href.split('#');
+          const curPath = window.location.pathname.split('/').pop() || 'index.html';
+          if (pagePath === curPath && hash) {
+            const targetEl = document.getElementById(hash);
+            if (targetEl) {
+              e.preventDefault();
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              history.pushState(null, '', '#' + hash);
+            }
+          }
+        }
+      });
+    });
   }
 
   if (!window.__mobileMenuCloseAttached) {
