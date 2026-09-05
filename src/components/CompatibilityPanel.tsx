@@ -199,7 +199,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
   };
 
   return (
-    <div id="compatibility-panel-container" className="w-full max-w-2xl mx-auto bg-white border border-[#D8C4B6] p-6 sm:p-8 rounded-2xl shadow-sm overflow-hidden relative text-left font-sans">
+    <div id="compatibility-panel-container" className="w-full max-w-2xl mx-auto bg-white border border-[#D8C4B6] p-4 sm:p-8 rounded-2xl shadow-sm overflow-hidden relative text-left font-sans">
       <div className="flex flex-col items-center justify-center text-center space-y-2 mb-8">
         <div className="w-12 h-12 rounded-full border border-[#D8C4B6] bg-[#F4F7F7] flex items-center justify-center text-[#E0AC6B]">
           <Heart className="w-6 h-6 text-[#E0AC6B]" strokeWidth={1.8} />
@@ -236,7 +236,7 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
           <label className="block text-[10px] uppercase tracking-widest text-[#1C3D63] mb-2 font-bold font-headline">
             ტელეფონი:
           </label>
-          <div className="flex space-x-3">
+          <div className="flex space-x-2 sm:space-x-3">
             <input
               type="tel"
               value={partnerPhone}
@@ -246,12 +246,12 @@ export const CompatibilityPanel: React.FC<CompatibilityPanelProps> = ({ userProf
                 setResult(null);
               }}
               placeholder="მაგ: 5XXXXXXXX"
-              className="flex-1 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
+              className="min-w-0 flex-1 bg-[#F4F7F7] border border-[#D8C4B6] rounded-xl py-2.5 px-3 text-sm text-[#222222] placeholder-[#8E8276] focus:outline-none focus:border-[#1C3D63] font-semibold"
             />
             <button
               onClick={() => checkPartnerStatus(partnerPhone)}
               disabled={checking || !partnerPhone.trim()}
-              className="px-5 py-2.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center space-x-1.5 transition-colors cursor-pointer font-headline shadow-sm disabled:opacity-50"
+              className="shrink-0 px-4 sm:px-5 py-2.5 bg-[#1C3D63] hover:bg-[#254F7F] text-white text-[10px] font-bold tracking-widest uppercase rounded-xl flex items-center justify-center space-x-1.5 transition-colors cursor-pointer font-headline shadow-sm disabled:opacity-50 whitespace-nowrap"
             >
               {checking ? (
                 <RefreshCw className="w-4 h-4 animate-spin text-white" />
